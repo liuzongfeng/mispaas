@@ -1,0 +1,47 @@
+<!--<div id="solso-sidebar" style="width: 100%;padding: 0px;>
+    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+        <div style="width: 200px;"></div>
+        <div class="panel-group" id="accordion" style="width: 100%;">
+            <div class="panel panel-default1">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseOne">
+                            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;<strong>产品定义</strong>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div>
+                        <span ng-class="{active:nav.tab('apptemplate')}"> <a href="/apptemplate2"  class="list-group-item" >应用模板</a> </span>
+
+                        <span ng-class="{active:nav.tab('appexample')}"> <a href="/appexample2" class="list-group-item" >应用实例</a> </span>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>-->
+<div id="solso-sidebar">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default1">
+            <div class="panel-heading" role="tab" id="heading1">
+                <h4 class="panel-title">
+                    <a  ng-click="test1()" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse1">
+                        PaaS运维管理
+                        <i class="glyphicon glyphicon-menu-hamburger left"></i>
+                    </a>
+                </h4>
+            </div>
+
+            <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1" ng-show="leftTreeShow">
+                <div style="background-color: #3d3d3d;width:100%;">
+                   <span style="width: 100%;" ng-class="{active:nav.tab('apptemplate')}"> <a href="/apptemplate2"  class="list-group-item" >应用模板</a> </span>
+                   
+                   <span ng-class="{active:nav.tab('appexample')}"> <a href="/appexample2" class="list-group-item" >应用实例</a> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

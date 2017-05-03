@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>门户</title>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/docs.min.js"></script>
+    <link href="../css/patch.css" rel="stylesheet">
+    <link href="../css/docs.min.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../js/ie-emulation-modes-warning.js"></script>
+    <style>
+        body{
+            background-color: #f5f5f5;
+        }
+        .hrClass{
+            flex: 1 1 auto;
+            width: 80%;
+            height: 1px;
+            border: 0 none;
+            margin-left: 150px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0) 100%);
+            background-repeat: repeat-x;
+        }
+        .navbar{
+            background-color: #FFFFFF;
+        }
+        .thumbnail:hover{
+            -webkit-transform: translate3d(0, -5px, 0);
+            transform: translate3d(0, -5px, 0);
+            box-shadow: 0 7px 21px rgba(0, 0, 0, 0.15);
+        }
+        .navbar-header.title{
+            float: left;
+            height: 45px;
+        }
+        .navbar-header.search{
+            float: left;
+            width: 15%;
+            height: 35px;
+            margin-top: 6px;
+            margin-left: 10px;
+        }
+
+        /*.navbar-header.add{*/
+            /*float: left;*/
+            /*height: 45px;*/
+            /*border: 1px solid red;*/
+            /*width: 45px;*/
+        /*}*/
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="70">
+
+<div class="container">
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header title">
+                <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-menu-hamburger"> </i>&nbsp;&nbsp;<h>门户</h></a>
+            </div>
+            <div class="navbar-header search">
+                <div class="input-group">
+                    <span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>
+                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="在项目中搜索">
+                </div>
+            </div>
+            <!--<div class="navbar-header add">-->
+                <!--<i class="glyphicon glyphicon-plus-sign"></i>-->
+            <!--</div>-->
+
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 10%">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 style="float: left;">应用门户</h4><hr class="hrClass" size="1px;"/>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="index_lzf.html" class="thumbnail">
+                    运维管理<img data-src="holder.js/254x128" class="img-thumbnail" alt="运维管理">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                租户门户<a href="tenantSelfServicemain.html" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                运营管理<a href="ProductList.html" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="OrderList.html" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="ProductList.html" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="margin-top: 3%">
+        <!-- Stack the columns on mobile by making one full-width and the other half-width -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h4 style="float: left;">运营门户</h4><hr class="hrClass" size="1px;"/>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+            <div class="col-xs-6 col-md-3">
+                <a href="#" class="thumbnail">
+                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>帐单列表</title>
+    <!-- Bootstrap -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <link href="../dist/css/patch.css" rel="stylesheet">
+    <link href="../dist/css/docs.min.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../js/ie-emulation-modes-warning.js"></script>
+    <style>
+        .panel-group{max-height:770px;overflow: auto;}
+        .leftMenu{margin:10px;margin-top:5px;}
+        /*.leftMenu .panel-heading{font-size:14px;padding-left:20px;height:36px;line-height:36px;color:white;position:relative;cursor:pointer;}!*转成手形图标*!*/
+        /*.leftMenu .panel-heading span{position:absolute;right:10px;top:12px;}*/
+        /*.leftMenu .menu-item-left{padding: 2px; background: transparent; border:1px solid transparent;border-radius: 6px;}*/
+        /*.leftMenu .menu-item-left:hover{background:#C4E3F3;border:1px solid #1E90FF;}*/
+    </style>
+</head>
+<body>
+    <div class="panel-group table-responsive" role="tablist">
+        <div class="panel panel-primary leftMenu">
+            <!-- 利用data-target指定要折叠的分组列表 -->
+            <div class="panel-heading" id="collapseListGroupHeading1" data-toggle="collapse" data-target="#collapseListGroup1" role="tab" >
+                <h4 class="panel-title">
+                    <span class="glyphicon glyphicon-menu-hamburger left"></span>
+                    产品定义
+                </h4>
+            </div>
+            <!-- .panel-collapse和.collapse标明折叠元素 .in表示要显示出来 -->
+            <div id="collapseListGroup1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading1">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <!-- 利用data-target指定URL -->
+                        <span class="glyphicon glyphicon-triangle-right"></span><a href="#">产品列表</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-heading" id="collapseListGroupHeading2" data-toggle="collapse" data-target="#collapseListGroup2" role="tab" >
+                <h4 class="panel-title">
+                    订单管理
+                    <span class="glyphicon glyphicon-menu-hamburger right"></span>
+                </h4>
+            </div>
+            <!-- .panel-collapse和.collapse标明折叠元素 .in表示要显示出来 -->
+            <div id="collapseListGroup2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroupHeading2">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <!-- 利用data-target指定URL -->
+                        <span class="glyphicon glyphicon-triangle-right"></span><a href="#">订单列表</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel-heading" id="collapseListGroupHeading3" data-toggle="collapse" data-target="#collapseListGroup3" role="tab" >
+                <h4 class="panel-title">
+                    计费管理
+                    <span class="glyphicon glyphicon-menu-hamburger right"></span>
+                </h4>
+            </div>
+            <div class="panel-heading" id="collapseListGroup3" data-toggle="collapse" data-target="#collapseListGroup3-1" role="tab" >
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <!-- 利用data-target指定URL -->
+                        <span class="glyphicon glyphicon-triangle-right"></span><a href="#">订单列表-1</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="collapseListGroup3-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="collapseListGroup3">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <!-- 利用data-target指定URL -->
+                        <span class="glyphicon glyphicon-triangle-right"></span><a href="#">订单列表-1-1</a>
+                    </li>
+                </ul>
+            </div>
+        </div><!--panel end-->
+    </div>
+</body>
+</html>

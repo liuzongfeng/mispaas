@@ -1,0 +1,125 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="zh-CN">-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--&lt;!&ndash; 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ &ndash;&gt;-->
+    <!--<title>帐单列表</title>-->
+    <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+    <!--<link href="../dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<script src="../js/jquery.min.js"></script>-->
+    <!--<script src="../dist/js/bootstrap.min.js"></script>-->
+    <!--<link href="../dist/css/patch.css" rel="stylesheet">-->
+    <!--<link href="../dist/css/docs.min.css" rel="stylesheet">-->
+    <!--&lt;!&ndash;[if lt IE 9]>
+    <!--<script src="../js/ie8-responsive-file-warning.js"></script>-->
+    <![endif]&ndash;&gt;-->
+    <!--<script src="../js/ie-emulation-modes-warning.js"></script>-->
+    <!--<script src="../js/angular.min.js"></script>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<h1 style="margin-top: 5%;width: 200px; margin-left: 11%;">帐单管理</h1>-->
+<div style="width: 78%;text-align: center;margin:0 auto;">
+    <!-- 数据查询模块 -->
+    <form class="form-inline" style="text-align: right;">
+        <div class="form-group">
+            <label for="exampleInputName2">按租户名称查询</label>
+            <input type="text" class="form-control" id="exampleInputName2" placeholder="按租户名称查询">
+        </div>
+        <div class="form-group">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <h id="dropdownMenuStatuetitle">按状态过滤</h>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+                    <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Action');">Action</a></li>
+                    <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Another action');">Another action</a></li>
+                    <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Something else here');">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Separated link');">Separated link</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputName2">按时间过滤</label>
+            <input type="text" class="form-control" id="" placeholder="按时间过滤">
+        </div>
+        <button type="submit" class="btn btn-primary">查询</button>
+    </form>
+    <br>
+    <!-- 数据展示模块 -->
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th width=";" style="text-align: center">帐单ID</th>
+            <th width=";" style="text-align: center">支付最后期限</th>
+            <th width=";" style="text-align: center">租户名臣</th>
+            <th width=";" style="text-align: center">应用名称</th>
+            <th width=";" style="text-align: center">计费项目</th>
+            <th width=";" style="text-align: center">总金额</th>
+            <th width=";" style="text-align: center">状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th style="text-align: center">2017330081000 XXX</th>
+            <td style="text-align: center">2017年4月21日10:29:29</td>
+            <td style="text-align: center">新闻频道</td>
+            <td style="text-align: center">CRE</td>
+            <td style="text-align: center">基础费用</td>
+            <td style="text-align: center">￥800</td>
+            <td style="text-align: center">已支付</td>
+        </tr>
+        <tr>
+            <th style="text-align: center">2017330081000 XXX</th>
+            <td style="text-align: center">2017年4月21日10:29:29</td>
+            <td style="text-align: center">新闻频道</td>
+            <td style="text-align: center">CRE</td>
+            <td style="text-align: center">基础费用</td>
+            <td style="text-align: center">￥800</td>
+            <td style="text-align: center">已支付</td>
+        </tr>
+        <tr>
+            <th style="text-align: center">2017330081000 XXX</th>
+            <td style="text-align: center">2017年4月21日10:29:29</td>
+            <td style="text-align: center">新闻频道</td>
+            <td style="text-align: center">CRE</td>
+            <td style="text-align: center">基础费用</td>
+            <td style="text-align: center">￥800</td>
+            <td style="text-align: center">已支付</td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <!-- 分页模块 -->
+    <nav aria-label="Page navigation" style="text-align: center">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<!--</body>-->
+<!--<script>-->
+    <!--function changedropdown(id,title)-->
+    <!--{-->
+        <!--$('#'+id).html(title);-->
+    <!--}-->
+<!--</script>-->
+<!--</html>-->

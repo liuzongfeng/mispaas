@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- 可选的Bootstrap主题文件（一般不用引入） -->
+    <!--<link rel="stylesheet" href="../dist/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/design.css">
+    <link href="../css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script  type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript" src="../js/tree.js"></script>
+    <script type="text/javascript" src="../js/Listcontroller.js"></script>
+    <script>
+        function changeFrameHeight(){
+            var ifm= $("body");
+            var divfm= $("#leftiframe");
+            var heighbosy=window.screen.availHeight;
+            var heightdiv=document.documentElement.clientHeight;
+            ifm.css("height",heightdiv);
+            divfm.css("height",heightdiv-100);
+        }
+        window.onload=function(){
+            var heightdiv=document.documentElement.clientHeight;
+            if(heightdiv<=800){
+                var ifm= $("#leftiframe");
+                ifm.css("height","800px");
+            }else{
+                changeFrameHeight();
+            }
+        }
+    </script>
+    <style>
+        .tabclost{
+            width: 15px;
+            height: 15px;
+            float: right;
+            position: relative;
+            z-index: 10;
+            margin-right: 6px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body ng-app="listApp" ng-controller="ListCtrl" text="black"  style="height: auto;padding-bottom: 0px;">
+<!--上边页头 -->
+<div  ng-include="'../pages/header.html'">
+</div>
+<!--页面中间-->
+<div id="leftiframe" style="height: 90%;padding: 0px;">
+    <table  class="table table-bordered"style="margin-bottom: 0;border: none;height: 100%;">
+        <tbody style="border: none;height: 100%">
+        <tr style="border: none;height: 100%">
+            <!--左边导航栏 -->
+            <td style="width:18%;background-color: #3d3d3d;border: none;padding: 0px;height: 100%" >
+                <div id="solso-sidebar" style="width: 100%;padding: 0px;">
+                    <div class="collapse navbar-collapse" id="example-navbar-collapse" style="padding: 0px;">
+                        <div style="width: 200px;"></div>
+                        <div class="panel-group" id="accordion" style="width: 100%;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseOne">
+                                            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;<strong>产品定义</strong>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div >
+                                        <a class="list-group-item" ng-click="nListOfGoods()" href="#">产品列表</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseTwo">
+                                            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;<strong>应用管理</strong>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" >
+                                    <div >
+                                        <a class="list-group-item"ng-click="nmyApplicationList()" href="#">已购买的应用</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseThree">
+                                            <span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;<strong>账单管理</strong>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse in" >
+                                    <div >
+                                        <a class="list-group-item" ng-click="ntheBillList()" href="">我的账单</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+             <!--右侧列表页-->
+            <td style="width: 80%;border:none;height: auto">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active"  ng-show="ListOfGoodsTab" ng-model="ListOfGoodsTab">
+                        <a href="#ListOfGoodsTab" data-toggle="tab"><h4><strong>产品列表</strong></h4></a>
+                    </li>
+                    <li class=""  ng-show="DetailsOfGoodsTab" ng-model="DetailsOfGoodsTab">
+                        <img src="../img/close3.png" class="tabclost" ng-click="closeGoodsDetails()">
+                        <a href="#DetailsOfGoodsTab" data-toggle="tab">
+                            <h4><strong>产品详细信息</strong></h4>
+                        </a>
+                    </li>
+                    <li class=""  ng-show="ShoopingGoodsTab" ng-model="ShoopingGoodsTab">
+                        <a href="#ShoopingGoodsTab" data-toggle="tab"><h4><strong>产品购买</strong></h4></a>
+                    </li>
+                    <li class=""  ng-show="theBillListTab" ng-model="theBillListTab">
+                        <a href="#theBillListTab" data-toggle="tab"> <h4><strong>账单列表</strong></h4></a>
+                    </li>
+                    <li class=""  ng-show="myApplicationListTab" ng-model="myApplicationListTab"  >
+                        <a href="#myApplicationListTab" data-toggle="tab"> <h4><strong><h4><strong>我的应用列表</strong></h4></strong></h4>
+                        </a>
+                    </li>
+                    <li class=""  ng-show="myApplicationDetails" ng-model="myApplicationDetails">
+                        <img src="../img/close3.png" class="tabclost" ng-click="closeApplicationDetails()">
+                        <a href="#myApplicationDetails" data-toggle="tab"><h4><strong>应用详情</strong></h4></a>
+                    </li>
+                    <li class=""  ng-show="myApplicationUsers" ng-model="myApplicationUsers">
+                        <img src="../img/close3.png" class="tabclost" ng-click="closemyApplicationUsers()">
+                        <a href="#myApplicationUsers" data-toggle="tab" >
+                            <h4><strong>修改用户群</strong></h4>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="height: auto">
+                    <!--产品列表-->
+                    <div id="ListOfGoodsTab" class="tab-pane fade in active">
+                        <div  style="" ng-show="ListOfGoods" ng-model="ListOfGoods">
+                            <div style="float: right;margin-top: 10px;">
+                                <div style="float: right">
+                                    <form role="form">
+                                        <div class="form-group" style="width:220px;margin-right: 20px;float: right">
+                                            <select class="form-control">
+                                                <option selected="selected" >按分类过滤</option>
+                                                <option >分类1</option>
+                                                <option >分类2</option>
+                                                <option >分类3</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <input type="text" class="form-control" placeholder="按名称查询">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr >
+                                    <th style="width:25%;">产品名称</th>
+                                    <th style="width:20%;">分类</th>
+                                    <th style="width:35%;">描述</th>
+                                    <th style="width:20%;">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails()" ng-init="id=1">产品1</a></td>
+                                    <td>资源</td>
+                                    <td>资源管理</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showGoodsDetails()">购买</button></td>
+                                </tr>
+                                <tr >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品2</a></td>
+                                    <td>新闻</td>
+                                    <td>新闻制作</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>用于转码</td>
+                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--分页-->
+                            <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- 产品详情-->
+                    <div id="DetailsOfGoodsTab" class="tab-pane fade">
+                        <div style="" ng-show="DetailsOfGoodsTab" ng-model="DetailsOfGoodsTab">
+                            <div style="height: 40px;"></div>
+                            <div class="form-horizontal">
+                                <strong>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>产品名称:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;">
+                                            融合资源管理平台
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>版本号:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;">
+                                            1.2.8
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>分类:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;">
+                                            资源管理
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;">
+                                            <div class="well well-lg" style="width: 55%;">
+                                                <div id="menuContent" class="menuContent" style="width:95%;border:1px solid rgb(170,170,170);z-index:10;">
+                                                    <ul id="treeDemo" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </strong>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
+                                    <div class="col-sm-6">
+                                            <button  type="button" class="btn btn-default" style="margin-top: 20px;margin-right: 30px;" ng-click="closeGoodsDetails()">取消</button>
+                                            <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">确认购买</button>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--账单列表-->
+                    <div id="theBillListTab" class="tab-pane fade">
+                        <div style="" ng-show="theBillList" ng-model="theBillList">
+                            <!--查询条件-->
+                            <div style="float: right;margin-top: 10px;">
+                                <div style="float: right">
+                                    <form role="form">
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <input type="text" class="form-control"  placeholder="按计费项目过滤">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                        </div>
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <input type="text" class="form-control"placeholder="按应用过滤">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                        </div>
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <input id="startDate"  class="form-control" type="text"
+                                                   readonly="readonly" placeholder="按时间范围过滤" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                        </div>
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <select class="form-control">
+                                                <option selected="selected" >按状态过滤</option>
+                                                <option >状态1</option>
+                                                <option >状态2</option>
+                                                <option >状态3</option>
+                                            </select>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="height: 60px;"></div>
+                            <!-- 数据表格-->
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 25%">账单ID</th>
+                                    <th style="width:15%;">支付最后期限</th>
+                                    <th style="width:15%;">应用名称</th>
+                                    <th style="width:15%;">计费项目</th>
+                                    <th style="width:15%;">总金额</th>
+                                    <th style="width:15%;">状态</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr  >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                <tr >
+                                    <td><a href="#">123456</a></td>
+                                    <td>23/11/2013</td>
+                                    <td>CRE</td>
+                                    <td>基础费用</td>
+                                    <td>￥800</td>
+                                    <td>已支付</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--分页-->
+                            <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- 应用列表-->
+                    <div id="myApplicationListTab" class="tab-pane fade">
+                        <div style="" ng-show="myApplicationList" ng-modle="myApplicationList ">
+                            <div style="float: right;margin-top: 10px;">
+                                <div style="float: right">
+                                    <form role="form">
+                                        <div class="form-group" style="width:220px;margin-right: 20px;float: right">
+                                            <select class="form-control">
+                                                <option selected="selected" >按分类过滤</option>
+                                                <option >分类1</option>
+                                                <option >分类2</option>
+                                                <option >分类3</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                            <input type="text" class="form-control" placeholder="按名称查询">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                </span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width:20%;">应用名称</th>
+                                    <th style="width:20%;">分类</th>
+                                    <th style="width: 20%;">购买日期</th>
+                                    <th style="width:20%;">状态</th>
+                                    <th style="width:20%;">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails()">产品1</a></td>
+                                    <td>新闻</td>
+                                    <td>23/11/2013</td>
+                                    <td>待审核</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
+                                </tr>
+                                <tr >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品3</a></td>
+                                    <td>转码</td>
+                                    <td>23/11/2013</td>
+                                    <td>待审核</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
+                                </tr>
+                                <tr  >
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品3</a></td>
+                                    <td>资源</td>
+                                    <td>23/11/2013</td>
+                                    <td style="color: #269abc">运行中</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--分页-->
+                            <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!--修改应用详情-->
+                    <div id="myApplicationUsers" class="tab-pane fade" >
+                        <div style="" ng-show="myApplicationUsers" ng-modle="myApplicationUsers ">
+                            <div style="height: 40px;"></div>
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                        融合资源管理平台
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                        运行中
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
+                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
+                                        <table class="table">
+                                            <tr style="height: 10%;">
+                                                <td><strong>模块名称</strong></td>
+                                                <td><strong>模块说明</strong></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>平台Portal</td>
+                                                <td>平台门户</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>节目审核</td>
+                                                <td>统一节目审核</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>系统管理</td>
+                                                <td>用户权限和系统参数配置</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                        <div class="well well-lg" style="width: 55%;margin-top: 10px;">
+                                            <div id="menuContent2" class="menuContent" style="width:95%;border:1px solid rgb(170,170,170);z-index:10;">
+                                                <ul id="treeDemo2" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
+                                <div class="col-sm-6" style="margin-top: 10px;">
+                                    <button  type="button" class="btn btn-default" style="margin-top: 20px;" ng-click="closemyApplicationUsers()">取消</button>
+                                    <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--应用详情-->
+                    <div id="myApplicationDetails" class="tab-pane fade" >
+                        <div style="" ng-show="myApplicationDetails" ng-modle="myApplicationDetails ">
+                            <div style="height: 40px;"></div>
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                        融合资源管理平台
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                        运行中
+                                    </div>
+                                </div>
+                                <div class="form-group" >
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
+                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
+                                        <table class="table">
+                                            <tr style="height: 10%;">
+                                                <td><strong>模块名称</strong></td>
+                                                <td><strong>模块说明</strong></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>平台Portal</td>
+                                                <td>平台门户</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>节目审核</td>
+                                                <td>统一节目审核</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height: 10%;">
+                                                <td><span class="glyphicon glyphicon-cog"></span>系统管理</td>
+                                                <td>用户权限和系统参数配置</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>用户群列表:</strong></label>
+                                        <div class="col-sm-6" style="width:40%;margin-top: 10px;">
+                                            <table class="table">
+                                                <tr style="height: 10%;">
+                                                    <td><strong>用户群名称</strong></td>
+                                                    <td><strong></strong></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr style="height: 10%;">
+                                                    <td><span class="glyphicon glyphicon-user"></span>用户群1</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr style="height: 10%;">
+                                                    <td><span class="glyphicon glyphicon-user"></span>用户群2</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
+                                <div class="col-sm-6" style="margin-top: 10px;">
+                                    <button  type="button" class="btn btn-default" style="margin-top: 20px;" ng-click="closeApplicationDetails()">取消</button>
+                                    <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- 下边页脚 -->
+<div id="footer" ng-include="'../pages/footer.html'" style="width:100%;padding: 0px;"></div>
+<!--tab-->
+<!-- 购物车模态框 -->
+<div class="modal fade" id="ShoppingCarModal" tabindex="-1" role="dialog" aria-labelledby="ShoppingCarModalLabel" aria-hidden="true"
+     style="height: 80%;width: 80%;margin-top: 5%;margin-left: 15%;">
+    <div class="modal-dialog" style="width: 80%;height: 80%">
+        <div class="modal-content" style="width: 80%;height: 80%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ShoppingCarModalLabel"><strong style="font-family: Arial">购物车</strong></h4>
+            </div>
+            <div class="modal-body" style="height: 80%;">
+                <table class="table">
+                    <thead>
+                    <tr >
+                        <th style="width: 5%;"></th>
+                        <th style="width:20%;">产品名称</th>
+                        <th style="width:20%;">分类</th>
+                        <th style="width:35%;">描述</th>
+                        <th style="width:20%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td> <span class="glyphicon glyphicon-wrench"></span></td>
+                        <td><a href="" ng-click="showGoodsDetails()" ng-init="id=1">产品1</a></td>
+                        <td>资源</td>
+                        <td>资源管理</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr >
+                        <td> <span class="glyphicon glyphicon-wrench"></span></td>
+                        <td><a href="#">产品2</a></td>
+                        <td>新闻</td>
+                        <td>新闻制作</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    <tr  >
+                        <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
+                        <td>转码</td>
+                        <td>用于转码</td>
+                        <td><button type="button" class="btn btn-default btn-sm">移除</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--分页-->
+                <div align="center" style="margin-left: 38%">
+                    <div id="Shoppingfirst" style="float: left;">
+                        <ul class="pagination" style="height: 40px; margin-right: 10px">
+                            <li><a ng-click="Shoppingfirst()">首页</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="Shoppingbefor" style="float: left;">
+                        <ul class="pagination" style="height: 40px; margin-right: 10px">
+                            <li><span class="glyphicon  glyphicon-backward"
+                                      ng-click="Shoppingbefor()"></span></li>
+                        </ul>
+                    </div>
+
+                    <div id="Shoppingnext" style="float: left;">
+                        <ul class="pagination" style="height: 40px; margin-right: 10px">
+                            <li><span class="glyphicon  glyphicon-forward"
+                                      ng-click="Shoppingnext()"></span></li>
+                        </ul>
+                    </div>
+
+                    <div id="Shoppinglast" style="float: left;">
+                        <ul class="pagination" style="height: 40px; margin-right: 10px">
+                            <li><span ng-click="Shoppinglast()">最后一页</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交订单</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

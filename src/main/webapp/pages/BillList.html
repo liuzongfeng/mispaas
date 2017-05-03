@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>帐单列表</title>
+    <!-- Bootstrap -->
+    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../dist/js/bootstrap.min.js"></script>
+    <link href="../dist/css/patch.css" rel="stylesheet">
+    <link href="../dist/css/docs.min.css" rel="stylesheet">
+    <!--[if lt IE 9]><script src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../js/ie-emulation-modes-warning.js"></script>
+    <style>
+        .navbar{
+            background-color: #000000;
+        }
+        .navbar-header.title{
+            float: left;
+            height: 45px;
+        }
+        .navbar-header.search{
+            float: left;
+            width: 15%;
+            height: 35px;
+            margin-top: 6px;
+            margin-left: 10px;
+        }
+    </style>
+    <script src="../js/angular.min.js"></script>
+</head>
+
+<body ng-app="">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header title">
+            <a class="navbar-brand" href="index.html"><i class="glyphicon glyphicon-menu-hamburger"> </i>&nbsp;&nbsp;<h>门户</h></a>
+        </div>
+        <!--<div class="navbar-header search">-->
+        <!--<div class="input-group">-->
+        <!--<span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>-->
+        <!--<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="在项目中搜索">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="navbar-header add">-->
+        <!--<i class="glyphicon glyphicon-plus-sign"></i>-->
+        <!--</div>-->
+
+    </div>
+</nav>
+<div style="float: left;position: relative; border: 1px solid red; width: 18%" id="leftiframe" ng-include="'Left.html'">
+
+</div>
+<div style="float: right;text-align: center;position: relative;margin-right: 2%; width: 78%" id="rightiframe" ng-include="'BillContent.html'">
+
+</div>
+<!--<iframe style="float: left;position: relative;" src="Left.html" id="leftiframe" onload="changeFrameHeight()" width="18%" frameborder="no" border="0" scrolling="no">-->
+<!--</iframe>-->
+<!--<iframe style="float: left;text-align: center;position: relative;margin-left: 2%;" width="78%" id="rightiframe"  src="OrderContent.html" frameborder="no" border="0" scrolling="no">-->
+<!--</iframe>-->
+</body>
+<script>
+    function changeFrameHeight(){
+        var ifm= document.getElementById("leftiframe");
+        ifm.height=document.documentElement.clientHeight;
+        var rfm= document.getElementById("rightiframe");
+        rfm.height=document.documentElement.clientHeight;
+    }
+    window.onresize=function(){
+        changeFrameHeight();
+    }
+</script>
+</html>

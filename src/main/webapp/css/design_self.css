@@ -1,0 +1,91 @@
+a:hover {
+	text-decoration: none;
+}
+
+
+#leftdiv{
+	width: 18%;
+	height: auto;
+	float: left;
+	padding: 0px;
+
+	background-color: #3d3d3d;
+}
+#rightdiv{
+	width:80%;
+	height: auto;
+	float: right;
+
+	margin-left: 1%;
+}
+div.ng-scope{
+	width:100%;
+}
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+	color: #5ec8e9;
+	cursor: default;
+	background-color: rgba(247, 254, 137, 0.05);
+	border: 1px solid #d8d8d8;
+	border-bottom-color: transparent;
+}
+
+
+
+/* === SIDEBAR MENU === */
+	.panel {
+		border: 0;
+		box-shadow: none;
+	}
+	
+	.panel-default1 > .panel-heading {
+		background-color: #3d3d3d;
+	}
+	.panel-default1 > .panel-heading:hover {
+		background-color: #666;
+	}
+	.panel-default1 > .panel-heading  a {
+		color: #FFF;
+		display: block;
+		padding: 8px 0px;
+	}
+	
+	.list-group-item {
+		padding-left: 25px;
+		border: 0;
+		background: #3d3d3d;
+	}
+	.list-group-item:hover {
+		background: #365167;
+        padding-left: 15px;
+		transition-delay: 0s;
+        transition-duration: 0.3s;
+        transition-property: all;
+        transition-timing-function: linear;	
+	}
+	a.list-group-item {
+		color: #FFF;
+	}
+	a.list-group-item:active {
+		color: #666;
+	}
+	a.list-group-item:hover {
+		background: #666;
+		color: #FFF;
+	}
+	/*a.list-group-item:visited  {*/
+		/*color:#3d3d3d;*/
+	/*}*/
+	.solso-active {
+		background: #385269 !important;
+	}
+	
+	.list-group-item.no-border {
+		border: 0;
+	}	
+	
+	.panel-group .panel + .panel {
+		margin-top: 0px;
+	}	
+/* === END SIDEBAR MENU === */
+
