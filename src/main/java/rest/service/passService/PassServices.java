@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import rest.mybatis.dao.passDao.PassUserMapper;
 import rest.mybatis.model.passModel.PassUser;
 
-//@RestController
-@Controller
+@RestController
+//@Controller
 public class PassServices {
 	@Autowired
 	private PassUserMapper passUserMapper;
