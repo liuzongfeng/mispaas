@@ -19,7 +19,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/css/**","/index").permitAll()
 			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
-			.antMatchers("/passService/**").hasRole("ADMIN")
+//			.antMatchers("/passService/**").hasRole("ADMIN")
 			.and()
 			.formLogin()
 			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
@@ -32,8 +32,8 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 	}
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new PassUserDetailService());
-//		auth.inMemoryAuthentication().withUser("user").password("password").roles("TEST");
+//		auth.userDetailsService(new PassUserDetailService());
+		auth.inMemoryAuthentication().withUser("user").password("password").roles("TEST");
 	}
 
 }
