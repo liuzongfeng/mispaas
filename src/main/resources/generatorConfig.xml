@@ -13,7 +13,7 @@
     </table>-->
     
     <!--DATABASE URL-->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.2.4:3306/MIS_PASS" userId="root" password="pmo2009">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.2.4:3306/MIS_PAAS" userId="root" password="pmo2009">
         </jdbcConnection>
     <!--MODEL-->
         <javaModelGenerator targetPackage="rest.mybatis.model.passModel" targetProject="C:\Users\Administrator\git\mispass\src\main\java">
@@ -30,11 +30,13 @@
         </javaClientGenerator>
         <!--TABELS AND NAME-->
         
-<table schema="MIS_PASS" tableName="PASS_TEMPLATE" domainObjectName="PassTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-<table schema="MIS_PASS" tableName="PASS_TEMPLATE_FILE" domainObjectName="PassTemplateFile" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-<table schema="MIS_PASS" tableName="PASS_MODULE" domainObjectName="PassModule" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-<table schema="MIS_PASS" tableName="PASS_ORDER" domainObjectName="PassOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-<table schema="MIS_PASS" tableName="PASS_INSTANCE" domainObjectName="PassInstance" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-<table schema="MIS_PASS" tableName="PASS_ORD_TENANT_ORG_R" domainObjectName="PassOrdTenantOrgR" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_TEMPLATE" domainObjectName="PaasTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_TEMPLATE_FILE" domainObjectName="PaasTemplateFile" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_SUBSERVICE" domainObjectName="PaasSubservice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_ORDER" domainObjectName="PaasOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_INSTANCE" domainObjectName="PaasInstance" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_ORD_TENANT_ORG_R" domainObjectName="PaasOrdTenantOrgR" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+<table schema="DY_PMIS" tableName="UserT" domainObjectName="PassUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
   </context>
 </generatorConfiguration>
