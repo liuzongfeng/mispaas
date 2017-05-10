@@ -17,14 +17,15 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http.authorizeRequests()
+			.antMatchers("/testUploadFile").permitAll()
 			.antMatchers("/css/**","/index").permitAll()
 			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
 //			.antMatchers("/passService/**").hasRole("ADMIN")
 			.and()
 			.formLogin()
 			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
-//			.and()
-//			.csrf().disable()
+			.and()
+			.csrf().disable()
 			;
 	}
 	public void configure(WebSecurity web) throws Exception{
