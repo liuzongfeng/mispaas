@@ -1,4 +1,4 @@
-package rest.security;
+/*package rest.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,3 +38,4 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 	}
 
 }
+*/
