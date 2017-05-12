@@ -14,7 +14,7 @@ public class PageUtil {
 	public Pageinfo initpage(Integer datanum,String page)
 	{
 		Pageinfo pageif=new Pageinfo();
-		int pageshownum=15;//每页展示数
+		int pageshownum=1;//每页展示数
 		pageif.setShownum(pageshownum);
 		pageif.setFirstpage(1);
 		Integer allpage=(datanum>0)?(((datanum)%pageshownum==0)?(datanum/pageshownum):(datanum/pageshownum)+1):1;
@@ -46,14 +46,14 @@ public class PageUtil {
 			}
 			if(allpage>7)
 			{
-				pageStr+=",...";
+				pageStr+=",... ";
 			}
 		}else
 		{
-			pageStr+="...,";
+			pageStr+=" ...,";
 			int num=((((pagenum+3>allpage)?allpage:pagenum)>3)?3:((pagenum+3>allpage)?allpage:pagenum));
 			int cnum=(num+pagenum)>allpage?(allpage-pagenum):num;
-			for (int i = cnum-7; i <=cnum; i++) {
+			for (int i = cnum-6; i <=cnum; i++) {
 				if(i==cnum)
 				{
 					if(cnum+pagenum==allpage)
@@ -61,7 +61,7 @@ public class PageUtil {
 						pageStr+=(pagenum+i);
 					}else
 					{
-						pageStr+=(pagenum+i)+",...";
+						pageStr+=(pagenum+i)+",... ";
 					}
 				}else
 				{
@@ -74,9 +74,9 @@ public class PageUtil {
 		return pageif;
 	}
 	
-	@Bean
-	public PageUtil getPageUtil()
-	{
-		return new PageUtil();
-	}
+//	@Bean
+//	public PageUtil getPageUtil()
+//	{
+//		return new PageUtil();
+//	}
 }
