@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
     <script type="text/javascript" src="../js/tree.js"></script>
     <script type="text/javascript" src="../js/Listcontroller.js"></script>
+    <script type="text/javascript" src="../js/servicejs/tenantSelfServicemain.js"></script>
     <script>
         function changeFrameHeight(){
             var ifm= $("body");
@@ -98,7 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default">
+                           <!--  <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion"
@@ -112,7 +113,7 @@
                                         <a class="list-group-item" ng-click="ntheBillList()" href="">我的账单</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -188,7 +189,7 @@
                                     <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails()" ng-init="id=1">产品1</a></td>
                                     <td>资源</td>
                                     <td>资源管理</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showGoodsDetails()">购买</button></td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="BuyGoodsDetails()">购买</button></td>
                                 </tr>
                                 <tr >
                                     <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品2</a></td>
@@ -263,7 +264,7 @@
                             <div class="form-horizontal">
                                 <strong>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>产品名称:</strong></label>
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label" ng-init="proId='1'"><strong>产品名称:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
                                             融合资源管理平台
                                         </div>
@@ -280,7 +281,7 @@
                                             资源管理
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" ng-show="Details" ng-model="Details">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
                                             <div class="well well-lg" style="width: 55%;">
@@ -295,16 +296,16 @@
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
                                     <div class="col-sm-6">
                                             <button  type="button" class="btn btn-default" style="margin-top: 20px;margin-right: 30px;" ng-click="closeGoodsDetails()">取消</button>
-                                            <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">确认购买</button>
+                                            <button ng-show="Details" type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;" ng-click="createOrder()">确认购买</button>
                                     </div>
                                     </div>
                             </div>
                         </div>
                     </div>
                     <!--账单列表-->
-                    <div id="theBillListTab" class="tab-pane fade">
+<!--                     <div id="theBillListTab" class="tab-pane fade">
                         <div style="" ng-show="theBillList" ng-model="theBillList">
-                            <!--查询条件-->
+                            查询条件
                             <div style="float: right;margin-top: 10px;">
                                 <div style="float: right">
                                     <form role="form">
@@ -340,7 +341,7 @@
                                 </div>
                             </div>
                             <div style="height: 60px;"></div>
-                            <!-- 数据表格-->
+                            数据表格
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -419,7 +420,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <!--分页-->
+                            分页
                             <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
                                 <ul class="pagination">
                                     <li>
@@ -440,7 +441,7 @@
                                 </ul>
                             </nav>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- 应用列表-->
                     <div id="myApplicationListTab" class="tab-pane fade">
                         <div style="" ng-show="myApplicationList" ng-modle="myApplicationList ">
@@ -448,17 +449,18 @@
                                 <div style="float: right">
                                     <form role="form">
                                         <div class="form-group" style="width:220px;margin-right: 20px;float: right">
-                                            <select class="form-control">
-                                                <option selected="selected" >按分类过滤</option>
-                                                <option >分类1</option>
-                                                <option >分类2</option>
-                                                <option >分类3</option>
+                                            <select class="form-control"  ng-init="templateCategory=''" ng-model="templateCategory"
+                                            ng-change="getapplicationBytemplateCategory()">
+                                            	<option ></option>
+                                                <option >新闻</option>
+                                                <option >管理</option>
+                                                <option >转码</option>
                                             </select>
                                         </div>
                                         <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input type="text" class="form-control" placeholder="按名称查询">
+                                            <input type="text" class="form-control" placeholder="按名称查询" ng-model="instanceName" ng-init="instanceName=''" ng-blur="getapplicationByInstanceName()">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                    <button class="btn btn-default" type="button" >Go!</button>
                                                 </span>
                                         </div>
                                     </form>
@@ -475,26 +477,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails()">产品1</a></td>
-                                    <td>新闻</td>
-                                    <td>23/11/2013</td>
-                                    <td>待审核</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
-                                </tr>
-                                <tr >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>23/11/2013</td>
-                                    <td>待审核</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品3</a></td>
-                                    <td>资源</td>
-                                    <td>23/11/2013</td>
-                                    <td style="color: #269abc">运行中</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails()">修改</button></td>
+                                <tr ng-repeat="paasOrder in applicationList">
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a></td>
+                                    <td>{{paasOrder.paasTemplate.templateCategory}}</td>
+                                    <td>{{paasOrder.crateDate}}</td>
+                                    <td ng-if="paasOrder.status==0">待审核</td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==0">待创建</td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">运行中</td>
+                                    <td ng-if="paasOrder.status==2">驳回</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails(paasOrder.id)">修改</button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -529,43 +520,32 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
                                     <div class="col-sm-6" style="margin-top: 10px;">
-                                        融合资源管理平台
+                                        {{applicationDetails.instanceName}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;">
-                                        运行中
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==0">
+                                    待创建
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==1">
+                                    运行中
                                     </div>
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
                                     <div class="col-sm-6" style="width:40%;margin-top: 10px;">
                                         <table class="table">
-                                            <tr style="height: 10%;">
+                                          <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
                                                 <td><strong>模块说明</strong></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>平台Portal</td>
-                                                <td>平台门户</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>节目审核</td>
-                                                <td>统一节目审核</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>系统管理</td>
-                                                <td>用户权限和系统参数配置</td>
+                                           <tr style="height: 10%;" ng-repeat="paasSubservice in applicationDetails.paasTemplate.paasSubservices">
+                                                <td><span class="glyphicon glyphicon-cog"></span>{{paasSubservice.moduleName}}</td>
+                                                <td>{{paasSubservice.moduleDes}}</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -588,27 +568,30 @@
                                 <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
                                 <div class="col-sm-6" style="margin-top: 10px;">
                                     <button  type="button" class="btn btn-default" style="margin-top: 20px;" ng-click="closemyApplicationUsers()">取消</button>
-                                    <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">保存</button>
+                                    <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;" ng-click="changeApplicationUser()" >保存</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--应用详情-->
                     <div id="myApplicationDetails" class="tab-pane fade" >
-                        <div style="" ng-show="myApplicationDetails" ng-modle="myApplicationDetails ">
+                        <div style="" ng-show="myApplicationDetails" ng-modle="myApplicationDetails">
                             <div style="height: 40px;"></div>
                             <div class="form-horizontal">
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
                                     <div class="col-sm-6" style="margin-top: 10px;">
-                                        融合资源管理平台
+                                   	{{applicationDetails.instanceName}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;">
-                                        运行中
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==0">
+                                    待创建
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==1">
+                                    运行中
                                     </div>
                                 </div>
                                 <div class="form-group" >
@@ -622,23 +605,9 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>平台Portal</td>
-                                                <td>平台门户</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>节目审核</td>
-                                                <td>统一节目审核</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr style="height: 10%;">
-                                                <td><span class="glyphicon glyphicon-cog"></span>系统管理</td>
-                                                <td>用户权限和系统参数配置</td>
+                                            <tr style="height: 10%;" ng-repeat="paasSubservice in applicationDetails.paasTemplate.paasSubservices">
+                                                <td><span class="glyphicon glyphicon-cog"></span><a href="{{http+applicationDetails.pubDns+applicationDetails.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
+                                                <td>{{paasSubservice.moduleDes}}</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -657,15 +626,8 @@
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
-                                                <tr style="height: 10%;">
-                                                    <td><span class="glyphicon glyphicon-user"></span>用户群1</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr style="height: 10%;">
-                                                    <td><span class="glyphicon glyphicon-user"></span>用户群2</td>
+                                                <tr style="height: 10%;" ng-repeat="org in Orglist">
+                                                    <td><span class="glyphicon glyphicon-user"></span>{{org.orgId}}</td>
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
@@ -679,7 +641,6 @@
                                 <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
                                 <div class="col-sm-6" style="margin-top: 10px;">
                                     <button  type="button" class="btn btn-default" style="margin-top: 20px;" ng-click="closeApplicationDetails()">取消</button>
-                                    <button  type="button" class="btn btn-primary" style="margin-top: 20px;margin-left: 20px;">保存</button>
                                 </div>
                             </div>
                         </div>

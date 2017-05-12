@@ -83,6 +83,26 @@ public class PaasOrder {
      *
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
+    private PaasInstance paasInstance;
+    private PaasTemplate paasTemplate;
+    
+    public PaasInstance getPaasInstance() {
+		return paasInstance;
+	}
+
+	public void setPaasInstance(PaasInstance paasInstance) {
+		this.paasInstance = paasInstance;
+	}
+	
+
+	public PaasTemplate getPaasTemplate() {
+		return paasTemplate;
+	}
+
+	public void setPaasTemplate(PaasTemplate paasTemplate) {
+		this.paasTemplate = paasTemplate;
+	}
+	
     public Integer getId() {
         return id;
     }
