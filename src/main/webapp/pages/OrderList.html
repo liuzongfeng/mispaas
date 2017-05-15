@@ -32,24 +32,7 @@
     </style>
     <script src="../js/angular.min.js"></script>
 </head>
-<body ng-app="">
-<!--  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header title">
-            <a class="navbar-brand" href="index.html"><i class="glyphicon glyphicon-menu-hamburger"> </i>&nbsp;&nbsp;<h>门户</h></a>
-        </div>
-        <!--<div class="navbar-header search">-->
-        <!--<div class="input-group">-->
-        <!--<span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>-->
-        <!--<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="在项目中搜索">-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="navbar-header add">-->
-        <!--<i class="glyphicon glyphicon-plus-sign"></i>-->
-        <!--</div>-->
-
-   <!-- </div>
-</nav>-->
+<body ng-app="myapp" ng-controller="myController">
 <!-- header -->
 	<div style="width:100%;float:left;">
        <div ng-include="'../pages/header.html'"></div>
@@ -62,17 +45,10 @@
 </div>
 <div style="position: relative;float: right; height: 40px; width: 100%;margin-bottom: 0px; margin-top: 0px; ">
     <!-- 下边页脚 -->
-    <div  style="width:100%;float:right;">
-       <div ng-include="'../pages/footer.html'" ></div>
-    </div>
-    <!-- <div style="background-color: #3d3d3d;height: 30px;clear: both; " >
+    <div style="background-color: #3d3d3d;height: 30px;clear: both; " >
         <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6>
-    </div> -->
+    </div>
 </div>
-<!--<iframe style="float: left;position: relative;" src="Left.html" id="leftiframe" onload="changeFrameHeight()" width="18%" frameborder="no" border="0" scrolling="no">-->
-<!--</iframe>-->
-<!--<iframe style="float: left;text-align: center;position: relative;margin-left: 2%;" width="78%" id="rightiframe"  src="OrderContent.html" frameborder="no" border="0" scrolling="no">-->
-<!--</iframe>-->
 </body>
 <script>
     function changeFrameHeight(){
@@ -84,5 +60,84 @@
     window.onresize=function(){
         changeFrameHeight();
     }
+</script>
+<script>
+    var app=angular.module("myapp",[]);
+    var jsondatas;
+    var pagenum;
+    var url="/rest/orderService/getAllOrder";
+    app.controller('myController', function($scope,$http) {
+    	request($http,url);
+        $scope.selectData=function(){
+        	var TenantName=$('#TenantName').val();
+        	var createTime=$('#createTime').val();
+        	var Status=$('#dropdownMenuStatuetitle').attr("data");
+        	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&CreateTime="+createTime+"&page=1";
+        	console.log(geturl);
+        	request($http, geturl);
+        }
+        $scope.changepage=function(page){
+        	if(page!="... " && page != " ...")
+        	{
+        		var TenantName=$('#TenantName').val();
+            	var createTime=$('#createTime').val();
+            	var Status=$('#dropdownMenuStatuetitle').attr("data");
+            	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&CreateTime="+createTime+"&page="+page;
+            	request($http,geturl);
+        	}
+        }
+        function request($http,geturl)
+        {
+        	$http.get(geturl).success(function (response){
+        		$scope.TenantName=response.conditionObj.tenantName;
+            	$scope.statue=response.conditionObj.status;
+            	$scope.createTime=response.conditionObj.crateDate;
+                $scope.datas=response.resultObj;
+                var pagestr=response.pageStr;
+                var arry=pagestr.split(",");
+                $scope.pageinfo=arry;
+                pagenum=response.pagenum;
+                $scope.next=response.next;
+                $scope.previous=response.prev;
+                $('.pagination li').each(function (index,element){
+                	$(element).removeClass("active");
+                });
+                $('#page'+pagenum).addClass("active");
+                jsondatas=response;
+        	});
+        }
+        $scope.update=function(statue){
+        	var id=$('#id').val();
+        	var perTenantId=$('#perTenantName').html();//获取租户ID 此处获取租户的姓名
+        	var resion=$('#resion').val();
+        	var proid=$('#proid').val();
+        	var updateUrl="/rest/orderService/updateOrder?userId=&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid;
+        	console.log(updateUrl);
+        	$http.get(updateUrl).success(function(response){
+        		if(response.code == "success")
+        		{
+        			alert(response.message);
+        			window.location.reload();        			
+        		}else
+        		{
+        			alert(response.message);	
+        		}
+        	});
+        }
+    });
+    app.directive('repeatFinish',function(){
+        return {
+            link: function(scope,element,attr){
+            	if(parseInt(scope.$index)+1 == pagenum)
+            	{
+            		element.addClass("active");
+            	}
+            }
+        }
+    });
+    app.config(function($compileProvider){//配置这段代码即可
+        //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
+    });
 </script>
 </html>
