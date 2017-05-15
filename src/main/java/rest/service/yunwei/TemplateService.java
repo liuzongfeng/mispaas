@@ -210,7 +210,7 @@ public class TemplateService<T> {
 		
 		//1.根据模板id,查询是否存在实例：有-->提示有实例，无-->直接删除：模板、子服务、对应文件
 		List<PaasInstance> instances = paasInstanceMapper.selectInstanceByTemplateId(templateId);
-		if(null == instances || instances.size() ==0){
+		if(null != instances && instances.size() > 0){
 			return "该模板有实例，不能够删除";
 		}else{
 			try {
