@@ -12,6 +12,7 @@ var app = angular.module('listApp', []);
 app.controller('ListCtrl', function($scope,$http) {
 	var id= null;
 	templateListController($scope,$http,id);
+	ordertoscope($scope,$http,id);
     $scope.ListOfGoods=true;
     $scope.ListOfGoodsTab=true;
    //列表控制
@@ -41,7 +42,7 @@ app.controller('ListCtrl', function($scope,$http) {
     $scope.showGoodsDetails=function(id){
     	$http({
             method: 'POST',
-            url: 'http://192.168.6.16:8080/passService/showTempliteList',
+            url: tenantSelfinterfaces.Var_showTempliteList,
             contentType: "application/json",
             params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
         }).then(function successCallback(response) {
@@ -53,10 +54,12 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.myApplicationList=false;
         $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
     };
+    //购买产品
     $scope.BuyGoodsDetails=function(id){
+    	alert(id);
     	$http({
             method: 'POST',
-            url: 'http://192.168.6.16:8080/passService/showTempliteList',
+            url: tenantSelfinterfaces.Var_showTempliteList,
             contentType: "application/json",
             params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
         }).then(function successCallback(response) {
@@ -68,6 +71,7 @@ app.controller('ListCtrl', function($scope,$http) {
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
         $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
+        ordertoscope($scope,$http,id);
     };
     $scope.closeGoodsDetails=function(){
         $scope.DetailsOfGoodsTab =false;
@@ -77,14 +81,14 @@ app.controller('ListCtrl', function($scope,$http) {
     $scope.showApplicationDetails=function(orderId){
     	$http({
             method: 'GET',
-            url: 'http://192.168.6.16:8080/passService/showApplicationDetails',
+            url: tenantSelfinterfaces.Var_showApplicationDetails,
             contentType: "application/json",
             params:{"orderId":orderId},
         }).then(function successCallback(response) {
         	$scope.applicationDetails=response.data;
         	$http({
                 method: 'GET',
-                url: 'http://192.168.6.16:8080/passService/getInstanceAndOrgShip',
+                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
                 contentType: "application/json",
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
@@ -107,14 +111,14 @@ app.controller('ListCtrl', function($scope,$http) {
     $scope.showApplicationUetails=function(orderId){
     	$http({
             method: 'GET',
-            url: 'http://192.168.6.16:8080/passService/showApplicationDetails',
+            url: tenantSelfinterfaces.Var_showApplicationDetails,
             contentType: "application/json",
             params:{"orderId":orderId},
         }).then(function successCallback(response) {
         	$scope.applicationDetails=response.data;
         	$http({
                 method: 'GET',
-                url: 'http://192.168.6.16:8080/passService/getInstanceAndOrgShip',
+                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
                 contentType: "application/json",
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
@@ -154,14 +158,14 @@ app.controller('ListCtrl', function($scope,$http) {
     $('#startDate').focus(function(){
         $('#startDate').datetimepicker('show');
     });
-    ordertoscope($scope,$http);
+    
 });
 //应用列表接口调用
 function applictionListController($scope,$http){
 	
 	$http({
         method: 'POST',
-        url: 'http://192.168.6.16:8080/passService/showApplicationList',
+        url: tenantSelfinterfaces.Var_showApplicationList,
         contentType: "application/json",
         params:{"page":1,"tenantId":1,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
     }).then(function successCallback(response) {
@@ -183,10 +187,16 @@ function applictionListController($scope,$http){
 };
 //产品列表接口调用
 function templateListController($scope,$http,id){
-	
+	$http({
+        method: 'GET',
+        url: tenantSelfinterfaces.Var_getTemplateCategorys,
+	}).then(function successCallback(response) {
+    	$scope.templateCategoryList=response.data;
+        }, function errorCallback(response) {
+    }); 
 	$http({
         method: 'POST',
-        url: 'http://192.168.6.16:8080/passService/showTempliteList',
+        url: tenantSelfinterfaces.Var_showTempliteList,
         contentType: "application/json",
         params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
     }).then(function successCallback(response) {

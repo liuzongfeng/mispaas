@@ -242,4 +242,65 @@
       APPROVE_DESCIBE = #{approveDescibe,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectPaasOrderByCondit" resultType="java.lang.Integer" parameterType="rest.mybatis.model.passModel.PaasOrder">
+  	select count(id) from PAAS_ORDER
+  	where 1=1 
+  	<if test="tenantId != null and tenantId != ''">
+  		and TENANT_ID=#{tenantId,jdbcType=INTEGER}
+  	</if>
+  	<if test="status != null">
+  		and STATUS=#{status,jdbcType=INTEGER}
+  	</if>
+  	<if test="crateDate != null and crateDate != ''">
+  		and CRATE_DATE>=#{crateDate,jdbcType=TIMESTAMP}
+  	</if>
+  </select>
+  
+  <select id="selectPaasOrderObjByCondit" resultMap="BaseResultMap" parameterType="rest.page.util.Pageinfo">
+  	select <include refid="Base_Column_List" /> 
+  	from PAAS_ORDER
+  	where 1=1 
+  	<if test="ConditionObj.tenantId != null and ConditionObj.tenantId != ''">
+  		and TENANT_ID=#{ConditionObj.tenantId,jdbcType=INTEGER}
+  	</if>
+  	<if test="ConditionObj.status != null">
+  		and STATUS=#{ConditionObj.status,jdbcType=VARCHAR}
+  	</if>
+  	<if test="ConditionObj.crateDate != null and ConditionObj.crateDate != ''">
+  		and CRATE_DATE >= #{ConditionObj.crateDate,jdbcType=TIMESTAMP}
+  	</if>
+  	order by CRATE_DATE DESC
+  	limit #{begin},#{shownum}
+  </select>
+  <update id="updateOrderStatue" parameterType="rest.mybatis.model.passModel.PaasOrder">
+  	update PAAS_ORDER
+  	<set >
+      <if test="billNo != null" >
+        BILL_NO = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        PRO_ID = #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null" >
+        TENANT_ID = #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="crateDate != null" >
+        CRATE_DATE = #{crateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID = #{approveId,jdbcType=INTEGER},
+      </if>
+      <if test="approveDate != null" >
+        APPROVE_DATE = #{approveDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveDescibe != null" >
+        APPROVE_DESCIBE = #{approveDescibe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

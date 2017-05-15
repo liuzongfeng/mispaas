@@ -187,4 +187,12 @@
       ORDER_ID = #{orderId,jdbcType=INTEGER}
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </update>
+  
+  <insert id="createInstance" parameterType="rest.mybatis.model.passModel.PaasInstance">
+  	<selectKey keyProperty="instanceId" resultType="String" order="BEFORE">
+        SELECT UUID()
+    </selectKey>
+  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID)
+  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId})
+  </insert>
 </mapper>
