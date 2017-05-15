@@ -110,4 +110,12 @@ public class PaasOrderService {
 				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,templateId, templateCategory, counm);
 			return list;
 		}
+		
+		//获取模板分类
+		@RequestMapping(value="/passService/getTemplateCategorys",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
+		public List<PaasTemplate> getTemplateCategorys(){
+			List<PaasTemplate> list = paasTemplateMapper.selecttemplateCategory();
+			return list;
+		}
 }
