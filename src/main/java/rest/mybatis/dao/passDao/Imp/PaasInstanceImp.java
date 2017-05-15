@@ -1,5 +1,7 @@
 package rest.mybatis.dao.passDao.Imp;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,12 @@ public class PaasInstanceImp implements PaasInstanceMapper {
 	public int updateByPrimaryKey(PaasInstance record) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<PaasInstance> selectInstanceByTemplateId(String templateId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

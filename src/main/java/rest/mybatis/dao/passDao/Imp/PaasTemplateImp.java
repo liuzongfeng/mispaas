@@ -110,6 +110,4 @@ public class PaasTemplateImp implements PaasTemplateMapper {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 }
