@@ -38,7 +38,7 @@ var zNodes = [
 	    { id: 2016, pId: 689, name: "叶子节点2016" },
 	    { id: 2017, pId: 689, name: "叶子节点2017" },
 ];
-function createTree(node){
+function createTree1(node){
 	var testarry = [];
 	for(i=0;i<node.length;i++){
 		for(j=0;j<node.length;j++){
@@ -54,9 +54,11 @@ function createTree(node){
 	    $.fn.zTree.init($("#treeDemo2"), setting, testarry);
 	});
 };
-$(document).ready(function () {
-    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-});
+function createTree2(){
+	$(document).ready(function () {
+	    $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+	});
+};
 function addHoverDom(treeId, treeNode) {
    /* var sObj = $("#" + treeNode.tId + "_span");*/
     if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;

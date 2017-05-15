@@ -10,21 +10,14 @@
 }*/
 var app = angular.module('listApp', []);
 app.controller('ListCtrl', function($scope,$http) {
+	var id= null;
+	templateListController($scope,$http,id);
     $scope.ListOfGoods=true;
     $scope.ListOfGoodsTab=true;
    //列表控制
     //产品列表
-    $scope.nListOfGoods = function(){
-        $scope.ListOfGoodsTab=true;
-        $scope.myApplicationListTab=false;
-        $scope.theBillListTab =false;
-        $scope.ListOfGoods=true;
-        $scope.myApplicationList=false;
-        $scope.theBillList=false;
-        $scope.myApplicationDetails=false;
-        $scope.DetailsOfGoodsTab =false;
-        $scope.myApplicationUsers=false;
-        $('#myTab a[href="#ListOfGoodsTab"]').tab('show')
+    $scope.nListOfGoods = function(id){
+    	templateListController($scope,$http,id);
     };
     //应用列表
     $scope.nmyApplicationList = function(){
@@ -45,13 +38,32 @@ app.controller('ListCtrl', function($scope,$http) {
     };
    //详情弹出控制
     //产品详情
-    $scope.showGoodsDetails=function(){
+    $scope.showGoodsDetails=function(id){
+    	$http({
+            method: 'POST',
+            url: 'http://192.168.6.16:8080/passService/showTempliteList',
+            contentType: "application/json",
+            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+        }).then(function successCallback(response) {
+        	$scope.templates=response.data;
+            }, function errorCallback(response) {
+        }); 
     	$scope.Details=false;
         $scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
         $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
     };
-    $scope.BuyGoodsDetails=function(){
+    $scope.BuyGoodsDetails=function(id){
+    	$http({
+            method: 'POST',
+            url: 'http://192.168.6.16:8080/passService/showTempliteList',
+            contentType: "application/json",
+            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+        }).then(function successCallback(response) {
+        	$scope.templates=response.data;
+        	createTree2();
+            }, function errorCallback(response) {
+        }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
@@ -108,7 +120,7 @@ app.controller('ListCtrl', function($scope,$http) {
             }).then(function successCallback(response) {
             	$scope.Orglist=response.data;
             	console.log($scope.Orglist);
-            	createTree($scope.Orglist);
+            	createTree1($scope.Orglist);
                 }, function errorCallback(response) {
             }); 
             }, function errorCallback(response) {
@@ -168,6 +180,29 @@ function applictionListController($scope,$http){
         $scope.theBillList=false;
         $scope.DetailsOfGoodsTab =false;
         $('#myTab a[href="#myApplicationListTab"]').tab('show')
+};
+//产品列表接口调用
+function templateListController($scope,$http,id){
+	
+	$http({
+        method: 'POST',
+        url: 'http://192.168.6.16:8080/passService/showTempliteList',
+        contentType: "application/json",
+        params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+    }).then(function successCallback(response) {
+    	$scope.templateList=response.data;
+        }, function errorCallback(response) {
+    }); 
+	 $scope.ListOfGoodsTab=true;
+     $scope.myApplicationListTab=false;
+     $scope.theBillListTab =false;
+     $scope.ListOfGoods=true;
+     $scope.myApplicationList=false;
+     $scope.theBillList=false;
+     $scope.myApplicationDetails=false;
+     $scope.DetailsOfGoodsTab =false;
+     $scope.myApplicationUsers=false;
+     $('#myTab a[href="#ListOfGoodsTab"]').tab('show');
 };
 //日期格式控件
 Date.prototype.Format = function (fmt) { //author: meizz 

@@ -1,6 +1,6 @@
 function ordertoscope($scope,$http) {
 	$scope.createOrder=function(){
-		 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		 var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheck($http,$scope,zTree);
 		 var passOrde=
 		  {
@@ -29,10 +29,20 @@ function ordertoscope($scope,$http) {
 	$scope.getapplicationByInstanceName=function(){
 		applictionListController($scope,$http);
 	};
-	//分类查询
+	//分类查询应用
 	$scope.getapplicationBytemplateCategory=function(){
 		applictionListController($scope,$http);
 	}
+	//分类查询产品
+	$scope.gettemplateBytemplateCategory=function(){
+		var id=null;
+		templateListController($scope,$http,id);
+	};
+	//名字模糊查产品
+	$scope.gettemplatesBytemplateId=function(){
+		var id=null;
+		templateListController($scope,$http,id);
+	};
 	
 };
 

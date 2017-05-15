@@ -159,17 +159,18 @@
                                 <div style="float: right">
                                     <form role="form">
                                         <div class="form-group" style="width:220px;margin-right: 20px;float: right">
-                                            <select class="form-control">
-                                                <option selected="selected" >按分类过滤</option>
-                                                <option >分类1</option>
-                                                <option >分类2</option>
-                                                <option >分类3</option>
+                                            <select class="form-control" ng-init="templateCategory2=''" ng-model="templateCategory2"
+                                             ng-change="gettemplateBytemplateCategory()">
+                                                <option selected="selected" ></option>
+                                                <option >新闻</option>
+                                                <option >管理</option>
+                                                <option >PaaS</option>
                                             </select>
                                         </div>
                                         <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input type="text" class="form-control" placeholder="按名称查询">
+                                            <input type="text" class="form-control" placeholder="按名称查询" ng-model="templateId" ng-init="templateId=''" ng-blur="gettemplatesBytemplateId()">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                    <button class="btn btn-default" type="button" >Go!</button>
                                                 </span>
                                         </div>
                                     </form>
@@ -185,53 +186,11 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails()" ng-init="id=1">产品1</a></td>
-                                    <td>资源</td>
-                                    <td>资源管理</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="BuyGoodsDetails()">购买</button></td>
-                                </tr>
-                                <tr >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#">产品2</a></td>
-                                    <td>新闻</td>
-                                    <td>新闻制作</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
-                                </tr>
-                                <tr  >
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="">产品3</a></td>
-                                    <td>转码</td>
-                                    <td>用于转码</td>
-                                    <td><button type="button" class="btn btn-default btn-sm">购买</button></td>
+                                <tr ng-repeat=" template in templateList">
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails(template.id)">{{template.templateId}}</a></td>
+                                    <td>{{template.templateCategory}}</td>
+                                    <td>{{template.templateName}}</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="BuyGoodsDetails(template.id)">购买</button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -261,37 +220,37 @@
                     <div id="DetailsOfGoodsTab" class="tab-pane fade">
                         <div style="" ng-show="DetailsOfGoodsTab" ng-model="DetailsOfGoodsTab">
                             <div style="height: 40px;"></div>
-                            <div class="form-horizontal">
-                                <strong>
+                            <div class="form-horizontal" >
+                                <strong ng-repeat="template in templates">
                                     <div class="form-group">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label" ng-init="proId='1'"><strong>产品名称:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            融合资源管理平台
+                                            {{template.templateId}}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>版本号:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            1.2.8
+                                             {{template.version}}
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>分类:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            资源管理
+                                            {{template.templateCategory}}
                                         </div>
                                     </div>
+                                    </strong>
                                     <div class="form-group" ng-show="Details" ng-model="Details">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
                                             <div class="well well-lg" style="width: 55%;">
                                                 <div id="menuContent" class="menuContent" style="width:95%;border:1px solid rgb(170,170,170);z-index:10;">
-                                                    <ul id="treeDemo" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
+                                                    <ul id="treeDemo1" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </strong>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"></label>
                                     <div class="col-sm-6">
