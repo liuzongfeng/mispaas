@@ -33,32 +33,32 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         bean.setTypeAliasesPackage("rest.mybatis.model");
         
         
-      //·ÖÒ³²å¼ş
+      //ï¿½ï¿½Ò³ï¿½ï¿½ï¿½
         PageHelper pageHelper = new PageHelper();
         Properties properties = new Properties();
-        //ÉèÖÃ·½ÑÔ
+        //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
         properties.setProperty("dialect","mysql");                                         
-        //¸Ã²ÎÊıÄ¬ÈÏÎªfalse;ÉèÖÃÎªtrueÊ±£¬»á½«RowBoundsµÚÒ»¸ö²ÎÊıoffsetµ±³ÉpageNumÒ³ÂëÊ¹ÓÃ;ºÍstartPageÖĞµÄpageNumĞ§¹ûÒ»Ñù
+        //ï¿½Ã²ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Îªfalse;ï¿½ï¿½ï¿½ï¿½ÎªtrueÊ±ï¿½ï¿½ï¿½á½«RowBoundsï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½offsetï¿½ï¿½ï¿½ï¿½pageNumÒ³ï¿½ï¿½Ê¹ï¿½ï¿½;ï¿½ï¿½startPageï¿½Ğµï¿½pageNumĞ§ï¿½ï¿½Ò»ï¿½ï¿½
         properties.setProperty("offsetAsPageNum", "true"); 
-        //¸Ã²ÎÊıÄ¬ÈÏÎªfalse;ÖÃÎªtrueÊ±£¬Ê¹ÓÃRowBounds·ÖÒ³»á½øĞĞcount²éÑ¯
+        //ï¿½Ã²ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Îªfalse;ï¿½ï¿½ÎªtrueÊ±ï¿½ï¿½Ê¹ï¿½ï¿½RowBoundsï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½countï¿½ï¿½Ñ¯
         properties.setProperty("rowBoundsWithCount", "true");
-        //ÉèÖÃÎªtrueÊ±£¬Èç¹ûpageSize=0»òÕßRowBounds.limit = 0¾Í»á²éÑ¯³öÈ«²¿µÄ½á¹û;Ïàµ±ÓÚÃ»ÓĞÖ´ĞĞ·ÖÒ³²éÑ¯£¬µ«ÊÇ·µ»Ø½á¹ûÈÔÈ»ÊÇPageÀàĞÍ
+        //ï¿½ï¿½ï¿½ï¿½ÎªtrueÊ±ï¿½ï¿½ï¿½ï¿½ï¿½pageSize=0ï¿½ï¿½ï¿½ï¿½RowBounds.limit = 0ï¿½Í»ï¿½ï¿½Ñ¯ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä½ï¿½ï¿½;ï¿½àµ±ï¿½ï¿½Ã»ï¿½ï¿½Ö´ï¿½Ğ·ï¿½Ò³ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½Pageï¿½ï¿½ï¿½ï¿½
         properties.setProperty("pageSizeZero", "true");
    
-        //ÆôÓÃºÏÀí»¯Ê±£¬Èç¹ûpageNum<1»á²éÑ¯µÚÒ»Ò³£¬Èç¹ûpageNum>pages»á²éÑ¯×îºóÒ»Ò³ ;½ûÓÃºÏÀí»¯Ê±£¬Èç¹ûpageNum<1»òpageNum>pages»á·µ»Ø¿ÕÊı¾İ
+        //ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½pageNum<1ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Ò»Ò³ï¿½ï¿½ï¿½ï¿½ï¿½pageNum>pagesï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ò»Ò³ ;ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½pageNum<1ï¿½ï¿½pageNum>pagesï¿½á·µï¿½Ø¿ï¿½ï¿½ï¿½ï¿½ï¿½
         properties.setProperty("reasonable", "false");
 //        properties.setProperty("supportMethodsArguments", "true");
         properties.setProperty("returnPageInfo", "check");
-        //¿ÉÒÔÅäÖÃpageNum,pageSize,count,pageSizeZero,reasonable,²»ÅäÖÃÓ³ÉäµÄÓÃÄ¬ÈÏÖµ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pageNum,pageSize,count,pageSizeZero,reasonable,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Öµ
         properties.setProperty("params", "pageNum=start;pageSize=limit;");
-        //always×ÜÊÇ·µ»ØPageInfoÀàĞÍ,check¼ì²é·µ»ØÀàĞÍÊÇ·ñÎªPageInfo,none·µ»ØPage
+        //alwaysï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½PageInfoï¿½ï¿½ï¿½ï¿½,checkï¿½ï¿½é·µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ÎªPageInfo,noneï¿½ï¿½ï¿½ï¿½Page
         pageHelper.setProperties(properties);
 
-        //Ìí¼Ó²å¼ş
+        //ï¿½ï¿½Ó²ï¿½ï¿½
         bean.setPlugins(new Interceptor[]{pageHelper});
 
 
-      //Ìí¼ÓXMLÄ¿Â¼
+      //ï¿½ï¿½ï¿½XMLÄ¿Â¼
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
             bean.setMapperLocations(resolver.getResources("classpath:rest/mybatis/mapping/*/*.xml"));
