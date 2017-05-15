@@ -14,7 +14,7 @@ public class PageUtil {
 	public Pageinfo initpage(Integer datanum,String page)
 	{
 		Pageinfo pageif=new Pageinfo();
-		int pageshownum=15;//每页展示数
+		int pageshownum=10;//每页展示数
 		pageif.setShownum(pageshownum);
 		pageif.setFirstpage(1);
 		Integer allpage=(datanum>0)?(((datanum)%pageshownum==0)?(datanum/pageshownum):(datanum/pageshownum)+1):1;
