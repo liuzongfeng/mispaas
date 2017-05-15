@@ -164,15 +164,53 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				$scope.apptemplate1=true;
 				$scope.divPage=true;
 			}
+			
+			
+			
+			
 			//编辑模板
 			$scope.editTemplate_fn = function(){
-				alert("编辑模板");
+				
                 $("#activeTemplate").attr("class","");
                 $("#activeEdit").attr("class","active");
 				$scope.apptemplate1=false;
 				$scope.divPage=false;
 				$scope.editTemplate = true;
 				$scope.editTemplate_title=true;
+				
+				//判断是否有选中的复选框
+				$('.checkbox_1').each(function () {  
+		    		var isChecked = $(this).prop("checked"); 
+		    		if(isChecked){
+		    			
+		    			var templateId = $(this).val();       //获得选中的模板id
+		    			
+		    			for(var i=0 ; i< $scope.templates.length; i++){
+		    				var template = $scope.templates[i];
+		    				if(template.id == templateId){
+		    					$scope.Template = template;
+		    					//根据模板id,发起请求加载模块信息
+		    					
+		    					$http({
+		    						  method: 'GET',
+		    						  params:{"templateId":templateId},
+		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
+		    						}).then(function successCallback(response) {
+		    							$scope.subServices = response.data;
+		    							
+		    						}, function errorCallback(response) {
+		    						    // called asynchronously if an error occurs
+		    						    // or server returns response with an error status.
+		    					});
+		    					
+		    				}
+		    			}
+		    			
+		    			//不支持多选：将其他的复选框置为false
+		    		} 
+		    	});
+				
+				
 			}
             $scope.closeEditTemplate_fn = function () {
                 $scope.editTemplate_title=false;
@@ -205,25 +243,48 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			$scope.delTemplate_fn = function(){
 				//alert("删除模板");
 				
-				
-				swal({   
-					title: "操作提示",   
-					text: "确定删除?",   
-					type: "warning",   
-					showCancelButton: true,   
-					confirmButtonColor: "#DD6B55",
-					cancelButtonText: "取消",//取消按钮文本
-					confirmButtonText: "是的，确定删除！",//确定按钮上面的文档
-					closeOnConfirm: false 
-				}, 
-				function(aa){
-					alert(aa);
-					alert("请求后端进行删除");
-					swal("删除成功!", "该项目已被删除!", "success");
-					/*if("" != projectId){
-						projectAjaxBO.deleteProjectBByNumber(projectId,showManagerProject);
-					}*/
+				$('.checkbox_1').each(function () {  
+		    		var isChecked = $(this).prop("checked"); 
+		    		if(isChecked){//有选中对应的模板
+		    			var templateId = $(this).val();
+		    			swal({   
+							title: "操作提示",   
+							text: "确定删除?",   
+							type: "warning",   
+							showCancelButton: true,   
+							confirmButtonColor: "#DD6B55",
+							cancelButtonText: "取消",//取消按钮文本
+							confirmButtonText: "是的，确定删除！",//确定按钮上面的文档
+							closeOnConfirm: false 
+						}, 
+						function(isConfirm){
+							
+							//alert("请求后端进行删除");
+							//swal("删除成功!", "该项目已被删除!", "success");
+							if(isConfirm){ //确认删除
+								//发起请求根据模板id,删除模板：需要后台判断该模板是否有实例
+								$http({
+		    						  method: 'GET',
+		    						  params:{"templateId":templateId},
+		    						  url: 'http://localhost:8080/deleteTemplateByTemplateId'
+		    						}).then(function successCallback(response) {
+		    							if(response.data == "deleteok"){
+		    								swal("删除成功!", "该模板已被删除!", "success");
+		    							}else{
+		    								swal("删除失败!", response.data, "error");
+		    							}
+		    							
+		    						}, function errorCallback(response) {
+		    						    
+		    					});
+							}
+						});
+		    		}else{//未选中模板
+		    			
+		    		}
 				});
+				
+				
 		}
 			
 			//导出模板
@@ -261,7 +322,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			    	
 			    	$('.checkbox_1').each(function () {  
 			    		$(this).prop("checked", !$(this).prop("checked"));  
-			    	});  
+			    	});
+			    	$('#checkbox_1').prop("checked",false); 
 			    });
 			});
 		});
