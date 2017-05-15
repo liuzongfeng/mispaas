@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,9 +26,11 @@ import com.github.pagehelper.PageInfo;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasSubserviceMapper;
 import rest.mybatis.dao.passDao.PaasTemplateFileMapper;
 import rest.mybatis.dao.passDao.PaasTemplateMapper;
+import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasSubservice;
 import rest.mybatis.model.passModel.PaasTemplate;
 import rest.mybatis.model.passModel.PaasTemplateFile;
@@ -44,6 +47,9 @@ public class TemplateService<T> {
 	private PaasSubserviceMapper paasSubserviceMapper;
 	@Autowired
 	private PaasTemplateFileMapper paasTemplateFileMapper;
+	@Autowired
+	private PaasInstanceMapper paasInstanceMapper;
+	
 	
 	public static void main(String[] args) {
 		/*String cc = "D:/aaa/PaaSSampleCatalog";
@@ -171,6 +177,11 @@ public class TemplateService<T> {
 		}
 	  }
 	
+	/**
+	 * TODO 查询模板列表
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping(value = "/obtainTemplateList", method = RequestMethod.GET)
 	@ResponseBody
 	public PageInfo obtainTemplateList(HttpServletRequest req){
@@ -187,6 +198,69 @@ public class TemplateService<T> {
 		
 		return queryListByPage(null,intPageNo,intpageSize);
 		
+	}
+	
+	@RequestMapping(value = "/deleteTemplateByTemplateId", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteTemplateById(String templateId){
+		
+		if(null == templateId){
+			return "未获取对应模板";
+		}
+		
+		//1.根据模板id,查询是否存在实例：有-->提示有实例，无-->直接删除：模板、子服务、对应文件
+		List<PaasInstance> instances = paasInstanceMapper.selectInstanceByTemplateId(templateId);
+		if(null == instances || instances.size() ==0){
+			return "该模板有实例，不能够删除";
+		}else{
+			try {
+				//1.根据模板id查询子服务,并删除
+				List<PaasSubservice> subServices = paasSubserviceMapper.selectSubServiceByTPlId(templateId);
+				if(null != subServices && subServices.size() >0){
+					for(PaasSubservice subService : subServices){
+						paasSubserviceMapper.deleteByPrimaryKey(subService.getId());
+					}
+				}
+				//2.根据模板id查询文件,并删除
+				List<PaasTemplateFile> templateFiles = paasTemplateFileMapper.selectByTemplateId(templateId);
+				if(null != templateFiles && templateFiles.size() >0){
+					for(PaasTemplateFile paasTemplateFile : templateFiles){
+						paasTemplateFileMapper.deleteByPrimaryKey(paasTemplateFile.getId());
+					}
+				}
+				//3.根据模板id查询模板，并删除
+				PaasTemplate template = paasTemplateMapper.selectByPrimaryKey(templateId);
+				if(null != template){
+					paasTemplateMapper.deleteByPrimaryKey(template.getId());
+				}
+				return "deleteok";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "系统异常，删除失败";
+			}
+			
+		}
+		
+	}
+	
+	/**
+	 * TODO 根据模板id 查询模块列表
+	 * @param templateId
+	 * @return
+	 */
+	@RequestMapping(value = "/obtainSubServiceByTemplateId", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PaasSubservice> obtainSubServiceByTemplateId(String templateId){
+		
+		if(null == templateId){
+			return new ArrayList<PaasSubservice>();
+		}
+		
+		//调用dao查询PaasSubservice 列表
+		List<PaasSubservice> subServices = paasSubserviceMapper.selectSubServiceByTPlId(templateId);
+		
+		return subServices != null ? subServices : new ArrayList<PaasSubservice>(); 
 	}
 	
 	////////////////////////////////内部方法：start//////////////////////////////////////////////////////////////////////////
