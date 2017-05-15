@@ -8,7 +8,7 @@ package rest.security;
 	 * CAS的配置参数 
 	 * @author ChengLi 
 	 */  
-	@Component  
+	  
 	public class CasProperties {  
 	    @Value("${cas.server.host.url}")  
 	    private String casServerUrl;  
