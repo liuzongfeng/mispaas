@@ -9,11 +9,14 @@
     <!-- Bootstrap -->
     <!--<link href="../dist/css/bootstrap.min.css" rel="stylesheet">-->
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/common.js"></script>
     <script src="../dist/js/bootstrap.min.js"></script>
     <!--<link href="../dist/css/patch.css" rel="stylesheet">-->
     <!--<link href="../dist/css/docs.min.css" rel="stylesheet">-->
-    <!--[if lt IE 9]><script src="../js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <!--<script src="../js/ie8-responsive-file-warning.js"></script>-->
+    <![endif]-->
+    <!--<script src="../js/ie-emulation-modes-warning.js"></script>-->
     <style>
         .modal{
             margin-top: 5%;
@@ -27,7 +30,7 @@
             margin-right: 6px;
         }
     </style>
-    <script src="../js/angular.min.js"></script>
+    <!--<script src="../js/angular.min.js"></script>-->
 </head>
 <body>
 <ul id="myTab" class="nav nav-tabs">
@@ -41,29 +44,28 @@
         <!-- 数据查询模块 -->
         <form class="form-inline" style="text-align: right;">
             <div class="form-group">
-                <label for="exampleInputName2">按租户名称查询</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="按租户名称查询">
+<!--                 <label for="exampleInputName2">按租户名称查询</label> -->
+                <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="按租户名称查询">
             </div>
             <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <h id="dropdownMenuStatuetitle">按状态过滤</h>
+                        <h id="dropdownMenuStatuetitle" ng-model="statue" data="">按状态过滤</h>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Action');">Action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Another action');">Another action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Something else here');">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Separated link');">Separated link</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','按状态过滤','');">按状态过滤</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','待审核','0');">待审核</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','通过','1');">通过</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','驳回','2');">驳回</a></li>
                     </ul>
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputName2">按时间过滤</label>
-                <input type="text" class="form-control" id="" placeholder="按时间过滤">
+<!--                 <label for="exampleInputName2">按时间过滤</label> -->
+                <input type="date" class="form-control" id="createTime" placeholder="按时间过滤" ng-model="createTime">
             </div>
-            <button type="submit" class="btn btn-primary">查询</button>
+            <button type="button" class="btn btn-primary" ng-click="selectData()">查询</button>
         </form>
         <br>
         <!-- 数据展示模块 -->
@@ -76,12 +78,14 @@
                 <th width=";" style="text-align: center">状态</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-repeat="order in datas">
             <tr>
-                <th style="text-align: center"><a href="javascript:showinfo();">2017330081000 XXX</a></th>
-                <td style="text-align: center">2017年4月21日10:29:29</td>
-                <td style="text-align: center">新闻频道</td>
-                <td style="text-align: center">待审核</td>
+                <th style="text-align: center"><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></th>
+                <td style="text-align: center">{{order.crateDate|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                <td style="text-align: center">{{order.tenantId}}</td>
+                <td style="text-align: center" ng-if="order.status==0">待审核</td>
+                <td style="text-align: center" ng-if="order.status==1">通过</td>
+                <td style="text-align: center" ng-if="order.status==2">驳回</td>
             </tr>
             </tbody>
         </table>
@@ -89,18 +93,16 @@
         <!-- 分页模块 -->
         <nav aria-label="Page navigation" style="text-align: right;">
             <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
+               <li>
+                    <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <li id="page{{pi}}" ng-repeat="pi in pageinfo" >
+                	<a href="javascript:void(0)" ng-click="changepage(pi)">{{pi}}</a>
+                </li>
                 <li>
-                    <a href="#" aria-label="Next">
+                    <a id="next" href="javascript:void(0)" ng-click="changepage(next)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -109,91 +111,78 @@
     </div>
     <div class="tab-pane fade" id="OrderPass">
         <div class="modal-body">
-            <div class="form-inline">
-                <div class="form-group">
-                    <label for="exampleInputName2">订单ID:</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <h>2017330081000 XXX</h>
-                </div>
-            </div>
-            <br>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label for="exampleInputName2">下单时间:</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <h>2017年4月21日10:29:29</h>
-                </div>
-            </div>
-            <br>
-            <div class="form-inline">
-                <div class="form-group">
-                    <label for="exampleInputName2">租户名称：</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <h>新闻频道</h>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <br>
-            <div class="form-inline">
-                <div class="form-group" style="padding-left: 50px;">
-                    <label for="exampleInputName2">状态：</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <h>待审核</h>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <!--<button type="button" class="btn btn-primary">审核通过</button>-->
-                </div>
-            </div>
-            <br>
-            <!--<h>应用实例列表</h>-->
-            <!--<br/>-->
-            <!--<br/>-->
-            <!--<table class="table table-bordered" align="center">-->
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th style="text-align: center">模板ID</th>-->
-                    <!--<th style="text-align: center">应用实例ID</th>-->
-                    <!--<th style="text-align: center">使用类型</th>-->
-                    <!--<th style="text-align: center">状态</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<th style="text-align: center">CRE</th>-->
-                    <!--<td style="text-align: center">CRE</td>-->
-                    <!--<td style="text-align: center">共享</td>-->
-                    <!--<td style="text-align: center">运行中</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<th style="text-align: center">DAYANGGTC</th>-->
-                    <!--<td style="text-align: center">TC1</td>-->
-                    <!--<td style="text-align: center">共享</td>-->
-                    <!--<td style="text-align: center">运行中</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<th style="text-align: center">NEWS</th>-->
-                    <!--<td style="text-align: center">未创建</td>-->
-                    <!--<td style="text-align: center">完成</td>-->
-                    <!--<td style="text-align: center">未创建</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-            <!--</table>-->
+        	<table class="table table-striped table-hover">
+	            <tbody>
+	            <input type="hidden" value="" id="id">
+	            <tr>
+	                <th width=";" style="text-align: center">订单ID</th>
+	                <th width=";" style="text-align: center" id="OrderId"></th>
+	            </tr>
+	            <input type="hidden" value="" id="proid">
+	            <tr>
+	                <th width=";" style="text-align: center">下单时间</th>
+	                <input type="hidden" value="" id="createDateNum">
+	                <th width=";" style="text-align: center" id="CreateDate"></th>
+	            </tr>
+	            <tr>
+	                <th width=";" style="text-align: center">租户名称</th>
+	                <th width=";" style="text-align: center" id="perTenantName"></th>
+	            </tr>
+	            <tr>
+	                <th width=";" style="text-align: center">状态</th>
+	                <th width=";" style="text-align: center" id="statue"></th>
+	            </tr>
+	            <tr>
+	                <th width=";" style="text-align: center">理由</th>
+	                <th width=";" style="text-align: center">
+	                	<textarea class="form-control" rows="3" id="resion"></textarea>
+	                </th>
+	            </tr>
+	            </tbody>
+	        </table>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" onclick="hiddenTab()">关闭</button>
-            <button type="button" class="btn btn-success">通过</button>
-            <button type="button" class="btn btn-warning">驳回</button>
+            <button type="button" id="passbtn" class="btn btn-success" ng-click="update(1)">通过</button>
+            <button type="button" id="refursebtn" class="btn btn-warning" ng-click="update(2)">驳回</button>
         </div>
     </div>
 </div>
 
 </body>
 <script>
-    function changedropdown(id,title)
+    function changedropdown(id,title,value)
     {
         $('#'+id).html(title);
+        $('#'+id).attr("data",value);
     }
-    function showinfo()
+    function showinfo(orderid)
     {
+        $(jsondatas.resultObj).each(function (index,element){
+            if(element.id == orderid)
+            {
+            	console.log(element);
+                $('#OrderId').html(element.billNo);
+                var time2 = new Date(element.crateDate).Format("yyyy-MM-dd hh:mm:ss");
+                $('#createDateNum').attr("value",element.crateDate);
+                $('#CreateDate').html(time2);
+                $('#perTenantName').html(element.tenantId);
+                if(element.status == 0)
+                {
+                	$('#statue').html("待审核");                	
+                }else if(element.status == 1)
+                {
+                	$('#statue').html("通过");
+                }else{
+                	$('#statue').html("驳回");
+                }
+                $('#resion').html(element.approveDescibe);
+                $('#id').attr("value",element.id);
+                $('#proid').attr("value",element.proId);
+//                 $('#passbtn').attr("ng-click","update("+element.id+")");
+//                 $('#refursebtn').attr("ng-click","update("+element.id+")");
+            }
+        });
         $('#OrderListTab').attr('class','');
         $('#OrderPassTab').attr('class','active');
         $('#OrderPass').attr('class','tab-pane fade in active');

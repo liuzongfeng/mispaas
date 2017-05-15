@@ -12,7 +12,9 @@
     <script src="../dist/js/bootstrap.min.js"></script>
     <!--<link href="../dist/css/patch.css" rel="stylesheet">-->
     <!--<link href="../dist/css/docs.min.css" rel="stylesheet">-->
-    <!--&lt;!&ndash;[if lt IE 9]><script src="../js/ie8-responsive-file-warning.js"></script><![endif]&ndash;&gt;-->
+    <!--&lt;!&ndash;[if lt IE 9]>
+    <!--<script src="../js/ie8-responsive-file-warning.js"></script>-->
+    <![endif]&ndash;&gt;-->
     <!--<script src="../js/ie-emulation-modes-warning.js"></script>-->
     <!--<script src="../js/angular.min.js"></script>-->
     <style>
@@ -40,40 +42,38 @@
         <!-- 数据查询模块 -->
         <form class="form-inline" style="text-align: right;">
             <div class="form-group">
-                <label for="exampleInputName2">按名称查询</label>
-                <input type="text" class="form-control" id="exampleInputName2" placeholder="按名称查询">
+<!--                 <label for="exampleInputName2">按名称查询</label> -->
+                <input type="text" class="form-control" placeholder="按名称查询" ng-model="templateName" id="templateName">
             </div>
             <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <h id="dropdownMenuStatuetitle">按状态过滤</h>
+                        <h id="dropdownMenuStatuetitle" ng-model="userMode">按状态过滤</h>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Action');">Action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Another action');">Another action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Something else here');">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','Separated link');">Separated link</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','按状态过滤');">按状态过滤</a></li>
+                        <li ng-repeat="userMode in UserModes"><a href="javascript:changedropdown('dropdownMenuStatuetitle','{{userMode}}');">{{userMode}}</a></li>
+<!--                         <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','独享');">独享</a></li> -->
+<!--                         <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','共享');">共享</a></li> -->
                     </ul>
                 </div>
             </div>
             <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <h id="dropdownMenuClasstitle">按分类过滤</h>
+                        <h id="dropdownMenuClasstitle" ng-model=templateCategory>按分类过滤</h>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
-                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','Action');">Action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','Another action');">Another action</a></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','Something else here');">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','Separated link');">Separated link</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','按分类过滤');">按分类过滤</a></li>
+                        <li ng-repeat="cateGory in CateGorys"><a href="javascript:changedropdown('dropdownMenuClasstitle','{{cateGory}}');">{{cateGory}}</a></li>
+<!--                         <li><a href="javascript:changedropdown('dropdownMenuClasstitle','新闻');">新闻</a></li> -->
+<!--                         <li><a href="javascript:changedropdown('dropdownMenuClasstitle','故事');">故事</a></li> -->
                     </ul>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">查询</button>
+            <button type="button" class="btn btn-primary" id="selectBtn" ng-click="selectData(templateName);">查询</button>
         </form>
         <br>
         <!-- 数据展示模块 -->
@@ -90,210 +90,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
+            <tr ng-repeat="templates in datas">
+                <th style="text-align: center">{{templates.templateId}}</th>
+                <td style="text-align: center">{{templates.version}}</td>
+                <td style="text-align: center">{{templates.templateName}}</td>
+                <td style="text-align: center">{{templates.templateType}}</td>
+                <td style="text-align: center">{{templates.templateCategory}}</td>
+                <td style="text-align: center">{{templates.userMode}}</td>
                 <td style="text-align: center">
                     <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h id="operationTitle">操作</h>-->
-                        <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                        <!--<li role="separator" class="divider"></li>-->
-                        <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                            <!--<h id="operationTitle">操作</h>-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th style="text-align: center">CRE</th>
-                <td style="text-align: center">1.0.1</td>
-                <td style="text-align: center">融合资源平台</td>
-                <td style="text-align: center">容器</td>
-                <td style="text-align: center">资源管理</td>
-                <td style="text-align: center">发布</td>
-                <td style="text-align: center">
-                    <div class="btn-group">
-                        <a href="javascript:showeditmodel()" class="btn btn-default">编辑</a>
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="operation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                            <!--<h id="operationTitle">操作</h>-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" aria-labelledby="operation">-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','修改');">修改</a></li>-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','编辑');">编辑</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a href="javascript:changedropdown('operationTitle','删除');">删除</a></li>-->
-                        <!--</ul>-->
+                        <a href="javascript:showeditmodel('{{templates.templateId}}')" class="btn btn-default">编辑</a>
                     </div>
                 </td>
             </tr>
@@ -302,20 +108,18 @@
         <br>
 
         <!-- 分页模块 -->
-        <nav aria-label="Page navigation" style="text-align: right">
+        <nav aria-label="Page navigation" style="text-align: right;">
             <ul class="pagination">
                 <li>
-                    <a href="#" aria-label="Previous">
+                    <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <li id="page{{pi}}" ng-repeat="pi in pageinfo" repeat-finish="renderFinish()"> 
+                	<a href="javascript:void(0)" ng-click="changepage(pi)">{{pi}}</a>
+                </li>
                 <li>
-                    <a href="#" aria-label="Next">
+                    <a id="next" href="javascript:void(0)" ng-click="changepage(next)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
@@ -327,19 +131,20 @@
             <div class="form-group" style="text-align: center;">
                 <label for="exampleInputName2" class="col-sm-4 control-label">模板ID</label>
                 <div class="col-sm-6">
+                	<input type="hidden" id="id" value="">
                     <input type="text" class="form-control" id="modelId" placeholder="模板ID">
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2" class="col-sm-4 control-label">版本号</label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="classId" placeholder="版本号">
+                    <input type="text" class="form-control" id="versionId" placeholder="版本号">
                 </div>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2" class="col-sm-4 control-label">类型</label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="type" placeholder="类型">
+                    <input type="text" class="form-control" id="producttype" placeholder="类型">
                 </div>
             </div>
             <div class="form-group">
@@ -351,14 +156,14 @@
             <div class="form-group">
                 <label for="exampleInputEmail2" class="col-sm-4 control-label">分类</label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="producttype" placeholder="分类">
+                    <input type="text" class="form-control" id="productClass" placeholder="分类">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-6">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox"> 向租户发布
+                            <input type="checkbox" id="ispub"> 向租户发布
                         </label>
                     </div>
                 </div>
@@ -366,142 +171,37 @@
             <br>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick="hiddenTab()">取消</button>
-            <button type="button" class="btn btn-success">保存</button>
+            <button type="button" class="btn btn-primary" onclick="hiddenTab()">（首选项）关闭</button>
+            <button type="button" class="btn btn-success" ng-click="edittemplate()">（成功）应用</button>
         </div>
     </div>
 </div>
 
-
-<!--编辑计费条目信息model-->
-<!--<div class="modal fade" id="editProductCountmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<div class="form-inline" align="center">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputName2">名称:</label>-->
-                        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <!--<input type="text" class="form-control" id="Name" placeholder="名称">-->
-                    <!--</div>-->
-                    <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                    <!--<div class="form-group">-->
-                        <!--<input type="checkbox" class="form-control" style="margin-top: 0px;" id="publicCount" value="1">-->
-                        <!--<label for="exampleInputEmail2" style="margin-bottom: 0px;">公共计费项</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-                <!--<div class="form-inline" style="padding-left: 7.5rem; width: 100rem;">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputName2">计费类型</label>-->
-                        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <!--<select class="form-control">-->
-                            <!--<option value="0">系统运行时间</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-                <!--<div class="form-inline" style="padding-left: 8rem;">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputName2">费率（元）</label>-->
-                        <!--<input type="text" class="form-control" id="RateMoney" placeholder="">-->
-                        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <!--<select class="form-control">-->
-                            <!--<option value="0">每天</option>-->
-                        <!--</select>-->
-                        <!--&nbsp;&nbsp;&nbsp;&nbsp;-->
-                        <!--<input type="checkbox" class="form-control" style="margin-top: 0px;" id="execute" value="1">-->
-                        <!--<label for="exampleInputEmail2" style="margin-bottom: 0px;">生效</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-                <!--<div class="form-inline" style="padding-left: 11rem;">-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputName2">描述:</label>-->
-                        <!--<textarea class="form-control" id="note" placeholder=""></textarea>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<br>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">（首选项）关闭</button>-->
-                <!--<button type="button" class="btn btn-success">（成功）应用</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--编辑产品信息model-->
-<!--<div class="modal fade" id="editProductmodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-                <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<div class="form-horizontal">-->
-                    <!--<div class="form-group" style="text-align: center;">-->
-                        <!--<label for="exampleInputName2" class="col-sm-4 control-label">模板ID</label>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input type="text" class="form-control" id="modelId" placeholder="模板ID">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputEmail2" class="col-sm-4 control-label">版本号</label>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input type="email" class="form-control" id="classId" placeholder="版本号">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputEmail2" class="col-sm-4 control-label">类型</label>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input type="email" class="form-control" id="type" placeholder="类型">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputEmail2" class="col-sm-4 control-label">产品名称</label>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input type="text" class="form-control" id="ProductName" placeholder="产品名称">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputEmail2" class="col-sm-4 control-label">分类</label>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<input type="email" class="form-control" id="producttype" placeholder="分类">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="form-group">-->
-                        <!--<div class="col-sm-offset-4 col-sm-6">-->
-                            <!--<div class="checkbox">-->
-                                <!--<label>-->
-                                    <!--<input type="checkbox"> 向租户发布-->
-                                <!--</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<br>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-primary" data-dismiss="modal">（首选项）关闭</button>-->
-                <!--<button type="button" class="btn btn-success">（成功）应用</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--</body>-->
 <script>
     function changedropdown(id,title)
     {
         $('#'+id).html(title);
     }
-    function showeditmodel()
+    function showeditmodel(id)
     {
-//        $('#editProductmodel').modal({backdrop: 'static', keyboard: false});
+        $(jsondatas.resultObj).each(function (index,element){
+            if(element.templateId == id)
+            {
+                $('#id').attr("value",element.id);
+                $('#modelId').attr("value",id);
+                $('#versionId').attr("value",element.version);
+                $('#producttype').attr("value",element.templateType);
+                $('#ProductName').attr("value",element.templateName);
+                $('#productClass').attr("value",element.templateCategory);
+                if(element.isPub == '1')
+                {
+                    $('#ispub').attr("checked","true");
+                }else
+                {
+                    $('#ispub').removeAttr("checked");
+                }
+            }
+        })
         $('#ProductListTab').attr('class','');
         $('#editProductTab').attr('class','active');
         $('#editProduct').attr('class','tab-pane fade in active');
@@ -514,6 +214,17 @@
         $('#editProduct').attr('class','tab-pane fade');
         $('#Content').attr('class','tab-pane fade in active');
     }
-
+    $('#templateName').bind('keyup', function(event) {
+		if (event.keyCode == "13") {
+			$('#selectBtn').click();
+		}
+	});
+    
+    function load()
+    {
+    	alert();
+//     	alert($('#page'+pagenum).html());
+    }
 </script>
+
 <!--</html>-->
