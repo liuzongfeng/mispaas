@@ -1,6 +1,9 @@
 package rest.mybatis.dao.passDao;
 
+import java.util.List;
+
 import rest.mybatis.model.passModel.PaasOrder;
+import rest.page.util.Pageinfo;
 
 public interface PaasOrderMapper {
     /**
@@ -50,4 +53,7 @@ public interface PaasOrderMapper {
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
     int updateByPrimaryKey(PaasOrder record);
+    
+    public int getOrderNumbyCondition(PaasOrder record);
+    public List<PaasOrder> getOrderListbyCondition(Pageinfo record);
 }
