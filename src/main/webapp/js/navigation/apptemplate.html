@@ -57,7 +57,7 @@
 
                          <thead>
                          <tr>
-                             <th><input id="checkbox_1" class="checkbox_1" type="checkbox" >模板ID</th>
+                             <th><input id="checkbox_1" class="checkbox_2" type="checkbox" >模板ID</th>
                              <th>模板名称</th>
                              <th>版本号</th>
 
@@ -69,7 +69,7 @@
 
                          <tbody>
 						 <tr ng-repeat="template in templates">
-						 	<td><input class="checkbox_1" type="checkbox" value="{{template.id}}">{{template.templateId}}</td>
+						 	<td><input  class="checkbox_1" type="checkbox" value="{{template.id}}">{{template.templateId}}</td>
                              <td>{{template.templateName}}</td>
                              <td>{{template.version}}</td>
 
@@ -77,34 +77,6 @@
                              <td>{{template.templateCategory}}</td>
 						 
 						 </tr>
-                         <!-- <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>融合资源平台</td>
-                             <td>1.0.1</td>
-
-                             <td>容器</td>
-                             <td>资源分类</td>
-                             
-                         </tr>
-                         
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">DYNEWS</td>
-                             <td>大洋新闻</td>
-                             <td>0.2.8</td>
-
-                             <td>虚拟机</td>
-                             <td>新闻</td>
-                             
-                         </tr>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">DYTC</td>
-                             <td>大洋转码</td>
-                             <td>2.1.6</td>
-
-                             <td>混合</td>
-                             <td>转码</td>
-                             
-                         </tr> -->
                          </tbody>
                      </table>
 
@@ -117,28 +89,28 @@
 			 <div ng-show="editTemplate">
 			 	<form class="form-horizontal" role="form" ng-submit="submitTemplate_fn()">
                 	<div class="form-group">
-                    	<label for="templateID" class="col-sm-2 control-label">模板ID</label>
+                    	<label for="templateId" class="col-sm-2 control-label">模板ID</label>
 						<div class="col-sm-10">
-                           <input type="text" class="form-control" id="templateID" value="CRE">
+                           <input type="text" class="form-control" id="templateId" value="{{Template.templateId}}">
 						</div>
                       	</div>
                        	<div class="form-group">
                           <label for="version" class="col-sm-2 control-label">版本号</label>
                           <div class="col-sm-10">
-                          <input type="text" class="form-control" id="version" value="1.3.1">
+                          <input type="text" class="form-control" id="version" value="{{Template.version}}">
                           </div>
                        </div>
                        <div class="form-group" >
                           <label for="templateName" class="col-sm-2 control-label">模版名称</label>
                           <div class="col-sm-10">
-                          <input type="text" class="form-control" id="templateName" value="CRE">
+                          <input type="text" class="form-control" id="templateName" value="{{Template.templateName}}">
                           </div>
                        </div>
                        <div class="form-group">
                           <label for="templateType" class="col-sm-2 control-label">类型</label>
                           <div class="col-sm-10">
                           <select class="form-control" id="templateType">
-                              <option>容器类</option>
+                              <option value="">容器类</option>
                               <option>虚拟</option>
                               <option>混合</option>
                           </select>
@@ -163,7 +135,7 @@
                           </select>
                           </div>
                        </div>
-                       <div class="form-group">
+                       <!-- <div class="form-group">
                          <label for="templateCS" class="col-sm-2 control-label">模板参数</label>
                          <div class="col-sm-10">
                          <textarea class="form-control" rows="3" id="templateCS">
@@ -178,12 +150,30 @@
                          ID  名称  版本 是否可选
                       	 </textarea>
                        </div>
-                       </div>
+                       </div> -->
                        <div class="form-group">
-                           <label for="templateList" class="col-sm-2 control-label">模板列表</label>
+                           <label for="templateList" class="col-sm-2 control-label">子服务列表</label>
                            <div class="col-sm-10">
-                           <textarea class="form-control" rows="3" id="templateList">图标 ID  子路径 是否在Portal显示
-                       </textarea>
+                           <!-- <textarea class="form-control" rows="3" id="templateList" disabled="disabled"> -->
+                           
+                           	<div class="table-responsive">
+							  <table class="table table-bordered">
+							    <thead>
+							      <tr>
+							        <th>子服务名称</th>
+							        <th>子路径</th>
+							        <th>是否在Portal显示</th></tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="subService in subServices">
+							        <td>{{subService.moduleName}}</td>
+							        <td>{{subService.moduleUrl}}</td>
+							        <td>{{subService.moduleIsDis}}</td></tr>
+							     
+							    </tbody>
+							  </table>
+							</div>
+                       <!-- </textarea> -->
                        </div>
                        </div>
                        <!--<div class="form-group">
