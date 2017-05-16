@@ -110,4 +110,17 @@ public class PaasTemplateImp implements PaasTemplateMapper {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<PaasTemplate> selectpaasTemplateList(Integer page, Integer id, String templateId,
+			String templateCategory, Integer counm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PaasTemplate> selecttemplateCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

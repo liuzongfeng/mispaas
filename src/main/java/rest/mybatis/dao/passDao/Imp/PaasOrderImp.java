@@ -67,4 +67,17 @@ public class PaasOrderImp implements PaasOrderMapper {
 		session.close();
 		return list;
 	}
+
+	@Override
+	public PaasOrder selectByUUID(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PaasOrder> selectByCondition(Integer page, String tenantId, String instanceName,
+			String templateCategory, Integer counm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -57,4 +57,10 @@ public class PaasInstanceImp implements PaasInstanceMapper {
 		return null;
 	}
 
+	@Override
+	public PaasInstance selectByorderId(Integer orderId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
