@@ -73,6 +73,16 @@ public class PaasInstance {
      *
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
+    
+ private PaasTemplate paasTemplate;
+    
+    public PaasTemplate getPaasTemplate() {
+		return paasTemplate;
+	}
+
+	public void setPaasTemplate(PaasTemplate paasTemplate) {
+		this.paasTemplate = paasTemplate;
+	}
     public String getInstanceId() {
         return instanceId;
     }
