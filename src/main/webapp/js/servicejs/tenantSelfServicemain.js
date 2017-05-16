@@ -2,7 +2,6 @@ function ordertoscope($scope,$http,id) {
 	$scope.createOrder=function(){
 		 var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheck($http,$scope,zTree);
-		alert(id);
 		 var passOrde=
 		  {
 				id: null,
