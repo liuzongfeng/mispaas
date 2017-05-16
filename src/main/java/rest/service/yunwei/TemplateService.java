@@ -229,7 +229,7 @@ public class TemplateService<T> {
 					}
 				}
 				//3.根据模板id查询模板，并删除
-				PaasTemplate template = paasTemplateMapper.selectByPrimaryKey(templateId);
+				PaasTemplate template = paasTemplateMapper.selectByPrimaryKey(Integer.parseInt(templateId));
 				if(null != template){
 					paasTemplateMapper.deleteByPrimaryKey(template.getId());
 				}
