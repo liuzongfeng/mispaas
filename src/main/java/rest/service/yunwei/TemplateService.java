@@ -186,8 +186,11 @@ public class TemplateService<T> {
 	@ResponseBody
 	public PageInfo obtainTemplateList(HttpServletRequest req){
 		
-		String pageNo = req.getParameter("pageNo");
-		String pageSize = req.getParameter("pageSize");
+		String pageNo = req.getParameter("pageNo");    //当前页
+		String pageSize = req.getParameter("pageSize");//每页展示的条数
+		String templateType = req.getParameter("templateType");
+		String templateName = req.getParameter("templateName");
+		
 		Integer intPageNo = 1;
 		Integer intpageSize = 10;
 		if(null != pageSize && null != pageNo){
@@ -196,7 +199,7 @@ public class TemplateService<T> {
 		}
 		
 		
-		return queryListByPage(null,intPageNo,intpageSize);
+		return queryListByPage(templateName,templateType,intPageNo,intpageSize);
 		
 	}
 	
@@ -274,13 +277,16 @@ public class TemplateService<T> {
 	}
 	
 	////////////////////////////////内部方法：start//////////////////////////////////////////////////////////////////////////
-	public PageInfo queryListByPage(String templateName, Integer pageNo,Integer pageSize) {
+	public PageInfo queryListByPage(String templateName,String templateType, Integer pageNo,Integer pageSize) {
 		
 		pageNo = pageNo == null?1:pageNo;
 		pageSize = pageSize == null?10:pageSize;
 		PageHelper.startPage(pageNo, pageSize);
 		
-		List<PaasTemplate> templateList = paasTemplateMapper.obtainTemplateList();
+		Map<String,String> paramMap = new HashMap<String,String>();
+		paramMap.put("templateName", templateName);
+		paramMap.put("templateType", templateType);
+		List<PaasTemplate> templateList = paasTemplateMapper.obtainTemplateList(paramMap);
 		PageInfo pageInfo = new PageInfo(templateList);
 		
 		//测试PageInfo全部属性
