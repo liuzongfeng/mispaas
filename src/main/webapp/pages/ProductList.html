@@ -33,24 +33,7 @@
     </style>
     <script src="../js/angular.min.js"></script>
 </head>
-<body ng-app="">
-<!-- <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header title">
-            <a class="navbar-brand" href="index.html"><i class="glyphicon glyphicon-menu-hamburger"> </i>&nbsp;&nbsp;<h>门户</h></a>
-        </div>
-        <!--<div class="navbar-header search">-->
-            <!--<div class="input-group">-->
-                <!--<span class="input-group-addon"><a href="#"><i class="glyphicon glyphicon-search"></i></a></span>-->
-                <!--<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="在项目中搜索">-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="navbar-header add">-->
-        <!--<i class="glyphicon glyphicon-plus-sign"></i>-->
-        <!--</div>-->
-
- <!--   </div>
-</nav> -->
+<body ng-app="myapp" ng-controller="myController">
 <!-- header -->
 	<div style="width:100%;float:left;">
        <div ng-include="'../pages/header.html'"></div>
@@ -63,12 +46,9 @@
 </div>
 <div style="position: relative;float: right; height: 40px; width: 100%; margin-bottom: 0px; margin-top: 0px; ">
     <!-- 下边页脚 -->
-    <div  style="width:100%;float:right;">
-       <div ng-include="'../pages/footer.html'" ></div>
-    </div>
-    <!-- <div style="background-color: #3d3d3d;height: 30px;clear: both;" >
+    <div style="background-color: #3d3d3d;height: 30px;clear: both;" >
         <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6>
-    </div> -->
+    </div>
 </div>
 <!--<iframe style="float: left;position: relative;" src="Left.html" id="leftiframe" onload="changeFrameHeight()" width="18%" frameborder="no" border="0" scrolling="no">-->
 <!--</iframe>-->
@@ -76,14 +56,108 @@
 <!--</iframe>-->
 </body>
 <script>
-//    function changeFrameHeight(){
-//        $("#leftiframe").height($(document.body).height());
-////        var rfm= document.getElementById("rightiframe");
-////        rfm.height=document.documentElement.clientHeight;
-//    }
-//    window.onresize=function(){
-//        changeFrameHeight();
-//    }
-
+    var app=angular.module("myapp",[]);
+    var jsondatas;
+    var url="/rest/productService/getAllproduct";
+    var pagenum;
+    app.controller('myController', function($scope,$http) {
+    	request($http,url);
+    	loadFilterInfo();
+        $scope.selectData=function (templateName){
+//         	var userMode=$('#dropdownMenuStatuetitle').html();
+//         	var templateCategory=$('#dropdownMenuClasstitle').html();
+			var userMode=($('#dropdownMenuStatuetitle').html()=="按状态过滤")?"":$('#dropdownMenuStatuetitle').html();
+        	var templateCategory=($('#dropdownMenuClasstitle').html()=="按分类过滤")?"":$('#dropdownMenuClasstitle').html();
+        	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&templateCategory="+templateCategory+"&page=1";
+        	console.log(geturl);
+        	request($http,geturl)
+        };
+        $scope.changepage=function(page){
+        	if(page!="... " && page != " ...")
+        	{
+        		var templateName=$('#templateName').val();
+            	var userMode=($('#dropdownMenuStatuetitle').html()=="按状态过滤")?"":$('#dropdownMenuStatuetitle').html();
+            	var templateCategory=($('#dropdownMenuClasstitle').html()=="按分类过滤")?"":$('#dropdownMenuClasstitle').html();
+            	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&templateCategory="+templateCategory+"&page="+page;
+            	request($http,geturl);
+        	}
+        }
+        function request($http,geturl)
+        {
+        	$http.get(geturl).success(function (response){
+        		$scope.templateName=response.conditionObj.templateName;
+            	$scope.userMode=response.conditionObj.userMode;
+            	$scope.templateCategory=response.conditionObj.templateCategory;
+                $scope.datas=response.resultObj;
+                var pagestr=response.pageStr;
+                var arry=pagestr.split(",");
+                $scope.pageinfo=arry;
+                pagenum=response.pagenum;
+                $scope.next=response.next;
+                $scope.previous=response.prev;
+                $('.pagination li').each(function (index,element){
+                	$(element).removeClass("active");
+                });
+                $('#page'+pagenum).addClass("active");
+//                 var pagestr="";
+//                 pagestr+='<li><a id="previous" href="javascript:void(0)" ng-click="changepage('+response.prev+')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+//                 $(arry).each(function(index,element){
+//                 	if(element == response.pagenum)
+//                 	{
+//                 		pagestr+='<li class="active"><a href="javascript:void(0)" ng-click="changepage('+element+')">'+element+'</a></li>';
+//                 	}else
+//                 	{
+//                 		pagestr+='<li><a href="javascript:void(0)" ng-click="changepage('+element+')">'+element+'</a></li>';	
+//                 	}
+//                 });
+//                 pagestr+='<li><a id="next" href="javascript:void(0)" ng-click="changepage('+response.next+')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+//                 $(".pagination").html(pagestr);
+// 				$('#page'+pagenum).attr("class","active");
+                jsondatas=response;
+        	});
+        }
+        $scope.edittemplate=function()
+        {
+        	var id=$('#editProduct #id').val();
+        	var templateId=$('#editProduct #modelId').val();
+        	var Version=$('#editProduct #versionId').val();
+        	var templateType=$('#editProduct #producttype').val();
+        	var templateName=$('#editProduct #ProductName').val();
+        	var templateCategory=$('#editProduct #productClass').val();
+        	var isPub=($('#editProduct #ispub').is(":checked"))?1:0;
+        	var editurl="/rest/productService/editProduct?id="+id+"&templateId="+templateId+"&Version="+Version+"&templateType="+templateType+"&templateName="+templateName+"&templateCategory="+templateCategory+"&isPub="+isPub;
+        	$http.get(editurl).success(function(response){
+        		console.log(response);
+        		if(response.code == "success")
+        		{
+        			alert(response.message);
+        			window.location.reload();        			
+        		}
+        	});
+        }
+        //加载页面过滤信息
+        function loadFilterInfo()
+        {
+        	var filterurl="/rest/productService/getTypeAndCategory";
+        	$http.get(filterurl).success(function(response){
+        		$scope.UserModes=response.usermode;
+        		$scope.CateGorys=response.category;
+        	});
+        }
+    });
+    app.directive('repeatFinish',function(){
+        return {
+            link: function(scope,element,attr){
+            	if(parseInt(scope.$index)+1 == pagenum)
+            	{
+            		element.addClass("active");
+            	}
+            }
+        }
+    });
+    app.config(function($compileProvider){//配置这段代码即可
+        //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
+    });
 </script>
 </html>

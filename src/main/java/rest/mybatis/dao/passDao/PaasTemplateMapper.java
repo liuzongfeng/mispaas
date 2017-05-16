@@ -2,9 +2,7 @@ package rest.mybatis.dao.passDao;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
-
 import rest.mybatis.model.passModel.PaasTemplate;
 import rest.page.util.Message;
 import rest.page.util.Pageinfo;
