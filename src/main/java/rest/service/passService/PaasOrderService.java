@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rest.mybatis.dao.passDao.Imp.PaasInstanceImp;
 import rest.mybatis.dao.passDao.Imp.PaasOrderImp;
-/*import rest.mybatis.dao.passDao.Imp.PaasOrderImp;*/
 import rest.mybatis.dao.passDao.Imp.PaasTemplateImp;
 import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrder;
@@ -68,22 +67,52 @@ public class PaasOrderService {
 		po.setApproveDescibe(resion);
 		po.setApproveDate(new Date());
 		po.setApproveId(userId);
-		if(statue == 1)
+		//判断实例是否存在
+		boolean result=paasInstanceImp.isexistInstance(orderId);
+		PaasTemplate pt=paasTemplateImp.selectByPrimaryKey(proId);
+		if(!result && statue == 1)
 		{
-			PaasTemplate pt=paasTemplateImp.selectByPrimaryKey(proId);
-			//创建实例
-			PaasInstance pi=new PaasInstance();
-			pi.setTemplateId(pt.getId());
-			pi.setInstanceName("defaule name");
-			pi.setInstanceStatus(0);
-			pi.setOrderId(orderId);
-			try
+			//判断模板是否共享
+			PaasInstance pubpi=null;
+			boolean needcreateInstance=false;
+			if("must".equals(pt.getUserMode()))
 			{
-				paasInstanceImp.insert(pi);
-			}catch(Exception e)
+				//是共享模板查找共享实例
+				pubpi=paasInstanceImp.getInstanceByTemplateId(pt.getId());
+				if(pubpi == null)
+				{
+					needcreateInstance=true;
+				}
+			}else
 			{
-				return new Message("fail","创建实例失败！",new Date());
+				needcreateInstance=true;
 			}
+			if(needcreateInstance)
+			{
+				//创建实例
+				PaasInstance pi=new PaasInstance();
+				pi.setTemplateId(pt.getId());
+				pi.setInstanceName("defaule name");
+				pi.setInstanceStatus(0);
+				pi.setOrderId(orderId);
+				try
+				{
+					paasInstanceImp.insert(pi);
+					System.out.println(pi.getInstanceId());
+					po.setInstanceId(pi.getInstanceId());
+				}catch(Exception e)
+				{
+					return new Message("fail","创建实例失败！",new Date());
+				}
+			}else
+			{
+				//更新订单与实例关联
+				po.setInstanceId(pubpi.getInstanceId());
+			}
+		}else if(statue == 2 && !"must".equals(pt.getUserMode()))
+		{
+			//驳回 删除实例信息 -- 不是共享实例删除
+			paasInstanceImp.deleteAllinstanceByOrderid(orderId);
 		}
 		try {
 			int updateOrder=paasOrderImp.updateByPrimaryKeySelective(po);

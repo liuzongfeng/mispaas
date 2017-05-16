@@ -5,16 +5,17 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import rest.mybatis.dao.passDao.PaasOrderMapper;
 import rest.mybatis.model.passModel.PaasOrder;
 import rest.page.util.Pageinfo;
-
 @Configuration
 public class PaasOrderImp{
 	@Autowired
 	private SqlSessionFactory sqlSessionfactory;
-	
+
 	public int updateByPrimaryKeySelective(PaasOrder record) {
 		SqlSession session=sqlSessionfactory.openSession();
 		int result=session.update("updateOrderStatue",record);
@@ -33,5 +34,12 @@ public class PaasOrderImp{
 		List<PaasOrder> list=session.selectList("selectPaasOrderObjByCondit",record);
 		session.close();
 		return list;
+	}
+	/**
+	 * 更新订单实例关联
+	 */
+	public void updateOrderWithInstance(Integer instanceId)
+	{
+		SqlSession session=sqlSessionfactory.openSession();
 	}
 }

@@ -207,4 +207,19 @@
   	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID)
   	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId})
   </insert>
+  
+  <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(INSTANCE_ID) from PAAS_INSTANCE where ORDER_ID=#{orderid}
+  </select>
+  
+  <delete id="deleteAllinstanceByorderid" parameterType="java.lang.Integer">
+  	delete from PAAS_INSTANCE where ORDER_ID=#{orderid}
+  </delete>
+  
+  <select id="selecttheInstanceByTemplateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from PAAS_INSTANCE
+    where TEMPLATE_ID=#{templateId}
+  </select>
 </mapper>
