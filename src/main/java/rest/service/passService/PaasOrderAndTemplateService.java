@@ -26,7 +26,7 @@ import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasTemplate;
 
 @RestController
-public class PaasOrderService {
+public class PaasOrderAndTemplateService {
 	
 	@Autowired
 	private  PaasOrderMapper paasOrderMApper;
