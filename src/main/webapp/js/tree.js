@@ -144,6 +144,7 @@ function onCheck(e, treeId, treeNode) {
 }*/
 /* { id: 1, pId: 0, name: "父节点1", open: true },
 { id: 11, pId: 1, name: "父节点11" },
+{ id: 11, pId: 1, name: "父节点11" },
 { id: 111, pId: 11, name: "叶子节点111" },
 { id: 112, pId: 11, name: "叶子节点112" },
 { id: 113, pId: 11, name: "叶子节点113" },
