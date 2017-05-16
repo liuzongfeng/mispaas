@@ -23,12 +23,6 @@
   <resultMap type="java.lang.String" id="UserModeMap">
   	 <result column="USER_MODE" property="userMode" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap type="java.lang.String" id="CateGoryMap">
-  	<result column="TEMPLATE_CATEGORY" property="templateCategory" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap type="java.lang.String" id="UserModeMap">
-  	 <result column="USER_MODE" property="userMode" jdbcType="VARCHAR" />
-  </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="rest.mybatis.model.passModel.PaasTemplate" extends="BaseResultMap" >
     <!--
       WARNING - @mbggenerated
@@ -66,17 +60,6 @@
     from PAAS_TEMPLATE
     where ID = #{id,jdbcType=VARCHAR}
   </select>
-  <!-- 查询所有模板 -->
-  <select id="obtainTemplateList" resultMap="ResultMapWithBLOBs" >
-    
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from PAAS_TEMPLATE
-    where TEMPLATE_ID IS NOT NULL
-  </select>
-<<<<<<< HEAD
   <!-- 查询所有模板 -->
   <select id="obtainTemplateList" resultMap="ResultMapWithBLOBs" >
     
@@ -134,9 +117,6 @@
     <include refid="Blob_Column_List" />
     from PAAS_TEMPLATE group by TEMPLATE_CATEGORY
   </select>
-=======
->>>>>>> a69240ae155578108584ff8d050a2ae5654c9f66
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

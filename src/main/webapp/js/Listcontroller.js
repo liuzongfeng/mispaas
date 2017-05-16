@@ -78,6 +78,7 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //应用详情
     $scope.showApplicationDetails=function(orderId){
+    	alert(orderId);
     	$http({
             method: 'GET',
             url: tenantSelfinterfaces.Var_showApplicationDetails,
@@ -161,7 +162,6 @@ app.controller('ListCtrl', function($scope,$http) {
 });
 //应用列表接口调用
 function applictionListController($scope,$http){
-	
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showApplicationList,

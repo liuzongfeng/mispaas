@@ -9,8 +9,8 @@
     -->
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="ORD_ID" property="ordId" jdbcType="INTEGER" />
-    <result column="TENANT_ID" property="tenantId" jdbcType="INTEGER" />
-    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="TENANT_ID" property="tenantId" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -70,8 +70,8 @@
     -->
     insert into PAAS_ORD_TENANT_ORG_R (ID, ORD_ID, TENANT_ID, 
       ORG_ID)
-    values (#{id,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{tenantId,jdbcType=INTEGER}, 
-      #{orgId,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{ordId,jdbcType=INTEGER}, #{tenantId,jdbcType=VARCHAR}, 
+      #{orgId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="rest.mybatis.model.passModel.PaasOrdTenantOrgR" >
     <!--
@@ -102,10 +102,10 @@
         #{ordId,jdbcType=INTEGER},
       </if>
       <if test="tenantId != null" >
-        #{tenantId,jdbcType=INTEGER},
+        #{tenantId,jdbcType=VARCHAR},
       </if>
       <if test="orgId != null" >
-        #{orgId,jdbcType=INTEGER},
+        #{orgId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -124,10 +124,10 @@
         TENANT_ID = #{tenantId,jdbcType=INTEGER},
       </if>
       <if test="orgId != null" >
-        ORG_ID = #{orgId,jdbcType=INTEGER},
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="rest.mybatis.model.passModel.PaasOrdTenantOrgR" >
     <!--
@@ -138,7 +138,7 @@
     update PAAS_ORD_TENANT_ORG_R
     set ORD_ID = #{ordId,jdbcType=INTEGER},
       TENANT_ID = #{tenantId,jdbcType=INTEGER},
-      ORG_ID = #{orgId,jdbcType=INTEGER}
-    where ID = #{id,jdbcType=INTEGER}
+      ORG_ID = #{orgId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

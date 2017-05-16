@@ -1,19 +1,19 @@
 var paasrest_dns="https://mis.dayang.com/mis-rest";
 tenantSelfinterfaces={
 		//创建订单he维护订单租户和组织机构的关系
-		Var_createPaasOrder:'http://192.168.6.16:8080/passService/createPaasOrder',
+		Var_createPaasOrder:'http://localhost:8080/passService/createPaasOrder',
 		//查询已购买的应用（订单，模板，实例）
-		Var_showApplicationList:'http://192.168.6.16:8080/passService/showApplicationList',
+		Var_showApplicationList:'http://localhost:8080/passService/showApplicationList',
 		//查询应用详情(实例详情)
-		Var_showApplicationDetails:'http://192.168.6.16:8080/passService/showApplicationDetails',
+		Var_showApplicationDetails:'http://localhost:8080/passService/showApplicationDetails',
 		//获取应用实例和组织机构的关系
-		Var_getInstanceAndOrgShip:'http://192.168.6.16:8080/passService/getInstanceAndOrgShip',
+		Var_getInstanceAndOrgShip:'http://localhost:8080/passService/getInstanceAndOrgShip',
 		//插入订单组织机构关系
-		Var_addInstanceAndOrgShip:'http://192.168.6.16:8080/passService/addInstanceAndOrgShip',
+		Var_addInstanceAndOrgShip:'http://localhost:8080/passService/addInstanceAndOrgShip',
 		//删除订单组织机构关系
-		Var_deleteInstanceAndOrgShip:'http://192.168.6.16:8080/passService/deleteInstanceAndOrgShip',
+		Var_deleteInstanceAndOrgShip:'http://localhost:8080/passService/deleteInstanceAndOrgShip',
 		//查询已发布的产品列表（订单，模板，实例）
-		Var_showTempliteList:'http://192.168.6.16:8080/passService/showTempliteList',
+		Var_showTempliteList:'http://localhost:8080/passService/showTempliteList',
 		//获取模板分类
-		Var_getTemplateCategorys:'http://192.168.6.16:8080/passService/getTemplateCategorys',
+		Var_getTemplateCategorys:'http://localhost:8080/passService/getTemplateCategorys',
 };

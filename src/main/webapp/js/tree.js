@@ -93,9 +93,7 @@ function onCheck($http,$scope,zTree) {
         var ids =parentid.split(",");
 		return ids;
     }
-    else {
     	return null;
-    }
 };
 /*//显示菜单
 function showMenu() {

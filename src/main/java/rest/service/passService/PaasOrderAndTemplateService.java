@@ -1,9 +1,6 @@
 package rest.service.passService;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,30 +22,29 @@ import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
 import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasTemplate;
 
+
 @RestController
 public class PaasOrderAndTemplateService {
 	
 	@Autowired
-	private  PaasOrderMapper paasOrderMApper;
-	@Autowired
-	private  PaasOrdTenantOrgRMapper paasOrdTenantOrgMapper;
+	private PaasOrderMapper passordermapper;
 	@Autowired
 	private  PaasInstanceMapper paasInstanceMapper;
 	@Autowired
-	private PaasOrdTenantOrgRMapper paasOrdTenantOrgRMapper;
+	private PaasOrdTenantOrgRMapper paasOrdTenantOrgMapper;
 	@Autowired
 	private PaasTemplateMapper paasTemplateMapper;
 	//创建订单he维护订单租户和组织机构的关系
 	@RequestMapping(value="/passService/createPaasOrder",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public void createPaasOrder(@RequestBody PaasOrder paasOrder,@RequestParam("ids")ArrayList<Integer> ids,@RequestParam("tenantId") Integer tenantId){
+	public void createPaasOrder(@RequestBody PaasOrder paasOrder,@RequestParam("ids")ArrayList<String> ids,@RequestParam("tenantId") String tenantId){
 		PaasOrdTenantOrgR orgR = new PaasOrdTenantOrgR();
 		String uuid = UUID.randomUUID().toString();
 		paasOrder.setBillNo(uuid);
-		paasOrderMApper.insertSelective(paasOrder);
-		PaasOrder order = paasOrderMApper.selectByUUID(uuid);
+		passordermapper.insertSelective(paasOrder);
+		PaasOrder order = passordermapper.selectByUUID(uuid);
 		orgR.setOrdId(order.getId());
 		orgR.setTenantId(tenantId);
-		for (Integer integer : ids) {
+		for (String integer : ids) {
 			orgR.setOrgId(integer);
 			paasOrdTenantOrgMapper.insert(orgR);
 		}
@@ -62,7 +58,7 @@ public class PaasOrderAndTemplateService {
 			@RequestParam(value="templateCategory") String templateCategory,
 			@RequestParam(value="counm",defaultValue="10") Integer counm){
 		
-			List<PaasOrder> list = paasOrderMApper.selectByCondition(page, tenantId, instanceName, templateCategory, counm);
+			List<PaasOrder> list = passordermapper.selectByCondition(page, tenantId, instanceName, templateCategory, counm);
 		return list;
 	}
 	//查询应用详情(实例详情)
@@ -76,17 +72,17 @@ public class PaasOrderAndTemplateService {
 	@RequestMapping(value="/passService/getInstanceAndOrgShip",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<PaasOrdTenantOrgR> getInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
-		List<PaasOrdTenantOrgR> list = paasOrdTenantOrgRMapper.selectPaasOrdTenantOrgRByOrderID(orderId);
+		List<PaasOrdTenantOrgR> list = paasOrdTenantOrgMapper.selectPaasOrdTenantOrgRByOrderID(orderId);
 		return list;
 	}
 	//插入订单组织机构关系
 	@RequestMapping(value="/passService/addInstanceAndOrgShip",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public void addInstanceAndOrgShip(@RequestParam("ids")ArrayList<Integer> ids,@RequestParam("tenantId") Integer tenantId,@RequestParam("orderId") Integer orderId){
+	public void addInstanceAndOrgShip(@RequestParam("ids")ArrayList<String> ids,@RequestParam("tenantId") String tenantId,@RequestParam("orderId") Integer orderId){
 		PaasOrdTenantOrgR orgR = new PaasOrdTenantOrgR();
 		orgR.setTenantId(tenantId);
 		orgR.setOrdId(orderId);
-		for (Integer integer : ids) {
+		for (String integer : ids) {
 			orgR.setOrgId(integer);
 			paasOrdTenantOrgMapper.insert(orgR);
 		}

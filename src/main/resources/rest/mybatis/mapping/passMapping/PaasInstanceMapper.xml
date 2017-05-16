@@ -39,10 +39,6 @@
     from PAAS_INSTANCE
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </select>
-<<<<<<< HEAD
-=======
-  
->>>>>>> a69240ae155578108584ff8d050a2ae5654c9f66
   <!-- 根据模板id查询实例 -->
   <select id="selectInstanceByTemplateId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -55,7 +51,6 @@
     from PAAS_INSTANCE
     where TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
   </select>
-<<<<<<< HEAD
   <!-- 通过订单ID查实例 -->
    <select id="selectByorderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
@@ -74,8 +69,6 @@
   	   from PAAS_TEMPLATE
   	   where ID=#{TEMPLATE_ID,jdbcType=INTEGER}
   </select>
-=======
->>>>>>> a69240ae155578108584ff8d050a2ae5654c9f66
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
       WARNING - @mbggenerated
