@@ -44,6 +44,7 @@ public interface PaasTemplateMapper {
      *
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
+    PaasTemplate selectByTemplateId(String id);
     PaasTemplate selectByPrimaryKey(Integer id);
 
     /**
