@@ -56,7 +56,6 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //购买产品
     $scope.BuyGoodsDetails=function(id){
-    	alert(id);
     	$http({
             method: 'POST',
             url: tenantSelfinterfaces.Var_showTempliteList,
