@@ -8,7 +8,7 @@
                  position: absolute;z-index: 9999;">
                      &times;
                  </button>
-                 <a ng-click="editTemplate_fn()">编辑模板</a></li>
+                 <a ng-click="editTemplate_fn()">查看模板</a></li>
          </ul>
 
 		 <div style="height:20px;"></div>
@@ -22,9 +22,9 @@
                  <br/>
                  <div class="btn-group">
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">导入模板</button>
-                    <button type="button" class="btn btn-default" ng-click="editTemplate_fn()">编辑模板</button>
+                    <button type="button" class="btn btn-default" ng-click="editTemplate_fn()">查看模板</button>
                     <button type="button" class="btn btn-default" ng-click="delTemplate_fn()">删除模板</button>
-                    <button type="button" class="btn btn-default" ng-click="checkOutTemplate_fn()">导出模板</button>
+                    <button disabled="disabled" type="button" class="btn btn-default" ng-click="checkOutTemplate_fn()">导出模板</button>
                  </div>
                  <br/>
                  <br/>
@@ -42,11 +42,8 @@
                                  
 								<div class="form-group" style="float:right;margin-right:20px;">
                                      <select class="form-control " id="byCategory" >
-                                     	 <option value="">按分类过滤</option>
+                                     	 <option >按分类过滤</option>
                                      	 <option ng-repeat="category in categorys" value="{{category}}">{{category}}</option>
-                                         <!-- <option value="">资源管理</option>
-                                         <option value="">虚拟管理</option>
-                                         <option value="">混合管理</option> -->
                                      </select>
                                  </div>
                              </form>
@@ -92,73 +89,55 @@
                 	<div class="form-group">
                     	<label for="templateId" class="col-sm-2 control-label">模板ID</label>
 						<div class="col-sm-10">
-                           <input type="text" class="form-control" id="templateId" value="{{Template.templateId}}">
+                           <input disabled="disabled" type="text" class="form-control" id="templateId" value="{{Template.templateId}}">
 						</div>
                       	</div>
                        	<div class="form-group">
                           <label for="version" class="col-sm-2 control-label">版本号</label>
                           <div class="col-sm-10">
-                          <input type="text" class="form-control" id="version" value="{{Template.version}}">
+                          <input disabled="disabled" type="text" class="form-control" id="version" value="{{Template.version}}">
                           </div>
                        </div>
                        <div class="form-group" >
                           <label for="templateName" class="col-sm-2 control-label">模版名称</label>
                           <div class="col-sm-10">
-                          <input type="text" class="form-control" id="templateName" value="{{Template.templateName}}">
+                          <input disabled="disabled" type="text" class="form-control" id="templateName" value="{{Template.templateName}}">
                           </div>
                        </div>
                        <div class="form-group">
                           <label for="templateType" class="col-sm-2 control-label">类型</label>
                           <div class="col-sm-10">
-                          <select class="form-control" id="templateType">
-                              <option value="">容器类</option>
-                              <option>虚拟</option>
-                              <option>混合</option>
+                          <select disabled="disabled" class="form-control" id="templateType">
+                              <option value="{{Template.templateType}}">{{Template.templateType}}</option>
+                              
                           </select>
                           </div>
                        </div>
                        <div class="form-group">
                           <label for="templateFL" class="col-sm-2 control-label">分类</label>
                           <div class="col-sm-10">
-                          <select class="form-control" id="templateFL">
-                              <option>资源管理</option>
-                              <option>虚拟管理</option>
-                              <option>混合管理</option>
+                          <select disabled="disabled" class="form-control" id="templateFL">
+                              <option value="{{Template.templateCategory}}">{{Template.templateCategory}}</option>
                           </select>
                           </div>
                        </div>
                        <div class="form-group">
                           <label for="templateMS" class="col-sm-2 control-label">使用模式</label>
                           <div class="col-sm-10">
-                          <select class="form-control" id="templateMS">
-                              <option value="1">共享</option>
-                              <option value="2">独占</option>
+                          <select disabled="disabled" class="form-control" id="templateMS">
+                              <option value="{{Template.userMode}}">{{Template.userMode}}</option>
+                             
                           </select>
                           </div>
                        </div>
-                       <!-- <div class="form-group">
-                         <label for="templateCS" class="col-sm-2 control-label">模板参数</label>
-                         <div class="col-sm-10">
-                         <textarea class="form-control" rows="3" id="templateCS">
-                         ID  名称  类型  缺省值  描述
-                      	 </textarea>
-                       </div>
-                       </div>
-                       <div class="form-group">
-                         <label for="templateDI" class="col-sm-2 control-label">依赖模板</label>
-                         <div class="col-sm-10">
-                         <textarea class="form-control" rows="3" id="templateDI">
-                         ID  名称  版本 是否可选
-                      	 </textarea>
-                       </div>
-                       </div> -->
+                       
                        <div class="form-group">
                            <label for="templateList" class="col-sm-2 control-label">子服务列表</label>
                            <div class="col-sm-10">
                            <!-- <textarea class="form-control" rows="3" id="templateList" disabled="disabled"> -->
                            
                            	<div class="table-responsive">
-							  <table class="table table-bordered">
+							  <table class="table table-bordered" >
 							    <thead>
 							      <tr>
 							        <th>子服务名称</th>
@@ -177,7 +156,7 @@
                        <!-- </textarea> -->
                        </div>
                        </div>
-                       <!--<div class="form-group">
+                       <!-- <div class="form-group">
                            <div class="col-sm-offset-2 col-sm-10">
                                <div class="checkbox">
                                    <label>
@@ -185,16 +164,13 @@
                                    </label>
                                </div>
                            </div>
-                       </div>-->
+                       </div> -->
                       <div class="form-group">
 			    		<div class="col-sm-offset-2 col-sm-10">
-			      		<button type="submit" class="btn btn-default">提交</button>
+			      		<!-- <button type="submit" class="btn btn-default">提交</button> -->
 			      		
-			      		<button type="button" ng-click="cancleTemplate_fn()" class="btn btn-default" style="margin-left:30px;">取消</button>
+			      		<button type="button" ng-click="cancleTemplate_fn()" class="btn btn-default" style="margin-left:30px;">关闭</button>
 			    		</div>
-			    		
-			      		
-			    		
 		  			</div>
              	</form>
 	 		</div>
@@ -218,13 +194,13 @@
 	                                     <input type="file" id="inputfile" name="file1"  id="file1" accept="*.zip">
 	                                 </div>
 	                                 <!-- 是否覆盖 -->
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="overWriteExist" checked>是否覆盖
                                                 </label>
                                             </div>
-                                    </div> -->
+                                    </div>
 								</div>
 						<!-- 		footer -->
 					            <div class="modal-footer">

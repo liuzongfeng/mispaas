@@ -122,7 +122,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			$scope.importTemplate_fn = function(){
 				var formData = new FormData($('#uploadForm')[0]);
 				formData.append("file1",$('#uploadForm')[0]);
-				//formData.append("file1",$('#uploadForm')[1]);
+				formData.append("file1",$('#uploadForm')[1]);
 				$.ajax({
 				    url: 'http://localhost:8080/testUploadFile',
 				    type: 'POST',
@@ -195,18 +195,28 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//编辑模板
 			$scope.editTemplate_fn = function(){
 				
-                $("#activeTemplate").attr("class","");
-                $("#activeEdit").attr("class","active");
-				$scope.apptemplate1=false;
-				$scope.divPage=false;
-				$scope.editTemplate = true;
-				$scope.editTemplate_title=true;
+				if($('.checkbox_1:checked').length == 0){
+					swal("请先选中模板!", "", "warning");
+					return;
+				}
+				if($('.checkbox_1:checked').length > 1){
+					swal("不支持多选!", "", "warning");
+					$('.checkbox_1').prop("checked",false);
+					return;
+				}
 				
+				var aa = 0;
 				//判断是否有选中的复选框
 				$('.checkbox_1').each(function () {  
 		    		var isChecked = $(this).prop("checked"); 
 		    		if(isChecked){
-		    			
+		    			$("#activeTemplate").attr("class","");
+		                $("#activeEdit").attr("class","active");
+		 				$scope.apptemplate1=false;
+		 				$scope.divPage=false;
+		 				$scope.editTemplate = true;
+		 				$scope.editTemplate_title=true;
+		    			aa = 1;
 		    			var templateId = $(this).val();       //获得选中的模板id
 		    			
 		    			for(var i=0 ; i< $scope.templates.length; i++){
@@ -231,8 +241,16 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    			}
 		    			
 		    			//不支持多选：将其他的复选框置为false
-		    		} 
+		    		}
+		    		if(aa == 1){//
+		    			$('.checkbox_1').prop("checked",false);
+					}
 		    	});
+				
+				if(aa == 0){//未选中
+					swal("请先选中模板!", "", "warning");
+					$scope.closeEditTemplate_fn();
+				}
 				
 				
 			}
@@ -260,7 +278,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//提交编辑模板
 			$scope.submitTemplate_fn = function(){
 				
-				alert("发起提交请求");
+				//alert("发起提交请求");
 			}
 			
 			//删除模板

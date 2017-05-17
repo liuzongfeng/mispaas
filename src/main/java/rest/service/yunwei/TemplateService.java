@@ -94,7 +94,7 @@ public class TemplateService<T> {
 	    File zFile = null;
 		try {
 			//-----------------------------------------上传文件到服务器暂存---------
-			String overWriteExist = req.getParameter("overWriteExist");
+			String overWriteExist = req.getParameter("overWriteExist"); //是否覆盖
 			System.out.println(overWriteExist);
 		    // 获取上传文件的路径
 			MultipartFile uploadzipfile = multiReq.getFile("file1");
@@ -206,7 +206,12 @@ public class TemplateService<T> {
 			intPageNo = Integer.parseInt(pageNo);
 			intpageSize = Integer.parseInt(pageSize);
 		}
-		
+		if("".equals(templateName)){
+			templateName = null;
+		}
+		if("".equals(templateCategory)){
+			templateCategory = null;
+		}
 		
 		return queryListByPage(templateName,templateCategory,intPageNo,intpageSize);
 		
