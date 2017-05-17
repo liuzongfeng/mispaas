@@ -71,10 +71,6 @@ public class TemplateService<T> {
 	
 	////////////////////////////////接口区域：start//////////////////////////////////////////////////////////////////////////
 	
-	 
-	
-	
-	
 	
 	
 	/**
@@ -177,6 +173,10 @@ public class TemplateService<T> {
 		}
 	  }
 	
+	/**
+	 * TODO 获得模板分类
+	 * @return
+	 */
 	@RequestMapping(value = "/obtainTemplateCategory", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> obtainTemplateCategory(){

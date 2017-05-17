@@ -40,18 +40,18 @@
                              <form class="form-inline" role="form" ng-submit="searchExample_fn()">
                                  <div class="form-group" style="float:right">
                                      <div class="input-group">
-				                    <input type="text" class="form-control" placeholder="请输入名称">
+				                    <input type="text" class="form-control" id="instanceName_S" placeholder="请输入名称">
 				                    <span class="input-group-btn">
 				                        <button class="btn btn-default" type="submit">Go!</button>
 				                    </span>
 			                	</div>
                                  </div>
 								<div class="form-group" style="float:right;margin-right:20px;">
-                                     <select class="form-control ">
+                                     <select class="form-control " id="byInstanceStatus">
                                      	 <option value="">按状态过滤</option>
-                                         <option value="">运行中</option>
-                                         <option value="">停止</option>
-                                         <option value="">失效</option>
+                                         <option value="0">待创建</option>
+                                         <option value="1">运行中</option>
+                                         <option value="2">已取消</option>
                                      </select>
                                  </div>
                              </form>
@@ -64,48 +64,27 @@
 
                          <thead>
                          <tr>
-                             <th><input id="checkbox_1" class="checkbox_1" type="checkbox">模板ID</th>
+                             <th><input id="checkbox_1" class="checkbox_2" type="checkbox">模板ID</th>
 
                              <th>版本号</th>
                              <th>实例ID</th>
                              <th>实例名称</th>
                              <th>状态</th>
-                            <!-- <th>操作</th>-->
                          </tr>
                          </thead>
                          <tbody>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
+                         <tr ng-repeat="Instance in instances">
+                             <td><input class="checkbox_1" type="checkbox" value="{{Instance.paasTemplate.id}}">{{Instance.paasTemplate.templateId}}</td>
+                             <td></td>
 
-                             <td><a>CRE1</a></td>
-                             <td>融合资源平台</td>
+                             <td><a>{{Instance.instanceId}}</a></td>
+                             <td>{{Instance.instanceName}}</td>
 
-                             <td>运行中</td>
+                             <td ng-if="Instance.instanceStatus == 0">待创建</td>
+                             <td ng-if="Instance.instanceStatus == 1">运行中</td>
+                             <td ng-if="Instance.instanceStatus == 2">已撤销</td>
                              
                          </tr>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
-
-                             <td><a>CRE2</a></td>
-                             <td>融合资源平台</td>
-
-                             <td>运行中</td>
-                             
-                         </tr>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
-
-                             <td><a>CRE3</a></td>
-                             <td>融合资源平台</td>
-
-                             <td>运行中</td>
-                             
-                         </tr>
-
-
                          </tbody>
                      </table>
                  </div>
@@ -195,22 +174,20 @@
                    </form>
 	 		</div>
          </div>
-			
-			
-			
-			
 		
 		<br/><br/>
+	   
 	     <!-- 分页 -->
-	     <div ng-show="divPage"  style="float: right;position: static;margin-bottom: 1px;width:25%;">
+	     <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;">
 	         <ul class="pagination">
-	             <li><a href="#">&laquo;</a></li>
-	             <li class="active"><a href="#">1</a></li>
-	             <li class="disabled"><a href="#">2</a></li>
-	             <li><a href="#">3</a></li>
-	             <li><a href="#">4</a></li>
-	             <li><a href="#">5</a></li>
-	             <li><a href="#">&raquo;</a></li>
+	             <li><a ng-click="Previous()">&laquo;</a></li>
+	             
+	             <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
+					<a ng-click="selectPage(page)" >{{ page }}</a>
+				 </li>
+	             
+	             <li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+	             <li><a ng-click="Next()">&raquo;</a></li>
 	         </ul>
 	     </div>
      </div>

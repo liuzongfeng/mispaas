@@ -39,6 +39,31 @@
     from PAAS_INSTANCE
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </select>
+  <!-- 查询实例状态-->
+  <select id="obtainInstanceStatus" resultType="java.lang.String" >
+    
+    select 
+    INSTANCE_STATUS
+    from PAAS_INSTANCE GROUP BY INSTANCE_STATUS
+    
+  </select>
+  <!-- 查询所有实例 -->
+  <select id="obtainInstanceList" resultMap="BaseResultMap" >
+    
+    select 
+    <include refid="Base_Column_List" />
+    from PAAS_INSTANCE
+    <where>
+    	<if test="instanceName != null">
+    	 	AND INSTANCE_NAME LIKE CONCAT(CONCAT('%',#{instanceName}),'%')
+    	</if>
+    	<if test="instanceStatus != null">
+    		AND INSTANCE_STATUS = #{instanceStatus}
+    	</if>
+    </where> 
+     ORDER BY INSTANCE_ID DESC
+  </select>
+  
   <!-- 根据模板id查询实例 -->
   <select id="selectInstanceByTemplateId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
