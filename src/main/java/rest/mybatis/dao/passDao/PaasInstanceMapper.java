@@ -54,4 +54,6 @@ public interface PaasInstanceMapper {
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
     int updateByPrimaryKey(PaasInstance record);
+    
+    boolean isexistInstance(Integer orderid);
 }
