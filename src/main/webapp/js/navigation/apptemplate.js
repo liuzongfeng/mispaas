@@ -5,10 +5,15 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
+				//,templateType,templateName
 				
+				var templateType = $scope.templateType;   //分类模板
+				var templateName = $scope.templateName;   //名称名称
+				$scope.pageSize = 5;                      //临时赋值
+				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
-					  params:{"pageNo":page,"pageSize":2},
+					  params:{"pageNo":page,"pageSize":pageSize,"templateType":templateType,"templateName":templateName},
 					  url: 'http://localhost:8080/obtainTemplateList'
 					}).then(function successCallback(response) {
 						
@@ -61,10 +66,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 							if($scope.selPage  == 1){
 								alert("第一页");
 							}else{
-								
 								$scope.selectPage($scope.selPage - 1);
 							}
-							
 						}
 						//下一页
 						$scope.Next = function () {
@@ -76,7 +79,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								
 								$scope.selectPage($scope.selPage + 1);
 							}
-							
 						};
 					  }, function errorCallback(response) {
 					    // called asynchronously if an error occurs
@@ -85,6 +87,10 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			};
 			//
 			selectPage_aa(1);//查询列表
+			
+			
+			//加载模板分类
+			
 			
 			$scope.appTab= true;
 			$scope.apptemplate1_title = true;
@@ -125,12 +131,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								//请继续
 								//alert(cancelButtonText);
 								swal.close();
+								selectPage_aa(1);
 							}else{
 								//1.将模态框进行隐藏
 								$("#file1").val("");
 								$("#myModal").modal('hide');
 								//2.发起查询模板列表的请求
-								alert("发起查询模板列表的请求");
+								swal.close();
+								selectPage_aa(1);
 								
 							}
 						});
@@ -145,6 +153,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								//1.将模态框进行隐藏
 								$("#file1").val("");
 								$("#myModal").modal('hide');
+								selectPage_aa(1);
 						});
 						
 						
@@ -268,10 +277,32 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    						  params:{"templateId":templateId},
 		    						  url: 'http://localhost:8080/deleteTemplateByTemplateId'
 		    						}).then(function successCallback(response) {
-		    							if(response.data == "deleteok"){
-		    								swal("删除成功!", "该模板已被删除!", "success");
+		    							
+		    							
+		    							if(response.data.ok == "deleteok"){
+		    								//swal("删除成功!", "该模板已被删除!", "success");
+		    								swal({   
+		    									title:"删除成功!",
+		    									text: "该模板已被删除!",   
+		    									type: "success",   
+		    									closeOnConfirm: true 
+		    								}, 
+		    								function(){
+		    									swal.close();
+		    									selectPage_aa(1);
+		    								});
 		    							}else{
-		    								swal("删除失败!", response.data, "error");
+		    								//swal("删除失败!", response.data, "error");
+		    								swal({   
+		    									title:"删除失败!",
+		    									text: response.data.error,   
+		    									type: "error",   
+		    									closeOnConfirm: true 
+		    								}, 
+		    								function(){
+		    									swal.close();
+		    									selectPage_aa(1);	
+		    								});
 		    							}
 		    							
 		    						}, function errorCallback(response) {
@@ -304,7 +335,12 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//查询模板
 			$scope.searchTemplate_fn = function(){
-				alert("发起查询请求");
+				
+				
+				var templateName = $('#templateName_S').val();
+				
+				$scope.templateName = templateName;
+				selectPage_aa(1);//查询列表
 			}
 			
 			

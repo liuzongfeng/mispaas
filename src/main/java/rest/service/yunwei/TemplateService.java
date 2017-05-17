@@ -186,8 +186,11 @@ public class TemplateService<T> {
 	@ResponseBody
 	public PageInfo obtainTemplateList(HttpServletRequest req){
 		
-		String pageNo = req.getParameter("pageNo");
-		String pageSize = req.getParameter("pageSize");
+		String pageNo = req.getParameter("pageNo");    //当前页
+		String pageSize = req.getParameter("pageSize");//每页展示的条数
+		String templateType = req.getParameter("templateType");
+		String templateName = req.getParameter("templateName");
+		
 		Integer intPageNo = 1;
 		Integer intpageSize = 10;
 		if(null != pageSize && null != pageNo){
@@ -196,22 +199,27 @@ public class TemplateService<T> {
 		}
 		
 		
-		return queryListByPage(null,intPageNo,intpageSize);
+		return queryListByPage(templateName,templateType,intPageNo,intpageSize);
 		
 	}
 	
 	@RequestMapping(value = "/deleteTemplateByTemplateId", method = RequestMethod.GET)
 	@ResponseBody
-	public String deleteTemplateById(String templateId){
-		
+	public Map<String,String> deleteTemplateById(String templateId){
+		String message = null;
+		Map<String,String> mm = new HashMap<String,String>();
 		if(null == templateId){
-			return "未获取对应模板";
+			 message = "未获取对应模板";
+			 mm.put("error", message);
+			 return mm;
 		}
 		
 		//1.根据模板id,查询是否存在实例：有-->提示有实例，无-->直接删除：模板、子服务、对应文件
 		List<PaasInstance> instances = paasInstanceMapper.selectInstanceByTemplateId(templateId);
 		if(null != instances && instances.size() > 0){
-			return "该模板有实例，不能够删除";
+			message = "该模板有实例，不能够删除";
+			mm.put("error", message);
+			return mm;
 		}else{
 			try {
 				//1.根据模板id查询子服务,并删除
@@ -229,15 +237,20 @@ public class TemplateService<T> {
 					}
 				}
 				//3.根据模板id查询模板，并删除
-				PaasTemplate template = paasTemplateMapper.selectByPrimaryKey(Integer.parseInt(templateId));
+				PaasTemplate template = paasTemplateMapper.selectByTemplateId(templateId);
 				if(null != template){
 					paasTemplateMapper.deleteByPrimaryKey(template.getId());
 				}
-				return "deleteok";
+				message = "deleteok";
+				mm.put("ok", message);
+				return mm;
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "系统异常，删除失败";
+				message = "系统异常，删除失败";
+				mm.put("ok", message);
+				return mm;
 			}
 			
 		}
@@ -264,13 +277,16 @@ public class TemplateService<T> {
 	}
 	
 	////////////////////////////////内部方法：start//////////////////////////////////////////////////////////////////////////
-	public PageInfo queryListByPage(String templateName, Integer pageNo,Integer pageSize) {
+	public PageInfo queryListByPage(String templateName,String templateType, Integer pageNo,Integer pageSize) {
 		
 		pageNo = pageNo == null?1:pageNo;
 		pageSize = pageSize == null?10:pageSize;
 		PageHelper.startPage(pageNo, pageSize);
 		
-		List<PaasTemplate> templateList = paasTemplateMapper.obtainTemplateList();
+		Map<String,String> paramMap = new HashMap<String,String>();
+		paramMap.put("templateName", templateName);
+		paramMap.put("templateType", templateType);
+		List<PaasTemplate> templateList = paasTemplateMapper.obtainTemplateList(paramMap);
 		PageInfo pageInfo = new PageInfo(templateList);
 		
 		//测试PageInfo全部属性
