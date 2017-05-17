@@ -168,27 +168,82 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
             }
 			//编辑实例
 			$scope.editExample_fn = function(){
-				alert("编辑实例");
-                $("#activeExample").attr("class","");
-                $("#activeCreateEx").attr("class","");
-                $("#activeEditEx").attr("class","active");
-				$scope.appExample = false;
-               // $scope.createAppexample_title = false;
-				$scope.divPage=false;
 				
-				$scope.editAppexample_title = true;
-				$scope.editExample=true;
-                $scope.createAppexample_title = false;
-                if(!$scope.createAppexample_title){
-                    $("#activeCreateEx").css("display","none");
+                
+				
+				if($('.checkbox_1:checked').length == 0){
+					swal("请先选中实例!", "", "warning");
+					return;
 				}
-				if($scope.editAppexample_title){
-                    $("#activeEditEx").css("display","");
+				if($('.checkbox_1:checked').length > 1){
+					swal("不支持多选!", "", "warning");
+					$('.checkbox_1').prop("checked",false);
+					return;
+				}
+				
+				var aa = 0;
+				//判断是否有选中的复选框
+				$('.checkbox_1').each(function () {  
+		    		var isChecked = $(this).prop("checked"); 
+		    		if(isChecked){
+		    			
+		    			$("#activeExample").attr("class","");
+		                $("#activeCreateEx").attr("class","");
+		                $("#activeEditEx").attr("class","active");
+						$scope.appExample = false;
+		               // $scope.createAppexample_title = false;
+						$scope.divPage=false;
+						
+						$scope.editAppexample_title = true;
+						$scope.editExample=true;
+		                $scope.createAppexample_title = false;
+		                if(!$scope.createAppexample_title){
+		                    $("#activeCreateEx").css("display","none");
+						}
+						if($scope.editAppexample_title){
+		                    $("#activeEditEx").css("display","");
+						}
+						
+						
+		    			aa = 1;
+		    			var instanceId_s = $(this).val();       //获得选中的实例id
+		    			for(var i=0 ; i< $scope.instances.length; i++){
+		    				var instance = $scope.instances[i];
+		    				if(instance.instanceId == instanceId_s){
+		    					$scope.Instance_s= instance;
+		    					//根据模板id,发起请求加载模块信息
+		    					$scope.subServices = instance.paasTemplate.paasSubservices;
+		    					/*var templateId = instance.paasTemplate.id;
+		    					$http({
+		    						  method: 'GET',
+		    						  params:{"templateId":templateId},
+		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
+		    						}).then(function successCallback(response) {
+		    							$scope.subServices = response.data;
+		    							
+		    						}, function errorCallback(response) {
+		    						    // called asynchronously if an error occurs
+		    						    // or server returns response with an error status.
+		    					});*/
+		    					
+		    				}
+		    			}
+		    			
+		    			//不支持多选：将其他的复选框置为false
+		    		}
+		    		if(aa == 1){//
+		    			$('.checkbox_1').prop("checked",false);
+					}
+		    	});
+				
+				if(aa == 0){//未选中
+					swal("请先选中模板!", "", "warning");
+					$scope.closeEditExample_fn();
 				}
 			}
 			
 			//
-			//查询模实例
+			//查询实例
 			$scope.searchExample_fn = function(){
 				var instanceName = $('#instanceName_S').val();
 				

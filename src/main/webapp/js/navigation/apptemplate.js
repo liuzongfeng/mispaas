@@ -5,7 +5,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
-				//,templateType,templateName
 				
 				var templateCategory = $scope.templateCategory;   //分类模板
 				var templateName = $scope.templateName;   //名称名称
@@ -224,8 +223,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    				if(template.id == templateId){
 		    					$scope.Template = template;
 		    					//根据模板id,发起请求加载模块信息
-		    					
-		    					$http({
+		    					$scope.subServices = template.paasSubservices;
+		    					/*$http({
 		    						  method: 'GET',
 		    						  params:{"templateId":templateId},
 		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
@@ -236,7 +235,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    						    // called asynchronously if an error occurs
 		    						    // or server returns response with an error status.
 		    					});
-		    					
+		    					*/
 		    				}
 		    			}
 		    			
@@ -368,10 +367,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//查询模板
 			$scope.searchTemplate_fn = function(){
-				
-				
 				var templateName = $('#templateName_S').val();
-				
 				$scope.templateName = templateName;
 				selectPage_aa(1);//查询列表
 			}
