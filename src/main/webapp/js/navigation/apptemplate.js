@@ -7,13 +7,13 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			selectPage_aa = function (page) {
 				//,templateType,templateName
 				
-				var templateType = $scope.templateType;   //分类模板
+				var templateCategory = $scope.templateCategory;   //分类模板
 				var templateName = $scope.templateName;   //名称名称
 				$scope.pageSize = 5;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
-					  params:{"pageNo":page,"pageSize":pageSize,"templateType":templateType,"templateName":templateName},
+					  params:{"pageNo":page,"pageSize":pageSize,"templateCategory":templateCategory,"templateName":templateName},
 					  url: 'http://localhost:8080/obtainTemplateList'
 					}).then(function successCallback(response) {
 						
@@ -90,6 +90,23 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			
 			//加载模板分类
+			var loadTemplateCategory = function(){
+				
+				$http({
+					  method: 'GET',
+					  url: 'http://localhost:8080/obtainTemplateCategory'
+					}).then(function successCallback(response) {
+						$scope.categorys = response.data;
+						
+					}, function errorCallback(response) {
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+				});
+			}
+			//发起加载模板分类
+			loadTemplateCategory();
+			
+			
 			
 			
 			$scope.appTab= true;
@@ -128,8 +145,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 						}, 
 						function(isUploadMore){
 							if(isUploadMore){
-								//请继续
-								//alert(cancelButtonText);
 								swal.close();
 								selectPage_aa(1);
 							}else{
@@ -344,7 +359,15 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			}
 			
 			
+			
 			$(function() {
+				//按分类查询
+				$("#byCategory").change(function(){
+					var templateCategory = this.options[this.options.selectedIndex].value;
+					$scope.templateCategory = templateCategory;
+					
+					selectPage_aa(1);
+				});
 				//模态框隐藏
 				$('#myModal').modal('hide');
 				//关闭模态框出发事件

@@ -10,6 +10,12 @@ import rest.page.util.Pageinfo;
 public interface PaasTemplateMapper {
 	
 	/**
+	 * 查询模板类别
+	 * @return
+	 */
+	List<String> obtainTemplateCategory();
+	
+	/**
 	 * TODO 查询模板列表
 	 * @return
 	 */

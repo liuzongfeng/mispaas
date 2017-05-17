@@ -41,11 +41,12 @@
                                  </div>
                                  
 								<div class="form-group" style="float:right;margin-right:20px;">
-                                     <select class="form-control ">
+                                     <select class="form-control " id="byCategory" >
                                      	 <option value="">按分类过滤</option>
-                                         <option value="">资源管理</option>
+                                     	 <option ng-repeat="category in categorys" value="{{category}}">{{category}}</option>
+                                         <!-- <option value="">资源管理</option>
                                          <option value="">虚拟管理</option>
-                                         <option value="">混合管理</option>
+                                         <option value="">混合管理</option> -->
                                      </select>
                                  </div>
                              </form>

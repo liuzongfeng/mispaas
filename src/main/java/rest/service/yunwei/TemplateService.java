@@ -177,6 +177,15 @@ public class TemplateService<T> {
 		}
 	  }
 	
+	@RequestMapping(value = "/obtainTemplateCategory", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> obtainTemplateCategory(){
+		
+		
+		List<String> catetorys = paasTemplateMapper.obtainTemplateCategory();
+		return catetorys != null ? catetorys : new ArrayList<String>() ;
+	}
+	
 	/**
 	 * TODO 查询模板列表
 	 * @param req
@@ -188,7 +197,7 @@ public class TemplateService<T> {
 		
 		String pageNo = req.getParameter("pageNo");    //当前页
 		String pageSize = req.getParameter("pageSize");//每页展示的条数
-		String templateType = req.getParameter("templateType");
+		String templateCategory = req.getParameter("templateCategory");
 		String templateName = req.getParameter("templateName");
 		
 		Integer intPageNo = 1;
@@ -199,7 +208,7 @@ public class TemplateService<T> {
 		}
 		
 		
-		return queryListByPage(templateName,templateType,intPageNo,intpageSize);
+		return queryListByPage(templateName,templateCategory,intPageNo,intpageSize);
 		
 	}
 	
@@ -277,7 +286,7 @@ public class TemplateService<T> {
 	}
 	
 	////////////////////////////////内部方法：start//////////////////////////////////////////////////////////////////////////
-	public PageInfo queryListByPage(String templateName,String templateType, Integer pageNo,Integer pageSize) {
+	public PageInfo queryListByPage(String templateName,String templateCategory, Integer pageNo,Integer pageSize) {
 		
 		pageNo = pageNo == null?1:pageNo;
 		pageSize = pageSize == null?10:pageSize;
@@ -285,18 +294,9 @@ public class TemplateService<T> {
 		
 		Map<String,String> paramMap = new HashMap<String,String>();
 		paramMap.put("templateName", templateName);
-		paramMap.put("templateType", templateType);
+		paramMap.put("templateCategory", templateCategory);
 		List<PaasTemplate> templateList = paasTemplateMapper.obtainTemplateList(paramMap);
 		PageInfo pageInfo = new PageInfo(templateList);
-		
-		//测试PageInfo全部属性
-		System.out.println(pageInfo.getPageNum());
-		System.out.println(pageInfo.getPageSize());
-		System.out.println(pageInfo.getStartRow());
-		System.out.println(pageInfo.getEndRow());
-		System.out.println(pageInfo.getTotal());
-		System.out.println(pageInfo.getPages());
-		System.out.println(pageInfo.getList());
 		
 		return pageInfo;
 		
