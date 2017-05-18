@@ -15,6 +15,7 @@
     <result column="PUB_DNS" property="pubDns" jdbcType="VARCHAR" />
     <result column="URL_PREFIX" property="urlPrefix" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
    <association property="paasTemplate" column="TEMPLATE_ID"
 		javaType="rest.mybatis.model.passModel.PaasTemplate" select="selectTemplateBytemplateId">
 	</association>
@@ -26,7 +27,7 @@
       This element was generated on Mon May 08 16:50:01 CST 2017.
     -->
     INSTANCE_ID, TEMPLATE_ID, INSTANCE_NAME, INSTANCE_STATUS, ACCESS_KEY, PUB_DNS, URL_PREFIX, 
-    ORDER_ID
+    ORDER_ID,VERSION
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
