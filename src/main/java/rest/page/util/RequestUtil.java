@@ -8,15 +8,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @Configuration
+//@RestController
 public class RequestUtil {
-	private static String getUserUrl="http://100.0.10.100:8080/usermanager/api/authorization/users/admin";
-	public StringBuffer getContent() throws IOException
+	private static String getUserUrl="http://100.0.10.100:8080/usermanager/api/authorization/users/";
+//	@RequestMapping("/getContent")
+//	public JSONObject getContent() throws IOException
+//	{
+	public JSONObject getContent(String userid) throws IOException
 	{
-		URL url=new URL(getUserUrl);
+		String geturl=getUserUrl+userid;
+		URL url=new URL(geturl);
 		URLConnection uc=url.openConnection();
 		HttpURLConnection connection = (HttpURLConnection)uc;
 		InputStream is=connection.getInputStream();
@@ -27,6 +34,7 @@ public class RequestUtil {
 		{
 			result.append(readline);
 		}
-		return result;
+		JSONObject jo=JSONObject.fromObject(result.toString()); 
+		return jo;
 	}
 }
