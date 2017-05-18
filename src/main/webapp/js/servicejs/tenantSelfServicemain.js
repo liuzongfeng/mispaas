@@ -21,29 +21,59 @@ function ordertoscope($scope,$http,id) {
 	        datatype:"json",
 	        data:passOrde
 	    }).then(function successCallback(response) {
-	    	applictionListController($scope,$http);
+	    	var page=null;
+	    	applictionListController($scope,$http,page);
 	        }, function errorCallback(response) {
 	    });
 	};
 	//名称模糊查询应用
 	$scope.getapplicationByInstanceName=function(){
-		applictionListController($scope,$http);
+		var page=null;
+		appListBynameController($scope,$http,page);
+		
 	};
 	//分类查询应用
 	$scope.getapplicationBytemplateCategory=function(){
-		applictionListController($scope,$http);
+		var page=null;
+		applictionListController($scope,$http,page);
 	};
 	//分类查询产品
 	$scope.gettemplateBytemplateCategory=function(){
 		var id=null;
-		templateListController($scope,$http,id);
+		var page=null;
+		templateListController($scope,$http,id,page);
 	};
 	//名字模糊查产品
-	$scope.gettemplatesBytemplateId=function(){
+	$scope.gettemplatesBytemplateName=function(){
 		var id=null;
-		templateListController($scope,$http,id);
+		var page=null;
+		templateListController($scope,$http,id,page);
+		
 	};
-	
+	//应用分页
+	$scope.changeorderpage=function(page){
+		applictionListController($scope,$http,page);
+	};
+	//产品分页
+	$scope.changetemplatepage=function(page){
+		templateListController($scope,$http,id,page);
+	};
+	//撤销定单
+	$scope.repealorder=function(orderId){
+		alert(orderId);
+		
+		$http({
+	        method: 'PUT',
+	        url: tenantSelfinterfaces.Var_repealOrder,
+	        params:{"orderId":orderId},
+	        datatype:"json",
+	    }).then(function successCallback(response) {
+	        }, function errorCallback(response) {
+	    });
+		var page=null;
+		applictionListController($scope,$http,page);
+		
+	};
 };
 
 function transmitOrderId(orderId,$scope,$http){
@@ -51,8 +81,6 @@ function transmitOrderId(orderId,$scope,$http){
 	$scope.changeApplicationUser=function(){
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
 		var ids = onCheck($http,$scope,zTree);
-		alert(ids);
-		alert(orderId);
 		//删除原来的组织关系数据
 		$http({
 	        method: 'DElETE',
@@ -69,7 +97,8 @@ function transmitOrderId(orderId,$scope,$http){
 	        params:{"tenantId":1,"ids":ids,"orderId":orderId},
 	        datatype:"json",
 	    }).then(function successCallback(response) {
-	    	applictionListController($scope,$http);
+	    	var page=null;
+	    	applictionListController($scope,$http,page);
 	        }, function errorCallback(response) {
 	    });
 	};

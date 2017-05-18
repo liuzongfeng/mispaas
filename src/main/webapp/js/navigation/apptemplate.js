@@ -5,15 +5,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
-				//,templateType,templateName
 				
-				var templateType = $scope.templateType;   //分类模板
+				var templateCategory = $scope.templateCategory;   //分类模板
 				var templateName = $scope.templateName;   //名称名称
 				$scope.pageSize = 5;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
-					  params:{"pageNo":page,"pageSize":pageSize,"templateType":templateType,"templateName":templateName},
+					  params:{"pageNo":page,"pageSize":pageSize,"templateCategory":templateCategory,"templateName":templateName},
 					  url: 'http://localhost:8080/obtainTemplateList'
 					}).then(function successCallback(response) {
 						
@@ -90,6 +89,23 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			
 			//加载模板分类
+			var loadTemplateCategory = function(){
+				
+				$http({
+					  method: 'GET',
+					  url: 'http://localhost:8080/obtainTemplateCategory'
+					}).then(function successCallback(response) {
+						$scope.categorys = response.data;
+						
+					}, function errorCallback(response) {
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+				});
+			}
+			//发起加载模板分类
+			loadTemplateCategory();
+			
+			
 			
 			
 			$scope.appTab= true;
@@ -105,7 +121,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			$scope.importTemplate_fn = function(){
 				var formData = new FormData($('#uploadForm')[0]);
 				formData.append("file1",$('#uploadForm')[0]);
-				//formData.append("file1",$('#uploadForm')[1]);
+				formData.append("file1",$('#uploadForm')[1]);
 				$.ajax({
 				    url: 'http://localhost:8080/testUploadFile',
 				    type: 'POST',
@@ -128,8 +144,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 						}, 
 						function(isUploadMore){
 							if(isUploadMore){
-								//请继续
-								//alert(cancelButtonText);
 								swal.close();
 								selectPage_aa(1);
 							}else{
@@ -180,18 +194,28 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//编辑模板
 			$scope.editTemplate_fn = function(){
 				
-                $("#activeTemplate").attr("class","");
-                $("#activeEdit").attr("class","active");
-				$scope.apptemplate1=false;
-				$scope.divPage=false;
-				$scope.editTemplate = true;
-				$scope.editTemplate_title=true;
+				if($('.checkbox_1:checked').length == 0){
+					swal("请先选中模板!", "", "warning");
+					return;
+				}
+				if($('.checkbox_1:checked').length > 1){
+					swal("不支持多选!", "", "warning");
+					$('.checkbox_1').prop("checked",false);
+					return;
+				}
 				
+				var aa = 0;
 				//判断是否有选中的复选框
 				$('.checkbox_1').each(function () {  
 		    		var isChecked = $(this).prop("checked"); 
 		    		if(isChecked){
-		    			
+		    			$("#activeTemplate").attr("class","");
+		                $("#activeEdit").attr("class","active");
+		 				$scope.apptemplate1=false;
+		 				$scope.divPage=false;
+		 				$scope.editTemplate = true;
+		 				$scope.editTemplate_title=true;
+		    			aa = 1;
 		    			var templateId = $(this).val();       //获得选中的模板id
 		    			
 		    			for(var i=0 ; i< $scope.templates.length; i++){
@@ -199,8 +223,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    				if(template.id == templateId){
 		    					$scope.Template = template;
 		    					//根据模板id,发起请求加载模块信息
-		    					
-		    					$http({
+		    					$scope.subServices = template.paasSubservices;
+		    					/*$http({
 		    						  method: 'GET',
 		    						  params:{"templateId":templateId},
 		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
@@ -211,13 +235,21 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    						    // called asynchronously if an error occurs
 		    						    // or server returns response with an error status.
 		    					});
-		    					
+		    					*/
 		    				}
 		    			}
 		    			
 		    			//不支持多选：将其他的复选框置为false
-		    		} 
+		    		}
+		    		if(aa == 1){//
+		    			$('.checkbox_1').prop("checked",false);
+					}
 		    	});
+				
+				if(aa == 0){//未选中
+					swal("请先选中模板!", "", "warning");
+					$scope.closeEditTemplate_fn();
+				}
 				
 				
 			}
@@ -245,7 +277,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//提交编辑模板
 			$scope.submitTemplate_fn = function(){
 				
-				alert("发起提交请求");
+				//alert("发起提交请求");
 			}
 			
 			//删除模板
@@ -335,16 +367,21 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			//查询模板
 			$scope.searchTemplate_fn = function(){
-				
-				
 				var templateName = $('#templateName_S').val();
-				
 				$scope.templateName = templateName;
 				selectPage_aa(1);//查询列表
 			}
 			
 			
+			
 			$(function() {
+				//按分类查询
+				$("#byCategory").change(function(){
+					var templateCategory = this.options[this.options.selectedIndex].value;
+					$scope.templateCategory = templateCategory;
+					
+					selectPage_aa(1);
+				});
 				//模态框隐藏
 				$('#myModal').modal('hide');
 				//关闭模态框出发事件
