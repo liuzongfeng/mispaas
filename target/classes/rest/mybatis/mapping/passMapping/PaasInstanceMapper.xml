@@ -15,9 +15,12 @@
     <result column="PUB_DNS" property="pubDns" jdbcType="VARCHAR" />
     <result column="URL_PREFIX" property="urlPrefix" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+<<<<<<< HEAD
+=======
    <association property="paasTemplate" column="TEMPLATE_ID"
 		javaType="rest.mybatis.model.passModel.PaasTemplate" select="selectTemplateBytemplateId">
 	</association>
+>>>>>>> 4af1dad358322f1ac1d056b2ce8bae29733ed035
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -39,31 +42,10 @@
     from PAAS_INSTANCE
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </select>
-  <!-- 查询实例状态-->
-  <select id="obtainInstanceStatus" resultType="java.lang.String" >
-    
-    select 
-    INSTANCE_STATUS
-    from PAAS_INSTANCE GROUP BY INSTANCE_STATUS
-    
-  </select>
-  <!-- 查询所有实例 -->
-  <select id="obtainInstanceList" resultMap="BaseResultMap" >
-    
-    select 
-    <include refid="Base_Column_List" />
-    from PAAS_INSTANCE
-    <where>
-    	<if test="instanceName != null">
-    	 	AND INSTANCE_NAME LIKE CONCAT(CONCAT('%',#{instanceName}),'%')
-    	</if>
-    	<if test="instanceStatus != null">
-    		AND INSTANCE_STATUS = #{instanceStatus}
-    	</if>
-    </where> 
-     ORDER BY INSTANCE_ID DESC
-  </select>
+<<<<<<< HEAD
   
+=======
+>>>>>>> 4af1dad358322f1ac1d056b2ce8bae29733ed035
   <!-- 根据模板id查询实例 -->
   <select id="selectInstanceByTemplateId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -76,6 +58,8 @@
     from PAAS_INSTANCE
     where TEMPLATE_ID = #{templateId,jdbcType=VARCHAR}
   </select>
+<<<<<<< HEAD
+=======
   <!-- 通过订单ID查实例 -->
    <select id="selectByorderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
@@ -94,6 +78,7 @@
   	   from PAAS_TEMPLATE
   	   where ID=#{TEMPLATE_ID,jdbcType=INTEGER}
   </select>
+>>>>>>> 4af1dad358322f1ac1d056b2ce8bae29733ed035
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
       WARNING - @mbggenerated
@@ -232,19 +217,4 @@
   	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID)
   	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId})
   </insert>
-  
-  <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  	select count(INSTANCE_ID) from PAAS_INSTANCE where ORDER_ID=#{orderid}
-  </select>
-  
-  <delete id="deleteAllinstanceByorderid" parameterType="java.lang.Integer">
-  	delete from PAAS_INSTANCE where ORDER_ID=#{orderid}
-  </delete>
-  
-  <select id="selecttheInstanceByTemplateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-  	select
-  	<include refid="Base_Column_List" />
-    from PAAS_INSTANCE
-    where TEMPLATE_ID=#{templateId}
-  </select>
 </mapper>

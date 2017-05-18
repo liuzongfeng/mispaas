@@ -40,18 +40,18 @@
                              <form class="form-inline" role="form" ng-submit="searchExample_fn()">
                                  <div class="form-group" style="float:right">
                                      <div class="input-group">
-				                    <input type="text" class="form-control" placeholder="请输入名称">
+				                    <input type="text" class="form-control" id="instanceName_S" placeholder="请输入名称">
 				                    <span class="input-group-btn">
 				                        <button class="btn btn-default" type="submit">Go!</button>
 				                    </span>
 			                	</div>
                                  </div>
 								<div class="form-group" style="float:right;margin-right:20px;">
-                                     <select class="form-control ">
+                                     <select class="form-control " id="byInstanceStatus">
                                      	 <option value="">按状态过滤</option>
-                                         <option value="">运行中</option>
-                                         <option value="">停止</option>
-                                         <option value="">失效</option>
+                                         <option value="0">待创建</option>
+                                         <option value="1">运行中</option>
+                                         <option value="2">已取消</option>
                                      </select>
                                  </div>
                              </form>
@@ -64,48 +64,27 @@
 
                          <thead>
                          <tr>
-                             <th><input id="checkbox_1" class="checkbox_1" type="checkbox">模板ID</th>
+                             <th><input id="checkbox_1" class="checkbox_2" type="checkbox">模板ID</th>
 
                              <th>版本号</th>
                              <th>实例ID</th>
                              <th>实例名称</th>
                              <th>状态</th>
-                            <!-- <th>操作</th>-->
                          </tr>
                          </thead>
                          <tbody>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
+                         <tr ng-repeat="Instance in instances">
+                             <td><input class="checkbox_1" type="checkbox" value="{{Instance.instanceId}}">{{Instance.paasTemplate.templateId}}</td>
+                             <td></td>
 
-                             <td><a>CRE1</a></td>
-                             <td>融合资源平台</td>
+                             <td><a>{{Instance.instanceId}}</a></td>
+                             <td>{{Instance.instanceName}}</td>
 
-                             <td>运行中</td>
+                             <td ng-if="Instance.instanceStatus == 0">待创建</td>
+                             <td ng-if="Instance.instanceStatus == 1">运行中</td>
+                             <td ng-if="Instance.instanceStatus == 2">已撤销</td>
                              
                          </tr>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
-
-                             <td><a>CRE2</a></td>
-                             <td>融合资源平台</td>
-
-                             <td>运行中</td>
-                             
-                         </tr>
-                         <tr>
-                             <td><input class="checkbox_1" type="checkbox">CRE</td>
-                             <td>1.0.1</td>
-
-                             <td><a>CRE3</a></td>
-                             <td>融合资源平台</td>
-
-                             <td>运行中</td>
-                             
-                         </tr>
-
-
                          </tbody>
                      </table>
                  </div>
@@ -120,51 +99,61 @@
                             <div class="form-group">
                                 <label for="templateID1" class="col-sm-2 control-label">模板ID</label>
 								<div class="col-sm-10">
-                                <input type="text" class="form-control" id="templateID1" value="CRE">
+                                <input type="text" class="form-control" id="templateID1" value="{{Instance_s.paasTemplate.templateId}}">
 								</div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleID" class="col-sm-2 control-label">实例Id</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="exampleID" value="CRE1">
+                                <input type="text" class="form-control" id="exampleID" value="{{Instance_s.instanceId}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleName" class="col-sm-2 control-label">实例名称</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="exampleName" value="融合资源管理平台">
+                                <input type="text" class="form-control" id="exampleName" value="{{Instance_s.instanceName}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleStatus" class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-10">
-                                <select class="form-control" id="exampleStatus">
-                                    <option>容器类</option>
-                                    <option>虚拟</option>
-                                    <option>混合</option>
+                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 0">
+                                    <option value="0" checked>待审核</option>
+                                    <option value="1">运行中</option>
+                                    <option value="2">已撤销</option>
+                                </select>
+                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 1">
+                                    <option value="0">待审核</option>
+                                    <option value="1" checked>运行中</option>
+                                    <option value="2">已撤销</option>
+                                </select>
+                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 2">
+                                    <option value="0">待审核</option>
+                                    <option value="1">运行中</option>
+                                    <option value="2" checked>已撤销</option>
                                 </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="visitPass" class="col-sm-2 control-label">访问秘钥</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="visitPass" value="XXXXXXXXX">
+                                <input type="text" class="form-control" id="visitPass" value="{{Instance_s.accessKey}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="publicArea" class="col-sm-2 control-label">公共域名</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="publicArea" value="http://some_domain_or_ip">
+                                <input type="text" class="form-control" id="publicArea" value="{{Instance_s.pubDns}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="preURL" class="col-sm-2 control-label">URL前缀</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="preURL" value="cre1_">
+                                <input type="text" class="form-control" id="preURL" value="{{Instance_s.urlPrefix}}">
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="templateCS1" class="col-sm-2 control-label">实例创建参数</label>
                                 <div class="col-sm-10">
                                 <textarea class="form-control" rows="3" id="templateCS1">
@@ -172,16 +161,29 @@
                                 max_users:100
                             </textarea>
                             </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="templateDI1" class="col-sm-2 control-label">服务URLs</label>
                                 <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" id="templateDI1">
-                               /cre1_api
-                                /cre1_manager
-                                /cre1_portal
-                                /cre1_message
-                            </textarea>
+                                <!-- <textarea class="form-control" rows="3" id="templateDI1"> -->
+                               <div class="table-responsive">
+							  <table class="table table-bordered" >
+							    <thead>
+							      <tr>
+							        <th>子服务名称</th>
+							        <th>子路径</th>
+							        <th>是否在Portal显示</th></tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="subService in subServices">
+							        <td>{{subService.moduleName}}</td>
+							        <td>{{subService.moduleUrl}}</td>
+							        <td>{{subService.moduleIsDis}}</td></tr>
+							     
+							    </tbody>
+							  </table>
+							</div>
+                           <!--  </textarea> -->
                             </div>
                             
                             </div>
@@ -195,22 +197,20 @@
                    </form>
 	 		</div>
          </div>
-			
-			
-			
-			
 		
 		<br/><br/>
+	   
 	     <!-- 分页 -->
-	     <div ng-show="divPage"  style="float: right;position: static;margin-bottom: 1px;width:25%;">
+	     <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;">
 	         <ul class="pagination">
-	             <li><a href="#">&laquo;</a></li>
-	             <li class="active"><a href="#">1</a></li>
-	             <li class="disabled"><a href="#">2</a></li>
-	             <li><a href="#">3</a></li>
-	             <li><a href="#">4</a></li>
-	             <li><a href="#">5</a></li>
-	             <li><a href="#">&raquo;</a></li>
+	             <li><a ng-click="Previous()">&laquo;</a></li>
+	             
+	             <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
+					<a ng-click="selectPage(page)" >{{ page }}</a>
+				 </li>
+	             
+	             <li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+	             <li><a ng-click="Next()">&raquo;</a></li>
 	         </ul>
 	     </div>
      </div>

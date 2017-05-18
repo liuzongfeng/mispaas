@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
@@ -39,4 +40,47 @@
 
 <table schema="DY_PMIS" tableName="UserT" domainObjectName="PassUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
   </context>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!--DRIVER-->
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+  <context id="context1">
+    <!--  <jdbcConnection connectionURL="???" driverClass="???" password="???" userId="???" />
+    <javaModelGenerator targetPackage="???" targetProject="???" />
+    <sqlMapGenerator targetPackage="???" targetProject="???" />
+    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" />
+    <table schema="???" tableName="???">
+      <columnOverride column="???" property="???" />
+    </table>-->
+    
+    <!--DATABASE URL-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.2.4:3306/MIS_PAAS" userId="root" password="pmo2009">
+        </jdbcConnection>
+    <!--MODEL-->
+        <javaModelGenerator targetPackage="rest.mybatis.model.passModel" targetProject="C:\Users\Administrator\git\mispass\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--MAPPER-->
+        <sqlMapGenerator targetPackage="rest.mybatis.mapping.passMapping" targetProject="C:\Users\Administrator\git\mispass\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--DAO-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="rest.mybatis.dao.passDao" targetProject="C:\Users\Administrator\git\mispass\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--TABELS AND NAME-->
+        
+<table schema="MIS_PAAS" tableName="PAAS_TEMPLATE" domainObjectName="PaasTemplate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_TEMPLATE_FILE" domainObjectName="PaasTemplateFile" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_SUBSERVICE" domainObjectName="PaasSubservice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_ORDER" domainObjectName="PaasOrder" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_INSTANCE" domainObjectName="PaasInstance" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+<table schema="MIS_PAAS" tableName="PAAS_ORD_TENANT_ORG_R" domainObjectName="PaasOrdTenantOrgR" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+<table schema="DY_PMIS" tableName="UserT" domainObjectName="PassUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+  </context>
+>>>>>>> 4af1dad358322f1ac1d056b2ce8bae29733ed035
 </generatorConfiguration>
