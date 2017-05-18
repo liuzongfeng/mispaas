@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,29 +53,26 @@ public class TemplateService<T> {
 	
 	
 	public static void main(String[] args) {
-		/*String cc = "D:/aaa/PaaSSampleCatalog";
+		//MyThreadLocalTool<String> mt = new MyThreadLocalTool<String>();
 		
-		File aaa = new File("D:/aaa");
-		aaa.delete();*/
-		
-		/*try {
-			deleteDir("D:/aaa");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
 	}
 	/**
 	 * TODO 通过路径查找文件,用于遍历找到子文件
 	 * @param filePath
 	 */
-	private PaasTemplate passTemplate= null;    //template对象，---存放数据
-	private String configFilePath = null;                     //存放config.yml文件的绝对路径 ，为了读取并保存。
-	private Map<String,Integer> moduleIdMap = null;       //暂存模块id 还模板id
-	private Map<String,String> moduleNameMap = null;           //暂存模块名称
-	private Map<String,String> messageMap = null;
-	
+	//private PaasTemplate passTemplate= null;    //template对象，---存放数据
+	private static MyThreadLocalTool<PaasTemplate> passTemplateThread = new MyThreadLocalTool<PaasTemplate>();   //处理多线程
+//	private String configFilePath = null;                     //存放config.yml文件的绝对路径 ，为了读取并保存。
+	private static MyThreadLocalTool<String> configFilePathThread = new MyThreadLocalTool<String>();   //处理多线程
+//	private Map<String,Integer> moduleIdMap = null;       //暂存模块id 还模板id
+	private static MyThreadLocalTool<Map<String,Integer>> moduleIdMapThread = new MyThreadLocalTool<Map<String,Integer>>();   //处理多线程
+//	private Map<String,String> moduleNameMap = null;           //暂存模块名称
+	private static MyThreadLocalTool<Map<String,String>> moduleNameMapThread = new MyThreadLocalTool<Map<String,String>>();   //处理多线程
+//	private Map<String,String> messageMap = null;
+	private static MyThreadLocalTool<Map<String,String>> messageMapThread = new MyThreadLocalTool<Map<String,String>>();   //处理多线程
+//	private String overWriteExist = null;        //是否覆盖
+	private static MyThreadLocalTool<String> overWriteExistThread = new MyThreadLocalTool<String>();   //处理多线程
 	////////////////////////////////接口区域：start//////////////////////////////////////////////////////////////////////////
 	
 	
@@ -89,18 +87,22 @@ public class TemplateService<T> {
 	@Transactional
 	public synchronized String  testUploadFile(HttpServletRequest req,
 	    MultipartHttpServletRequest multiReq) {
-		messageMap = new HashMap<String,String>();         //处理返回逻辑
+//		messageMap = new HashMap<String,String>();         //处理返回逻辑
+		messageMapThread.getTl().set(new HashMap<String,String>());
 		String uploadMessage = "";
 		FileOutputStream fos = null;
 	    FileInputStream fis = null;
 	    File zFile = null;
 	    String uzipPath = null;
+	   
 		try {
 			String serverPath=Thread.currentThread().getContextClassLoader().getResource("").getPath();  //服务所在绝对路径
 			System.out.println(serverPath);
 			//-----------------------------------------上传文件到服务器暂存---------
 			String overWriteExist = req.getParameter("overWriteExist"); //是否覆盖
 			System.out.println(overWriteExist);
+			
+			overWriteExistThread.getTl().set(overWriteExist);              //将是否覆盖存到ThreadLocal中
 		    // 获取上传文件的路径
 			MultipartFile uploadzipfile = multiReq.getFile("file1");
 			if(null == uploadzipfile){
@@ -360,12 +362,18 @@ public class TemplateService<T> {
 						
 						//-----------------1-------------------------//config.yml 文件
 						if(fileName.indexOf("config")!= -1){
+							
+							//String isOverLoad = overWriteExistThread.getTl().get();  //取出是否覆盖
+							
+							
 							//预先创建模板，获得模板id,
-							passTemplate = new PaasTemplate();
-							int templateResult = paasTemplateMapper.insert(passTemplate);
-							moduleNameMap = new HashMap<String,String>();
-							moduleIdMap = new LinkedHashMap<String,Integer>();
-							configFilePath = file.getAbsolutePath();   //预存config.yml文件绝对路径，为保存使用
+							int templateResult = 0;
+							//moduleNameMap = new HashMap<String,String>();
+							moduleNameMapThread.getTl().set(new HashMap<String,String>());
+							//moduleIdMap = new LinkedHashMap<String,Integer>();
+							moduleIdMapThread.getTl().set(new LinkedHashMap<String,Integer>());
+							//String configFilePath = file.getAbsolutePath();   //预存config.yml文件绝对路径，为保存使用
+							configFilePathThread.getTl().set(file.getAbsolutePath());
 //							//-------------打印语句----------------
 //							Object load = Yaml.load(file);
 //							System.out.println(load.toString());
@@ -374,10 +382,52 @@ public class TemplateService<T> {
 						    	String tplId = (String)father.get("name");                            //模板id
 					            String tplName = (String)father.get("description");                   //模板名称
 					            String tplCategory = (String)father.get("category");                  //模板分类
+					            
+					            if(null != overWriteExistThread.getTl().get() && "on".equals(overWriteExistThread.getTl().get())){//确认是覆盖
+					            	//根据templateId 查询template
+					            	List<PaasTemplate> paasTemplate_Exi = paasTemplateMapper.selectByTemplateIdConfig(tplId);
+					            	if(null != paasTemplate_Exi && paasTemplate_Exi.size() >0){
+					            		//1.得到要覆盖的模板
+					            		PaasTemplate passTemplate = (PaasTemplate)paasTemplate_Exi.get(0);
+					            		passTemplateThread.getTl().set(passTemplate);
+					            		Integer templateId_up = passTemplateThread.getTl().get().getId();
+					            		String templateId_up_s = null;
+					            		if(null != templateId_up){
+					            			templateId_up_s = String.valueOf(templateId_up);
+					            		}
+					            		//2.删掉之前模板所关联的子服务、和文件
+					            		//1.根据模板id查询子服务,并删除
+					    				List<PaasSubservice> subServices = paasSubserviceMapper.selectSubServiceByTPlId(templateId_up_s);
+					    				if(null != subServices && subServices.size() >0){
+					    					for(PaasSubservice subService : subServices){
+					    						paasSubserviceMapper.deleteByPrimaryKey(subService.getId());
+					    					}
+					    				}
+					    				//2.根据模板id查询文件,并删除
+					    				List<PaasTemplateFile> templateFiles = paasTemplateFileMapper.selectByTemplateId(templateId_up_s);
+					    				if(null != templateFiles && templateFiles.size() >0){
+					    					for(PaasTemplateFile paasTemplateFile : templateFiles){
+					    						paasTemplateFileMapper.deleteByPrimaryKey(paasTemplateFile.getId());
+					    					}
+					    				}
+					            	}
+					            	
+					            }else{
+					            	PaasTemplate passTemplate = new PaasTemplate();
+					            	templateResult = paasTemplateMapper.insert(passTemplate);
+					            	passTemplateThread.getTl().set(passTemplate);
+					            }
+					            
 					            //保存模板信息：模板ID、模板名称、模板分类
-					            passTemplate.setTemplateId(tplId);
-					            passTemplate.setTemplateName(tplName);
-					            passTemplate.setTemplateCategory(tplCategory);
+					            //passTemplate.setTemplateId(tplId);
+					            //passTemplate.setTemplateName(tplName);
+					            //passTemplate.setTemplateCategory(tplCategory);
+					            
+					            passTemplateThread.getTl().get().setTemplateId(tplId);
+					            passTemplateThread.getTl().get().setTemplateName(tplName);
+					            passTemplateThread.getTl().get().setTemplateCategory(tplCategory);
+					            passTemplateThread.getTl().get().setUploadDate(new Date());
+					            passTemplateThread.getTl().get().setProductName(tplName);
 						    }       
 						}
 						//-------------------------2-----------------docker-compose.yml
@@ -411,22 +461,29 @@ public class TemplateService<T> {
 								            		//1.处理全局变量
 							            			String tpltype =(String)labelsMap.get("com.dayang.paas.tpltype");             //模板类型
 								            		if((templateResult_up == 0) && null != tpltype){
-								            			passTemplate.setTemplateType(tpltype);
+								            			//passTemplate.setTemplateType(tpltype);
+								            			passTemplateThread.getTl().get().setTemplateType(tpltype);
 								            		}
 							            			String sharemode = (String)labelsMap.get("com.dayang.paas.sharemode");        //模板使用模式
 								            		if((templateResult_up == 0) && null != sharemode){
-								            			passTemplate.setUserMode(sharemode);
+								            			//passTemplate.setUserMode(sharemode);
+								            			passTemplateThread.getTl().get().setUserMode(sharemode);
 								            		}
 							            			String version = (String)labelsMap.get("com.dayang.paas.version");            //模板版本号
 								            		if((templateResult_up == 0) && null != version){
-									            		passTemplate.setVersion(version);
-									            		passTemplate.setPrice(0.0);                                               //价格
-									            		passTemplate.setIsPub(0);                                                 //是否发布
+									            		//passTemplate.setVersion(version);
+									            		//passTemplate.setPrice(0.0);                                               //价格
+									            		//passTemplate.setIsPub(0);                                                 //是否发布
+								            		
+								            			passTemplateThread.getTl().get().setVersion(version);
+								            			passTemplateThread.getTl().get().setPrice(0.0);
+								            			passTemplateThread.getTl().get().setIsPub(0);
+								            			
 								            		}
 									            		
 	//---1----------------------------------------------------PAAS_Template对象-------------------------------------------------------------------------							            		
 								            		if((templateResult_up == 0) && (null != tpltype || null != sharemode || null != version)){
-									            		 templateResult_up = paasTemplateMapper.updateByPrimaryKeySelective(passTemplate);
+									            		 templateResult_up = paasTemplateMapper.updateByPrimaryKeySelective(passTemplateThread.getTl().get());
 									            		
 //									            		//---------------打印语句
 //									            		if(templateResult_up > 0){
@@ -457,12 +514,12 @@ public class TemplateService<T> {
 										            				paasSubservice.setModuleUrl("/"+moduleUrl);
 										            				paasSubservice.setModuleIsDis(moduleIsShow);
 										            				paasSubservice.setModuleDes(moduleDes);
-										            				paasSubservice.setTemplateId(passTemplate.getId());
-										            				if(null != passTemplate.getId() && null == paasSubservice.getId()){
+										            				paasSubservice.setTemplateId(passTemplateThread.getTl().get().getId());
+										            				if(null != passTemplateThread.getTl().get().getId() && null == paasSubservice.getId()){
 										            					int subServiceResult = paasSubserviceMapper.insert(paasSubservice);
 										            					if(subServiceResult >0 && null != paasSubservice.getId()){
-										            						moduleNameMap.put(moduleName, moduleName);
-										            						moduleIdMap.put(moduleName, paasSubservice.getId());
+										            						moduleNameMapThread.getTl().get().put(moduleName, moduleName);
+										            						moduleIdMapThread.getTl().get().put(moduleName, paasSubservice.getId());
 										            						createModuleFlag = 1;
 										            					}
 										            					
@@ -484,19 +541,19 @@ public class TemplateService<T> {
 									            				String moduleIsShow = moduleContent[2];                     //模块是否展示
 									            				String moduleDesKey = "com.dayang.paas.subservice."+moduleName;
 									            				String moduleDes = (String)labelsMap.get(moduleDesKey);   //模块描述
-									            				moduleNameMap.put(moduleName, moduleName);
+									            				moduleNameMapThread.getTl().get().put(moduleName, moduleName);
 									            				
 									            				PaasSubservice paasSubservice = new PaasSubservice();
 									            				paasSubservice.setModuleName(moduleName);
 									            				paasSubservice.setModuleUrl("/"+moduleUrl);
 									            				paasSubservice.setModuleIsDis(moduleIsShow);
 									            				paasSubservice.setModuleDes(moduleDes);
-									            				paasSubservice.setTemplateId(passTemplate.getId());
-									            				if(null != passTemplate.getId() && null == paasSubservice.getId()){
+									            				paasSubservice.setTemplateId(passTemplateThread.getTl().get().getId());
+									            				if(null != passTemplateThread.getTl().get().getId() && null == paasSubservice.getId()){
 									            					int subServiceResult = paasSubserviceMapper.insert(paasSubservice);
 									            					if(subServiceResult >0 && null != paasSubservice.getId()){
-									            						moduleNameMap.put(moduleName, moduleName);
-									            						moduleIdMap.put(moduleName, paasSubservice.getId());
+									            						moduleNameMapThread.getTl().get().put(moduleName, moduleName);
+									            						moduleIdMapThread.getTl().get().put(moduleName, paasSubservice.getId());
 									            						createModuleFlag = 1;
 									            					}
 									            					
@@ -529,7 +586,7 @@ public class TemplateService<T> {
 							//创建docker文件 ，调用dao保存docker.yml文件
 							PaasTemplateFile dockerYmlFile = new PaasTemplateFile();
 							dockerYmlFile.setFileName(dockerName);  
-							dockerYmlFile.setTemplateId(passTemplate.getId());
+							dockerYmlFile.setTemplateId(passTemplateThread.getTl().get().getId());
 							byte[] dockerByte = CommonTool.File2byte(file);;
 							dockerYmlFile.setFile(dockerByte);
 							
@@ -543,7 +600,7 @@ public class TemplateService<T> {
 								
 								
 	//---4----------------------------------------------保存config.yml文件-------------------------------------------------------------------
-							File configFile = new File(configFilePath);
+							File configFile = new File(configFilePathThread.getTl().get());
 							if(configFile.exists()){
 								String configName = configFile.getName();   //config.yml文件名称
 								//文件 configFile 本身
@@ -551,7 +608,7 @@ public class TemplateService<T> {
 								//创建config文件，调用dao保存config.yml文件
 								PaasTemplateFile configYmlFile = new PaasTemplateFile();
 								configYmlFile.setFileName(configName);
-								configYmlFile.setTemplateId(passTemplate.getId());
+								configYmlFile.setTemplateId(passTemplateThread.getTl().get().getId());
 								byte[] configByte = CommonTool.File2byte(configFile);
 								configYmlFile.setFile(configByte);
 								
@@ -568,17 +625,17 @@ public class TemplateService<T> {
 	//---5---------------------------------------处理图片文件--------------------
 						if(fileName.indexOf(".png") != -1 || fileName.indexOf(".img") != -1 || fileName.indexOf(".jpeg") != -1){   
 							//遍历模块的名
-							if(!moduleNameMap.isEmpty()){
-								for(String imgNameKey : moduleNameMap.keySet()){
-									String imgNamePart = moduleNameMap.get(imgNameKey);
+							if(!moduleNameMapThread.getTl().get().isEmpty()){
+								for(String imgNameKey : moduleNameMapThread.getTl().get().keySet()){
+									String imgNamePart = moduleNameMapThread.getTl().get().get(imgNameKey);
 									if(fileName.indexOf(imgNamePart) != -1){
 										//找到对应的模块id
-										Integer moduleId = moduleIdMap.get(imgNameKey);  //模块id
+										Integer moduleId = moduleIdMapThread.getTl().get().get(imgNameKey);  //模块id
 										//创建图片文件，调用dao 保存图片文件
 										PaasTemplateFile pictureFile = new PaasTemplateFile();
 										pictureFile.setFileName(fileName);
 										pictureFile.setModuleId(moduleId);
-										pictureFile.setTemplateId(passTemplate.getId());
+										pictureFile.setTemplateId(passTemplateThread.getTl().get().getId());
 										byte[] imgByte = CommonTool.File2byte(file);
 										pictureFile.setFile(imgByte);
 										int pictureResult = paasTemplateFileMapper.insert(pictureFile);
@@ -597,7 +654,7 @@ public class TemplateService<T> {
 						if(fileName.indexOf(".svg") != -1){   
 							PaasTemplateFile svgFile = new PaasTemplateFile();
 							svgFile.setFileName(fileName);
-							svgFile.setTemplateId(passTemplate.getId());
+							svgFile.setTemplateId(passTemplateThread.getTl().get().getId());
 							byte [] svgBytes = CommonTool.File2byte(file);
 							svgFile.setFile(svgBytes);
 							int svgResult = paasTemplateFileMapper.insert(svgFile);
@@ -614,7 +671,7 @@ public class TemplateService<T> {
 						if(fileName.indexOf(".md") != -1){
 							PaasTemplateFile readMeFile = new PaasTemplateFile();
 							readMeFile.setFileName(fileName);
-							readMeFile.setTemplateId(passTemplate.getId());
+							readMeFile.setTemplateId(passTemplateThread.getTl().get().getId());
 							byte[] readMeByte = CommonTool.File2byte(file);
 							readMeFile.setFile(readMeByte);
 							
