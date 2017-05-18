@@ -282,6 +282,15 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//删除模板
 			$scope.delTemplate_fn = function(){
 				//alert("删除模板");
+				if($('.checkbox_1:checked').length == 0){
+					swal("请先选中模板!", "", "warning");
+					return;
+				}
+				if($('.checkbox_1:checked').length > 1){
+					swal("不支持多选!", "", "warning");
+					$('.checkbox_1').prop("checked",false);
+					return;
+				}
 				
 				$('.checkbox_1').each(function () {  
 		    		var isChecked = $(this).prop("checked"); 

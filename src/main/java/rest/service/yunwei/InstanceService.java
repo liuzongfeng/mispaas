@@ -39,11 +39,11 @@ public class InstanceService {
 			String instanceId = (String)paasInstanceMap.get("instanceId");
 			PaasInstance paasInstance = paasInstanceMapper.selectByPrimaryKey(instanceId);
 			String instanceName = (String)paasInstanceMap.get("instanceName");       //实例名称
-			String instanceStatus = (String)paasInstanceMap.get("instanceStatus"); //实例状态
-			Integer instanceStatusI = 0;
+			Integer instanceStatus = (Integer)paasInstanceMap.get("instanceStatus"); //实例状态
+			/*Integer instanceStatusI = 0;
 			if(null != instanceStatus || !"".equals(instanceStatus)){
 				instanceStatusI = Integer.parseInt(instanceStatus);
-			}
+			}*/
 			String accessKey = (String)paasInstanceMap.get("accessKey");             //秘钥
 			String pubDns = (String)paasInstanceMap.get("pubDns");                   //公共域名
 			String urlPrefix = (String)paasInstanceMap.get("urlPrefix");             //前缀
@@ -51,7 +51,7 @@ public class InstanceService {
 			
 			
 			paasInstance.setInstanceName(instanceName);
-			paasInstance.setInstanceStatus(instanceStatusI);
+			paasInstance.setInstanceStatus(instanceStatus);
 			paasInstance.setAccessKey(accessKey);
 			paasInstance.setPubDns(pubDns);
 			paasInstance.setUrlPrefix(urlPrefix);
