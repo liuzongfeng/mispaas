@@ -1,7 +1,7 @@
 package rest.service.yunwei;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,6 @@ import com.github.pagehelper.PageInfo;
 
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.model.passModel.PaasInstance;
-import rest.mybatis.model.passModel.PaasTemplate;
 
 @Controller
 public class InstanceService {
@@ -27,11 +27,60 @@ public class InstanceService {
 	private PaasInstanceMapper paasInstanceMapper;
 	
 ////////////////////////////////接口区域：start//////////////////////////////////////////////////////////////////////////
+	
+	@RequestMapping(value = "/editInstance", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,String> editInstance(@RequestBody Map instance_s){
+		String result = null;
+		Map<String,String> map = new HashMap<String,String>();
+		try {
+			LinkedHashMap paasInstanceMap = (LinkedHashMap)instance_s.get("instance_s");
+			
+			String instanceId = (String)paasInstanceMap.get("instanceId");
+			PaasInstance paasInstance = paasInstanceMapper.selectByPrimaryKey(instanceId);
+			String instanceName = (String)paasInstanceMap.get("instanceName");       //实例名称
+			String instanceStatus = (String)paasInstanceMap.get("instanceStatus"); //实例状态
+			Integer instanceStatusI = 0;
+			if(null != instanceStatus || !"".equals(instanceStatus)){
+				instanceStatusI = Integer.parseInt(instanceStatus);
+			}
+			String accessKey = (String)paasInstanceMap.get("accessKey");             //秘钥
+			String pubDns = (String)paasInstanceMap.get("pubDns");                   //公共域名
+			String urlPrefix = (String)paasInstanceMap.get("urlPrefix");             //前缀
+			String version = (String)paasInstanceMap.get("version");                 //版本
+			
+			
+			paasInstance.setInstanceName(instanceName);
+			paasInstance.setInstanceStatus(instanceStatusI);
+			paasInstance.setAccessKey(accessKey);
+			paasInstance.setPubDns(pubDns);
+			paasInstance.setUrlPrefix(urlPrefix);
+			paasInstance.setVersion(version);
+			
+			int upresult = paasInstanceMapper.updateByPrimaryKeySelective(paasInstance);
+			if(upresult == 0){
+				result = "更新失败";
+				map.put("result", result);
+				return map;
+			}
+			result = "updateOk";
+			map.put("result", result);
+			return map;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = "系统异常，更新失败";
+			map.put("result", result);
+			return map;
+		}
+		
+	}
+	
 	/**
 	 * TODO 获得模板分类
 	 * @return
 	 */
-	@RequestMapping(value = "/obtainInstanceStatus", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/obtainInstanceStatus", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> obtainInstanceStatus(){
 		
@@ -40,7 +89,7 @@ public class InstanceService {
 		
 		return null != instanceStatus ? instanceStatus : new ArrayList<String>() ;
 	}
-	
+	*/
 	/**
 	 * TODO 查询实例
 	 * @param req

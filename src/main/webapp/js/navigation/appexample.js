@@ -146,7 +146,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			}
 			//取消编辑实例
 			$scope.cancleExample_fn = function(){
-				alert("取消编辑实例");
+				
                 $("#activeExample").attr("class","active");
 				$scope.editAppexample_title = false;
 				$scope.createAppexample_title = false;
@@ -157,7 +157,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 			}
             $scope.closeEditExample_fn = function () {
-                alert("取消编辑实例");
+                
                 $("#activeExample").attr("class","active");
                 $scope.editAppexample_title = false;
                 $scope.createAppexample_title = false;
@@ -211,25 +211,10 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 		    				var instance = $scope.instances[i];
 		    				if(instance.instanceId == instanceId_s){
 		    					$scope.Instance_s= instance;
-		    					//根据模板id,发起请求加载模块信息
-		    					$scope.subServices = instance.paasTemplate.paasSubservices;
-		    					/*var templateId = instance.paasTemplate.id;
-		    					$http({
-		    						  method: 'GET',
-		    						  params:{"templateId":templateId},
-		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
-		    						}).then(function successCallback(response) {
-		    							$scope.subServices = response.data;
-		    							
-		    						}, function errorCallback(response) {
-		    						    // called asynchronously if an error occurs
-		    						    // or server returns response with an error status.
-		    					});*/
 		    					
+		    					$scope.subServices = instance.paasTemplate.paasSubservices;
 		    				}
 		    			}
-		    			
-		    			//不支持多选：将其他的复选框置为false
 		    		}
 		    		if(aa == 1){//
 		    			$('.checkbox_1').prop("checked",false);
@@ -237,9 +222,40 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 		    	});
 				
 				if(aa == 0){//未选中
-					swal("请先选中模板!", "", "warning");
+					swal("请先选中实例!", "", "warning");
 					$scope.closeEditExample_fn();
 				}
+			}
+			
+			
+			//提交编辑修改
+			$scope.postEditInstance_fn = function(){
+				$scope.Instance_s.paasTemplate = $scope.Instance_s.paasTemplate.id;
+				var instance_s = $scope.Instance_s;
+				
+				var req = {
+						 method: 'POST',
+						 url: 'http://localhost:8080/editInstance',
+						 headers: {
+						   'Content-Type': "application/json"
+						 },
+						 data: { instance_s: instance_s}
+						}
+
+						$http(req).then(function(response){
+							var resultUp = response.data.result;
+							if(resultUp == "updateOk"){
+								swal("更新实例成功!", "", "success");
+								$scope.closeEditExample_fn();
+								selectPage_aa(1);//查询列表
+								
+							}else{
+								swal(resultUp, "", "error");
+								$scope.closeEditExample_fn();
+								selectPage_aa(1);//查询列表
+							}
+							
+						}, function(){});
 			}
 			
 			//
@@ -270,24 +286,10 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					
 					alert("请求后端进行删除");
 					swal("删除成功!", "已被删除!", "success");
-					/*if("" != projectId){
-						projectAjaxBO.deleteProjectBByNumber(projectId,showManagerProject);
-					}*/
+					
 				});
 		}
-			//返回后的函数
-		/*function showManagerProject(result){
-			if("1" == result){
-				swal("删除成功!", "该项目已被删除!", "success");
-				setTimeout('tiaozhuanyemian()',1000);
-			}else if("0" == result){
-				swal("删除失败!", "请联系管理员!", "error");
-			}else if("2" == result){
-				swal("系统异常!", "请联系管理员!", "error"); 
-			}else{
-				swal("系统异常!", "请联系管理员!", "error");
-			}
-		}*/
+			
 			
 			
 			
