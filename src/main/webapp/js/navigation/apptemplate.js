@@ -115,7 +115,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			//$scope.editTemplate= false;
 			$("#activeTemplate").attr("class","active");
 			
-			console.log("2222222222222222");
 			
 			//导入模板
 			$scope.importTemplate_fn = function(){

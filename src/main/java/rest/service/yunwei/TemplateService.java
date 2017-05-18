@@ -57,6 +57,12 @@ public class TemplateService<T> {
 		File aaa = new File("D:/aaa");
 		aaa.delete();*/
 		
+		/*try {
+			deleteDir("D:/aaa");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
 	}
 	/**
@@ -88,7 +94,10 @@ public class TemplateService<T> {
 		FileOutputStream fos = null;
 	    FileInputStream fis = null;
 	    File zFile = null;
+	    String uzipPath = null;
 		try {
+			String serverPath=Thread.currentThread().getContextClassLoader().getResource("").getPath();  //服务所在绝对路径
+			System.out.println(serverPath);
 			//-----------------------------------------上传文件到服务器暂存---------
 			String overWriteExist = req.getParameter("overWriteExist"); //是否覆盖
 			System.out.println(overWriteExist);
@@ -116,7 +125,7 @@ public class TemplateService<T> {
 		    
 		    
 		    //将文件先暂存本地磁盘，之后删除
-		    zFile = new File("D:/uploadFiles//" + uploadFileName + "."+ uploadFileSuffix);
+		    zFile = new File( serverPath+ uploadFileName + "."+ uploadFileSuffix);
 		    fis = (FileInputStream) uploadzipfile.getInputStream();
 		    fos = new FileOutputStream(zFile);
 		    byte[] temp = new byte[1024];
@@ -127,9 +136,10 @@ public class TemplateService<T> {
 		    	i = fis.read(temp);
 		    }
 		    //---------------------------------解压该文件 到指定目录-------
-		    unzip(zFile,"D:/aaa");
+		    uzipPath = serverPath+"tempUZip/";
+		    unzip(zFile,uzipPath);
 		    //---------------------------------读取目录文件----------------
-		    obtailYmlFile("D:/aaa/"+uploadFileName);
+		    obtailYmlFile(uzipPath+uploadFileName);
 		    return "uploadOK";
 		  
 		} catch (Exception e) {
@@ -158,8 +168,8 @@ public class TemplateService<T> {
 	      
 	      try {
 	    	 zFile.delete();
-			 deleteDir("D:/aaa");
-			 File aaa = new File("D:/aaa");
+			 deleteDir(uzipPath);
+			 File aaa = new File(uzipPath);
 		     aaa.delete();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -672,6 +682,10 @@ public class TemplateService<T> {
 	            	}
 	            	System.out.println("---删除："+f1.getName());
 	            	f1.delete();
+	            	if(f1.exists()){
+	            		System.gc();
+	            		forceDelDir(f1);//直至解除占用后删除
+	            	}
 	            }
 	            
 	        }
@@ -681,6 +695,14 @@ public class TemplateService<T> {
 		}
 		
     }
+	//直至解除占用后删除
+	public void forceDelDir(File f){
+		f.delete();
+		if(f.exists()){
+    		System.gc();
+    		forceDelDir(f);
+    	}
+	}
 
 
 }
