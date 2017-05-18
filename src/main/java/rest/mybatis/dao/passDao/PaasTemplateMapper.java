@@ -56,7 +56,7 @@ public interface PaasTemplateMapper {
     //条件查询产品列表
     List<PaasTemplate> selectpaasTemplateList(@Param("page")Integer page,
     		@Param("id")Integer id,
-    		@Param("templateName") String templateName,
+    		@Param("productName") String productName,
     		@Param("templateCategory") String templateCategory,
     		@Param("counm") Integer counm);
     List<PaasTemplate> selecttemplateCategory();
