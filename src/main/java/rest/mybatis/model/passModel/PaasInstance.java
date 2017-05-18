@@ -74,7 +74,17 @@ public class PaasInstance {
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
     
- private PaasTemplate paasTemplate;
+    private String version;
+    
+ public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+private PaasTemplate paasTemplate;
     
     public PaasTemplate getPaasTemplate() {
 		return paasTemplate;
