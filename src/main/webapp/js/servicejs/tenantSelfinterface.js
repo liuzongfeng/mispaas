@@ -19,4 +19,6 @@ tenantSelfinterfaces={
 		Var_getTemplateCategorys:paasrest_dns+'/passService/getTemplateCategorys',
 		//撤销定单
 		Var_repealOrder:paasrest_dns+'/passService/repealOrder',
+		//名字模糊查询产品列表
+		Var_showApplicationListByInstanceName:paasrest_dns+'/passService/showApplicationListByInstanceName',
 };

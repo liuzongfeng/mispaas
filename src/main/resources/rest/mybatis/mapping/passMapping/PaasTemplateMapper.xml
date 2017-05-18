@@ -129,8 +129,8 @@
     from PAAS_TEMPLATE
     <where>
     	IS_PUB = 1
-    	<if test="templateName!=null and templateName!=''">
-    	and TEMPLATE_NAME  like '%${templateName}%'
+    	<if test="productName!=null and productName!=''">
+    	and PRODUCT_NAME  like '%${productName}%'
     	</if>
     	<if test="templateCategory!=null and templateCategory!=''">
     	and TEMPLATE_CATEGORY = #{templateCategory}

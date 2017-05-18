@@ -113,17 +113,34 @@ public class PaasOrderAndTemplateService {
 		@ResponseBody
 		public Pageinfo showTempliteList(@RequestParam(value="page",defaultValue="1") Integer page,
 				@RequestParam(value="id",required=false) Integer id,
-				@RequestParam(value="templateName",required=false) String templateName,
+				@RequestParam(value="productName",required=false) String productName,
 				@RequestParam(value="templateCategory",required=false) String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm){
 				
 				Integer num = paasTemplateMapper.selecttemplateCount();
 				Pageinfo pi=pageutil.initpage(num, page.toString());
-				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,templateName, templateCategory, counm);
+				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,productName, templateCategory, counm);
 				pi.setResultObj(list);
 				return pi;
 		}
-		
+		//名称模糊查询应用列表
+		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
+		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
+				@RequestParam(value="tenantId") String tenantId,
+				@RequestParam(value="instanceName") String instanceName,
+				@RequestParam(value="templateCategory") String templateCategory,
+				@RequestParam(value="counm",defaultValue="10") Integer counm){
+				
+				Integer num = passordermapper.selectOrderCount(tenantId);
+				/*PageHelper.startPage(page, counm);*/
+				Pageinfo pi=pageutil.initpage(num, page);
+				int i = Integer.parseInt(page);
+				List<PaasOrder> list = passordermapper.selectByInstanceName(i,tenantId, instanceName, templateCategory,counm);
+				/*PageInfo pageInfo = new PageInfo(list);*/
+				pi.setResultObj(list);
+				return pi;
+		}
 		//获取模板分类
 		@RequestMapping(value="/passService/getTemplateCategorys",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 		@ResponseBody
