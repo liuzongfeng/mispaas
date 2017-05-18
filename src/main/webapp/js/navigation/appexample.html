@@ -75,7 +75,7 @@
                          <tbody>
                          <tr ng-repeat="Instance in instances">
                              <td><input class="checkbox_1" type="checkbox" value="{{Instance.instanceId}}">{{Instance.paasTemplate.templateId}}</td>
-                             <td></td>
+                             <td>{{Instance.version}}</td>
 
                              <td><a>{{Instance.instanceId}}</a></td>
                              <td>{{Instance.instanceName}}</td>
@@ -99,57 +99,53 @@
                             <div class="form-group">
                                 <label for="templateID1" class="col-sm-2 control-label">模板ID</label>
 								<div class="col-sm-10">
-                                <input type="text" class="form-control" id="templateID1" value="{{Instance_s.paasTemplate.templateId}}">
+                                <input type="text" class="form-control" id="templateID1" value="{{Instance_s.paasTemplate.templateId}}" disabled="disabled">
 								</div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleID" class="col-sm-2 control-label">实例Id</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="exampleID" value="{{Instance_s.instanceId}}">
+                                <input type="text" class="form-control" id="exampleID" value="{{Instance_s.instanceId}}" disabled="disabled">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleName" class="col-sm-2 control-label">实例名称</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="exampleName" value="{{Instance_s.instanceName}}">
+                                <input type="text" class="form-control" id="exampleName" ng-model="Instance_s.instanceName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleVersion" class="col-sm-2 control-label">版本号</label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="exampleVersion" ng-model="Instance_s.version">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleStatus" class="col-sm-2 control-label">状态</label>
                                 <div class="col-sm-10">
-                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 0">
-                                    <option value="0" checked>待审核</option>
-                                    <option value="1">运行中</option>
-                                    <option value="2">已撤销</option>
-                                </select>
-                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 1">
-                                    <option value="0">待审核</option>
-                                    <option value="1" checked>运行中</option>
-                                    <option value="2">已撤销</option>
-                                </select>
-                                <select class="form-control" id="exampleStatus" ng-if="Instance_s.instanceStatus == 2">
-                                    <option value="0">待审核</option>
-                                    <option value="1">运行中</option>
-                                    <option value="2" checked>已撤销</option>
+                                <select class="form-control" id="exampleStatus"  ng-model="Instance_s.instanceStatus">
+                                    <option ng-selected="Instance_s.instanceStatus == 0" value="0">待审核</option>
+                                    <option ng-selected="Instance_s.instanceStatus == 1" value="1">运行中</option>
+                                    <option ng-selected="Instance_s.instanceStatus == 2" value="2">已撤销</option>
                                 </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="visitPass" class="col-sm-2 control-label">访问秘钥</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="visitPass" value="{{Instance_s.accessKey}}">
+                                <input type="text" class="form-control" id="visitPass" ng-model="Instance_s.accessKey" >
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="publicArea" class="col-sm-2 control-label">公共域名</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="publicArea" value="{{Instance_s.pubDns}}">
+                                <input type="text" class="form-control" id="publicArea" ng-model="Instance_s.pubDns">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="preURL" class="col-sm-2 control-label">URL前缀</label>
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="preURL" value="{{Instance_s.urlPrefix}}">
+                                <input type="text" class="form-control" id="preURL" ng-model="Instance_s.urlPrefix">
                                 </div>
                             </div>
 
@@ -189,7 +185,7 @@
                             </div>
                     <div class="form-group">
 			    		<div class="col-sm-offset-2 col-sm-10">
-			      		<button type="submit" class="btn btn-default">提交</button>
+			      		<button type="button" class="btn btn-default" ng-click="postEditInstance_fn()">提交</button>
 			      		<button type="button" ng-click="cancleExample_fn()" class="btn btn-default" style="margin-left:30px;">取消</button>
 			    		</div>
 		  			</div>
