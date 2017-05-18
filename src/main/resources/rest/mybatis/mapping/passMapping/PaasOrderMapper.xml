@@ -36,6 +36,7 @@
 		 <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="TEMPLATE_ID" property="templateId" jdbcType="VARCHAR" />
     <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="TEMPLATE_NAME" property="templateName" jdbcType="VARCHAR" />
     <result column="TEMPLATE_TYPE" property="templateType" jdbcType="VARCHAR" />
     <result column="TEMPLATE_CATEGORY" property="templateCategory" jdbcType="VARCHAR" />
     <result column="USER_MODE" property="userMode" jdbcType="VARCHAR" />
@@ -262,25 +263,34 @@
   	<if test="status != null">
   		and STATUS=#{status,jdbcType=INTEGER}
   	</if>
-  	<if test="crateDate != null and crateDate != ''">
-  		and CRATE_DATE>=#{crateDate,jdbcType=TIMESTAMP}
+  	<if test="startDate != null and startDate != ''">
+  		and DATE_FORMAT(CRATE_DATE,'%Y-%m-%d') <![CDATA[>=]]> #{startDate,jdbcType=DATE}
+  	</if>
+  	<if test="endDate != null and endDate != ''">
+  		and DATE_FORMAT(CRATE_DATE,'%Y-%m-%d') <![CDATA[<=]]> #{endDate,jdbcType=DATE}
   	</if>
   </select>
   
   <select id="selectPaasOrderObjByCondit" resultMap="BaseResultMap" parameterType="rest.page.util.Pageinfo">
-  	select <include refid="Base_Column_List" /> 
-  	from PAAS_ORDER
+  	select
+  	a.ID, a.BILL_NO, a.PRO_ID, a.TENANT_ID, a.STATUS, a.CRATE_DATE, a.APPROVE_ID, 
+  	a.APPROVE_DATE, a.APPROVE_DESCIBE, a.INSTANCE_ID, b.TEMPLATE_NAME
+  	from PAAS_ORDER a
+  	left join PAAS_TEMPLATE b on a.PRO_ID=b.ID
   	where 1=1 
   	<if test="ConditionObj.tenantId != null and ConditionObj.tenantId != ''">
-  		and TENANT_ID=#{ConditionObj.tenantId,jdbcType=INTEGER}
+  		and a.TENANT_ID=#{ConditionObj.tenantId,jdbcType=INTEGER}
   	</if>
   	<if test="ConditionObj.status != null">
-  		and STATUS=#{ConditionObj.status,jdbcType=VARCHAR}
+  		and a.STATUS=#{ConditionObj.status,jdbcType=VARCHAR}
   	</if>
-  	<if test="ConditionObj.crateDate != null and ConditionObj.crateDate != ''">
-  		and CRATE_DATE >= #{ConditionObj.crateDate,jdbcType=TIMESTAMP}
+  	<if test="ConditionObj.startDate != null and ConditionObj.startDate != ''">
+  		and DATE_FORMAT(CRATE_DATE,'%Y-%m-%d') <![CDATA[>=]]> #{ConditionObj.startDate,jdbcType=DATE}
   	</if>
-  	order by CRATE_DATE DESC
+  	<if test="ConditionObj.endDate != null and ConditionObj.endDate != ''">
+  		and DATE_FORMAT(CRATE_DATE,'%Y-%m-%d') <![CDATA[<=]]> #{ConditionObj.endDate,jdbcType=DATE}
+  	</if>
+  	order by a.CRATE_DATE DESC
   	limit #{begin},#{shownum}
   </select>
   <update id="updateOrderStatue" parameterType="rest.mybatis.model.passModel.PaasOrder">
@@ -310,7 +320,7 @@
       <if test="approveDescibe != null" >
         APPROVE_DESCIBE = #{approveDescibe,jdbcType=VARCHAR},
       </if>
-         <if test="approveDescibe != null" >
+      <if test="approveDescibe != null" >
         INSTANCE_ID = #{instanceId,jdbcType=VARCHAR},
       </if>
     </set>

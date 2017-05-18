@@ -209,11 +209,17 @@
   </insert>
   
   <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  	select count(INSTANCE_ID) from PAAS_INSTANCE where ORDER_ID=#{orderid}
+  	select count(INSTANCE_ID) from PAAS_INSTANCE where TEMPLATE_ID=#{templateId} and INSTANCE_STATUS in (0,1)
   </select>
   
-  <delete id="deleteAllinstanceByorderid" parameterType="java.lang.Integer">
-  	delete from PAAS_INSTANCE where ORDER_ID=#{orderid}
+  <select id="selectInstanceByinstanceid" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select  
+  	<include refid="Base_Column_List" />
+  	from PAAS_INSTANCE where INSTANCE_ID=#{instanceId} and INSTANCE_STATUS=1
+  </select>
+  
+  <delete id="deleteAllinstanceBytemplateId" parameterType="java.lang.Integer">
+  	update PAAS_INSTANCE set INSTANCE_STATUS=2 where TEMPLATE_ID=#{templateId}
   </delete>
   
   <select id="selecttheInstanceByTemplateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
