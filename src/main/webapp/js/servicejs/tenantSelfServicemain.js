@@ -29,7 +29,7 @@ function ordertoscope($scope,$http,id) {
 	//名称模糊查询应用
 	$scope.getapplicationByInstanceName=function(){
 		var page=null;
-		applictionListController($scope,$http,page);
+		appListBynameController($scope,$http,page);
 		
 	};
 	//分类查询应用

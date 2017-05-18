@@ -14,6 +14,41 @@
 		<version>1.5.3.RELEASE</version>
 	</parent>
 	<dependencies>
+		<dependency>    
+		    <groupId>net.sf.json-lib</groupId>    
+		    <artifactId>json-lib</artifactId>    
+		    <version>2.2.1</version>    
+		    <classifier>jdk15</classifier><!--指定jdk版本-->    
+		</dependency>
+		<dependency>  
+            <groupId>org.apache.commons</groupId>  
+            <artifactId>commons-lang3</artifactId>  
+            <version>3.1</version>  
+        </dependency>  
+          
+        <dependency>  
+            <groupId>commons-beanutils</groupId>  
+            <artifactId>commons-beanutils</artifactId>  
+            <version>1.8.3</version>  
+        </dependency>  
+          
+        <dependency>  
+            <groupId>commons-logging</groupId>  
+            <artifactId>commons-logging</artifactId>  
+            <version>1.1.1</version>  
+        </dependency>  
+          
+        <dependency>  
+            <groupId>commons-collections</groupId>  
+            <artifactId>commons-collections</artifactId>  
+            <version>3.2.1</version>  
+        </dependency>  
+  
+        <dependency>  
+            <groupId>net.sf.ezmorph</groupId>  
+            <artifactId>ezmorph</artifactId>  
+            <version>1.0.6</version>  
+        </dependency> 
 		<!-- spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

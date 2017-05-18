@@ -32,11 +32,18 @@ public class PaasInstanceImp{
 		session.close();
 		return (result!=null && result>0)?true:false;
 	}
-	//删除实例
-	public void deleteAllinstanceByOrderid(Integer orderid)
+	
+	public List<PaasInstance> selectInstanceByirderud(String instanceid) {
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasInstance> list=session.selectList("selectInstanceByinstanceid",instanceid);
+		session.close();
+		return list;
+	}
+	//将实例置为撤销状态
+	public void deleteAllinstanceByOrderid(Integer templateId)
 	{
 		SqlSession session=sqlSessionFactory.openSession();
-		int result=session.delete("deleteAllinstanceByorderid",orderid);
+		int result=session.delete("deleteAllinstanceBytemplateId",templateId);
 		session.close();
 	}
 	

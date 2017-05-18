@@ -177,7 +177,7 @@
                                         	<h4>产品名称查询:</h4>
                                         	</div>
                                         	 <div class="input-group" style="width:220px;margin-right: 30px;">
-                                           <input type="text" class="form-control" placeholder="按名称查询" ng-model="templateName" ng-init="templateName=''" ng-blur="gettemplatesBytemplateName()">
+                                           <input type="text" class="form-control" placeholder="按名称查询" ng-model="productName" ng-init="productName=''" ng-blur="gettemplatesBytemplateName()">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button" >Go!</button>
                                                 </span>
@@ -197,7 +197,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat=" template in templateList">
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails(template.id)">{{template.templateName}}</a></td>
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
                                     <td>{{template.templateCategory}}</td>
                                     <td>{{template.templateName}}</td>
                                     <td><button type="button" class="btn btn-default btn-sm" ng-click="BuyGoodsDetails(template.id)">购买</button></td>
@@ -232,7 +232,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>产品名称:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            {{template.templateId}}
+                                            {{template.productName}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -452,7 +452,12 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="paasOrder in applicationList">
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a></td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
+                                    <td ng-if="paasOrder.status!=1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a></td>
                                     <td>{{paasOrder.paasTemplate.templateCategory}}</td>
                                     <td>{{paasOrder.crateDate}}</td>
                                     <td ng-if="paasOrder.status==0">待审核</td>

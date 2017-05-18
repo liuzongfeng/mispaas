@@ -201,7 +201,7 @@ function templateListController($scope,$http,id,page){
         method: 'POST',
         url: tenantSelfinterfaces.Var_showTempliteList,
         contentType: "application/json",
-        params:{"page":page,"id":id,"templateName":$scope.templateName,"templateCategory":$scope.templateCategory2,"counm":''},
+        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.templateCategory2,"counm":''},
     }).then(function successCallback(response) {
     	$scope.tepagenum =response.data.pageStr.split(",");
     	$scope.tepageinfo = response.data;
@@ -218,6 +218,32 @@ function templateListController($scope,$http,id,page){
      $scope.DetailsOfGoodsTab =false;
      $scope.myApplicationUsers=false;
      $('#myTab a[href="#ListOfGoodsTab"]').tab('show');
+};
+//名字子模糊查询应用列表接口
+function appListBynameController($scope,$http,page){
+	$http({
+        method: 'POST',
+        url: tenantSelfinterfaces.Var_showApplicationListByInstanceName,
+        contentType: "application/json",
+        params:{"page":page,"tenantId":1,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+    }).then(function successCallback(response) {
+    	for(i=0;i<response.data.resultObj.length;i++){
+    		var newTime = new Date(response.data.resultObj[i].crateDate);
+    		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
+    	}
+    	$scope.pagenum =response.data.pageStr.split(",");
+    	$scope.pageinfo = response.data;
+    	$scope.applicationList=response.data.resultObj;
+        }, function errorCallback(response) {
+    }); 
+	    $scope.myApplicationListTab=true;
+        $scope.theBillListTab =false;
+        $scope.ListOfGoodsTab=false;
+        $scope.myApplicationList=true;
+        $scope.ListOfGoods=false;
+        $scope.theBillList=false;
+        $scope.DetailsOfGoodsTab =false;
+        $('#myTab a[href="#myApplicationListTab"]').tab('show')
 };
 //日期格式控件
 Date.prototype.Format = function (fmt) { //author: meizz 
