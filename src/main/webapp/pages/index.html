@@ -55,8 +55,9 @@
             /*width: 45px;*/
         /*}*/
     </style>
+    <script src="../js/angular.min.js"></script>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="70">
+<body data-spy="scroll" data-target=".navbar" data-offset="70" ng-app="myapp" ng-controller="myController">
 
 <div class="container">
 
@@ -86,37 +87,37 @@
             </div>
         </div>
         <br>
-        <div class="row">
-            <div class="col-xs-6 col-md-3">
-                <a href="index_lzf.html" class="thumbnail">
-                    运维管理<img data-src="holder.js/254x128" class="img-thumbnail" alt="运维管理">
-                </a>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                租户门户<a href="tenantSelfServicemain.html" class="thumbnail">
-                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-                </a>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                运营管理<a href="ProductList.html" class="thumbnail">
-                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-                </a>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <a href="OrderList.html" class="thumbnail">
-                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-                </a>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <a href="ProductList.html" class="thumbnail">
-                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-                </a>
-            </div>
-            <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                    <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera">
-                </a>
-            </div>
+        <div class="row" id="application">
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="index_lzf.html" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="运维管理"> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="tenantSelfServicemain.html" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="租户门户"> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="ProductList.html" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="运营管理"> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="OrderList.html" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera"> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="ProductList.html" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera"> -->
+<!--                 </a> -->
+<!--             </div> -->
+<!--             <div class="col-xs-6 col-md-3"> -->
+<!--                 <a href="#" class="thumbnail"> -->
+<!--                     <img data-src="holder.js/254x128" class="img-thumbnail" alt="A generic square placeholder image with a white border around it, making it resemble a photograph taken with an old instant camera"> -->
+<!--                 </a> -->
+<!--             </div> -->
         </div>
     </div>
 
@@ -163,4 +164,28 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+	var app=angular.module("myapp",[]);
+	//用户登陆之后获取租户ID
+	var dates;
+	var pagestr="";
+	var url="/rest/productService/getIndexPageElement/admin";
+	app.controller('myController', function($scope,$http) {
+		$http.get(url).success(function(response){
+			for (var i = 0; i < response.length; i++) {
+				if(response[i] == "PID_SYSTEM_ADMIN")
+				{
+					pagestr+='<div class="col-xs-6 col-md-3"><a href="index_lzf.html" class="thumbnail"><img data-src="holder.js/254x128" class="img-thumbnail" alt="运维管理"></a></div>';
+				}else if(response[i] == "PID_SYSTEM_OPERATION")
+				{
+					pagestr+='<div class="col-xs-6 col-md-3"><a href="ProductList.html" class="thumbnail"><img data-src="holder.js/254x128" class="img-thumbnail" alt="运营管理"></a></div>';
+				}else if(response[i] == "PID_BUSINESS_OPERATION")
+				{
+					pagestr+='<div class="col-xs-6 col-md-3"><a href="tenantSelfServicemain.html" class="thumbnail"><img data-src="holder.js/254x128" class="img-thumbnail" alt="租户门户"></a></div>';
+				}
+			}
+			$('#application').html(pagestr);
+		});
+	});
+</script>
 </html>
