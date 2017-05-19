@@ -21,4 +21,8 @@ tenantSelfinterfaces={
 		Var_repealOrder:paasrest_dns+'/passService/repealOrder',
 		//名字模糊查询产品列表
 		Var_showApplicationListByInstanceName:paasrest_dns+'/passService/showApplicationListByInstanceName',
+		//获取组织机构
+		Var_getOrgtree:paasrest_dns+'/passService/getOrgtree',
+		//第三方会获取组织机构接口
+		Var_othergetOrgtree:'http://100.0.10.100:8080/usermanager/api/authorization/organizations?pageStart=1&pageSize=1000'
 };

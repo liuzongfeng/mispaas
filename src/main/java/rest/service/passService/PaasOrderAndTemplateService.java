@@ -1,9 +1,13 @@
 package rest.service.passService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
+import net.sf.json.JSONObject;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasOrdTenantOrgRMapper;
 import rest.mybatis.dao.passDao.PaasOrderMapper;
@@ -24,13 +26,13 @@ import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
 import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasTemplate;
+import rest.page.util.OrgRequestUtil;
 import rest.page.util.PageUtil;
 import rest.page.util.Pageinfo;
 
 
 @RestController
 public class PaasOrderAndTemplateService {
-	
 	@Autowired
 	private PaasOrderMapper passordermapper;
 	@Autowired
@@ -42,8 +44,10 @@ public class PaasOrderAndTemplateService {
 	@Autowired
 	private PageUtil pageutil;
 	//创建订单he维护订单租户和组织机构的关系
-	@RequestMapping(value="/passService/createPaasOrder",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public void createPaasOrder(@RequestBody PaasOrder paasOrder,@RequestParam("ids")ArrayList<String> ids,@RequestParam("tenantId") String tenantId){
+	@RequestMapping(value="/passService/createPaasOrder",method=RequestMethod.POST)
+	public void createPaasOrder(@RequestBody PaasOrder paasOrder,@RequestParam(value="ids",required=false)ArrayList<String> ids,
+			@RequestParam("tenantId") String tenantId,
+			@RequestParam(value="names",required=false)ArrayList<String> names){
 		PaasOrdTenantOrgR orgR = new PaasOrdTenantOrgR();
 		String uuid = UUID.randomUUID().toString();
 		paasOrder.setBillNo(uuid);
@@ -51,13 +55,18 @@ public class PaasOrderAndTemplateService {
 		PaasOrder order = passordermapper.selectByUUID(uuid);
 		orgR.setOrdId(order.getId());
 		orgR.setTenantId(tenantId);
-		for (String integer : ids) {
-			orgR.setOrgId(integer);
-			paasOrdTenantOrgMapper.insert(orgR);
+		if(ids!=null){
+			int size = ids.size();
+			for(int i=0;i<size;i++){
+				String id = ids.get(i);
+				String name = names.get(i);
+				orgR.setOrgId(id);
+				orgR.setOrgName(name);paasOrdTenantOrgMapper.insert(orgR);
+			}
 		}
 	}
 	//查询已购买的应用（订单，模板，实例）
-	@RequestMapping(value="/passService/showApplicationList",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/passService/showApplicationList",method=RequestMethod.POST)
 	@ResponseBody
 	public Pageinfo showApplicationList(@RequestParam(value="page",defaultValue="1") String page,
 			@RequestParam(value="tenantId") String tenantId,
@@ -75,48 +84,56 @@ public class PaasOrderAndTemplateService {
 			return pi;
 	}
 	//查询应用详情(实例详情)
-	@RequestMapping(value="/passService/showApplicationDetails",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/passService/showApplicationDetails",method=RequestMethod.GET)
 	@ResponseBody
-	public PaasInstance showApplicationDetails(@RequestParam("orderId") Integer orderId){
-		PaasInstance paasInstance = paasInstanceMapper.selectByorderId(orderId);
-		return paasInstance;
+	public Object showApplicationDetails(@RequestParam("orderId") Integer orderId){
+		PaasOrder paasOrder = passordermapper.selectByPrimaryId(orderId);
+		return paasOrder;
 	}
 	//获取应用实例和组织机构的关系
-	@RequestMapping(value="/passService/getInstanceAndOrgShip",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/passService/getInstanceAndOrgShip",method=RequestMethod.GET)
 	@ResponseBody
 	public List<PaasOrdTenantOrgR> getInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
 		List<PaasOrdTenantOrgR> list = paasOrdTenantOrgMapper.selectPaasOrdTenantOrgRByOrderID(orderId);
 		return list;
 	}
 	//插入订单组织机构关系
-	@RequestMapping(value="/passService/addInstanceAndOrgShip",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/passService/addInstanceAndOrgShip",method=RequestMethod.POST)
 	@ResponseBody
-	public void addInstanceAndOrgShip(@RequestParam("ids")ArrayList<String> ids,@RequestParam("tenantId") String tenantId,@RequestParam("orderId") Integer orderId){
+	public void addInstanceAndOrgShip(@RequestParam(value="ids",required=false)ArrayList<String> ids,@RequestParam("tenantId") String tenantId,
+			@RequestParam("orderId") Integer orderId,
+			@RequestParam(value="names",required=false)ArrayList<String> names){
 		PaasOrdTenantOrgR orgR = new PaasOrdTenantOrgR();
 		orgR.setTenantId(tenantId);
 		orgR.setOrdId(orderId);
-		for (String integer : ids) {
-			orgR.setOrgId(integer);
-			paasOrdTenantOrgMapper.insert(orgR);
+		if(ids!=null){
+			int size = ids.size();
+			for(int i=0;i<size;i++){
+				String id = ids.get(i);
+				String name = names.get(i);
+				orgR.setOrgId(id);
+				orgR.setOrgName(name);
+				paasOrdTenantOrgMapper.insert(orgR);
+			}
 		}
 	}
 	
 	//删除订单组织机构关系
-	@RequestMapping(value="/passService/deleteInstanceAndOrgShip",method=RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/passService/deleteInstanceAndOrgShip",method=RequestMethod.DELETE)
 	@ResponseBody
 	public void deleteInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
 		paasOrdTenantOrgMapper.deleteByOrderID(orderId);
 	}
 	
 	//查询已发布的产品列表（订单，模板，实例）
-		@RequestMapping(value="/passService/showTempliteList",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value="/passService/showTempliteList",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showTempliteList(@RequestParam(value="page",defaultValue="1") Integer page,
 				@RequestParam(value="id",required=false) Integer id,
 				@RequestParam(value="productName",required=false) String productName,
 				@RequestParam(value="templateCategory",required=false) String templateCategory,
-				@RequestParam(value="counm",defaultValue="10") Integer counm){
-				
+				@RequestParam(value="counm",defaultValue="10") Integer counm,HttpServletResponse res){
+				res.setHeader("Access-Control-Allow-Origin", "*");
 				Integer num = paasTemplateMapper.selecttemplateCount();
 				Pageinfo pi=pageutil.initpage(num, page.toString());
 				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,productName, templateCategory, counm);
@@ -124,7 +141,7 @@ public class PaasOrderAndTemplateService {
 				return pi;
 		}
 		//名称模糊查询应用列表
-		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
 				@RequestParam(value="tenantId") String tenantId,
@@ -142,7 +159,7 @@ public class PaasOrderAndTemplateService {
 				return pi;
 		}
 		//获取模板分类
-		@RequestMapping(value="/passService/getTemplateCategorys",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value="/passService/getTemplateCategorys",method=RequestMethod.GET)
 		@ResponseBody
 		public List<PaasTemplate> getTemplateCategorys(){
 			List<PaasTemplate> list = paasTemplateMapper.selecttemplateCategory();
@@ -150,7 +167,7 @@ public class PaasOrderAndTemplateService {
 		}
 		
 		//撤销定单
-		@RequestMapping(value="/passService/repealOrder",method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value="/passService/repealOrder",method=RequestMethod.PUT)
 		@ResponseBody
 		public void repealOrder(@RequestParam("orderId") Integer orderId){
 			PaasOrder record = new PaasOrder();
@@ -163,5 +180,13 @@ public class PaasOrderAndTemplateService {
 			String instanceId = order.getInstanceId();
 			instance.setInstanceId(instanceId);
 			paasInstanceMapper.updateByPrimaryKeySelective(instance);
+		}
+		//获取组织机构
+		@RequestMapping(value="/passService/getOrgtree",method=RequestMethod.GET)
+		@ResponseBody
+		public String getOrgtree(@RequestParam("geturl") String geturl) throws IOException{
+			OrgRequestUtil util = new OrgRequestUtil();
+			String orgjson = util.getContent(geturl);
+			return orgjson;
 		}
 }

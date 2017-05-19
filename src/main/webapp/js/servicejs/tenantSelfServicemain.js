@@ -1,13 +1,15 @@
 function ordertoscope($scope,$http,id) {
 	$scope.createOrder=function(){
 		 var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
-		var ids = onCheck($http,$scope,zTree);
+		var ids = onCheckId($http,$scope,zTree);
+		var names = onCheckName($http,$scope,zTree);
+		console.log(names);
 		 var passOrde=
 		  {
 				id: null,
 				billNo: null,
 				proId: id,
-				tenantId: 1,
+				tenantId:$scope.tenantId,
 				status: null,
 				crateDate: new Date(),
 				approveId: null,
@@ -17,7 +19,7 @@ function ordertoscope($scope,$http,id) {
 		$http({
 	        method: 'POST',
 	        url: tenantSelfinterfaces.Var_createPaasOrder,
-	        params:{"tenantId":1,"ids":ids},
+	        params:{"tenantId":$scope.tenantId,"ids":ids,"names":names},
 	        datatype:"json",
 	        data:passOrde
 	    }).then(function successCallback(response) {
@@ -35,7 +37,7 @@ function ordertoscope($scope,$http,id) {
 	//分类查询应用
 	$scope.getapplicationBytemplateCategory=function(){
 		var page=null;
-		applictionListController($scope,$http,page);
+		appListBynameController($scope,$http,page);
 	};
 	//分类查询产品
 	$scope.gettemplateBytemplateCategory=function(){
@@ -60,7 +62,6 @@ function ordertoscope($scope,$http,id) {
 	};
 	//撤销定单
 	$scope.repealorder=function(orderId){
-		alert(orderId);
 		
 		$http({
 	        method: 'PUT',
@@ -80,7 +81,8 @@ function transmitOrderId(orderId,$scope,$http){
 	var orderId=orderId;
 	$scope.changeApplicationUser=function(){
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
-		var ids = onCheck($http,$scope,zTree);
+		var ids = onCheckId($http,$scope,zTree);
+		var names = onCheckName($http,$scope,zTree);
 		//删除原来的组织关系数据
 		$http({
 	        method: 'DElETE',
@@ -94,7 +96,7 @@ function transmitOrderId(orderId,$scope,$http){
 		$http({
 	        method: 'POST',
 	        url: tenantSelfinterfaces.Var_addInstanceAndOrgShip,
-	        params:{"tenantId":1,"ids":ids,"orderId":orderId},
+	        params:{"tenantId":$scope.tenantId,"ids":ids,"orderId":orderId,"names":names},
 	        datatype:"json",
 	    }).then(function successCallback(response) {
 	    	var page=null;
