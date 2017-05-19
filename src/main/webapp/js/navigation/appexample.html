@@ -5,7 +5,13 @@
              
              
              <li id="activeExample" ng-show="appexample_title"><a ng-click="appExample_fn()">应用实例</a></li>
-            <!-- <li id="activeCreateEx" ng-show="createAppexample_title"><a ng-click="createExample_fn()">创建实例</a></li>-->
+            <li id="activeCreateEx" ng-show="createAppexample_title">
+            	<button ng-click="closeEditExample_fn()" type="button" class="close" style="padding-left: 72px;
+                 position: absolute;z-index: 9999;">
+                     &times;
+                 </button>
+            <a ng-click="createExample_fn_title()">查看实例</a></li>
+            
              <li id="activeEditEx" ng-show="editAppexample_title">
                  <button ng-click="closeEditExample_fn()" type="button" class="close" style="padding-left: 72px;
                  position: absolute;z-index: 9999;">
@@ -28,7 +34,7 @@
                  <br/>
                  <!-- 按钮区 -->
                  <div class="btn-group">
-                     <!--<button type="button" class="btn btn-default" ng-click="createExample_fn()">创建实例</button>-->
+                     <!-- <button type="button" class="btn btn-default" ng-click="createExample_fn()">创建实例</button> -->
                      <button type="button" class="btn btn-default" ng-click="editExample_fn()">编辑实例</button>
                      <!-- <button type="button" class="btn btn-default" ng-click="delExample_fn()">删除实例</button> -->
                  </div>
@@ -76,8 +82,7 @@
                          <tr ng-repeat="Instance in instances">
                              <td><input class="checkbox_1" type="checkbox" value="{{Instance.instanceId}}">{{Instance.paasTemplate.templateId}}</td>
                              <td>{{Instance.version}}</td>
-
-                             <td><a>{{Instance.instanceId}}</a></td>
+                             <td><a ng-click="createExample_fn()">{{Instance.instanceId}}</a></td>
                              <td>{{Instance.instanceName}}</td>
 
                              <td ng-if="Instance.instanceStatus == 0">待创建</td>
@@ -185,7 +190,7 @@
                             </div>
                     <div class="form-group">
 			    		<div class="col-sm-offset-2 col-sm-10">
-			      		<button type="button" class="btn btn-default" ng-click="postEditInstance_fn()">提交</button>
+			      		<button id="searchInstanceDetail" type="button" class="btn btn-default" ng-click="postEditInstance_fn()">提交</button>
 			      		<button type="button" ng-click="cancleExample_fn()" class="btn btn-default" style="margin-left:30px;">取消</button>
 			    		</div>
 		  			</div>
