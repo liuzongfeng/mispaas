@@ -48,7 +48,9 @@ public interface PaasTemplateMapper {
      * This method corresponds to the database table PAAS_TEMPLATE
      *
      * @mbggenerated Mon May 08 16:50:01 CST 2017
+     * 
      */
+    List<PaasTemplate> selectByTemplateIdConfig(String templateId);
     PaasTemplate selectByTemplateId(String id);
     PaasTemplate selectByPrimaryKey(Integer id);
     //条件查询产品列表

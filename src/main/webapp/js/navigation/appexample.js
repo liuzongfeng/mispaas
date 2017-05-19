@@ -124,16 +124,13 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				$scope.appExample = true;
 				$scope.divPage=true;
 			}
-			//创建实例
-			$scope.createExample_fn = function(){
-				alert("创建实例");
-                $("#activeExample").attr("class","");
+			//创建实例--title
+			$scope.createExample_fn_title = function(){
+				$("#activeExample").attr("class","");
                 $("#activeCreateEx").attr("class","active");
                 $("#activeEditEx").attr("class","");
-               // $scope.editAppexample_title = false;
 				$scope.appExample = false;
 				$scope.divPage=false;
-				
 				$scope.createAppexample_title = true;
 				$scope.editExample=true;
                 $scope.editAppexample_title = false;
@@ -143,7 +140,39 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				if($scope.createAppexample_title){
                     $("#activeCreateEx").css("display","");
 				}
+				$("#searchInstanceDetail").hide();   //隐藏提交按钮
+				
 			}
+			//创建实例
+			$scope.createExample_fn = function(){
+				
+               
+				var tag = window.event.target || window.event.srcElement;
+				
+				$(tag).parent().prev().prev().children("[type=checkbox]").prop("checked",true);
+				
+				$scope.editExample_fn();
+				
+				
+				
+				$("#activeExample").attr("class","");
+                $("#activeCreateEx").attr("class","active");
+                $("#activeEditEx").attr("class","");
+				$scope.appExample = false;
+				$scope.divPage=false;
+				$scope.createAppexample_title = true;
+				$scope.editExample=true;
+                $scope.editAppexample_title = false;
+                if(!$scope.editAppexample_title){
+                    $("#activeEditEx").css("display","none");
+				}
+				if($scope.createAppexample_title){
+                    $("#activeCreateEx").css("display","");
+				}
+				$("#searchInstanceDetail").hide();   //隐藏提交按钮
+				
+			}
+			
 			//取消编辑实例
 			$scope.cancleExample_fn = function(){
 				
@@ -168,8 +197,6 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
             }
 			//编辑实例
 			$scope.editExample_fn = function(){
-				
-                
 				
 				if($('.checkbox_1:checked').length == 0){
 					swal("请先选中实例!", "", "warning");
