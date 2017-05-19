@@ -3,8 +3,7 @@
  */
 var setting = {
 		    view: {
-		        addHoverDom: addHoverDom,
-		        removeHoverDom: removeHoverDom,
+		       
 		        selectedMulti: false,
 		    	showIcon: false,
 		    	showLine: false,
@@ -23,7 +22,7 @@ var setting = {
 		        enable: false,
 		    }
 		};
-var zNodes = [
+/*var zNodes = [
 	 { id: 11, pId: 0, name: "父节点11", open: true },
 	    { id: 10, pId: 11, name: "父节点10"},
 	    { id: 123, pId: 11, name: "叶子节点123" },
@@ -40,7 +39,8 @@ var zNodes = [
 	    { id: 3114, pId: 689, name: "父节点3114", open: true },
 	    { id: 2016, pId: 689, name: "叶子节点2016" },
 	    { id: 2017, pId: 689, name: "叶子节点2017" },
-];
+];*/
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function createTree1(node,orgtree){
 	var testarry = [];
 	var stree = orgtree.organizationList;
@@ -57,6 +57,7 @@ function createTree1(node,orgtree){
 	    $.fn.zTree.init($("#treeDemo2"), setting, testarry);
 	});
 };
+///+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function createTree2(orgtree){
 	var testarry = [];
 	var stree = orgtree.organizationList;
@@ -67,28 +68,26 @@ function createTree2(orgtree){
 	    $.fn.zTree.init($("#treeDemo1"), setting, testarry);
 	});
 };
-function createTree3(){
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function createTree3(node,orgtree){
+	var testarry = [];
+	var stree = orgtree.organizationList;
+	for(i=0;i<stree.length;i++){
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false, "chkDisabled":true};
+		for(j=0;j<node.length;j++){
+			if(stree[i].id==node[j].orgId){
+				testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:true};
+				break;
+			}
+		}	
+	}
 	$(document).ready(function () {
-	    $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+	    $.fn.zTree.init($("#treeDemo3"), setting, testarry);
 	});
 };
-function addHoverDom(treeId, treeNode) {
-   /* var sObj = $("#" + treeNode.tId + "_span");*/
-    if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
-    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-        + "' title='add node' onfocus='this.blur();'></span>";
-   /* sObj.after(addStr);*/
-    var btn = $("#addBtn_" + treeNode.tId);
-    if (btn) btn.bind("click", function () {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
-        return false;
-    });
-};
-function removeHoverDom(treeId, treeNode) {
-    $("#addBtn_" + treeNode.tId).unbind().remove();
-};
-
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//获取点选的机构ID集合
 function onCheckId($http,$scope,zTree) {
         nodes = zTree.getCheckedNodes(true),
         v = "";
@@ -108,6 +107,8 @@ function onCheckId($http,$scope,zTree) {
     }
     	return null;
 };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+//获取点选的机构名称集合。
 function onCheckName($http,$scope,zTree) {
     nodes = zTree.getCheckedNodes(true),
     v = "";
@@ -127,6 +128,24 @@ if (v.length > 0) {
 }
 	return null;
 };
+//=====================================================================================
+function addHoverDom(treeId, treeNode) {
+var sObj = $("#" + treeNode.tId + "_span");
+if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+    + "' title='add node' onfocus='this.blur();'></span>";
+sObj.after(addStr);
+var btn = $("#addBtn_" + treeNode.tId);
+if (btn) btn.bind("click", function () {
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
+    return false;
+});
+};
+function removeHoverDom(treeId, treeNode) {
+$("#addBtn_" + treeNode.tId).unbind().remove();
+};
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*//显示菜单
 function showMenu() {
     $("#menuContent2").css({ left: "15px", top: "34px" }).slideDown("fast");

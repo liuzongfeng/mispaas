@@ -57,7 +57,7 @@
 }
 
 div.content_wrap {
-	width: 600px;
+	width: 40%;
 	height: 90%;
 }
 
@@ -72,7 +72,7 @@ div.content_wrap div.right {
 }
 
 div.zTreeDemoBackground {
-	width: 400px;
+	width: 40%;
 	height: 362px;
 	text-align: left;
 }
@@ -307,7 +307,7 @@ ul.log li.dark {
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
                                             
-                                                <div id="menuContent" class="content_wrap" style="">
+                                                <div id="menuContent" class="content_wrap" >
                                                 	<div class="zTreeDemoBackground left">
                                                 		<ul id="treeDemo1" class="ztree" style="margin-top:0; width:100%;"></ul>
                                                 	</div>
@@ -574,8 +574,8 @@ ul.log li.dark {
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
-                                        <table class="table">
+                                    <div class="col-sm-6" style="width:38%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
+                                        <table class="table" style="">
                                           <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
                                                 <td><strong>模块说明</strong></td>
@@ -644,7 +644,7 @@ ul.log li.dark {
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
+                                    <div class="col-sm-6" style="width:38%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
                                         <table class="table">
                                             <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
@@ -664,26 +664,16 @@ ul.log li.dark {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>用户群列表:</strong></label>
-                                        <div class="col-sm-6" style="width:40%;margin-top: 10px;">
-                                            <table class="table">
-                                                <tr style="height: 10%;">
-                                                    <td><strong>用户群名称</strong></td>
-                                                    <td><strong></strong></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr style="height: 10%;" ng-repeat="org in Orglist">
-                                                    <td><span class="glyphicon glyphicon-user"></span>{{org.orgName}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                               <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>用户群组:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                            <div id="menuContent2" class="content_wrap" style="">
+                                            <div class="zTreeDemoBackground left">
+                                            	<ul id="treeDemo3" class="ztree" style="margin-top:0; width:100%;"></ul>
+                                            </div>
+                                            </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -696,7 +686,7 @@ ul.log li.dark {
                     </div>
                 </div>
             </td>
-        </tr>
+            </tr>
         </tbody>
     </table>
 </div>

@@ -106,6 +106,17 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.Orglist=response.data;
                 }, function errorCallback(response) {
             }); 
+        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
+            	createTree3($scope.Orglist,$scope.chOrglist);
+                }, function errorCallback(response) {
+            }); 
+        	
             }, function errorCallback(response) {
         }); 
         $scope.myApplicationDetails=true;

@@ -7,9 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.sf.json.JSONObject;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasOrdTenantOrgRMapper;
 import rest.mybatis.dao.passDao.PaasOrderMapper;
