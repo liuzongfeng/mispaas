@@ -223,18 +223,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    					$scope.Template = template;
 		    					//根据模板id,发起请求加载模块信息
 		    					$scope.subServices = template.paasSubservices;
-		    					/*$http({
-		    						  method: 'GET',
-		    						  params:{"templateId":templateId},
-		    						  url: 'http://localhost:8080/obtainSubServiceByTemplateId'
-		    						}).then(function successCallback(response) {
-		    							$scope.subServices = response.data;
-		    							
-		    						}, function errorCallback(response) {
-		    						    // called asynchronously if an error occurs
-		    						    // or server returns response with an error status.
-		    					});
-		    					*/
+		    					
 		    				}
 		    			}
 		    			
@@ -408,15 +397,3 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			    });
 			});
 		});
-
-
-
-
-
-
-
-
-
-
-
-
