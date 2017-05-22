@@ -40,8 +40,21 @@ public class PaasOrdTenantOrgR {
      * @return the value of PAAS_ORD_TENANT_ORG_R.ID
      *
      * @mbggenerated Mon May 08 16:50:01 CST 2017
+     * 
      */
-    public Integer getId() {
+    
+    private String orgName;
+    
+    
+    public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+
+	public Integer getId() {
         return id;
     }
 

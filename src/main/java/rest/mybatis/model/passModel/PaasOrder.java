@@ -1,6 +1,7 @@
 package rest.mybatis.model.passModel;
 
 import java.util.Date;
+import java.util.List;
 
 public class PaasOrder {
     /**
@@ -85,8 +86,17 @@ public class PaasOrder {
      */
     private PaasInstance paasInstance;
     private PaasTemplate paasTemplate;
+    private List paasSubservices;
     
-    private Date startDate;
+    public List getPaasSubservices() {
+		return paasSubservices;
+	}
+
+	public void setPaasSubservices(List paasSubservices) {
+		this.paasSubservices = paasSubservices;
+	}
+
+	private Date startDate;
     private Date endDate;
     
     public PaasInstance getPaasInstance() {
