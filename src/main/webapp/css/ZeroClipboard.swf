@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <link rel="dns-prefetch" href="https://striker.teambition.net">
+    <link rel="dns-prefetch" href="https://dn-st.teambition.net/teambition/">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Teambition | Loading...</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="NOINDEX,NOFOLLOW">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="renderer" content="webkit">
+    
+      <link rel="shortcut icon" href="data:image/png;base64,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" type="image/png">
+    
+    
+      <link id="loading-style" rel="stylesheet" href="https://dn-st.teambition.net/teambition/css/loading.e2ab0933.css"/>
+      <link rel="stylesheet" href="https://dn-st.teambition.net/teambition/css/common.05a96082.css"/>
+      <link rel="stylesheet" href="https://dn-st.teambition.net/teambition/css/teambition.039ad00e.css"/>
+    
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/web-statics/logo-square.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/web-statics/logo-square@2x.png"/>
+  </head>
+  <body>
+    <span id="teambition-config" style="display: none">
+      {&quot;env&quot;:&quot;release&quot;,&quot;language&quot;:&quot;zh&quot;,&quot;version&quot;:&quot;8.2.7&quot;,&quot;AB_AUTHORIZATION&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiIzNjk0ZjVhMGZhNmZjYmU3ZmM5NjU1YjNlMDQzYjkzYjMxOWUyNjk0IiwiZXhwIjoxNDk1MTYwMDI1NjU5LCJpYXQiOjE0OTUxNTkxMjV9.cLJ2Ul6eIPj6uCauq1WWbSSWuuFU8Y0lU8FEZYRpGTo&quot;,&quot;HOST&quot;:&quot;https://www.teambition.com&quot;,&quot;API_HOST&quot;:&quot;/api&quot;,&quot;API_X_PORT&quot;:null,&quot;PUSH_HOST&quot;:&quot;https://push.teambition.com&quot;,&quot;FILE_HOST&quot;:&quot;https://striker.teambition.net&quot;,&quot;OFFICE_ONLINE_HOST&quot;:&quot;https://wopi.teambition.com&quot;,&quot;INTEGRATION_HOST&quot;:&quot;https://integration.teambition.com&quot;,&quot;CAPTCHA_HOST&quot;:&quot;https://auth_services.teambition.com/captcha&quot;,&quot;ACCOUNT_HOST&quot;:&quot;https://account.teambition.com&quot;,&quot;PAY_HOST&quot;:&quot;http://pay.teambition.com&quot;,&quot;SITE_HOST&quot;:&quot;https://www.teambition.com&quot;,&quot;LOGS_HOST&quot;:&quot;https://logs.teambition.com/log.gif&quot;,&quot;SHIMO_HOST&quot;:&quot;https://api.shimo.im&quot;,&quot;CHINA_HOST&quot;:&quot;https://www.teambition.com/projects&quot;,&quot;INTERNATIONAL_HOST&quot;:&quot;https://us.teambition.com/projects&quot;,&quot;AB_HOST&quot;:&quot;https://tbanalysis.teambition.com&quot;,&quot;PDF_VIEWER_URL&quot;:&quot;https://dn-st.teambition.net/teambition/statics/pdfviewer/v1.0.1/index.html&quot;,&quot;HELP_CENTER_URL&quot;:&quot;http://guide.teambition.net&quot;,&quot;BUSINESS_URL&quot;:&quot;https://www.teambition.com/business&quot;,&quot;WORKFLOW_URL&quot;:&quot;https://blog.teambition.com/workflow&quot;,&quot;BBS_URL&quot;:&quot;https://bbs.teambition.com&quot;,&quot;BLOG_URL&quot;:&quot;https://blog.teambition.com&quot;,&quot;GANTT_BLOG_URL&quot;:&quot;https://blog.teambition.com/gantt&quot;,&quot;TEMPLATE_FEEDBACK_URL&quot;:&quot;https://form.teambition.net/f/cknOLc&quot;,&quot;ENTERPRISE_URL&quot;:&quot;https://www.teambition.com/enterprise&quot;,&quot;LANGUAGES&quot;:[&quot;zh&quot;,&quot;zh_tw&quot;,&quot;en&quot;],&quot;FEATURES&quot;:{&quot;dingding&quot;:true,&quot;userMenu_personalCenter&quot;:true,&quot;userMenu_payCenter&quot;:false,&quot;userMenu_community&quot;:false,&quot;userMenu_app&quot;:true,&quot;userMenu_international&quot;:true,&quot;upload_dropbox&quot;:true,&quot;create_organization_skip_sms_screen&quot;:false,&quot;create_organization_skip_verification&quot;:false,&quot;project_template&quot;:true,&quot;task_reminder&quot;:true,&quot;custom_field&quot;:true,&quot;org_admin&quot;:true,&quot;enable_alias_in_member_search&quot;:false,&quot;share&quot;:true,&quot;officeOnline&quot;:false,&quot;onboarding&quot;:true,&quot;webScreen&quot;:&quot;&quot;,&quot;qrLinkInvite&quot;:true,&quot;subPersonalTask&quot;:true,&quot;subPersonalCalendar&quot;:true,&quot;subProjectTask&quot;:true,&quot;plugins&quot;:true,&quot;personalProject&quot;:true,&quot;newOrganization&quot;:true,&quot;handoverTasks&quot;:true,&quot;customScrumFlow&quot;:false,&quot;organizationAnalysis&quot;:false,&quot;organizationReport_progress&quot;:true,&quot;organizationReport_blog&quot;:true,&quot;thirdShare&quot;:true,&quot;weixinInvite&quot;:true,&quot;customFavicon&quot;:false,&quot;customSystemFields&quot;:false,&quot;customFieldsValue&quot;:{},&quot;myNotes&quot;:true,&quot;showMemberIcon&quot;:true,&quot;communicate_intercom&quot;:false,&quot;upload_feedback&quot;:true,&quot;post_shimo&quot;:true,&quot;post_yiqixie&quot;:true},&quot;INTERCOM_APP_ID&quot;:&quot;gcevx7lf&quot;,&quot;ANALYSIS_BLOG_URL&quot;:&quot;https://www.teambition.com/analysis&quot;,&quot;FILE_FREE_SIZE&quot;:200000000,&quot;FILE_MAX_SIZE&quot;:1000000000,&quot;LOCALES&quot;:{&quot;zh&quot;:{},&quot;en&quot;:{}},&quot;TOOLBOX_PATH&quot;:&quot;/toolbox/api&quot;,&quot;TITLE&quot;:&quot;&quot;,&quot;CDN_URL&quot;:&quot;https://dn-st.teambition.net/teambition/&quot;,&quot;user&quot;:{&quot;avatarUrl&quot;:&quot;https://striker.teambition.net/thumbnail/110i715bc340988b67be4cae760bda311d37/w/200/h/200&quot;,&quot;name&quot;:&quot;张行&quot;,&quot;email&quot;:&quot;zhangxing@dayang.com.cn&quot;,&quot;_id&quot;:&quot;5769f1140878b3e701f5ad1b&quot;,&quot;isNew&quot;:false,&quot;region&quot;:&quot;cn&quot;},&quot;acceptLanguages&quot;:&quot;zh-CN,zh;q=0.8,en;q=0.6&quot;}
+    </span>
+    <script src="https://dn-st.teambition.net/teambition/js/loading.e2ab0933.js"></script>
+    <header id="navigator" class="navbar navbar-fixed-top"></header>
+    <div id="content" class="clearfix"></div>
+    
+      <script id="dropboxjs" data-app-key="59e4b6vr2zppz6q"></script>
+    
+    <script id="gta-main"
+    
+      data-google="UA-41231871-1"
+    
+      data-tbpanel="eSpCz4lYpMYgtuhdH0F6Wgtt"
+    
+      data-baidu="ec912ecc405ccd050e4cdf452ef4e85a"
+    
+      data-customer="04cfe7c1f3b46254c6f6,a34ce87933cc7d880b6c"
+    
+      data-fullstory="M776"
+    
+      data-fullstory-random-proportion="0.0333"
+     ></script>
+    <script src="https://dn-st.teambition.net/teambition/js/manifest.e38b6d88.js"></script>
+    <script src="https://dn-st.teambition.net/teambition/js/forever.1e9b5977.js"></script>
+    <script src="https://dn-st.teambition.net/teambition/js/common.05a96082.js"></script>
+    <script src="https://dn-st.teambition.net/teambition/js/teambition.039ad00e.js"></script>
+  </body>
+</html>
