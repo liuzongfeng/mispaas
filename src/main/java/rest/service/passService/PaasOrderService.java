@@ -1,5 +1,6 @@
 package rest.service.passService;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class PaasOrderService {
 	@Autowired
 	private PageUtil pageutil;
 	@RequestMapping("/rest/orderService/getAllOrder")
-	public Pageinfo getAllOrder(@RequestParam(name="TenantName",required=false,defaultValue="") String TenantName,@RequestParam(name="Status",required=false,defaultValue="") Integer Status,@RequestParam(name="startTime",required=false,defaultValue="") String startTime,@RequestParam(name="endTime",required=false,defaultValue="") String endTime,@RequestParam(name="page",required=false,defaultValue="1") String page) throws ParseException
+	public Pageinfo getAllOrder(@RequestParam(name="TenantName",required=false,defaultValue="") String TenantName,@RequestParam(name="Status",required=false,defaultValue="") Integer Status,@RequestParam(name="startTime",required=false,defaultValue="") String startTime,@RequestParam(name="endTime",required=false,defaultValue="") String endTime,@RequestParam(name="page",required=false,defaultValue="1") String page) throws ParseException, IOException
 	{
 		PaasOrder po=new PaasOrder();
 		//从远端那到租户ID 然后封装
@@ -100,6 +101,7 @@ public class PaasOrderService {
 				pi.setTemplateId(pt.getId());
 				pi.setInstanceName("default name");
 				pi.setInstanceStatus(0);
+				pi.setVersion(pt.getVersion());
 				try
 				{
 					paasInstanceImp.insert(pi);
@@ -123,7 +125,11 @@ public class PaasOrderService {
 				return new Message("fail","存在实例处于运行中，无法驳回！",new Date());
 			}else
 			{
-				paasInstanceImp.deleteAllinstanceByOrderid(pt.getId());
+				//不为共享实例 状态置为撤销，共享实例不作操作
+				if(!"must".equals(pt.getUserMode()))
+				{
+					paasInstanceImp.deleteAllinstanceByOrderid(pt.getId());
+				}
 			}
 			//实例置空
 			po.setInstanceId("");
