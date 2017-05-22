@@ -303,7 +303,19 @@ ul.log li.dark {
                                         </div>
                                     </div>
                                     </strong>
-                                    <div class="form-group" ng-show="Details" ng-model="Details">
+                                     <div class="form-group" ng-show="Details" ng-model="Details">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>选择租户:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;width: 28%;">
+                                        		
+												<select class="form-control" ng-model="value" ng-init="value='请选择租户'">
+													<option selected="selected">请选择租户</option>
+													<option value="admin">admin</option>
+													<option value="admin1">admin1</option>
+													<option value="admin2">admin2</option>
+												</select>
+                                        </div>
+                                     </div>
+                                    <div class="form-group" ng-show="Details" >
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
                                             
@@ -574,7 +586,7 @@ ul.log li.dark {
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:38%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
+                                    <div class="col-sm-6" style="width:26.5%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
                                         <table class="table" style="">
                                           <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
@@ -644,7 +656,7 @@ ul.log li.dark {
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:38%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
+                                    <div class="col-sm-6" style="width:26.5%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
                                         <table class="table">
                                             <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
