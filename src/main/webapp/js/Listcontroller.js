@@ -66,13 +66,22 @@ app.controller('ListCtrl', function($scope,$http) {
             params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
-        	createTree2();
+        	/*createTree3();*/
+        	/*$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
+            	createTree2($scope.chOrglist);
+                }, function errorCallback(response) {
+            }); */
             }, function errorCallback(response) {
         }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
-        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
+        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show');
         ordertoscope($scope,$http,id);
     };
     $scope.closeGoodsDetails=function(){
@@ -97,6 +106,17 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.Orglist=response.data;
                 }, function errorCallback(response) {
             }); 
+        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
+            	createTree3($scope.Orglist,$scope.chOrglist);
+                }, function errorCallback(response) {
+            }); 
+        	
             }, function errorCallback(response) {
         }); 
         $scope.myApplicationDetails=true;
@@ -117,7 +137,7 @@ app.controller('ListCtrl', function($scope,$http) {
             contentType: "application/json",
             params:{"orderId":orderId},
         }).then(function successCallback(response) {
-        	$scope.applicationDetails=response.data;
+        	$scope.chapplicationDetails=response.data;
         	$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
@@ -125,10 +145,21 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
             	$scope.Orglist=response.data;
+                }, function errorCallback(response) {
+            });
+        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
             	console.log($scope.Orglist);
-            	createTree1($scope.Orglist);
+            	console.log($scope.chOrglist);
+            	createTree1($scope.Orglist,$scope.chOrglist);
                 }, function errorCallback(response) {
             }); 
+        	
             }, function errorCallback(response) {
         }); 
     	transmitOrderId(orderId,$scope,$http);
@@ -168,7 +199,7 @@ function applictionListController($scope,$http,page){
         method: 'POST',
         url: tenantSelfinterfaces.Var_showApplicationList,
         contentType: "application/json",
-        params:{"page":page,"tenantId":1,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
     }).then(function successCallback(response) {
     	for(i=0;i<response.data.resultObj.length;i++){
     		var newTime = new Date(response.data.resultObj[i].crateDate);
@@ -200,7 +231,8 @@ function templateListController($scope,$http,id,page){
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showTempliteList,
-        contentType: "application/json",
+        
+        datatype:"JSONP",
         params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.templateCategory2,"counm":''},
     }).then(function successCallback(response) {
     	$scope.tepagenum =response.data.pageStr.split(",");
@@ -225,7 +257,7 @@ function appListBynameController($scope,$http,page){
         method: 'POST',
         url: tenantSelfinterfaces.Var_showApplicationListByInstanceName,
         contentType: "application/json",
-        params:{"page":page,"tenantId":1,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
     }).then(function successCallback(response) {
     	for(i=0;i<response.data.resultObj.length;i++){
     		var newTime = new Date(response.data.resultObj[i].crateDate);

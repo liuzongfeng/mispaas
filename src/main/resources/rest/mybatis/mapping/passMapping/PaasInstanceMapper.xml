@@ -233,8 +233,8 @@
   	<selectKey keyProperty="instanceId" resultType="String" order="BEFORE">
         SELECT UUID()
     </selectKey>
-  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID)
-  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId})
+  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID,VERSION)
+  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId},#{version})
   </insert>
   
   <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">

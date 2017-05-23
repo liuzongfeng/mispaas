@@ -3,13 +3,15 @@
  */
 var setting = {
 		    view: {
-		        addHoverDom: addHoverDom,
-		        removeHoverDom: removeHoverDom,
-		        selectedMulti: false
+		       
+		        selectedMulti: false,
+		    	showIcon: false,
+		    	showLine: false,
+		    	/*fontCss : {color:"red"}*/
 		    },
 		    check: {
 		        enable: true,
-		        chkboxType : { "Y" : "", "N" : "" }
+		        chkboxType : { "Y" : "s", "N" : "ps"}
 		    },
 		    data: {
 		        simpleData: {
@@ -17,10 +19,10 @@ var setting = {
 		        }
 		    },
 		    edit: {
-		        enable: false
+		        enable: false,
 		    }
 		};
-var zNodes = [
+/*var zNodes = [
 	 { id: 11, pId: 0, name: "父节点11", open: true },
 	    { id: 10, pId: 11, name: "父节点10"},
 	    { id: 123, pId: 11, name: "叶子节点123" },
@@ -37,16 +39,17 @@ var zNodes = [
 	    { id: 3114, pId: 689, name: "父节点3114", open: true },
 	    { id: 2016, pId: 689, name: "叶子节点2016" },
 	    { id: 2017, pId: 689, name: "叶子节点2017" },
-];
-function createTree1(node){
+];*/
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function createTree1(node,orgtree){
 	var testarry = [];
-	for(i=0;i<node.length;i++){
+	var stree = orgtree.organizationList;
+	for(i=0;i<stree.length;i++){
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false};
 		for(j=0;j<node.length;j++){
-			if(node[i].orgId==node[j].orgId){
-				testarry[i]={ id: 11, pId: 0, name: "父节点11", open: true ,checked:true};
+			if(stree[i].id==node[j].orgId){
+				testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:true};
 				break;
-			}else{
-				testarry[i]={ id: 11, pId: 0, name: "父节点11", open: true ,checked:false};
 			}
 		}	
 	}
@@ -54,29 +57,38 @@ function createTree1(node){
 	    $.fn.zTree.init($("#treeDemo2"), setting, testarry);
 	});
 };
-function createTree2(){
+///+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function createTree2(orgtree){
+	var testarry = [];
+	var stree = orgtree.organizationList;
+	for(i=0;i<stree.length;i++){
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false};
+	}
 	$(document).ready(function () {
-	    $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+	    $.fn.zTree.init($("#treeDemo1"), setting, testarry);
 	});
 };
-function addHoverDom(treeId, treeNode) {
-   /* var sObj = $("#" + treeNode.tId + "_span");*/
-    if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
-    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
-        + "' title='add node' onfocus='this.blur();'></span>";
-   /* sObj.after(addStr);*/
-    var btn = $("#addBtn_" + treeNode.tId);
-    if (btn) btn.bind("click", function () {
-        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-        zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
-        return false;
-    });
-};
-function removeHoverDom(treeId, treeNode) {
-    $("#addBtn_" + treeNode.tId).unbind().remove();
-};
 
-function onCheck($http,$scope,zTree) {
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function createTree3(node,orgtree){
+	var testarry = [];
+	var stree = orgtree.organizationList;
+	for(i=0;i<stree.length;i++){
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false, "chkDisabled":true};
+		for(j=0;j<node.length;j++){
+			if(stree[i].id==node[j].orgId){
+				testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:true};
+				break;
+			}
+		}	
+	}
+	$(document).ready(function () {
+	    $.fn.zTree.init($("#treeDemo3"), setting, testarry);
+	});
+};
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//获取点选的机构ID集合
+function onCheckId($http,$scope,zTree) {
         nodes = zTree.getCheckedNodes(true),
         v = "";
     var parentid = "";
@@ -95,6 +107,45 @@ function onCheck($http,$scope,zTree) {
     }
     	return null;
 };
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+//获取点选的机构名称集合。
+function onCheckName($http,$scope,zTree) {
+    nodes = zTree.getCheckedNodes(true),
+    v = "";
+var parentid = "";
+var parentlevel = "";
+for (var i = 0, l = nodes.length; i < l; i++) {
+    v += nodes[i].name + ",";
+    parentid += nodes[i].id + ",";
+    parentlevel += nodes[i].menu_level + ",";
+}
+if (v.length > 0) {
+    v = v.substring(0, v.length - 1);
+    parentid = parentid.substring(0, parentid.length - 1);
+    parentlevel = parentlevel.substring(0, parentlevel.length - 1);
+    var names =v.split(",");
+	return names;
+}
+	return null;
+};
+//=====================================================================================
+function addHoverDom(treeId, treeNode) {
+var sObj = $("#" + treeNode.tId + "_span");
+if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+    + "' title='add node' onfocus='this.blur();'></span>";
+sObj.after(addStr);
+var btn = $("#addBtn_" + treeNode.tId);
+if (btn) btn.bind("click", function () {
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    zTree.addNodes(treeNode, { id: (100 + newCount), pId: treeNode.id, name: "new node" + (newCount++) });
+    return false;
+});
+};
+function removeHoverDom(treeId, treeNode) {
+$("#addBtn_" + treeNode.tId).unbind().remove();
+};
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*//显示菜单
 function showMenu() {
     $("#menuContent2").css({ left: "15px", top: "34px" }).slideDown("fast");
@@ -140,33 +191,3 @@ function onCheck(e, treeId, treeNode) {
         return;
     }
 }*/
-/* { id: 1, pId: 0, name: "父节点1", open: true },
-{ id: 11, pId: 1, name: "父节点11" },
-{ id: 11, pId: 1, name: "父节点11" },
-{ id: 111, pId: 11, name: "叶子节点111" },
-{ id: 112, pId: 11, name: "叶子节点112" },
-{ id: 113, pId: 11, name: "叶子节点113" },
-{ id: 114, pId: 11, name: "叶子节点114" },
-{ id: 12, pId: 1, name: "父节点12" },
-{ id: 121, pId: 12, name: "叶子节点121" },
-{ id: 122, pId: 12, name: "叶子节点122" },
-{ id: 123, pId: 12, name: "叶子节点123" },
-{ id: 124, pId: 12, name: "叶子节点124" },
-{ id: 13, pId: 1, name: "父节点13", isParent: true },
-{ id: 2, pId: 0, name: "父节点2" },
-{ id: 21, pId: 2, name: "父节点21", open: true },
-{ id: 211, pId: 21, name: "叶子节点211" },
-{ id: 212, pId: 21, name: "叶子节点212" },
-{ id: 213, pId: 21, name: "叶子节点213" },
-{ id: 214, pId: 21, name: "叶子节点214" },
-{ id: 22, pId: 2, name: "父节点22" },
-{ id: 221, pId: 22, name: "叶子节点221" },
-{ id: 222, pId: 22, name: "叶子节点222" },
-{ id: 223, pId: 22, name: "叶子节点223" },
-{ id: 224, pId: 22, name: "叶子节点224" },
-{ id: 23, pId: 2, name: "父节点23" },
-{ id: 231, pId: 23, name: "叶子节点231" },
-{ id: 232, pId: 23, name: "叶子节点232" },
-{ id: 233, pId: 23, name: "叶子节点233" },
-{ id: 234, pId: 23, name: "叶子节点234" },
-{ id: 3, pId: 0, name: "父节点3", isParent: true }*/
