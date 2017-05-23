@@ -10,8 +10,12 @@
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
+        <script type="text/javascript">
+        alert("aa");
+        	window.location.href="http://192.168.6.70:8080/pages/index.html";
+        </script>
         <form th:action="@{/hello}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
+            <div><label> User Name11: <input type="text" name="username"/> </label></div>
             <div><label> Password: <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="Sign In"/></div>
         </form>
