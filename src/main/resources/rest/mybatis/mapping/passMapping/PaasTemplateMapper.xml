@@ -18,6 +18,7 @@
     <result column="UPLOADPERSON" property="uploadPerson" jdbcType="VARCHAR" />
     <result column="UPLOADDATE" property="uploadDate" jdbcType="DATE" />
     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <collection property="paasSubservices" column="ID" ofType="rest.mybatis.model.passModel.PaasSubservice" select="selectSubserviceBytempleteId"></collection>
   </resultMap>
   <resultMap id="PaasTempleateResultMap" type="rest.mybatis.model.passModel.PaasTemplate" >
     <!--
@@ -65,6 +66,12 @@
     -->
     TEMPLATE_NAME
   </sql>
+  <!-- 子查询模块列表 -->
+  <select id="selectSubserviceBytempleteId" parameterType="java.lang.Integer" resultMap="rest.mybatis.dao.passDao.PaasSubserviceMapper.BaseResultMap">
+  	  select ID, TEMPLATE_ID, MODULE_NAME, MODULE_URL, MODULE_IS_DIS, MODULE_DES, MODULE_IMG_NAME
+  	   from PAAS_SUBSERVICE
+  	   where TEMPLATE_ID=#{ID}
+  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

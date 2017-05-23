@@ -111,7 +111,6 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			$scope.appExample = true;
 			$scope.divPage=true;
 			$("#activeExample").attr("class","active");
-			console.log("111111111111111111111111111111");
 			
 			//应用实例
 			$scope.appExample_fn = function(){

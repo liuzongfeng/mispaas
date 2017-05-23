@@ -1,7 +1,7 @@
 <!-- 标签页 -->
      <div style="width:100%;margin-right:2.5%;">
          <!-- 标签页头 -->
-         <ul id="myTab" class="nav nav-tabs" ng-show="appTab">
+         <ul id="myTab" class="nav nav-tabs" ng-show="appTab" style="background-color: #F7F7F7">
              <li id="activeTemplate"  ng-show="apptemplate1_title"><a ng-click="appTemplate_fn()">应用模板</a></li>
              <li id="activeEdit" ng-show="editTemplate_title">
                  <button ng-click="closeEditTemplate_fn()" type="button" class="close" style="padding-left: 72px;
@@ -21,10 +21,18 @@
                  <!-- 按钮区-->
                  <br/>
                  <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">导入模板</button>
-                    <button type="button" class="btn btn-default" ng-click="editTemplate_fn()">查看模板</button>
-                    <button type="button" class="btn btn-default" ng-click="delTemplate_fn()">删除模板</button>
-                    <button disabled="disabled" type="button" class="btn btn-default" ng-click="checkOutTemplate_fn()">导出模板</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                    	<img alt="" src="../img/uploadTemplateShow.png">	导入模板
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="editTemplate_fn()">
+                    	<img alt="" src="../img/editTemplate.png">  查看模板
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="delTemplate_fn()">
+                    	<img alt="" src="../img/delTemplateShow.png">删除模板
+                    </button>
+                    <button disabled="disabled" type="button" class="btn btn-default" ng-click="checkOutTemplate_fn()">
+                    	<img alt="" src="../img/exportTemplateShow.png">导出模板
+                    </button>
                  </div>
                  <br/>
                  <br/>

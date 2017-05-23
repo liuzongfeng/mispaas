@@ -168,28 +168,21 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$("#myModal").modal('hide');
 								selectPage_aa(1);
 						});
-						
-						
 					}
 				});
 			}
 			
 			//应用模板
 			$scope.appTemplate_fn = function(){
-				alert("应用模板")
+				
                 $("#activeTemplate").attr("class","active");
 				$("#activeEdit").attr("class","");
 				$scope.editTemplate = false;
-				//$scope.editTemplate_title=false;
 				$scope.appTab= true;
 				$scope.apptemplate1_title = true;
 				$scope.apptemplate1=true;
 				$scope.divPage=true;
 			}
-			
-			
-			
-			
 			//编辑模板
 			$scope.editTemplate_fn = function(){
 				
@@ -244,7 +237,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
             $scope.closeEditTemplate_fn = function () {
                 $scope.editTemplate_title=false;
                 $scope.editTemplate = false;
-                //$scope.editTemplate_title=false;
                 $("#activeTemplate").attr("class","active");
                 $scope.appTab= true;
                 $scope.apptemplate1_title = true;
@@ -255,7 +247,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			$scope.cancleTemplate_fn = function(){
 				$scope.editTemplate_title=false;
 				$scope.editTemplate = false;
-				//$scope.editTemplate_title=false;
                 $("#activeTemplate").attr("class","active");
 				$scope.appTab= true;
 				$scope.apptemplate1_title = true;
@@ -309,7 +300,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    							
 		    							
 		    							if(response.data.ok == "deleteok"){
-		    								//swal("删除成功!", "该模板已被删除!", "success");
 		    								swal({   
 		    									title:"删除成功!",
 		    									text: "该模板已被删除!",   
@@ -321,7 +311,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    									selectPage_aa(1);
 		    								});
 		    							}else{
-		    								//swal("删除失败!", response.data, "error");
 		    								swal({   
 		    									title:"删除失败!",
 		    									text: response.data.error,   

@@ -88,7 +88,7 @@
                 <th style="text-align: center"><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></th>
                 <td style="text-align: center">{{order.paasTemplate.templateName}}</td>
                 <td style="text-align: center">{{order.crateDate|date:"yyyy-MM-dd HH:mm:ss"}}</td>
-                <td style="text-align: center">{{order.tenantName}}</td>
+                <td style="text-align: center">{{order.tenantId}}</td>
                 <td style="text-align: center" ng-if="order.status==0">待审核</td>
                 <td style="text-align: center" ng-if="order.status==1">通过</td>
                 <td style="text-align: center" ng-if="order.status==2">驳回</td>
