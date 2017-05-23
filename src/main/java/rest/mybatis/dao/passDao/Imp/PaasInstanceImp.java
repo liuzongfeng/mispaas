@@ -10,16 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.model.passModel.PaasInstance;
 @Configuration
-public class PaasInstanceImp implements PaasInstanceMapper {
+public class PaasInstanceImp{
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
-	@Override
-	public int deleteByPrimaryKey(String instanceId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
 	public int insert(PaasInstance record) {
 		SqlSession session=sqlSessionFactory.openSession();
 		int result=session.insert("createInstance",record);
@@ -27,40 +21,36 @@ public class PaasInstanceImp implements PaasInstanceMapper {
 		return result;
 	}
 
-	@Override
-	public int insertSelective(PaasInstance record) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean isexistInstance(Integer orderid) {
+		SqlSession session=sqlSessionFactory.openSession();
+		List list=session.selectList("isexistInstance",orderid);
+		Integer result=null;
+		if(list.size()>0)
+		{
+			result=(Integer)list.get(0);
+		}
+		session.close();
+		return (result!=null && result>0)?true:false;
 	}
-
-	@Override
-	public PaasInstance selectByPrimaryKey(String instanceId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public List<PaasInstance> selectInstanceByirderud(String instanceid) {
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasInstance> list=session.selectList("selectInstanceByinstanceid",instanceid);
+		session.close();
+		return list;
 	}
-
-	@Override
-	public int updateByPrimaryKeySelective(PaasInstance record) {
-		// TODO Auto-generated method stub
-		return 0;
+	//将实例置为撤销状态
+	public void deleteAllinstanceByOrderid(Integer templateId)
+	{
+		SqlSession session=sqlSessionFactory.openSession();
+		int result=session.delete("deleteAllinstanceBytemplateId",templateId);
+		session.close();
 	}
-
-	@Override
-	public int updateByPrimaryKey(PaasInstance record) {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	public PaasInstance getInstanceByTemplateId(Integer templateId)
+	{
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasInstance> list=session.selectList("selecttheInstanceByTemplateId",templateId);
+		return list.size()>0?list.get(0):null;
 	}
-
-	@Override
-	public List<PaasInstance> selectInstanceByTemplateId(String templateId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PaasInstance selectByorderId(Integer orderId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -1,10 +1,15 @@
 package rest.mybatis.dao.passDao;
 
 import java.util.List;
+import java.util.Map;
 
 import rest.mybatis.model.passModel.PaasInstance;
 
 public interface PaasInstanceMapper {
+	
+	List<String> obtainInstanceStatus();
+	
+	List<PaasInstance> obtainInstanceList(Map paramMap);
 	
 	List<PaasInstance> selectInstanceByTemplateId(String templateId);
     /**
@@ -54,4 +59,6 @@ public interface PaasInstanceMapper {
      * @mbggenerated Mon May 08 16:50:01 CST 2017
      */
     int updateByPrimaryKey(PaasInstance record);
+    
+    boolean isexistInstance(Integer orderid);
 }

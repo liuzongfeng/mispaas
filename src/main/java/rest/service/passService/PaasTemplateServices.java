@@ -1,9 +1,14 @@
 package rest.service.passService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +18,15 @@ import rest.mybatis.model.passModel.PaasTemplate;
 import rest.page.util.Message;
 import rest.page.util.PageUtil;
 import rest.page.util.Pageinfo;
+import rest.page.util.RequestUtil;
 @RestController
 public class PaasTemplateServices {
 	@Autowired
 	private PageUtil pageUtil;
 	@Autowired
 	private PaasTemplateImp paasTemplateImp;
+	@Autowired
+	private RequestUtil requestUtil;
 	@RequestMapping("/rest/productService/getAllproduct")
 	public Pageinfo getAllproductList(@RequestParam(value="ProductName",defaultValue="",required=false) String ProductName,@RequestParam(value="userModel",defaultValue="",required=false) String userModel,@RequestParam(value="templateCategory",defaultValue="",required=false) String templateCategory,@RequestParam(value="page",defaultValue="1",required=false) String page)
 	{
@@ -55,5 +63,18 @@ public class PaasTemplateServices {
 	{
 		Map<String, List> map=paasTemplateImp.getTypeAndMode();
 		return map;
+	}
+	
+	/**
+	 * 获取门户信息
+	 * @throws IOException 
+	 */
+	@RequestMapping("/rest/productService/getIndexPageElement/{userid}")
+	public JSONArray getIndexPageElement(@PathVariable(value="userid") String userid) throws IOException
+	{
+		JSONObject jsono=requestUtil.getContent(userid);
+		JSONArray ja=jsono.getJSONArray("userList");
+		JSONObject joo=ja.getJSONObject(0);
+		return joo.getJSONArray("privilegeIdList");
 	}
 }

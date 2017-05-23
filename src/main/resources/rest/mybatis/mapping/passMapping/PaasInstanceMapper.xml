@@ -15,6 +15,7 @@
     <result column="PUB_DNS" property="pubDns" jdbcType="VARCHAR" />
     <result column="URL_PREFIX" property="urlPrefix" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
    <association property="paasTemplate" column="TEMPLATE_ID"
 		javaType="rest.mybatis.model.passModel.PaasTemplate" select="selectTemplateBytemplateId">
 	</association>
@@ -26,7 +27,7 @@
       This element was generated on Mon May 08 16:50:01 CST 2017.
     -->
     INSTANCE_ID, TEMPLATE_ID, INSTANCE_NAME, INSTANCE_STATUS, ACCESS_KEY, PUB_DNS, URL_PREFIX, 
-    ORDER_ID
+    ORDER_ID,VERSION
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -39,6 +40,31 @@
     from PAAS_INSTANCE
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </select>
+  <!-- 查询实例状态-->
+  <select id="obtainInstanceStatus" resultType="java.lang.String" >
+    
+    select 
+    INSTANCE_STATUS
+    from PAAS_INSTANCE GROUP BY INSTANCE_STATUS
+    
+  </select>
+  <!-- 查询所有实例 -->
+  <select id="obtainInstanceList" resultMap="BaseResultMap" >
+    
+    select 
+    <include refid="Base_Column_List" />
+    from PAAS_INSTANCE
+    <where>
+    	<if test="instanceName != null">
+    	 	AND INSTANCE_NAME LIKE CONCAT(CONCAT('%',#{instanceName}),'%')
+    	</if>
+    	<if test="instanceStatus != null">
+    		AND INSTANCE_STATUS = #{instanceStatus}
+    	</if>
+    </where> 
+     ORDER BY INSTANCE_ID DESC
+  </select>
+  
   <!-- 根据模板id查询实例 -->
   <select id="selectInstanceByTemplateId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -180,6 +206,9 @@
       <if test="orderId != null" >
         ORDER_ID = #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
     </set>
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </update>
@@ -204,7 +233,28 @@
   	<selectKey keyProperty="instanceId" resultType="String" order="BEFORE">
         SELECT UUID()
     </selectKey>
-  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID)
-  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId})
+  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID,VERSION)
+  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId},#{version})
   </insert>
+  
+  <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(INSTANCE_ID) from PAAS_INSTANCE where TEMPLATE_ID=#{templateId} and INSTANCE_STATUS in (0,1)
+  </select>
+  
+  <select id="selectInstanceByinstanceid" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select  
+  	<include refid="Base_Column_List" />
+  	from PAAS_INSTANCE where INSTANCE_ID=#{instanceId} and INSTANCE_STATUS=1
+  </select>
+  
+  <delete id="deleteAllinstanceBytemplateId" parameterType="java.lang.Integer">
+  	update PAAS_INSTANCE set INSTANCE_STATUS=2 where TEMPLATE_ID=#{templateId}
+  </delete>
+  
+  <select id="selecttheInstanceByTemplateId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from PAAS_INSTANCE
+    where TEMPLATE_ID=#{templateId}
+  </select>
 </mapper>

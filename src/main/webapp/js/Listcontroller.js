@@ -11,18 +11,21 @@
 var app = angular.module('listApp', []);
 app.controller('ListCtrl', function($scope,$http) {
 	var id= null;
-	templateListController($scope,$http,id);
+	var page=null;
+	templateListController($scope,$http,id,page);
 	ordertoscope($scope,$http,id);
     $scope.ListOfGoods=true;
     $scope.ListOfGoodsTab=true;
    //列表控制
     //产品列表
     $scope.nListOfGoods = function(id){
-    	templateListController($scope,$http,id);
+    	var page=null;
+    	templateListController($scope,$http,id,page);
     };
     //应用列表
     $scope.nmyApplicationList = function(){
-    	applictionListController($scope,$http);
+    	var page=null;
+    	applictionListController($scope,$http,page);
 	    };
     //账单列表
     $scope.ntheBillList = function(){
@@ -46,7 +49,7 @@ app.controller('ListCtrl', function($scope,$http) {
             contentType: "application/json",
             params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
         }).then(function successCallback(response) {
-        	$scope.templates=response.data;
+        	$scope.templates=response.data.resultObj;
             }, function errorCallback(response) {
         }); 
     	$scope.Details=false;
@@ -62,14 +65,23 @@ app.controller('ListCtrl', function($scope,$http) {
             contentType: "application/json",
             params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
         }).then(function successCallback(response) {
-        	$scope.templates=response.data;
-        	createTree2();
+        	$scope.templates=response.data.resultObj;
+        	/*createTree3();*/
+        	/*$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
+            	createTree2($scope.chOrglist);
+                }, function errorCallback(response) {
+            }); */
             }, function errorCallback(response) {
         }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
-        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
+        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show');
         ordertoscope($scope,$http,id);
     };
     $scope.closeGoodsDetails=function(){
@@ -78,7 +90,6 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //应用详情
     $scope.showApplicationDetails=function(orderId){
-    	alert(orderId);
     	$http({
             method: 'GET',
             url: tenantSelfinterfaces.Var_showApplicationDetails,
@@ -95,6 +106,17 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.Orglist=response.data;
                 }, function errorCallback(response) {
             }); 
+        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
+            	createTree3($scope.Orglist,$scope.chOrglist);
+                }, function errorCallback(response) {
+            }); 
+        	
             }, function errorCallback(response) {
         }); 
         $scope.myApplicationDetails=true;
@@ -115,7 +137,7 @@ app.controller('ListCtrl', function($scope,$http) {
             contentType: "application/json",
             params:{"orderId":orderId},
         }).then(function successCallback(response) {
-        	$scope.applicationDetails=response.data;
+        	$scope.chapplicationDetails=response.data;
         	$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
@@ -123,10 +145,21 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
             	$scope.Orglist=response.data;
+                }, function errorCallback(response) {
+            });
+        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_getOrgtree,
+                params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
+            }).then(function successCallback(response) {
+            	$scope.chOrglist=response.data;
             	console.log($scope.Orglist);
-            	createTree1($scope.Orglist);
+            	console.log($scope.chOrglist);
+            	createTree1($scope.Orglist,$scope.chOrglist);
                 }, function errorCallback(response) {
             }); 
+        	
             }, function errorCallback(response) {
         }); 
     	transmitOrderId(orderId,$scope,$http);
@@ -161,18 +194,20 @@ app.controller('ListCtrl', function($scope,$http) {
     
 });
 //应用列表接口调用
-function applictionListController($scope,$http){
+function applictionListController($scope,$http,page){
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showApplicationList,
         contentType: "application/json",
-        params:{"page":1,"tenantId":1,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
     }).then(function successCallback(response) {
-    	for(i=0;i<response.data.length;i++){
-    		var newTime = new Date(response.data[i].crateDate);
-    		response.data[i].crateDate = newTime.Format("yyyy-MM-dd"); 
+    	for(i=0;i<response.data.resultObj.length;i++){
+    		var newTime = new Date(response.data.resultObj[i].crateDate);
+    		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
     	}
-    	$scope.applicationList=response.data;
+    	$scope.pagenum =response.data.pageStr.split(",");
+    	$scope.pageinfo = response.data;
+    	$scope.applicationList=response.data.resultObj;
         }, function errorCallback(response) {
     }); 
 	    $scope.myApplicationListTab=true;
@@ -185,7 +220,7 @@ function applictionListController($scope,$http){
         $('#myTab a[href="#myApplicationListTab"]').tab('show')
 };
 //产品列表接口调用
-function templateListController($scope,$http,id){
+function templateListController($scope,$http,id,page){
 	$http({
         method: 'GET',
         url: tenantSelfinterfaces.Var_getTemplateCategorys,
@@ -196,10 +231,13 @@ function templateListController($scope,$http,id){
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showTempliteList,
-        contentType: "application/json",
-        params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+        
+        datatype:"JSONP",
+        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.templateCategory2,"counm":''},
     }).then(function successCallback(response) {
-    	$scope.templateList=response.data;
+    	$scope.tepagenum =response.data.pageStr.split(",");
+    	$scope.tepageinfo = response.data;
+    	$scope.templateList=response.data.resultObj;
         }, function errorCallback(response) {
     }); 
 	 $scope.ListOfGoodsTab=true;
@@ -212,6 +250,32 @@ function templateListController($scope,$http,id){
      $scope.DetailsOfGoodsTab =false;
      $scope.myApplicationUsers=false;
      $('#myTab a[href="#ListOfGoodsTab"]').tab('show');
+};
+//名字子模糊查询应用列表接口
+function appListBynameController($scope,$http,page){
+	$http({
+        method: 'POST',
+        url: tenantSelfinterfaces.Var_showApplicationListByInstanceName,
+        contentType: "application/json",
+        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+    }).then(function successCallback(response) {
+    	for(i=0;i<response.data.resultObj.length;i++){
+    		var newTime = new Date(response.data.resultObj[i].crateDate);
+    		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
+    	}
+    	$scope.pagenum =response.data.pageStr.split(",");
+    	$scope.pageinfo = response.data;
+    	$scope.applicationList=response.data.resultObj;
+        }, function errorCallback(response) {
+    }); 
+	    $scope.myApplicationListTab=true;
+        $scope.theBillListTab =false;
+        $scope.ListOfGoodsTab=false;
+        $scope.myApplicationList=true;
+        $scope.ListOfGoods=false;
+        $scope.theBillList=false;
+        $scope.DetailsOfGoodsTab =false;
+        $('#myTab a[href="#myApplicationListTab"]').tab('show')
 };
 //日期格式控件
 Date.prototype.Format = function (fmt) { //author: meizz 

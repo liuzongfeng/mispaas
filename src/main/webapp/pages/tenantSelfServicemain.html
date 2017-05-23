@@ -2,6 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title></title>
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -45,16 +46,71 @@
         }
     </script>
     <style>
-        .tabclost{
-            width: 15px;
-            height: 15px;
-            float: right;
-            position: relative;
-            z-index: 10;
-            margin-right: 6px;
-            margin-top: 2px;
-        }
-    </style>
+.tabclost {
+	width: 15px;
+	height: 15px;
+	float: right;
+	position: relative;
+	z-index: 10;
+	margin-right: 6px;
+	margin-top: 2px;
+}
+
+div.content_wrap {
+	width: 40%;
+	height: 90%;
+}
+
+div.content_wrap div.left {
+	float: left;
+	width: 400px;
+}
+
+div.content_wrap div.right {
+	float: right;
+	width: 340px;
+}
+
+div.zTreeDemoBackground {
+	width: 40%;
+	height: 362px;
+	text-align: left;
+}
+
+ul.ztree {
+	margin-top: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	width: 220px;
+	height: 90%;
+	overflow-y: scroll;
+	overflow-x: auto;
+}
+
+ul.log {
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	width: 300px;
+	height: 170px;
+	overflow: hidden;
+}
+
+ul.log.small {
+	height: 45px;
+}
+
+ul.log li {
+	color: #666666;
+	list-style: none;
+	padding-left: 10px;
+}
+
+ul.log li.dark {
+	background-color: #E3E3E3;
+}
+.ztree li a:hover {text-decoration:none}
+.ztree li span.button.roots_open{background-position:-92px 0}
+</style>
 </head>
 <body ng-app="listApp" ng-controller="ListCtrl" text="black"  style="height: auto;padding-bottom: 0px;">
 <!--上边页头 -->
@@ -62,7 +118,7 @@
 
 </div>
 <!--页面中间-->
-<div id="leftiframe" style="height: 90%;padding: 0px;">
+<div id="leftiframe" style="height: 90%;padding: 0px;" ng-init="tenantId='admin'">
     <table  class="table table-bordered"style="margin-bottom: 0;border: none;height: 100%;">
         <tbody style="border: none;height: 100%">
         <tr style="border: none;height: 100%">
@@ -161,18 +217,26 @@
                             <div style="float: right;margin-top: 10px;">
                                 <div style="float: right">
                                     <form role="form">
-                                        <div class="form-group" style="width:220px;margin-right: 20px;float: right">
+                                    	<div style="margin-right: 20px;float: right">
+                                    		<div style="float: left;"><h4>产品分类过滤:</h4></div>
+                                    		 <div class="form-group" style="width:220px;margin-right: 20px;float: right">
                                             <select class="form-control" ng-init="templateCategory2=''" ng-model="templateCategory2"
                                              ng-change="gettemplateBytemplateCategory()">
                                                 <option selected="selected" ></option>
                                                 <option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
                                             </select>
                                         </div>
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input type="text" class="form-control" placeholder="按名称查询" ng-model="templateId" ng-init="templateId=''" ng-blur="gettemplatesBytemplateId()">
+                                    	</div>
+                                        <div style="float: left;margin-right: 30px;">
+                                        	<div style="float: left;">
+                                        	<h4>产品名称查询:</h4>
+                                        	</div>
+                                        	 <div class="input-group" style="width:220px;margin-right: 30px;">
+                                           <input type="text" class="form-control" placeholder="按名称查询" ng-model="productName" ng-init="productName=''" ng-blur="gettemplatesBytemplateName()">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button" >Go!</button>
                                                 </span>
+                                        </div>
                                         </div>
                                     </form>
                                 </div>
@@ -188,7 +252,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat=" template in templateList">
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails(template.id)">{{template.templateId}}</a></td>
+                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
                                     <td>{{template.templateCategory}}</td>
                                     <td>{{template.templateName}}</td>
                                     <td><button type="button" class="btn btn-default btn-sm" ng-click="BuyGoodsDetails(template.id)">购买</button></td>
@@ -196,26 +260,23 @@
                                 </tbody>
                             </table>
                             <!--分页-->
-                            <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+									 <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
+										<ul class="pagination">
+											<li><a id="previous" href="javascript:void(0)"
+												ng-click="changetemplatepage(tepageinfo.pre)" aria-label="Previous"> <span
+													aria-hidden="true">&laquo;</span>
+											</a></li>
+											<li id="page{{pi}}" ng-repeat="pi in tepagenum"
+												repeat-finish="renderFinish()"><a
+												href="javascript:void(0)" ng-click="changetemplatepage(pi)">{{pi}}</a>
+											</li>
+											<li><a id="next" href="javascript:void(0)"
+												ng-click="changetemplatepage(tepageinfo.next)" aria-label="Next"> <span
+													aria-hidden="true">&raquo;</span>
+											</a></li>
+										</ul>
+									</nav>
+								</div>
                     </div>
                     <!-- 产品详情-->
                     <div id="DetailsOfGoodsTab" class="tab-pane fade">
@@ -226,7 +287,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>产品名称:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            {{template.templateId}}
+                                            {{template.productName}}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -242,14 +303,27 @@
                                         </div>
                                     </div>
                                     </strong>
-                                    <div class="form-group" ng-show="Details" ng-model="Details">
+                                     <div class="form-group" ng-show="Details" ng-model="Details">
+                                        <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>选择租户:</strong></label>
+                                        <div class="col-sm-6" style="margin-top: 10px;width: 28%;">
+                                        		
+												<select class="form-control" ng-model="value" ng-init="value='请选择租户'">
+													<option selected="selected">请选择租户</option>
+													<option value="admin">admin</option>
+													<option value="admin1">admin1</option>
+													<option value="admin2">admin2</option>
+												</select>
+                                        </div>
+                                     </div>
+                                    <div class="form-group" ng-show="Details" >
                                         <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                         <div class="col-sm-6" style="margin-top: 10px;">
-                                            <div class="well well-lg" style="width: 55%;">
-                                                <div id="menuContent" class="menuContent" style="width:95%;border:1px solid rgb(170,170,170);z-index:10;">
-                                                    <ul id="treeDemo1" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
+                                            
+                                                <div id="menuContent" class="content_wrap" >
+                                                	<div class="zTreeDemoBackground left">
+                                                		<ul id="treeDemo1" class="ztree" style="margin-top:0; width:100%;"></ul>
+                                                	</div>
                                                 </div>
-                                            </div>
                                         </div>
                                     </div>
                                 <div class="form-group">
@@ -408,18 +482,28 @@
                             <div style="float: right;margin-top: 10px;">
                                 <div style="float: right">
                                     <form role="form">
-                                        <div class="form-group" style="width:220px;margin-right: 20px;float: right">
+                                    <div style="margin-right: 20px;float: right">
+                                    	<div style="float: left;">
+                                        	<h4>应用分类过滤:</h4>
+                                        	</div>
+                                        	<div class="form-group" style="width:220px;margin-right: 20px;float: right">
                                             <select class="form-control"  ng-init="templateCategory=''" ng-model="templateCategory"
                                             ng-change="getapplicationBytemplateCategory()">
                                             	<option ></option>
                                                 <option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
                                             </select>
                                         </div>
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
+                                    </div>
+                                        <div style="float: left;margin-right: 30px;">
+                                        	<div style="float: left;">
+                                        	<h4>应用名称查询:</h4>
+                                        	</div>
+                                        	 <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
                                             <input type="text" class="form-control" placeholder="按名称查询" ng-model="instanceName" ng-init="instanceName=''" ng-blur="getapplicationByInstanceName()">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button" >Go!</button>
                                                 </span>
+                                        </div>
                                         </div>
                                     </form>
                                 </div>
@@ -436,37 +520,41 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="paasOrder in applicationList">
-                                    <td><span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a></td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
+                                    <td ng-if="paasOrder.status!=1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">
+                                    <span class="glyphicon glyphicon-wrench"></span><a href="#" ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a></td>
                                     <td>{{paasOrder.paasTemplate.templateCategory}}</td>
                                     <td>{{paasOrder.crateDate}}</td>
                                     <td ng-if="paasOrder.status==0">待审核</td>
-                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==0">待创建</td>
+                                    <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">已审核</td>
                                     <td ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">运行中</td>
                                     <td ng-if="paasOrder.status==2">驳回</td>
-                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails(paasOrder.id)">修改</button></td>
+                                     <td ng-if="paasOrder.status==3">撤销</td>
+                                    <td><button type="button" class="btn btn-default btn-sm" ng-click="showApplicationUetails(paasOrder.id)">修改</button>
+                                    <button ng-if="!(paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1)" type="button" class="btn btn-default btn-sm" ng-click="repealorder(paasOrder.id)">撤销</button></td>
                                 </tr>
                                 </tbody>
                             </table>
                             <!--分页-->
                             <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+										<ul class="pagination">
+											<li><a id="previous" href="javascript:void(0)"
+												ng-click="changeorderpage(pageinfo.pre)" aria-label="Previous"> <span
+													aria-hidden="true">&laquo;</span>
+											</a></li>
+											<li id="page{{pi}}" ng-repeat="pi in pagenum"
+												repeat-finish="renderFinish()"><a
+												href="javascript:void(0)" ng-click="changeorderpage(pi)">{{pi}}</a>
+											</li>
+											<li><a id="next" href="javascript:void(0)"
+												ng-click="changeorderpage(pageinfo.next)" aria-label="Next"> <span
+													aria-hidden="true">&raquo;</span>
+											</a></li>
+										</ul>
+									</nav>
                         </div>
                     </div>
                     <!--修改应用详情-->
@@ -477,23 +565,29 @@
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;">
-                                        {{applicationDetails.instanceName}}
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="chapplicationDetails.paasInstance!=null">
+                                        {{chapplicationDetails.paasInstance.instanceName}}
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="chapplicationDetails.paasInstance==null">
+                                        {{chapplicationDetails.paasTemplate.productName}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==0">
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="chapplicationDetails.paasInstance==null">
                                     待创建
                                     </div>
-                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==1">
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="chapplicationDetails.paasInstance.instanceStatus==0">
+                                    待创建
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="chapplicationDetails.paasInstance.instanceStatus==1">
                                     运行中
                                     </div>
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
-                                        <table class="table">
+                                    <div class="col-sm-6" style="width:26.5%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
+                                        <table class="table" style="">
                                           <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
                                                 <td><strong>模块说明</strong></td>
@@ -501,7 +595,7 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                           <tr style="height: 10%;" ng-repeat="paasSubservice in applicationDetails.paasTemplate.paasSubservices">
+                                           <tr style="height: 10%;" ng-repeat="paasSubservice in chapplicationDetails.paasSubservices">
                                                 <td><span class="glyphicon glyphicon-cog"></span>{{paasSubservice.moduleName}}</td>
                                                 <td>{{paasSubservice.moduleDes}}</td>
                                                 <td></td>
@@ -514,11 +608,13 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>设置用户群:</strong></label>
                                     <div class="col-sm-6" style="margin-top: 10px;">
-                                        <div class="well well-lg" style="width: 55%;margin-top: 10px;">
-                                            <div id="menuContent2" class="menuContent" style="width:95%;border:1px solid rgb(170,170,170);z-index:10;">
-                                                <ul id="treeDemo2" class="ztree" style="margin-top:0; width:100%; height:auto;"></ul>
+                                        
+                                            <div id="menuContent2" class="content_wrap" style="">
+                                            <div class="zTreeDemoBackground left">
+                                            	<ul id="treeDemo2" class="ztree" style="margin-top:0; width:100%; "></ul>
                                             </div>
-                                        </div>
+                                            </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -539,22 +635,28 @@
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用名称:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;">
-                                   	{{applicationDetails.instanceName}}
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.paasInstance!=null">
+                                        {{applicationDetails.paasInstance.instanceName}}
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.paasInstance==null">
+                                        {{applicationDetails.paasTemplate.productName}}
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>状态:</strong></label>
-                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==0">
+                                     <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.paasInstance==null">
                                     待创建
                                     </div>
-                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.instanceStatus==1">
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.paasInstance.instanceStatus==0">
+                                    待创建
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 10px;" ng-if="applicationDetails.paasInstance.instanceStatus==1">
                                     运行中
                                     </div>
                                 </div>
                                 <div class="form-group" >
                                     <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>应用模块列表:</strong></label>
-                                    <div class="col-sm-6" style="width:40%;margin-top: 10px;">
+                                    <div class="col-sm-6" style="width:26.5%;margin-top: 10px;height:160px;overflow: auto;padding-right: 0px;">
                                         <table class="table">
                                             <tr style="height: 10%;">
                                                 <td><strong>模块名称</strong></td>
@@ -563,8 +665,9 @@
                                                 <td></td>
                                                 <td></td>
                                             </tr>
-                                            <tr style="height: 10%;" ng-repeat="paasSubservice in applicationDetails.paasTemplate.paasSubservices">
-                                                <td><span class="glyphicon glyphicon-cog"></span><a href="{{http+applicationDetails.pubDns+applicationDetails.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
+                                            <tr style="height: 10%;" ng-repeat="paasSubservice in applicationDetails.paasSubservices">
+                                            	<td ng-if="applicationDetails.paasInstance==null"><span class="glyphicon glyphicon-cog"></span><a href="#">{{paasSubservice.moduleName}}</a></td>
+                                                <td ng-if="applicationDetails.paasInstance!=null"><span class="glyphicon glyphicon-cog"></span><a href="{{http+applicationDetails.paasInstance.pubDns+applicationDetails.paasInstance.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
                                                 <td>{{paasSubservice.moduleDes}}</td>
                                                 <td></td>
                                                 <td></td>
@@ -573,26 +676,16 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>用户群列表:</strong></label>
-                                        <div class="col-sm-6" style="width:40%;margin-top: 10px;">
-                                            <table class="table">
-                                                <tr style="height: 10%;">
-                                                    <td><strong>用户群名称</strong></td>
-                                                    <td><strong></strong></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr style="height: 10%;" ng-repeat="org in Orglist">
-                                                    <td><span class="glyphicon glyphicon-user"></span>{{org.orgId}}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                               <div class="form-group">
+                                    <label for="exampleInputEmail2" class="col-sm-4 control-label"><strong>用户群组:</strong></label>
+                                    <div class="col-sm-6" style="margin-top: 10px;">
+                                            <div id="menuContent2" class="content_wrap" style="">
+                                            <div class="zTreeDemoBackground left">
+                                            	<ul id="treeDemo3" class="ztree" style="margin-top:0; width:100%;"></ul>
+                                            </div>
+                                            </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -605,7 +698,7 @@
                     </div>
                 </div>
             </td>
-        </tr>
+            </tr>
         </tbody>
     </table>
 </div>
