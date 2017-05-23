@@ -67,7 +67,7 @@ app.controller('ListCtrl', function($scope,$http) {
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
         	/*createTree3();*/
-        	$http({
+        	/*$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getOrgtree,
                 params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
@@ -75,13 +75,13 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.chOrglist=response.data;
             	createTree2($scope.chOrglist);
                 }, function errorCallback(response) {
-            }); 
+            }); */
             }, function errorCallback(response) {
         }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
-        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
+        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show');
         ordertoscope($scope,$http,id);
     };
     $scope.closeGoodsDetails=function(){

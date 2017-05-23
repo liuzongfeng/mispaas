@@ -1,15 +1,21 @@
 function ordertoscope($scope,$http,id) {
 	$scope.createOrder=function(){
-		 var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
+		/*var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
-		var names = onCheckName($http,$scope,zTree);
-		console.log(names);
+		var names = onCheckName($http,$scope,zTree);*/
+		var ids=null;
+		var names=null;
+		console.log($scope.value);
+		if($scope.value=="请选择租户"){
+			alert("请选择租户！");
+			return;
+		}
 		 var passOrde=
 		  {
 				id: null,
 				billNo: null,
 				proId: id,
-				tenantId:$scope.tenantId,
+				tenantId:$scope.value,
 				status: null,
 				crateDate: new Date(),
 				approveId: null,
@@ -19,7 +25,7 @@ function ordertoscope($scope,$http,id) {
 		$http({
 	        method: 'POST',
 	        url: tenantSelfinterfaces.Var_createPaasOrder,
-	        params:{"tenantId":$scope.tenantId,"ids":ids,"names":names},
+	        params:{"tenantId":$scope.value,"ids":ids,"names":names},
 	        datatype:"json",
 	        data:passOrde
 	    }).then(function successCallback(response) {
@@ -76,7 +82,6 @@ function ordertoscope($scope,$http,id) {
 		
 	};
 };
-
 function transmitOrderId(orderId,$scope,$http){
 	var orderId=orderId;
 	$scope.changeApplicationUser=function(){
