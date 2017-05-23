@@ -1,9 +1,0 @@
-rest\security\MvcConfig.class
-rest\mybatis\dao\passDao\PassUserMapper.class
-rest\service\passService\PassServices.class
-rest\mybatis\model\passModel\PassUser.class
-rest\mybatis\MyBatisMapperScannerConfig.class
-rest\Application.class
-rest\security\PassSecurity.class
-rest\security\HelloController.class
-rest\mybatis\MyBatisConfig.class
