@@ -49,17 +49,15 @@
             <artifactId>ezmorph</artifactId>  
             <version>1.0.6</version>  
         </dependency>
-		<!-- spring boot -->
-		<!-- spring session -->
-		<!-- <dependency>
+		<!-- spring session + redis-->
+		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
-		</dependency> -->
-		<!-- redis -->
-		<!-- <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency> -->
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

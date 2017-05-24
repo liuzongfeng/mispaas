@@ -34,8 +34,12 @@ public UserDetails loadUserDetails(CasAssertionAuthenticationToken token) throws
     		+token.getCredentials()+";"
     		+token.getDetails()+";principal:"
     		+token.getPrincipal()+";"); 
-    session.setAttribute(session.getId(), token.getPrincipal());
+    System.out.println(session.getId());
+    if(session.getAttribute(session.getId())==null){
+    	session.setAttribute(session.getId(), token.getPrincipal());
+    };
     System.out.println(session.getAttribute(CasUserService.TOKEN));
+    
     /*这里我为了方便，就直接返回一个用户信息，实际当中这里修改为查询数据库或者调用服务什么的来获取用户信息*/  
     UserInfo userInfo = new UserInfo();  
     userInfo.setUsername("admin");  
