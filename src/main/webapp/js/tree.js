@@ -89,6 +89,9 @@ function createTree3(node,orgtree){
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //获取点选的机构ID集合
 function onCheckId($http,$scope,zTree) {
+	if(zTree==null){
+		return null;
+	}
         nodes = zTree.getCheckedNodes(true),
         v = "";
     var parentid = "";
@@ -110,6 +113,9 @@ function onCheckId($http,$scope,zTree) {
 //++++++++++++++++++++++++++++++++++++++++++++++++++++
 //获取点选的机构名称集合。
 function onCheckName($http,$scope,zTree) {
+	if(zTree==null){
+		return null;
+	}
     nodes = zTree.getCheckedNodes(true),
     v = "";
 var parentid = "";

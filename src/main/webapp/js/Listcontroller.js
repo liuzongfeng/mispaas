@@ -16,14 +16,39 @@ app.controller('ListCtrl', function($scope,$http) {
 	ordertoscope($scope,$http,id);
     $scope.ListOfGoods=true;
     $scope.ListOfGoodsTab=true;
+   
    //列表控制
     //产品列表
-    $scope.nListOfGoods = function(id){
+    $scope.nListOfGoods = function(){
+    	$scope.chanpincaidan1=false;
+		$scope.chanpincaidan2=true;
+		$scope.appcolor="#458fe9";
+		$scope.yingyongcaidan1=true;
+		$scope.yingyongcaidan2=false;
+		$scope.inscolor="#8e9094";
+		var lis=$("#chanpinfenye").children();
+		for(i=0;i<lis.length;i++){
+			lis.eq(i).children().css("backgroundColor","white");
+			
+		}
+		lis.eq(1).children().css("backgroundColor","#458fe9");
     	var page=null;
     	templateListController($scope,$http,id,page);
     };
     //应用列表
     $scope.nmyApplicationList = function(){
+    	$scope.yingyongcaidan1=false;
+		$scope.yingyongcaidan2=true;
+		$scope.chanpincaidan1=true;
+		$scope.chanpincaidan2=false;
+		$scope.inscolor="#458fe9";
+		$scope.appcolor="#8e9094";
+		var lis=$("#appfenye").children();
+		for(i=0;i<lis.length;i++){
+			lis.eq(i).children().css("backgroundColor","white");
+			
+		}
+		lis.eq(1).children().css("backgroundColor","#458fe9");
     	var page=null;
     	applictionListController($scope,$http,page);
 	    };
@@ -51,7 +76,7 @@ app.controller('ListCtrl', function($scope,$http) {
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
             }, function errorCallback(response) {
-        }); 
+        });
     	$scope.Details=false;
         $scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
@@ -67,7 +92,7 @@ app.controller('ListCtrl', function($scope,$http) {
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
         	/*createTree3();*/
-        	/*$http({
+        	$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getOrgtree,
                 params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
@@ -75,7 +100,16 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.chOrglist=response.data;
             	createTree2($scope.chOrglist);
                 }, function errorCallback(response) {
-            }); */
+            }); 
+            }, function errorCallback(response) {
+        });
+    	$http({
+            method: 'GET',
+            url: tenantSelfinterfaces.Var_gettenantList,
+            contentType: "application/json",
+            params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
+        }).then(function successCallback(response) {
+        	$scope.tetantList=response.data[0];
             }, function errorCallback(response) {
         }); 
     	$scope.Details=true;
