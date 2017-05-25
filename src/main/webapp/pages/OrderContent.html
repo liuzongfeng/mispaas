@@ -92,6 +92,7 @@
                 <td style="text-align: center" ng-if="order.status==0">待审核</td>
                 <td style="text-align: center" ng-if="order.status==1">通过</td>
                 <td style="text-align: center" ng-if="order.status==2">驳回</td>
+                <td style="text-align: center" ng-if="order.status==3">撤销</td>
             </tr>
             </tbody>
         </table>
@@ -186,8 +187,11 @@
                 }else if(element.status == 1)
                 {
                 	$('#statue').html("通过");
-                }else{
+                }else if(element.status == 2){
                 	$('#statue').html("驳回");
+                }else
+                {
+                	$('#statue').html("撤销");
                 }
                 $('#resion').html(element.approveDescibe);
                 $('#id').attr("value",element.id);

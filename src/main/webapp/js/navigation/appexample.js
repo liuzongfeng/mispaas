@@ -10,7 +10,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				var instanceStatus = $scope.instanceStatus;   //分类模板
 				var instanceName = $scope.instanceName;   //名称名称
-				$scope.pageSize = 5;                      //临时赋值
+				$scope.pageSize = 8;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
@@ -114,14 +114,17 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			
 			//应用实例
 			$scope.appExample_fn = function(){
-                $("#activeExample").attr("class","active");
-                $("#activeCreateEx").attr("class","");
-                $("#activeEditEx").attr("class","");
-				$scope.editExample=false;
-				
-				$scope.appexample_title=true;
-				$scope.appExample = true;
-				$scope.divPage=true;
+				if($scope.editExample){
+					$("#activeExample").attr("class","active");
+	                $("#activeCreateEx").attr("class","");
+	                $("#activeEditEx").attr("class","");
+					$scope.editExample=false;
+					
+					$scope.appexample_title=true;
+					$scope.appExample = true;
+					$scope.divPage=true;
+				}
+                
 			}
 			//创建实例--title
 			$scope.createExample_fn_title = function(){
@@ -142,10 +145,20 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				$("#searchInstanceDetail").hide();   //隐藏提交按钮
 				
 			}
+			
+			var autoHeight_fn = function(){
+				//高度自适应
+				var ifm_right= $("#rightdiv");
+                var h_r = ifm_right.css("height");
+                var h_l_c = h_r.split("px")[0] - (-60);
+                var ifm_left= $("#leftdiv");
+                var h_l = ifm_left.css("height");
+                ifm_left.css("height",h_l_c);
+			}
+			
 			//创建实例
 			$scope.createExample_fn = function(){
 				
-               
 				var tag = window.event.target || window.event.srcElement;
 				
 				$(tag).parent().prev().prev().children("[type=checkbox]").prop("checked",true);
@@ -194,6 +207,27 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
                 $scope.appExample = true;
                 $scope.divPage=true;
             }
+            
+            $scope.editExample_save_fn = function(){
+            	$("#activeExample").attr("class","");
+                $("#activeCreateEx").attr("class","");
+                $("#activeEditEx").attr("class","active");
+				$scope.appExample = false;
+               // $scope.createAppexample_title = false;
+				$scope.divPage=false;
+				
+				$scope.editAppexample_title = true;
+				$scope.editExample=true;
+                $scope.createAppexample_title = false;
+                if(!$scope.createAppexample_title){
+                    $("#activeCreateEx").css("display","none");
+				}
+				if($scope.editAppexample_title){
+                    $("#activeEditEx").css("display","");
+				}
+				
+            }
+            
 			//编辑实例
 			$scope.editExample_fn = function(){
 				
@@ -251,6 +285,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					swal("请先选中实例!", "", "warning");
 					$scope.closeEditExample_fn();
 				}
+				autoHeight_fn();
 			}
 			
 			
@@ -320,6 +355,15 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			
 			
 			$(function() {
+				
+				//高度自适应
+				var ifm_right= $("#rightdiv");
+                var h_r = ifm_right.css("height");
+                var h_l_c = h_r.split("px")[0] - 102;
+                var ifm_left= $("#leftdiv");
+                var h_l = ifm_left.css("height");
+                ifm_left.css("height",h_l_c);
+				
 				//按分类查询
 				$("#byInstanceStatus").change(function(){
 					var instanceStatus = this.options[this.options.selectedIndex].value;
@@ -337,7 +381,38 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			    	$('#checkbox_1').prop("checked",false);  
 			    });
 
-
+			  //编辑实例按钮控制 --移入
+			    $("#editInstanceImg").mouseover(function(){
+             		$(this).css("background-color","#458fe9");
+             		$(this).css("background-position","0 48px");
+             		$(this).css("border-color","#377ed2");
+             		$(this).css("color","#FFFFFF");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/editTemplateChoosed.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#FFFFFF");
+             		}
+             	});
+			    // --移出
+             	$("#editInstanceImg").mouseout(function(){
+             		$(this).css("background-color","");
+             		$(this).css("background-position","");
+             		$(this).css("border-color","");
+             		$(this).css("color","");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/editTemplateShow.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#327CD5");
+             		}
+             	});
 
 			});
 			

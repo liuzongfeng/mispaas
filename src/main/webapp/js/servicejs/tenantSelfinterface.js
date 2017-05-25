@@ -24,5 +24,11 @@ tenantSelfinterfaces={
 		//获取组织机构
 		Var_getOrgtree:paasrest_dns+'/passService/getOrgtree',
 		//第三方会获取组织机构接口
-		Var_othergetOrgtree:'http://100.0.10.100:8080/usermanager/api/authorization/organizations?pageStart=1&pageSize=1000'
+		Var_othergetOrgtree:'http://100.0.10.100:8080/usermanager/api/authorization/organizations?pageStart=1&pageSize=1000',
+		//获取某用户的租户身份群
+		Var_gettenantList:paasrest_dns+'/passService/gettenantList',
+		//第三方接口获取租户信息
+		Var_othergettentant:'http://100.0.10.100:8080/usermanager/api/authorization/tenants/',
+		//第三方获取用户信息接口
+		Var_othergetuser:'http://100.0.10.100:8080/usermanager/api/authorization/users/',
 };

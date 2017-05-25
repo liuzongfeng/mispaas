@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasOrdTenantOrgRMapper;
 import rest.mybatis.dao.passDao.PaasOrderMapper;
@@ -186,4 +188,25 @@ public class PaasOrderAndTemplateService {
 			String orgjson = util.getContent(geturl);
 			return orgjson;
 		}
+		//获取某用户的租户身份群
+		@RequestMapping(value="/passService/gettenantList",method=RequestMethod.GET)
+		@ResponseBody
+		public String gettenantList(@RequestParam("userurl") String userurl,@RequestParam("tenanturl") String tenanturl) throws IOException{
+			OrgRequestUtil util = new OrgRequestUtil();
+			String orgjson = util.getContent(userurl);
+			JSONObject jo=JSONObject.fromObject(orgjson);
+			JSONArray userList = jo.getJSONArray("userList");
+			JSONObject object = (JSONObject)userList.get(0);
+			JSONArray tenantidList = object.getJSONArray("adminTenantList");
+			ArrayList<JSONObject> tenantList = new ArrayList<JSONObject>();
+			for (Object object2 : tenantidList) {
+				String string = object2.toString();
+				String geturl = tenanturl+string;
+				String tentant = util.getContent(geturl);
+				JSONObject tentantjo=JSONObject.fromObject(tentant);
+				tenantList.add(tentantjo);
+			}
+			return tenantList.toString();
+		}
+		
 }
