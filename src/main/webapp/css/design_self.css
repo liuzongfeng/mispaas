@@ -4,34 +4,74 @@ a:hover {
 
 
 #leftdiv{
-	width: 18%;
+	width: 10%;
 	height: auto;
 	float: left;
 	padding: 0px;
-
-	background-color: #3d3d3d;
+	background-color: #21242b;
 }
 #rightdiv{
-	width:80%;
+	width:90%;
 	height: auto;
-	float: right;
-
-	margin-left: 1%;
+	float: left;
+	border: 30px solid #eff3f6;
 }
 div.ng-scope{
 	width:100%;
 }
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
-	color: #5ec8e9;
+	color: #5E6575;
 	cursor: default;
-	background-color: rgba(247, 254, 137, 0.05);
+	background-color: #f7f7f7;
 	border: 1px solid #d8d8d8;
 	border-bottom-color: transparent;
 }
+	
+	tr {
+		border: 1px solid #eff0f0;
+	}
+	
+	tbody > tr {
+		
+		height: 60px;
+	}
+	th {
+		text-align: center;
+		font-size: 2rem;
+		font-family: Microsoft YaHei;
+		color: #333333;
+		font-weight: 400;
+	}
+	td {
+		text-align: center;
+		vertical-align: middle;
+		font-size: 1.8rem;
+		font-family: Microsoft YaHei;
+		color: #666666;
+		font-weight: 300;
+	}
+	.table > tbody > tr > td {
+		padding: 8px;
+		line-height: 1.42857143;
+		vertical-align: middle;
+		border-top: 1px solid #ddd;
+	}
 
-
-
+	input[type="checkbox"] {
+		margin-right: 10px;
+	}
+	
+	.btn-default:focus, .btn-default:hover {
+	    background-color: #458fe9;
+	    background-position: 0 48px;
+	    border-color:#377ed2;
+	    color: #FFFFFF;
+	}
+	
+	.nav-tabs > li.active > a {
+		border-top: 2px solid #3f8dce;
+	}
 /* === SIDEBAR MENU === */
 	.panel {
 		border: 0;
@@ -53,10 +93,10 @@ div.ng-scope{
 	.list-group-item {
 		padding-left: 25px;
 		border: 0;
-		background: #3d3d3d;
+		background: #21242b;
 	}
 	.list-group-item:hover {
-		background: #365167;
+		background: #21242b;
         padding-left: 15px;
 		transition-delay: 0s;
         transition-duration: 0.3s;
@@ -64,20 +104,25 @@ div.ng-scope{
         transition-timing-function: linear;	
 	}
 	a.list-group-item {
-		color: #FFF;
+		color: #21242b;
 	}
 	a.list-group-item:active {
-		color: #666;
+		color: #21242b;
 	}
 	a.list-group-item:hover {
-		background: #666;
+		background: #21242b;
 		color: #FFF;
+		background-color: #21242b;
+	}
+	a.list-group-item:focus {
+		
+		background-color: #21242b;
 	}
 	/*a.list-group-item:visited  {*/
 		/*color:#3d3d3d;*/
 	/*}*/
 	.solso-active {
-		background: #385269 !important;
+		background: #21242b !important;
 	}
 	
 	.list-group-item.no-border {
@@ -88,4 +133,20 @@ div.ng-scope{
 		margin-top: 0px;
 	}	
 /* === END SIDEBAR MENU === */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,30 +1,44 @@
 <div id="solso-sidebar">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default1">
-            <div class="panel-heading" role="tab" id="heading1">
-                <h4 class="panel-title">
-                	
-                    <a  ng-click="test1()" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="collapse1">
-                        PaaS运维管理
-                        <i class="glyphicon glyphicon-menu-hamburger left"></i>
-                    </a>
-                </h4>
-            </div>
-
             <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1" ng-show="leftTreeShow">
-                <div style="background-color: #3d3d3d;width:100%;">
-                   <span style="width: 100%;" ng-class="{active:nav.tab('apptemplate')}">
-                   	<a href="/apptemplate2"  class="list-group-item" >
-                   		<img alt="应用模板显示" src="../img/templateShow.png" style="display: block;padding-left: 12px;">应用模板
+                <div >
+                   <span ng-class="{active:nav.tab('apptemplate')}">
+                   	<a href="/apptemplate2"  class="list-group-item" onfocus="changeImgOnFocus(1);" >
+                   		<img id="templateImg" alt="应用模板显示" src="../img/templateShow.png" style="display: block;padding-left: 20px;margin-top: 20px;">
+                   		<span id="templateText" style="display:block;margin-top: 14px;font-family: Microsoft YaHei;font-size: 2rem;color:#8e9094;">应用模板</span>
                    	</a> 
                    </span>
                    
-                   <span ng-class="{active:nav.tab('appexample')}"> 
-                   	<a href="/appexample2" class="list-group-item" >
-                   		<img alt="应用实例显示" src="../img/instanceShow.png" style="display: block;padding-left: 12px">应用实例
+                   <span ng-class="{active:nav.tab('appexample')}" > 
+                   	<a href="/appexample2" class="list-group-item" onfocus="changeImgOnFocus(2);">
+                   		<img id="instanceImg" alt="应用实例显示" src="../img/instanceShow.png" style="display: block;padding-left: 20px;margin-top: 20px;">
+                   		<span id="instanceText" style="display:block;margin-top: 14px;font-family: Microsoft YaHei;font-size: 2rem;color:#8e9094;">应用实例</span>
                    	</a> 
                    </span>
                 </div>
+                <!-- 应用模板显示和隐藏 -->
+                <script type="text/javascript">
+               	var changeImgOnFocus = function(val){
+               		if(val == 1){
+               			//应用实例
+               			$("#instanceImg").prop("src","../img/instanceShow.png");
+               			$("#instanceText").css("color","#8e9094");
+               			//应用模板
+               			$("#templateImg").prop("src","../img/templateChoosed.png");
+               			$("#templateText").css("color","#458FE9");
+               		}
+               		if(val == 2){
+               			//应用模板
+               			$("#templateImg").prop("src","../img/templateShow.png");
+               			$("#templateText").css("color","#8e9094");
+               			//应用实例
+               			$("#instanceImg").prop("src","../img/instanceChoosed.png");
+               			$("#instanceText").css("color","#458FE9");
+               		}
+               		
+               	}
+               	</script>
             </div>
         </div>
     </div>

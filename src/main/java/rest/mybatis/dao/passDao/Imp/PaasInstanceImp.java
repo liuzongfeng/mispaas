@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.model.passModel.PaasInstance;
+import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
+import rest.mybatis.model.passModel.PaasOrder;
+import rest.mybatis.model.passModel.PaasSubservice;
+import rest.mybatis.model.passModel.PaasTemplateFile;
 @Configuration
 public class PaasInstanceImp{
 	@Autowired
@@ -51,6 +55,29 @@ public class PaasInstanceImp{
 	{
 		SqlSession session=sqlSessionFactory.openSession();
 		List<PaasInstance> list=session.selectList("selecttheInstanceByTemplateId",templateId);
+		session.close();
 		return list.size()>0?list.get(0):null;
+	}
+	//更具用户组织机构 查询实例
+	public List<PaasOrder> getInstanceBytenantId(String orgid)
+	{
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasOrder> list=session.selectList("selectOrderbyorgid",orgid);
+		for (int i = 0; i < list.size(); i++) {
+			PaasOrder poor=list.get(i);
+//			String instanceid=poor.getInstanceId();
+//			//实例列表
+//			List<PaasInstance> inslist=session.selectList("selectRuningInstancebyid", instanceid);
+//			poor.setPaasInstance(inslist.size()>0?inslist.get(0):null);
+			//模块文件列表
+			List<PaasTemplateFile> fileslist=session.selectList("selectFilesBytemplate", poor.getProId());
+			poor.setPaasTemplateFile(fileslist);
+			Integer templateid=poor.getProId();
+			//模块信息
+			List<PaasSubservice> serviceList=session.selectList("selectSubservicebyTemid",templateid);
+			poor.setPaasSubservices(serviceList);
+		}
+		session.close();
+		return list;
 	}
 }

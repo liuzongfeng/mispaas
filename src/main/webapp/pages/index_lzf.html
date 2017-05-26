@@ -17,27 +17,7 @@
 }
 
 </style>
-	<script>
-        function changeFrameHeight(){
-            var ifm= $("body");
-            var divfm= $("#leftdiv");
-            var heighbosy=window.screen.availHeight;
-            var heightdiv=document.documentElement.clientHeight;
-            alert(heightdiv);
-            alert(heighbosy);
-            ifm.css("height",heightdiv);
-            divfm.css("height",heightdiv-100);
-        }
-        window.onload=function(){
-            var heightdiv=document.documentElement.clientHeight;
-            if(heightdiv<=800){
-                var ifm= $("#leftdiv");
-                ifm.css("height","800px");
-            }else{
-                changeFrameHeight();
-            }
-        }
-	</script>
+	
 </head>
 
 <body ng-app="hello" ng-cloak class="ng-cloak" >
@@ -66,14 +46,14 @@
 	
 	
 	</div>
-	<!--right-->
+	<!--right class="container"-->
     <div id="rightdiv" >
-    	<div ng-view class="container" ></div>
+    	<div ng-view  style="width:100%;" ></div>
     </div>
 
 
 
-	<div  style="width:100%;float:right;">
+	<div  style="width:100%;float:right;background-color: #273040;">
        <div ng-include="'../pages/footer.html'" ></div>
     </div>
     
@@ -93,3 +73,29 @@
 	
 </body>
 </html>
+<script>
+       window.onload=function(){
+    	   var heighbosy=window.screen.availHeight;
+            var heightdiv=document.documentElement.clientHeight;
+           
+            if(heightdiv<=800){
+            	var ifm_right= $("#rightdiv");
+                ifm_right.css("height","auto");
+                var hh = ifm_right.css("height");
+                if(hh.split("px")[0] - 0 < 600){
+                	hh = heightdiv - 32;
+                	hh = heighbosy;
+                };
+                
+                var ifm_left= $("#leftdiv");
+                ifm_left.css("height",hh);
+                
+            }else{
+            	var ifm_right= $("#rightdiv");
+                ifm_right.css("height","auto");
+                var hh = ifm_right.css("height");
+                var ifm_left= $("#leftdiv");
+                ifm_left.css("height",hh);
+            }
+        }
+	</script>

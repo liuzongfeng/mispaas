@@ -86,7 +86,8 @@ public class PaasOrder {
      */
     private PaasInstance paasInstance;
     private PaasTemplate paasTemplate;
-    private List paasSubservices;
+    private List<PaasSubservice> paasSubservices;
+    private List<PaasTemplateFile> paasTemplateFile;
     
     public List getPaasSubservices() {
 		return paasSubservices;
@@ -94,6 +95,14 @@ public class PaasOrder {
 
 	public void setPaasSubservices(List paasSubservices) {
 		this.paasSubservices = paasSubservices;
+	}
+
+	public List<PaasTemplateFile> getPaasTemplateFile() {
+		return paasTemplateFile;
+	}
+
+	public void setPaasTemplateFile(List<PaasTemplateFile> paasTemplateFile) {
+		this.paasTemplateFile = paasTemplateFile;
 	}
 
 	private Date startDate;
@@ -359,6 +368,19 @@ public class PaasOrder {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@Override
+	public String toString() {
+		return "PaasOrder [id=" + id + ", billNo=" + billNo + ", proId="
+				+ proId + ", tenantId=" + tenantId + ", status=" + status
+				+ ", crateDate=" + crateDate + ", approveId=" + approveId
+				+ ", approveDate=" + approveDate + ", approveDescibe="
+				+ approveDescibe + ", paasInstance=" + paasInstance
+				+ ", paasTemplate=" + paasTemplate + ", paasSubservices="
+				+ paasSubservices + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", instanceId=" + instanceId + ", tenantName="
+				+ tenantName + "]";
 	}
     
 }

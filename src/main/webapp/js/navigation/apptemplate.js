@@ -8,7 +8,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				
 				var templateCategory = $scope.templateCategory;   //分类模板
 				var templateName = $scope.templateName;   //名称名称
-				$scope.pageSize = 5;                      //临时赋值
+				$scope.pageSize = 8;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
@@ -172,17 +172,49 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				});
 			}
 			
+			var autoHeight_fn = function(){
+				//高度自适应
+				var ifm_right= $("#rightdiv");
+                var h_r = ifm_right.css("height");
+                var h_l_c = h_r.split("px")[0] - (-60);
+                var ifm_left= $("#leftdiv");
+                var h_l = ifm_left.css("height");
+                ifm_left.css("height",h_l_c);
+			}
+			
 			//应用模板
 			$scope.appTemplate_fn = function(){
-				
-                $("#activeTemplate").attr("class","active");
-				$("#activeEdit").attr("class","");
-				$scope.editTemplate = false;
-				$scope.appTab= true;
-				$scope.apptemplate1_title = true;
-				$scope.apptemplate1=true;
-				$scope.divPage=true;
+				if($scope.editTemplate){
+					$("#activeTemplate").attr("class","active");
+					$("#activeEdit").attr("class","");
+					$scope.editTemplate = false;
+					$scope.appTab= true;
+					$scope.apptemplate1_title = true;
+					$scope.apptemplate1=true;
+					$scope.divPage=true;
+				}
+                
 			}
+			//超链接查看模板详细
+			$scope.a_searchTemplate_fn = function(){
+				
+				var tag = window.event.target || window.event.srcElement;
+				
+				$(tag).parent().prev().children("[type=checkbox]").prop("checked",true);
+				
+				$scope.editTemplate_fn();
+				
+			}
+			
+			$scope.editTemplate_save_fn = function(){
+				$("#activeTemplate").attr("class","");
+                $("#activeEdit").attr("class","active");
+ 				$scope.apptemplate1=false;
+ 				$scope.divPage=false;
+ 				$scope.editTemplate = true;
+ 				$scope.editTemplate_title=true;
+			}
+			
 			//编辑模板
 			$scope.editTemplate_fn = function(){
 				
@@ -231,7 +263,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					swal("请先选中模板!", "", "warning");
 					$scope.closeEditTemplate_fn();
 				}
-				
+				autoHeight_fn();
 				
 			}
             $scope.closeEditTemplate_fn = function () {
@@ -361,6 +393,16 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			
 			$(function() {
+				
+				//高度自适应
+				var ifm_right= $("#rightdiv");
+                var h_r = ifm_right.css("height");
+                var h_l_c = h_r.split("px")[0] - 102;
+                var ifm_left= $("#leftdiv");
+                var h_l = ifm_left.css("height");
+                ifm_left.css("height",h_l_c);
+				
+                
 				//按分类查询
 				$("#byCategory").change(function(){
 					var templateCategory = this.options[this.options.selectedIndex].value;
@@ -384,5 +426,138 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			    	});
 			    	$('#checkbox_1').prop("checked",false); 
 			    });
+			    //导入模板按钮控制 --移入
+			    $("#uploadTemplateImg").mouseover(function(){
+             		$(this).css("background-color","#458fe9");
+             		$(this).css("background-position","0 48px");
+             		$(this).css("border-color","#377ed2");
+             		$(this).css("color","#FFFFFF");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/uploadTemplateChoosed.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#FFFFFF");
+             		}
+             	});
+			    //导入模板 -- 移出 
+             	$("#uploadTemplateImg").mouseout(function(){
+             		$(this).css("background-color","");
+             		$(this).css("background-position","");
+             		$(this).css("border-color","");
+             		$(this).css("color","");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/uploadTemplateShow.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#327CD5");
+             		}
+             		
+             	});
+             	
+             	//查看模板按钮控制 --移入
+			    $("#searchTemplateImg").mouseover(function(){
+             		$(this).css("background-color","#458fe9");
+             		$(this).css("background-position","0 48px");
+             		$(this).css("border-color","#377ed2");
+             		$(this).css("color","#FFFFFF");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/searchTemplateChoosed.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#FFFFFF");
+             		}
+             	});
+			    // --移出
+             	$("#searchTemplateImg").mouseout(function(){
+             		$(this).css("background-color","");
+             		$(this).css("background-position","");
+             		$(this).css("border-color","");
+             		$(this).css("color","");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/searchTemplateShow.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#327CD5");
+             		}
+             		
+             	});
+             	
+             	//删除模板按钮控制 --移入
+			    $("#delTemplateImg").mouseover(function(){
+             		$(this).css("background-color","#458fe9");
+             		$(this).css("background-position","0 48px");
+             		$(this).css("border-color","#377ed2");
+             		$(this).css("color","#FFFFFF");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/delTemplateChoosed.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#FFFFFF");
+             		}
+             	});
+			    // --移出
+             	$("#delTemplateImg").mouseout(function(){
+             		$(this).css("background-color","");
+             		$(this).css("background-position","");
+             		$(this).css("border-color","");
+             		$(this).css("color","");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/delTemplateShow.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#327CD5");
+             		}
+             	});
+             	
+             	//导出模板按钮控制 --移入
+			    $("#exportTemplateImg").mouseover(function(){
+             		$(this).css("background-color","#458fe9");
+             		$(this).css("background-position","0 48px");
+             		$(this).css("border-color","#377ed2");
+             		$(this).css("color","#FFFFFF");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/exportTemplateChoosed.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#FFFFFF");
+             		}
+             	});
+			    // --移出
+             	$("#exportTemplateImg").mouseout(function(){
+             		$(this).css("background-color","");
+             		$(this).css("background-position","");
+             		$(this).css("border-color","");
+             		$(this).css("color","");
+             		
+             		var imgObj = $(this).children()[0];
+             		if(null != imgObj){
+             			$(imgObj).prop("src","../img/exportTemplateShow.png");
+             		}
+             		var spaObj  = $(this).children()[1];
+             		if(null != spaObj){
+             			$(spaObj).css("color","#327CD5");
+             		}
+             	});
 			});
 		});
