@@ -49,7 +49,7 @@
                 changeFrameHeight();
             }
         }
-    </script>
+</script>
 <style>
 .tabclost {
 	width: 15px;
@@ -123,7 +123,9 @@ ul.log li.dark {
 	background-position: -92px 0
 }
 .ztree li span.button.chk {width:13px; height:13px; margin:0 8px 0 8px; cursor: auto;}
-
+.nav-tabs > li.active > a {
+		border-top: 2px solid #3f8dce;
+	}
 </style>
 </head>
 <body ng-app="listApp" ng-controller="ListCtrl" text="black"
@@ -248,7 +250,7 @@ ul.log li.dark {
 													src="../img/close3.png" class="tabclost"
 													ng-click="closeGoodsDetails()"> 
 													<a href="#DetailsOfGoodsTab" data-toggle="tab" style="height: 70px;">
-														<img alt="" src="../img/bianji.png" style="float: left;margin-left: 20px; margin-top: 8px;"/>
+														<img alt="" src="../img/xiangqing.png" style="float: left;margin-left: 20px; margin-top: 8px;"/>
 														<div style="float: left; margin-left: 14px;">
 															<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">产品信息</h4>
 														</div>
@@ -261,8 +263,8 @@ ul.log li.dark {
 													<a
 													href="#ShoopingGoodsTab" data-toggle="tab" style="height: 70px;>
 													<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">产品购买</h4></a>
-												</li>
-												<li class="" ng-show="theBillListTab"
+												</li> -->
+												<!-- <li class="" ng-show="theBillListTab"
 													ng-model="theBillListTab"
 													style="height: 70px; width: 190px"><a
 													href="#theBillListTab" data-toggle="tab">
@@ -288,7 +290,7 @@ ul.log li.dark {
 													ng-click="closeApplicationDetails()"> 
 													<a href="#myApplicationDetails" data-toggle="tab" style="height: 70px;">
 													<div style="float: left; margin-left: 20px; margin-top: 8px;">
-															<img alt="" src="../img/instanceShow.png" />
+															<img alt="" src="../img/xiangqing.png" />
 													</div>
 													<div style="float: left; margin-left: 14px;">
 													<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">应用详情</h4>
@@ -302,7 +304,7 @@ ul.log li.dark {
 													ng-click="closemyApplicationUsers()"> 
 													<a href="#myApplicationUsers" data-toggle="tab" style="height: 70px;">
 														<div style="float: left; margin-left: 20px; margin-top: 8px;">
-															<img alt="" src="../img/instanceShow.png" />
+															<img alt="" src="../img/MRbianji.png" />
 														</div>
 														<div style="float: left; margin-left: 14px;">
 														<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">修改用户群</h4>
@@ -342,7 +344,7 @@ ul.log li.dark {
 																				ng-init="productName=''"
 																				ng-blur="gettemplatesBytemplateName()"> <span
 																				class="input-group-btn">
-																				<button class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
+																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
 																			</span>
 																		</div>
 																	</div>
@@ -350,7 +352,7 @@ ul.log li.dark {
 															</div>
 														</div>
 														<div style="padding: 30px;">
-														<table class="table table-bordered">
+														<table class="table" style="border-top: 1px solid #dededd;border-bottom: 1px solid #dededd;border-left: 1px solid #dededd;border-right:  1px solid #dededd">
 															<thead>
 																<tr style="background-color: #f7f7f7;font-size: 20px;color: #333333;height: 56px;">
 																	<th style="width: 25%;padding-bottom: 10px;">产品名称</th>
@@ -360,7 +362,7 @@ ul.log li.dark {
 																</tr>
 															</thead>
 															<tbody>
-																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0">
+																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;">
 																	<td><a
 																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
 																	<td>{{template.templateCategory}}</td>
@@ -374,20 +376,16 @@ ul.log li.dark {
 														</div>
 														<!--分页-->
 														<nav aria-label="Page navigation"
-															style="text-align: right; margin-right: 20px;">
-															<ul class="pagination" id="chanpinfenye">
-																<li><a id="previous" href="javascript:void(0)" 
-																	ng-click="changetemplatepage($event,tepageinfo.pre)"
-																	aria-label="Previous"> &laquo
-																</a></li>
-																<li id="page{{pi}}" ng-repeat="pi in tepagenum"
-																	repeat-finish="renderFinish()"><a 
-																	href="javascript:void(0)"
-																	ng-click="changetemplatepage($event,pi)">{{pi}}</a></li>
-																<li><a id="next" href="javascript:void(0)" 
-																	ng-click="changetemplatepage($event,tepageinfo.next)"
-																	aria-label="Next"> &raquo
-																</a></li>
+															style="text-align: right; margin-right: 30px;">
+															<ul class="pagination">
+																<li><a ng-click="tePrevious()">&laquo;</a></li>
+
+																<li ng-repeat="pi in tepagenum"
+																	ng-class="{active: isActivePage(pi)}"><a
+																	ng-click="teselectPage(pi)">{{ pi }}</a></li>
+
+																<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+																<li><a ng-click="teNext()">&raquo;</a></li>
 															</ul>
 														</nav>
 													</div>
@@ -398,39 +396,39 @@ ul.log li.dark {
 														ng-model="DetailsOfGoodsTab">
 														<div style="height: 40px;"></div>
 														<div class="form-horizontal">
-															<strong ng-repeat="template in templates">
+															<span ng-repeat="template in templates">
 																<div class="form-group">
 																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><strong 
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">产品名称:</strong></label>
-																	<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333" >
+																		class="col-sm-4 control-label"><span 
+																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">产品名称:</span></label>
+																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333" >
 																		{{template.productName}}</div>
 																</div>
 																<div class="form-group">
 																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><strong
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">版本号:</strong></label>
-																	<div class="col-sm-6" style="margin-top: 10px;margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
+																		class="col-sm-4 control-label"><span
+																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">版本号:</span></label>
+																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
 																		{{template.version}}</div>
 																</div>
 																<div class="form-group">
 																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><strong
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">分类:</strong></label>
-																	<div class="col-sm-6" style="margin-top: 10px;margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
+																		class="col-sm-4 control-label"><span
+																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">分类:</span></label>
+																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
 																		{{template.templateCategory}}</div>
 																</div>
-															</strong>
+															</span>
 															<div class="form-group" ng-show="Details"
 																ng-model="Details">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">选择租户:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">选择租户:</span></label>
 																<div class="col-sm-6"
-																	style="margin-top: 10px; width: 26%;">
+																	style="margin-top: 8px; width: 26%;">
 
 																	<select class="form-control" ng-model="value"
-																		ng-init="value='请选择租户'" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;height: 40px;">
+																		ng-init="value='请选择租户'" style="margin-top: ;font-size: 20px;font-family: Microsoft YaHei;color: #333333;height: 40px;">
 																		<option selected="selected">请选择租户</option>
 																		<option ng-repeat="tenant in tetantList" value="{{tenant[0].id}}">{{tenant[0].name}}</option>
 																	</select>
@@ -438,9 +436,9 @@ ul.log li.dark {
 															</div>
 															<div class="form-group" ng-show="Details">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</strong></label>
-																<div class="col-sm-6" style="margin-top: 10px;">
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</span></label>
+																<div class="col-sm-6" style="margin-top: 13px;">
 
 																	<div id="menuContent" class="content_wrap" style="background-color: white;">
 																		<div class="zTreeDemoBackground left" style="background-color: white;">
@@ -640,7 +638,7 @@ ul.log li.dark {
 																				ng-init="instanceName=''"
 																				ng-blur="getapplicationByInstanceName()"> <span
 																				class="input-group-btn">
-																				<button class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
+																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
 																			</span>
 																		</div>
 																	</div>
@@ -648,7 +646,7 @@ ul.log li.dark {
 															</div>
 														</div>
 														<div style="padding: 30px;">
-															<table class="table table-bordered">
+															<table class="table" style="border-top: 1px solid #dededd;border-bottom: 1px solid #dededd;border-left: 1px solid #dededd;border-right:  1px solid #dededd">
 															<thead>
 																<tr style="background-color: #f7f7f7;font-size: 20px;color: #333333;height: 56px;">
 																	<th style="width: 20%;">应用名称</th>
@@ -697,20 +695,16 @@ ul.log li.dark {
 														</div>
 														<!--分页-->
 														<nav aria-label="Page navigation"
-															style="text-align: right; margin-right: 20px;">
-															<ul class="pagination" id="appfenye">
-																<li><a id="previous" href="javascript:void(0)" 
-																	ng-click="changeorderpage($event,pageinfo.pre)"
-																	aria-label="Previous"> &laquo
-																</a></li>
-																<li id="page{{pi}}" ng-repeat="pi in pagenum"
-																	repeat-finish="renderFinish()"><a
-																	href="javascript:void(0)"
-																	ng-click="changeorderpage($event,pi)">{{pi}}</a></li>
-																<li><a id="next" href="javascript:void(0)"
-																	ng-click="changeorderpage($event,pageinfo.next)"
-																	aria-label="Next"> &raquo
-																</a></li>
+															style="text-align: right; margin-right: 30px;">
+															<ul class="pagination">
+																<li><a ng-click="appPrevious()">&laquo;</a></li>
+
+																<li ng-repeat="pi in pagenum"
+																	ng-class="{active: isActivePage(pi)}"><a
+																	ng-click="appselectPage(pi)">{{ pi }}</a></li>
+
+																<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+																<li><a ng-click="appNext()">&raquo;</a></li>
 															</ul>
 														</nav>
 													</div>
@@ -724,8 +718,8 @@ ul.log li.dark {
 
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
 																	ng-if="chapplicationDetails.paasInstance!=null">
 																	{{chapplicationDetails.paasInstance.instanceName}}</div>
@@ -735,8 +729,8 @@ ul.log li.dark {
 															</div>
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333"
 																	ng-if="chapplicationDetails.paasInstance==null">
 																	待创建</div>
@@ -749,14 +743,14 @@ ul.log li.dark {
 															</div>
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
 																<div class="col-sm-6"
 																	style="width: 25%; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
 																	<table class="table" style="">
 																		<tr style="height: 10%;background-color: #f7f7f7">
-																			<td><strong style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</strong></td>
-																			<td><strong style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</strong></td>
+																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
+																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
 																			<td></td>
 																			<td></td>
 																			<td></td>
@@ -774,8 +768,8 @@ ul.log li.dark {
 															</div>
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;">
 
 																	<div id="menuContent2" class="content_wrap" style="">
@@ -811,8 +805,8 @@ ul.log li.dark {
 
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
 																	ng-if="applicationDetails.paasInstance!=null">
 																	{{applicationDetails.paasInstance.instanceName}}</div>
@@ -822,8 +816,8 @@ ul.log li.dark {
 															</div>
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
 																	ng-if="applicationDetails.paasInstance==null">
 																	待创建</div>
@@ -836,14 +830,14 @@ ul.log li.dark {
 															</div>
 															<div class="form-group">
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
 																<div class="col-sm-6"
 																	style="width: 25%; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
 																	<table class="table">
 																		<tr style="height: 10%;background-color: #f7f7f7;">
-																			<td><strong style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</strong></td>
-																			<td><strong style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</strong></td>
+																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
+																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
 																			<td></td>
 																			<td></td>
 																			<td></td>
@@ -865,8 +859,8 @@ ul.log li.dark {
 															</div>
 															<div class="form-group" >
 																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><strong
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">用户群组:</strong></label>
+																	class="col-sm-4 control-label"><span
+																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">用户群组:</span></label>
 																<div class="col-sm-6" style="margin-top: 10px;">
 																	<div id="menuContent2" class="content_wrap" style="">
 																		<div class="zTreeDemoBackground left">
@@ -922,3 +916,4 @@ ul.log li.dark {
 
 </body>
 </html>
+

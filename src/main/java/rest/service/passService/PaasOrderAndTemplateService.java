@@ -76,6 +76,7 @@ public class PaasOrderAndTemplateService {
 			Integer num = passordermapper.selectOrderCount(tenantId);
 			/*PageHelper.startPage(page, counm);*/
 			Pageinfo pi=pageutil.initpage(num, page);
+			pi.setBegin(num);
 			int i = Integer.parseInt(page);
 			List<PaasOrder> list = passordermapper.selectByCondition(i,tenantId, instanceName, templateCategory,counm);
 			/*PageInfo pageInfo = new PageInfo(list);*/
@@ -133,8 +134,9 @@ public class PaasOrderAndTemplateService {
 				@RequestParam(value="templateCategory",required=false) String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm,HttpServletResponse res){
 				res.setHeader("Access-Control-Allow-Origin", "*");
-				Integer num = paasTemplateMapper.selecttemplateCount();
+				Integer num = paasTemplateMapper.selecttemplateCount(id, productName, templateCategory);
 				Pageinfo pi=pageutil.initpage(num, page.toString());
+				pi.setBegin(num);
 				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,productName, templateCategory, counm);
 				pi.setResultObj(list);
 				return pi;
@@ -148,13 +150,16 @@ public class PaasOrderAndTemplateService {
 				@RequestParam(value="templateCategory") String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm){
 				
-				Integer num = passordermapper.selectOrderCount(tenantId);
+				List countBycondition = passordermapper.selectOrderCountBycondition(tenantId, instanceName, templateCategory);
+				Integer num = countBycondition.size();
+				
 				/*PageHelper.startPage(page, counm);*/
 				Pageinfo pi=pageutil.initpage(num, page);
 				int i = Integer.parseInt(page);
 				List<PaasOrder> list = passordermapper.selectByInstanceName(i,tenantId, instanceName, templateCategory,counm);
 				/*PageInfo pageInfo = new PageInfo(list);*/
 				pi.setResultObj(list);
+				pi.setBegin(num);
 				return pi;
 		}
 		//获取模板分类
