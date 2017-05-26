@@ -276,4 +276,15 @@ private PaasTemplate paasTemplate;
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
+
+	@Override
+	public String toString() {
+		return "PaasInstance [instanceId=" + instanceId + ", templateId="
+				+ templateId + ", instanceName=" + instanceName
+				+ ", instanceStatus=" + instanceStatus + ", accessKey="
+				+ accessKey + ", pubDns=" + pubDns + ", urlPrefix=" + urlPrefix
+				+ ", orderId=" + orderId + ", version=" + version
+				+ ", paasTemplate=" + paasTemplate + "]";
+	}
+    
 }

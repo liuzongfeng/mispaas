@@ -12,87 +12,77 @@
 
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/design.css">
-
-    <!--&lt;!&ndash;[if lt IE 9]>
-    <script src="../js/ie8-responsive-file-warning.js"></script>
-    <![endif]&ndash;&gt;-->
-    <script src="../js/ie-emulation-modes-warning.js"></script>
-    <!--<script src="../js/angular.min.js"></script>-->
-    <!--<style>-->
-        <!--body{-->
-            <!--background-color: #3d3d3d;-->
-        <!--}-->
-    <!--</style>-->
+<!--     <link rel="stylesheet" type="text/css" href="../css/design.css"> -->
+	<style type="text/css">
+		.element{
+			height: 45.2%;
+			border-bottom: 1px solid #34373E; 
+		}
+		.poimg{
+			margin: 0 auto;
+			margin-top:35px;
+			height:30px;
+			width:30px;
+			padding-bottom: 0px;
+			text-align: center;
+ 			background:url("../img/prounchecked.png") no-repeat;
+/* 			background-image: url("../img/prounchecked.png"); */
+		}
+		.orimg{
+			margin: 0 auto;
+			margin-top:35px;
+			height:30px;
+			width:30px;
+			padding-bottom: 0px;
+			text-align: center;
+ 			background:url("../img/orderunchecked.png") no-repeat;
+/* 			background-image: url("../img/prounchecked.png"); */
+		}
+		.text{
+			margin: 0 auto;
+			height: 25px;
+			margin-top:10px;
+			padding-bottom: 0px;
+			text-align: center;
+			font-family: 方正兰亭黑简体;
+			font-size: 18px;
+			color: #8F9095;
+		}
+		.poarea{
+			height: 8rem;
+			width: 8rem;
+			margin: 0 auto;
+			border: 1px solid #21242B;
+		}
+		.poarea:hover .text{
+			color: #458FE9;
+		}
+		.poarea:hover .poimg{
+			background:url("../img/prochecked.png") no-repeat;
+		}
+		.poarea:hover .orimg{
+			background:url("../img/orderchecked.png") no-repeat;
+		}
+	</style>
 </head>
 <body>
-<div id="solso-sidebar">
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" style="height: 50px;" role="tab">
-
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="heading1">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                        产品定义
-                        <i class="glyphicon glyphicon-menu-hamburger left"></i>
-                    </a>
-                </h4>
-            </div>
-
-            <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
-                <div>
-                    <a href="ProductList.html" class="list-group-item">产品列表</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="heading2">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                        订单管理
-                        <i class="glyphicon glyphicon-menu-hamburger left"></i>
-                    </a>
-                </h4>
-            </div>
-
-            <div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
-                <div>
-                    <a href="OrderList.html" class="list-group-item">订单列表</a>
-                </div>
-            </div>
-        </div>
-
-        <!--<div class="panel panel-default">-->
-            <!--<div class="panel-heading" role="tab" id="heading3">-->
-                <!--<h4 class="panel-title">-->
-                    <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">-->
-                        <!--计费管理-->
-                        <!--<i class="glyphicon glyphicon-menu-hamburger left"></i>-->
-                    <!--</a>-->
-                <!--</h4>-->
-            <!--</div>-->
-
-            <!--<div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">-->
-                <!--<div>-->
-                    <!--<a href="javascript:changeiframe('BillContent.html')" class="list-group-item">帐单列表</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+<div id="solso-sidebar" style="height: 30%;">
+    <div class="element">
+    	<a href="ProductList.html" style="text-decoration: none; width: 10%">
+	   	 	<div class="poarea">
+	   	 		<div class="poimg"></div>
+	    		<div class="text">产品管理</div>
+	   	 	</div>
+   	 	</a>
+    </div>
+    <div class="element">
+    	<a href="OrderList.html" style="text-decoration: none;">
+	    	<div class="poarea">
+	    		<div class="orimg"></div>
+	    		<div class="text">订单管理</div>
+	    	</div>
+	    </a>
     </div>
 </div>
 </body>
-<!--<script>-->
-    <!--function changeiframe(page)-->
-    <!--{-->
-        <!--console.log(window.parent.frames["rightiframe"]);-->
-        <!--var fream=window.parent.frames["rightiframe"];-->
-        <!--fream.src=page;-->
-    <!--}-->
-<!--</script>-->
 </html>

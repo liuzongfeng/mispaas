@@ -24,6 +24,7 @@ public class PaasTemplateImp{
 	public PaasTemplate selectByPrimaryKey(Integer id) {
 		SqlSession session=sqlSessionFactory.openSession();
 		List<PaasTemplate> list=session.selectList("selectByid",id);
+		session.close();
 		return list.size()>0?list.get(0):null;
 	}
 

@@ -167,4 +167,10 @@
       MODULE_IMG_NAME = #{moduleImgName,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectSubservicebyTemid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+    from PAAS_SUBSERVICE
+    where TEMPLATE_ID=#{templateid}
+  </select>
 </mapper>

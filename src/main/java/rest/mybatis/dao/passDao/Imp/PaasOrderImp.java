@@ -37,20 +37,20 @@ public class PaasOrderImp{
 	public List<PaasOrder> getOrderListbyCondition(Pageinfo record) throws IOException {
 		SqlSession session=sqlSessionfactory.openSession();
 		List<PaasOrder> list=session.selectList("selectPaasOrderObjByCondit",record);
-		for (int i = 0; i < list.size(); i++) {
-			PaasOrder po=list.get(i);
-			JSONObject jo=requestUtil.getContent(po.getTenantId());
-			JSONObject joo=jo.getJSONArray("userList").getJSONObject(0);
-			po.setTenantName(joo.getString("name"));
-		}
+//		for (int i = 0; i < list.size(); i++) {
+//			PaasOrder po=list.get(i);
+//			JSONObject jo=requestUtil.getContent(po.getTenantId());
+//			JSONObject joo=jo.getJSONArray("userList").getJSONObject(0);
+//			po.setTenantName(joo.getString("name"));
+//		}
 		session.close();
 		return list;
 	}
-	/**
-	 * 更新订单实例关联
-	 */
-	public void updateOrderWithInstance(Integer instanceId)
-	{
-		SqlSession session=sqlSessionfactory.openSession();
-	}
+//	/**
+//	 * 更新订单实例关联
+//	 */
+//	public void updateOrderWithInstance(Integer instanceId)
+//	{
+//		SqlSession session=sqlSessionfactory.openSession();
+//	}
 }
