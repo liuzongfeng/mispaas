@@ -130,8 +130,8 @@
         		console.log(response);
         		if(response.code == "success")
         		{
-        			alert(response.message);
-        			window.location.reload();        			
+        			$('#myModal #myModalLabel').html(response.message);
+        			$('#myModal').modal("show");
         		}
         	});
         }

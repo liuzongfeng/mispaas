@@ -29,6 +29,21 @@
             z-index: 10;
             margin-right: 6px;
         }
+        .passclass{
+        	width: 180px;height: 40px; font-size: 20px; color: #458fe9; background-color: #f7f7f7; border: 1px solid #dcdedd;
+        }
+        .passclass:hover{
+        	background-color:#377ed2;
+        	color:#FFFFFF;
+        }
+        .messageshow{
+        	border: 1px solid red;
+        	width: 100%;
+        	height: 900px;
+        	z-index: 100;
+        	position: absolute;
+        	float: left;
+        }
     </style>
     <!--<script src="../js/angular.min.js"></script>-->
 </head>
@@ -37,7 +52,7 @@
     <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
     <li id="OrderListTab" class="active">
     	<a href="#OrderList" id="cententa" data-toggle="tab" style="width: 190px;height: 70px; border-top:2px solid #3f8dce; border-left: none;border-right: none;" onclick="changeothstyle()">
-    	<img src="../img/prounchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    	<img src="../img/appover.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
     	<div style=" margin-top: 13px;font-family:方正兰亭黑简体;font-size: 20px;color: #5e6575;">
     		订单列表
     	</div>
@@ -48,7 +63,7 @@
     		<a href="javascript:hiddenTab()">&times;</a>
     	</span>
     	<a href="#OrderPass" id="editproducta" data-toggle="tab" style="width: 190px;height: 70px;"  onclick="changestyle()">
-    		<img src="../img/prounchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    		<img src="../img/bianji.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
 	    	<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">
 	    		订单审核
 	    	</div>
@@ -62,11 +77,11 @@
         <form class="form-inline" style="text-align: right; margin-right: 1%;">
             <div class="form-group">
 <!--                 <label for="exampleInputName2">按租户名称查询</label> -->
-                <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="租户名称（回车查询）">
+                <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="租户名称（回车查询）" style="width:250px;">
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:150px; font-size: 16px;color: #333;">
                         <h id="dropdownMenuStatuetitle" ng-model="statue" data="">按状态过滤</h>
                         <span class="caret"></span>
                     </button>
@@ -140,44 +155,62 @@
 	            <input type="hidden" value="" id="id">
 	            <input type="hidden" value="" id="instanceId">
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center" >订单ID</th>
-	                <th width=";" style="text-align: center" id="OrderId"></th>
+	                <td width=";" style="text-align: center;color: #555;" >订单ID</td>
+	                <td width=";" style="text-align: center;color: #333;" id="OrderId"></td>
 	            </tr>
 	            <input type="hidden" value="" id="proid">
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center">产品名称</th>
-	                <th width=";" style="text-align: center" id="templateName"></th>
+	                <td width=";" style="text-align: center">产品名称</td>
+	                <td width=";" style="text-align: center" id="templateName"></td>
 	            </tr>
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center">下单时间</th>
+	                <td width=";" style="text-align: center">下单时间</td>
 	                <input type="hidden" value="" id="createDateNum">
-	                <th width=";" style="text-align: center" id="CreateDate"></th>
+	                <td width=";" style="text-align: center" id="CreateDate"></td>
 	            </tr>
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center">租户名称</th>
-	                <th width=";" style="text-align: center" id="perTenantName"></th>
+	                <td width=";" style="text-align: center">租户名称</td>
+	                <td width=";" style="text-align: center" id="perTenantName"></td>
 	            </tr>
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center">状态</th>
-	                <th width=";" style="text-align: center" id="statue"></th>
+	                <td width=";" style="text-align: center">状态</td>
+	                <td width=";" style="text-align: center" id="statue"></td>
 	            </tr>
 	            <tr style="margin-top: 15px;height: 50px;">
-	                <th width=";" style="text-align: center">理由</th>
-	                <th width=";" style="text-align: center">
-	                	<textarea class="form-control" rows="3" id="resion"></textarea>
-	                </th>
+	                <td width=";" style="text-align: center">理由</td>
+	                <td width=";" style="text-align: center">
+	                	<textarea class="form-control" rows="3" id="resion" style="font-size: 20px;"></textarea>
+	                </td>
 	            </tr>
 	            </tbody>
 	        </table>
         </div>
-        <div class="col-sm-offset-3 col-sm-6 modal-footer" style="width:282px;">
-            <button type="button" class="btn btn-primary" onclick="hiddenTab()">关闭</button>
-            <button type="button" id="passbtn" class="btn btn-success" ng-click="update(1)">通过</button>
-            <button type="button" id="refursebtn" class="btn btn-warning" ng-click="update(2)">驳回</button>
+        <div class="col-sm-offset-3 col-sm-6 modal-footer" style="width:700px; height: 70px;margin-left: 12.8%;">
+        	<input type="button" id="passbtn" ng-click="update(1)" value="通过" class="passclass">
+        	<input type="button" id="refursebtn" ng-click="update(2)" class="passclass" value="驳回">
+        	<input type="button" id="close" onclick="hiddenTab()" class="passclass" value="关闭">
+<!--             <button type="button" class="btn btn-default" onclick="hiddenTab()" style="width: 180px;height: 40px; font-size: 20px; color: #458fe9; background-color: #f7f7f7;">关闭</button> -->
+<!--             <button type="button" id="passbtn" class="btn btn-default" ng-click="update(1)" style="width: 180px;height: 40px; font-size: 20px; color: #458fe9;background-color: #f7f7f7;">通过</button> -->
+<!--             <button type="button" id="refursebtn" class="btn btn-default" ng-click="update(2)" style="width: 180px;height: 40px; font-size: 20px; color: #458fe9;background-color: #f7f7f7;">驳回</button> -->
         </div>
     </div>
 </div>
-
+<!-- 自定义弹窗 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 460px;height: 230px;">
+		<div class="modal-content" style="width: 460px;height: 230px;">
+			<div style="margin-top: 60px;margin-left: 100px;margin-right: auto;">
+				<div style="width: 60px;height: 60px;float: left;padding-top: 10px;"><img alt="" src="../img/waring2.png" style="height: 50px;width: 50px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"></strong></h3></div>
+			</div>
+			<div style="margin-top: 160px;">
+				<div ><button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
+			</div>
+				
+		</div>
+	</div>
+</div>
 </body>
 <script>
     function changedropdown(id,title,value)

@@ -132,11 +132,11 @@
         	$http.get(updateUrl).success(function(response){
         		if(response.code == "success")
         		{
-        			alert(response.message);
-        			window.location.reload();        			
+        			$('#myModal #myModalLabel').html(response.message);
+        			$('#myModal').modal("show");
         		}else
         		{
-        			alert(response.message);	
+        			$('#myModal #myModalLabel').html(response.message);
         		}
         	});
         }
