@@ -195,7 +195,18 @@
     select 
    count(*)
     from PAAS_TEMPLATE
-    where IS_PUB = 1
+     <where>
+    	IS_PUB = 1
+    	<if test="productName!=null and productName!=''">
+    	and PRODUCT_NAME  like '%${productName}%'
+    	</if>
+    	<if test="templateCategory!=null and templateCategory!=''">
+    	and TEMPLATE_CATEGORY = #{templateCategory}
+    	</if>
+    	<if test="id!=null and id!=''">
+    	and ID = #{id}
+    	</if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--

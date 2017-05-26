@@ -34,6 +34,12 @@ app.controller('ListCtrl', function($scope,$http) {
 		lis.eq(1).children().css("backgroundColor","#458fe9");
     	var page=null;
     	templateListController($scope,$http,id,page);
+    	
+    	  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+              $(e.target).css("border-top","2px solid #3f8dce");
+              // 获取前一个激活的标签页的名称
+            $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+          });
     };
     //应用列表
     $scope.nmyApplicationList = function(){
@@ -43,14 +49,19 @@ app.controller('ListCtrl', function($scope,$http) {
 		$scope.chanpincaidan2=false;
 		$scope.inscolor="#458fe9";
 		$scope.appcolor="#8e9094";
+    	var page=null;
+    	appListBynameController($scope,$http,page);
 		var lis=$("#appfenye").children();
 		for(i=0;i<lis.length;i++){
 			lis.eq(i).children().css("backgroundColor","white");
-			
 		}
-		lis.eq(1).children().css("backgroundColor","#458fe9");
-    	var page=null;
-    	applictionListController($scope,$http,page);
+		lis.eq(3).children().css("backgroundColor","#458fe9");	
+		
+		  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	            $(e.target).css("border-top","2px solid #3f8dce");
+	            // 获取前一个激活的标签页的名称
+	          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+	        });
 	    };
     //账单列表
     $scope.ntheBillList = function(){
@@ -63,6 +74,12 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.DetailsOfGoodsTab =false;
         $scope.myApplicationDetails=false;
         $scope.myApplicationUsers=false;
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(e.target).css("border-top","2px solid #3f8dce");
+            // 获取前一个激活的标签页的名称
+          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+        });
         $('#myTab a[href="#theBillListTab"]').tab('show')
     };
    //详情弹出控制
@@ -80,6 +97,12 @@ app.controller('ListCtrl', function($scope,$http) {
     	$scope.Details=false;
         $scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(e.target).css("border-top","2px solid #3f8dce");
+            // 获取前一个激活的标签页的名称
+          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+        });
         $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
     };
     //购买产品
@@ -115,6 +138,12 @@ app.controller('ListCtrl', function($scope,$http) {
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(e.target).css("border-top","2px solid #3f8dce");
+            // 获取前一个激活的标签页的名称
+          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+        });
         $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show');
         ordertoscope($scope,$http,id);
     };
@@ -157,6 +186,12 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
        // $scope.myApplicationList=false;
+        
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(e.target).css("border-top","2px solid #3f8dce");
+            // 获取前一个激活的标签页的名称
+          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+        });
         $('#myTab a[href="#myApplicationDetails"]').tab('show')
     };
     $scope.closeApplicationDetails=function(){
@@ -188,8 +223,6 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
             }).then(function successCallback(response) {
             	$scope.chOrglist=response.data;
-            	console.log($scope.Orglist);
-            	console.log($scope.chOrglist);
             	createTree1($scope.Orglist,$scope.chOrglist);
                 }, function errorCallback(response) {
             }); 
@@ -200,6 +233,11 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.myApplicationUsers=true;
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            $(e.target).css("border-top","2px solid #3f8dce");
+            // 获取前一个激活的标签页的名称
+          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
+        });
         $('#myTab a[href="#myApplicationUsers"]').tab('show')
     };
     $scope.closemyApplicationUsers=function(){
@@ -227,32 +265,6 @@ app.controller('ListCtrl', function($scope,$http) {
     });
     
 });
-//应用列表接口调用
-function applictionListController($scope,$http,page){
-	$http({
-        method: 'POST',
-        url: tenantSelfinterfaces.Var_showApplicationList,
-        contentType: "application/json",
-        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
-    }).then(function successCallback(response) {
-    	for(i=0;i<response.data.resultObj.length;i++){
-    		var newTime = new Date(response.data.resultObj[i].crateDate);
-    		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
-    	}
-    	$scope.pagenum =response.data.pageStr.split(",");
-    	$scope.pageinfo = response.data;
-    	$scope.applicationList=response.data.resultObj;
-        }, function errorCallback(response) {
-    }); 
-	    $scope.myApplicationListTab=true;
-        $scope.theBillListTab =false;
-        $scope.ListOfGoodsTab=false;
-        $scope.myApplicationList=true;
-        $scope.ListOfGoods=false;
-        $scope.theBillList=false;
-        $scope.DetailsOfGoodsTab =false;
-        $('#myTab a[href="#myApplicationListTab"]').tab('show')
-};
 //产品列表接口调用
 function templateListController($scope,$http,id,page){
 	$http({
@@ -272,6 +284,9 @@ function templateListController($scope,$http,id,page){
     	$scope.tepagenum =response.data.pageStr.split(",");
     	$scope.tepageinfo = response.data;
     	$scope.templateList=response.data.resultObj;
+    	$scope.pages=response.data.allpage;
+    	$scope.totalSize=response.data.begin;
+    	$scope.nowpage=response.data.pagenum;
         }, function errorCallback(response) {
     }); 
 	 $scope.ListOfGoodsTab=true;
@@ -285,11 +300,18 @@ function templateListController($scope,$http,id,page){
      $scope.myApplicationUsers=false;
      $('#myTab a[href="#ListOfGoodsTab"]').tab('show');
 };
-//名字子模糊查询应用列表接口
+//综合应用列表接口
 function appListBynameController($scope,$http,page){
+	var reurl = null;
+	if(($scope.instanceName==null||$scope.instanceName=='')&&($scope.templateCategory==null||$scope.templateCategory=='')){
+		
+			reurl=tenantSelfinterfaces.Var_showApplicationList;
+	}else{
+		reurl=tenantSelfinterfaces.Var_showApplicationListByInstanceName;
+	}
 	$http({
         method: 'POST',
-        url: tenantSelfinterfaces.Var_showApplicationListByInstanceName,
+        url: reurl,
         contentType: "application/json",
         params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
     }).then(function successCallback(response) {
@@ -299,7 +321,11 @@ function appListBynameController($scope,$http,page){
     	}
     	$scope.pagenum =response.data.pageStr.split(",");
     	$scope.pageinfo = response.data;
+    	console.log(response.data);
     	$scope.applicationList=response.data.resultObj;
+    	$scope.pages=response.data.allpage;
+    	$scope.totalSize=response.data.begin;
+    	$scope.nowpage=response.data.pagenum;
         }, function errorCallback(response) {
     }); 
 	    $scope.myApplicationListTab=true;
