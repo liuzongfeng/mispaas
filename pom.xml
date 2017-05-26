@@ -48,22 +48,17 @@
             <groupId>net.sf.ezmorph</groupId>  
             <artifactId>ezmorph</artifactId>  
             <version>1.0.6</version>  
-        </dependency> 
-		<!-- spring boot -->
-		<!-- spring session -->
+        </dependency>
+		<!-- spring session + redis-->
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 		</dependency>
-		<!-- redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -106,15 +101,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<!-- spring security -->
-		<!-- <dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency> -->
 		<!-- zip4j -->
 		<!-- https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j -->
 		<dependency>
@@ -149,8 +135,13 @@
 		    <artifactId>pagehelper</artifactId>
 		    <version>3.2.3</version>
 		</dependency>
-		<!-- security 对CAS支持配置开始 -->  
-        <!-- <dependency>  
+		
+		<!-- security 对CAS支持配置开始 --> 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency> 
+        <dependency>  
             <groupId>org.springframework.security</groupId>  
             <artifactId>spring-security-cas</artifactId>
             <exclusions>
@@ -159,15 +150,29 @@
         			<artifactId>cas-client-core</artifactId>
         		</exclusion>
         	</exclusions>
-        </dependency> -->
-        <!-- 集成cre cas client-->
-        <!-- <dependency>
+        </dependency>
+        <dependency>
         	<groupId>org.springframework.security</groupId>
         	<artifactId>CASClient4cre</artifactId>        	
         	<version>1.0</version>
-        </dependency> -->
+        </dependency>
         <!-- security 对CAS支持配置结束 -->
+        
+        <!--swagger2-->
+        <dependency>
+		  <groupId>io.springfox</groupId>
+		  <artifactId>springfox-swagger2</artifactId>
+		  <version>${swagger2.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>io.springfox</groupId>
+		  <artifactId>springfox-swagger-ui</artifactId>
+		  <version>${swagger2.version}</version>
+		</dependency>
 	</dependencies>
+	<properties>
+		<swagger2.version>2.6.1</swagger2.version>
+	</properties>
 	<build>
 		<finalName>pass</finalName>
 		<plugins>
