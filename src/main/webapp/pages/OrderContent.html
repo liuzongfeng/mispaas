@@ -33,16 +33,33 @@
     <!--<script src="../js/angular.min.js"></script>-->
 </head>
 <body>
-<ul id="myTab" class="nav nav-tabs">
+<ul id="myTab" class="nav nav-tabs" style="background-color: #F7F7F7;border-bottom: 2px solid #F7F7F7;">
     <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-    <li id="OrderListTab" class="active"><a href="#OrderList" data-toggle="tab">订单列表</a></li>
-    <li id="OrderPassTab" class="hidden"><span class="tabclost"><a href="javascript:hiddenTab()">&times;</a></span><a href="#OrderPass" data-toggle="tab">订单审核</a></li>
+    <li id="OrderListTab" class="active">
+    	<a href="#OrderList" id="cententa" data-toggle="tab" style="width: 190px;height: 70px; border-top:2px solid #3f8dce; border-left: none;border-right: none;" onclick="changeothstyle()">
+    	<img src="../img/prounchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    	<div style=" margin-top: 13px;font-family:方正兰亭黑简体;font-size: 20px;color: #5e6575;">
+    		订单列表
+    	</div>
+    	</a>
+    </li>
+    <li id="OrderPassTab" class="hidden">
+    	<span class="tabclost">
+    		<a href="javascript:hiddenTab()">&times;</a>
+    	</span>
+    	<a href="#OrderPass" id="editproducta" data-toggle="tab" style="width: 190px;height: 70px;"  onclick="changestyle()">
+    		<img src="../img/prounchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+	    	<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">
+	    		订单审核
+	    	</div>
+	    </a>
+    </li>
 </ul>
 <h1 style="margin-top: 3%;width: 200px; margin-left: 11%;"></h1>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="OrderList">
         <!-- 数据查询模块 -->
-        <form class="form-inline" style="text-align: right;">
+        <form class="form-inline" style="text-align: right; margin-right: 1%;">
             <div class="form-group">
 <!--                 <label for="exampleInputName2">按租户名称查询</label> -->
                 <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="租户名称（回车查询）">
@@ -69,23 +86,23 @@
                 <label for="exampleInputName2">结束时间</label>
                 <input type="date" class="form-control" id="endDate" placeholder="按时间过滤" ng-model="endDate">
             </div>
-            <button type="button" class="btn btn-primary" id="selectBtn" ng-click="selectData()">查询</button>
+            <button type="button" class="btn btn-primary" style="width: 100px;" id="selectBtn" ng-click="selectData()">查询</button>
         </form>
         <br>
         <!-- 数据展示模块 -->
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" style="width: 98%;margin-left: 1%;">
             <thead>
-            <tr>
-                <th width=";" style="text-align: center">订单ID</th>
-                <th width=";" style="text-align: center">产品名称</th>
-                <th width=";" style="text-align: center">下单时间</th>
-                <th width=";" style="text-align: center">租户名称</th>
-                <th width=";" style="text-align: center">状态</th>
+            <tr style="background-color: #f7f7f7;height: 56px; font-size: 20px;color: #333333;">
+                <td width=";" style="text-align: center">订单ID</th>
+                <td width=";" style="text-align: center">产品名称</th>
+                <td width=";" style="text-align: center">下单时间</th>
+                <td width=";" style="text-align: center">租户名称</th>
+                <td width=";" style="text-align: center">状态</th>
             </tr>
             </thead>
-            <tbody ng-repeat="order in datas">
-            <tr>
-                <th style="text-align: center"><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></th>
+            <tbody>
+            <tr  ng-repeat="order in datas" style="font-size: 17px;color: #666666;">
+                <td style="text-align: center;"><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></th>
                 <td style="text-align: center">{{order.paasTemplate.templateName}}</td>
                 <td style="text-align: center">{{order.crateDate|date:"yyyy-MM-dd HH:mm:ss"}}</td>
                 <td style="text-align: center">{{order.tenantName}}</td>
@@ -98,7 +115,7 @@
         </table>
         <br>
         <!-- 分页模块 -->
-        <nav aria-label="Page navigation" style="text-align: right;">
+        <nav aria-label="Page navigation" style="text-align: right;margin-right: 1%;">
             <ul class="pagination">
                <li>
                     <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
@@ -118,33 +135,33 @@
     </div>
     <div class="tab-pane fade" id="OrderPass">
         <div class="modal-body">
-        	<table class="table table-striped table-hover">
+        	<table class="table table-striped table-hover" style=" width: 50%;margin-left: 10%;font-size: 20px;color:#555555;">
 	            <tbody>
 	            <input type="hidden" value="" id="id">
-	            <input type="text" value="" id="instanceId">
-	            <tr>
-	                <th width=";" style="text-align: center">订单ID</th>
+	            <input type="hidden" value="" id="instanceId">
+	            <tr style="margin-top: 15px;height: 50px;">
+	                <th width=";" style="text-align: center" >订单ID</th>
 	                <th width=";" style="text-align: center" id="OrderId"></th>
 	            </tr>
 	            <input type="hidden" value="" id="proid">
-	            <tr>
+	            <tr style="margin-top: 15px;height: 50px;">
 	                <th width=";" style="text-align: center">产品名称</th>
 	                <th width=";" style="text-align: center" id="templateName"></th>
 	            </tr>
-	            <tr>
+	            <tr style="margin-top: 15px;height: 50px;">
 	                <th width=";" style="text-align: center">下单时间</th>
 	                <input type="hidden" value="" id="createDateNum">
 	                <th width=";" style="text-align: center" id="CreateDate"></th>
 	            </tr>
-	            <tr>
+	            <tr style="margin-top: 15px;height: 50px;">
 	                <th width=";" style="text-align: center">租户名称</th>
 	                <th width=";" style="text-align: center" id="perTenantName"></th>
 	            </tr>
-	            <tr>
+	            <tr style="margin-top: 15px;height: 50px;">
 	                <th width=";" style="text-align: center">状态</th>
 	                <th width=";" style="text-align: center" id="statue"></th>
 	            </tr>
-	            <tr>
+	            <tr style="margin-top: 15px;height: 50px;">
 	                <th width=";" style="text-align: center">理由</th>
 	                <th width=";" style="text-align: center">
 	                	<textarea class="form-control" rows="3" id="resion"></textarea>
@@ -153,7 +170,7 @@
 	            </tbody>
 	        </table>
         </div>
-        <div class="modal-footer">
+        <div class="col-sm-offset-3 col-sm-6 modal-footer" style="width:282px;">
             <button type="button" class="btn btn-primary" onclick="hiddenTab()">关闭</button>
             <button type="button" id="passbtn" class="btn btn-success" ng-click="update(1)">通过</button>
             <button type="button" id="refursebtn" class="btn btn-warning" ng-click="update(2)">驳回</button>
@@ -205,6 +222,7 @@
         $('#OrderPassTab').attr('class','active');
         $('#OrderPass').attr('class','tab-pane fade in active');
         $('#OrderList').attr('class','tab-pane fade');
+        changestyle();
     }
     function hiddenTab()
     {
@@ -212,6 +230,17 @@
         $('#OrderPassTab').attr('class','hidden');
         $('#OrderPass').attr('class','tab-pane fade');
         $('#OrderList').attr('class','tab-pane fade in active');
+        changeothstyle();
+    }
+    function changestyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+    }
+    function changeothstyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
     }
     $('#TenantName').bind('keyup', function(event) {
 		if (event.keyCode == "13") {

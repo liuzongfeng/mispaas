@@ -38,15 +38,28 @@
     </style>
 </head>
 <body>
-<ul id="myTab" class="nav nav-tabs">
-    <li id="ProductListTab" class="active"><a href="#Content" data-toggle="tab">产品列表</a></li>
-    <li id="editProductTab" class="hidden"><span class="tabclost"><a href="javascript:hiddenTab()">&times;</a></span><a href="#editProduct" data-toggle="tab">编辑产品</a></li>
+<ul id="myTab" class="nav nav-tabs" style="background-color: #F7F7F7;border: 2px solid #F7F7F7;">
+    <li id="ProductListTab" class="active">
+    	<a href="#Content" id="cententa" data-toggle="tab" style="width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;" onclick="changeothstyle()">
+    		<img src="../img/prochecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    		<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">产品列表</div>
+    	</a>
+    </li>
+    <li id="editProductTab" class="hidden">
+    	<span class="tabclost">
+    		<a href="javascript:hiddenTab()">&times;</a>
+    	</span>
+    	<a href="#editProduct" id="editproducta" data-toggle="tab" style="width: 190px;height: 70px;" onclick="changestyle()">
+	    	<img src="../img/editTemplate.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+	    	<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">编辑产品</div>
+    	</a>
+    </li>
 </ul>
 <h1 style="margin-top: 3%;width: 200px; margin-left: 11%;"></h1>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="Content">
         <!-- 数据查询模块 -->
-        <form class="form-inline" style="text-align: right;">
+        <form class="form-inline" style="text-align: right; margin-right: 1%;">
             <div class="form-group">
 <!--                 <label for="exampleInputName2">按名称查询</label> -->
                 <input type="text" class="form-control" placeholder="输入名称,回车查询" ng-model="templateName" id="templateName">
@@ -83,22 +96,22 @@
         </form>
         <br>
         <!-- 数据展示模块 -->
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" style="width: 98%;margin-left: 1%;">
             <thead>
-            <tr>
-                <th width="100px;" style="text-align: center">模板ID</th>
-                <th width="80px;" style="text-align: center">版本号</th>
-                <th width="400px;" style="text-align: center">产品名称</th>
-                <th width="80px;" style="text-align: center">类型</th>
-                <th width="80px;" style="text-align: center">分类</th>
-                <th width="80px;" style="text-align: center">状态</th>
-                <th width="80px;" style="text-align: center">是否已发布</th>
-                <th width="80px;" style="text-align: center">操作</th>
+            <tr style="background-color: #f7f7f7;height: 56px; font-size: 20px;color: #333333;">
+                <td width=";" style="text-align: center;">模板ID</th>
+                <td width=";" style="text-align: center">版本号</th>
+                <td width=";" style="text-align: center">产品名称</th>
+                <td width=";" style="text-align: center">类型</th>
+                <td width=";" style="text-align: center">分类</th>
+                <td width=";" style="text-align: center">状态</th>
+                <td width=";" style="text-align: center">是否已发布</th>
+                <td width=";" style="text-align: center">操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="templates in datas">
-                <th style="text-align: center">{{templates.templateId}}</th>
+            <tr ng-repeat="templates in datas" style="font-size: 17px;color: #666666;">
+                <td style="text-align: center;text-align: center; padding-bottom: 0px;">{{templates.templateId}}</th>
                 <td style="text-align: center">{{templates.version}}</td>
                 <td style="text-align: center">{{templates.templateName}}</td>
                 <td style="text-align: center">{{templates.templateType}}</td>
@@ -117,7 +130,7 @@
         <br>
 
         <!-- 分页模块 -->
-        <nav aria-label="Page navigation" style="text-align: right;">
+        <nav aria-label="Page navigation" style="text-align: right;margin-right: 1%;margin-top:0.1%">
             <ul class="pagination">
                 <li>
                     <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
@@ -135,41 +148,41 @@
             </ul>
         </nav>
     </div>
-    <div class="tab-pane fade" id="editProduct">
+    <div class="tab-pane fade" id="editProduct" style=" width: 80%;">
         <div class="form-horizontal">
-            <div class="form-group" style="text-align: center;">
-                <label for="exampleInputName2" class="col-sm-4 control-label">模板ID</label>
+            <div class="form-group">
+                <label for="exampleInputName2" class="col-sm-2 control-label">模板ID</label>
                 <div class="col-sm-6">
                 	<input type="hidden" id="id" value="">
                     <input type="text" class="form-control" id="modelId" placeholder="模板ID" Readonly>
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-4 control-label">版本号</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label">版本号</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="versionId" placeholder="版本号" Readonly>
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-4 control-label">类型</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label">类型</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="producttype" placeholder="类型" Readonly>
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-4 control-label">产品名称</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label">产品名称</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="ProductName" placeholder="产品名称">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-4 control-label">分类</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label">分类</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="productClass" placeholder="分类" Readonly>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-4 col-sm-6">
+                <div class="col-sm-offset-2 col-sm-6">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="ispub"> 向租户发布
@@ -179,7 +192,7 @@
             </div>
             <br>
         </div>
-        <div class="modal-footer">
+        <div class="col-sm-offset-2 col-sm-4 modal-footer" style="width:282px;">
             <button type="button" class="btn btn-primary" onclick="hiddenTab()">（首选项）关闭</button>
             <button type="button" class="btn btn-success" ng-click="edittemplate()">（成功）应用</button>
         </div>
@@ -216,6 +229,7 @@
         $('#editProductTab').attr('class','active');
         $('#editProduct').attr('class','tab-pane fade in active');
         $('#Content').attr('class','tab-pane fade');
+        changestyle();
     }
     function hiddenTab()
     {
@@ -223,6 +237,19 @@
         $('#editProductTab').attr('class','hidden');
         $('#editProduct').attr('class','tab-pane fade');
         $('#Content').attr('class','tab-pane fade in active');
+        changeothstyle();
+//         $('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;")
+//         $('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;")
+    }
+    function changestyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+    }
+    function changeothstyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
     }
     $('#templateName').bind('keyup', function(event) {
 		if (event.keyCode == "13") {

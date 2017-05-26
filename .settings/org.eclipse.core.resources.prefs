@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/java/rest/mybatis/MyBatisConfig.java=gbk
@@ -11,3 +12,16 @@ encoding//src/main/webapp/js/navigation/login2.html=UTF-8
 encoding//src/main/webapp/pages/myapp.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
+=======
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/rest/mybatis/MyBatisConfig.java=gbk
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/application.properties=UTF-8
+encoding//src/main/webapp/js/home/home.html=UTF-8
+encoding//src/main/webapp/js/navigation=UTF-8
+encoding//src/main/webapp/js/navigation/appexample.html=UTF-8
+encoding//src/main/webapp/js/navigation/apptemplate.html=utf-8
+encoding//src/main/webapp/js/navigation/login2.html=UTF-8
+encoding/<project>=UTF-8
+>>>>>>> branch 'master' of git@172.16.2.4:/gitsvn/svn/pass/mispass.git

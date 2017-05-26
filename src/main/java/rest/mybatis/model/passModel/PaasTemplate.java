@@ -334,4 +334,17 @@ public class PaasTemplate {
     public void setTemplateName(String templateName) {
         this.templateName = templateName == null ? null : templateName.trim();
     }
+
+	@Override
+	public String toString() {
+		return "PaasTemplate [id=" + id + ", templateId=" + templateId
+				+ ", version=" + version + ", templateType=" + templateType
+				+ ", templateCategory=" + templateCategory + ", userMode="
+				+ userMode + ", price=" + price + ", isPub=" + isPub
+				+ ", templateName=" + templateName + ", uploadPerson="
+				+ uploadPerson + ", uploadDate=" + uploadDate
+				+ ", productName=" + productName + ", paasSubservices="
+				+ paasSubservices + "]";
+	}
+    
 }

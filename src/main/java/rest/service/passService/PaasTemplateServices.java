@@ -1,6 +1,7 @@
 package rest.service.passService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import rest.mybatis.dao.passDao.Imp.PaasInstanceImp;
 import rest.mybatis.dao.passDao.Imp.PaasTemplateImp;
+import rest.mybatis.model.passModel.PaasInstance;
+import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasTemplate;
 import rest.page.util.Message;
 import rest.page.util.PageUtil;
@@ -25,6 +29,8 @@ public class PaasTemplateServices {
 	private PageUtil pageUtil;
 	@Autowired
 	private PaasTemplateImp paasTemplateImp;
+	@Autowired
+	private PaasInstanceImp paasInstanceImp;
 	@Autowired
 	private RequestUtil requestUtil;
 	@RequestMapping("/rest/productService/getAllproduct")
@@ -67,14 +73,37 @@ public class PaasTemplateServices {
 	
 	/**
 	 * 获取门户信息
+	 * 更具用户 获取所属组织机构然后获取 实力列表
 	 * @throws IOException 
 	 */
 	@RequestMapping("/rest/productService/getIndexPageElement/{userid}")
-	public JSONArray getIndexPageElement(@PathVariable(value="userid") String userid) throws IOException
+	public List<PaasOrder> getIndexPageElement(@PathVariable(value="userid") String userid) throws IOException
+	{
+		List<PaasOrder> reslut=new ArrayList<PaasOrder>();
+		JSONObject jsono=requestUtil.getContent(userid);
+		JSONArray ja=jsono.getJSONArray("userList");
+		JSONObject joo=ja.getJSONObject(0);
+		JSONArray organizationIdListja=joo.getJSONArray("organizationIdList");
+		String orgstr=organizationIdListja.toString();
+		orgstr=orgstr.substring(orgstr.indexOf("[")+1, orgstr.lastIndexOf("]"));
+		String[] orgary=orgstr.split(",");
+		for (int i = 0; i < orgary.length; i++) {
+			String orjcode=orgary[i].toString();
+			orjcode=orjcode.replaceAll("\"", "");
+//			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId("0BBCB174-64F8-4592-870D-6C8F73A03961");
+			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId(orjcode);
+			reslut.addAll(list);
+		}
+		return reslut;
+	}
+	
+	@RequestMapping("/rest/productService/getusersprivilegeIdList/{userid}")
+	public JSONArray getusersprivilegeIdList(@PathVariable(value="userid") String userid) throws IOException
 	{
 		JSONObject jsono=requestUtil.getContent(userid);
 		JSONArray ja=jsono.getJSONArray("userList");
 		JSONObject joo=ja.getJSONObject(0);
-		return joo.getJSONArray("privilegeIdList");
+		JSONArray privilegeIdList=joo.getJSONArray("privilegeIdList");
+		return privilegeIdList;
 	}
 }

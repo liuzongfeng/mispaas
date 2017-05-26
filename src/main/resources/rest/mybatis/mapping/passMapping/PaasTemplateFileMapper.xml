@@ -173,4 +173,13 @@
       MODULE_ID = #{moduleId,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectFilesBytemplate" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  	select 
+  	 <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from PAAS_TEMPLATE_FILE
+    where TEMPLATE_ID =#{templateid}
+  </select>
 </mapper>
