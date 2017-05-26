@@ -174,12 +174,12 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			var autoHeight_fn = function(){
 				//高度自适应
-				var ifm_right= $("#rightdiv");
-                var h_r = ifm_right.css("height");
-                var h_l_c = h_r.split("px")[0] - (-60);
+				//template高度自适应
+                var rightDiv = document.getElementById("rightdiv");
+                var ch_t = rightDiv.clientHeight;
                 var ifm_left= $("#leftdiv");
-                var h_l = ifm_left.css("height");
-                ifm_left.css("height",h_l_c);
+                ifm_left.css("height",0);
+                ifm_left.css("height",ch_t);
 			}
 			
 			//应用模板
@@ -193,7 +193,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
 				}
-                
+				
 			}
 			//超链接查看模板详细
 			$scope.a_searchTemplate_fn = function(){
@@ -213,6 +213,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
  				$scope.divPage=false;
  				$scope.editTemplate = true;
  				$scope.editTemplate_title=true;
+ 				
+ 				autoHeight_fn();
 			}
 			
 			//编辑模板
@@ -393,14 +395,15 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			
 			$(function() {
-				
-				//高度自适应
-				var ifm_right= $("#rightdiv");
-                var h_r = ifm_right.css("height");
-                var h_l_c = h_r.split("px")[0] - 102;
-                var ifm_left= $("#leftdiv");
-                var h_l = ifm_left.css("height");
-                ifm_left.css("height",h_l_c);
+				//template高度自适应
+	            var rightDiv = document.getElementById("templateBody");
+	            var ch_t = rightDiv.clientHeight;
+	            var ifm_left= $("#leftdiv");
+	            var count = 12.5*$scope.pageSize;
+	            
+	            ifm_left.css("height",0);
+	            
+	            ifm_left.css("height",ch_t-count);
 				
                 
 				//按分类查询
