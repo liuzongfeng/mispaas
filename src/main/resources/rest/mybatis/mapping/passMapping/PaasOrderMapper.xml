@@ -222,6 +222,7 @@
     from PAAS_ORDER
     where TENANT_ID = #{tenantId} and STATUS !=3
   </select>
+  
   <!-- 条件查询数据条数 -->
 <select id="selectOrderCountBycondition" resultType="java.lang.Integer" >
     
