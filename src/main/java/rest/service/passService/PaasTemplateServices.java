@@ -2,6 +2,7 @@ package rest.service.passService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -105,5 +106,40 @@ public class PaasTemplateServices {
 		JSONObject joo=ja.getJSONObject(0);
 		JSONArray privilegeIdList=joo.getJSONArray("privilegeIdList");
 		return privilegeIdList;
+	}
+	
+	/**
+	 * 更具用户ID 实例ID 查询是否有访问权限
+	 */
+	//@RequestMapping("/rest/productService/ispermit/{userid}/{instanceId}")
+//	public Message ispermit(@PathVariable(value="userid") String userid,@PathVariable(value="instanceId") String instanceId) throws IOException
+	public Message ispermit(String userid,String instanceId) throws IOException
+	{
+		List<PaasOrder> reslut=new ArrayList<PaasOrder>();
+		JSONObject jsono=requestUtil.getContent(userid);
+		JSONArray ja=jsono.getJSONArray("userList");
+		JSONObject joo=ja.getJSONObject(0);
+		JSONArray organizationIdListja=joo.getJSONArray("organizationIdList");
+		String orgstr=organizationIdListja.toString();
+		orgstr=orgstr.substring(orgstr.indexOf("[")+1, orgstr.lastIndexOf("]"));
+		String[] orgary=orgstr.split(",");
+		boolean result=false;
+		for (int i = 0; i < orgary.length; i++) {
+			String orjcode=orgary[i].toString();
+			orjcode=orjcode.replaceAll("\"", "");
+			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,instanceId);
+			if(conresult)
+			{
+				result=true;
+				break;
+			}
+		}
+		if(result)
+		{
+			return new Message("success", "有访问权！", new Date());
+		}else
+		{
+			return new Message("fail", "无访问权！", new Date());
+		}
 	}
 }

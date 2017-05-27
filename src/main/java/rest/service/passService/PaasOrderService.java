@@ -63,7 +63,7 @@ public class PaasOrderService {
 	 */
 	@RequestMapping("/rest/orderService/updateOrder")
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
-	public Message updateOrder(@RequestParam(name="userId",required=false,defaultValue="1") Integer userId,@RequestParam(name="orderId",required=true) Integer orderId,@RequestParam(name="statue",required=true) Integer statue,@RequestParam(name="resion",required=false) String resion,@RequestParam(name="proId") Integer proId,@RequestParam(name="instanceid",defaultValue="") String instanceid)
+	public Message updateOrder(@RequestParam(name="userId",required=false) String userId,@RequestParam(name="orderId",required=true) Integer orderId,@RequestParam(name="statue",required=true) Integer statue,@RequestParam(name="resion",required=false) String resion,@RequestParam(name="proId") Integer proId,@RequestParam(name="instanceid",defaultValue="") String instanceid)
 	{
 		PaasOrder po=new PaasOrder();
 		po.setId(orderId);

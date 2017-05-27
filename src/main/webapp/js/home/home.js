@@ -6,12 +6,12 @@ angular.module('home', []).controller('home', function($http,$scope) {
 		self.user = response.data.name;
 	});*/
 	
-	$scope.obtainHelp_fn = function(){
+	/*$scope.obtainHelp_fn = function(){
 		alert("1111");
-		$http.get("http://localhost:8080/obtainHelp").then(
+		$http.get("http://192.168.6.165:8080/obtainHelp").then(
 				function(data){
 					alert(data);
 				});
-	}
+	}*/
 	
 });

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,7 @@ public class InstanceService {
 	*/
 	@RequestMapping(value = "/obtainUserInfo", method = RequestMethod.GET)
 	@ResponseBody
+	@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = { "x-auth-token", "x-requested-with" })
 	public UserInfo obtainUserInfo(HttpSession session){
 		
 		return (UserInfo)session.getAttribute(session.getId());
@@ -61,7 +63,15 @@ public class InstanceService {
 			String instanceId = (String)paasInstanceMap.get("instanceId");
 			PaasInstance paasInstance = paasInstanceMapper.selectByPrimaryKey(instanceId);
 			String instanceName = (String)paasInstanceMap.get("instanceName");       //实例名称
-			Integer instanceStatus = (Integer)paasInstanceMap.get("instanceStatus"); //实例状态
+			Object instanceStatusObj = paasInstanceMap.get("instanceStatus"); //实例状态
+			Integer instanceStatus = null;
+			if(instanceStatusObj instanceof Integer){
+				instanceStatus = (Integer)instanceStatusObj; 
+			}
+			if(instanceStatusObj instanceof String){
+				String instanceStatus_str = (String)instanceStatusObj;
+				instanceStatus = Integer.parseInt(instanceStatus_str);
+			}
 			/*Integer instanceStatusI = 0;
 			if(null != instanceStatus || !"".equals(instanceStatus)){
 				instanceStatusI = Integer.parseInt(instanceStatus);
