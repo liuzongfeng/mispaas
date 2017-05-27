@@ -68,17 +68,30 @@ public class PaasOrderAndTemplateService {
 	@RequestMapping(value="/passService/showApplicationList",method=RequestMethod.POST)
 	@ResponseBody
 	public Pageinfo showApplicationList(@RequestParam(value="page",defaultValue="1") String page,
-			@RequestParam(value="tenantId") String tenantId,
+			@RequestParam(value="tetantList") String tetantList,
 			@RequestParam(value="instanceName") String instanceName,
 			@RequestParam(value="templateCategory") String templateCategory,
 			@RequestParam(value="counm",defaultValue="10") Integer counm){
-			
-			Integer num = passordermapper.selectOrderCount(tenantId);
+			Integer num = 0;
 			/*PageHelper.startPage(page, counm);*/
+			
+			int i = Integer.parseInt(page);
+			List<PaasOrder> list = new ArrayList<PaasOrder>();
+			JSONObject jo=JSONObject.fromObject(tetantList);
+			JSONArray jsonArray = jo.getJSONArray("tenantList");
+			for (Object object : jsonArray) {
+				JSONObject jsonObject = (JSONObject) object;
+				Object object2 = jsonObject.get("id");
+				String tenantId = object2.toString();
+				System.out.println(tenantId);
+				 num = num+passordermapper.selectOrderCount(tenantId);
+				 List<PaasOrder> passlist = passordermapper.selectByCondition(i,tenantId,instanceName, templateCategory, counm);
+					for (PaasOrder paasOrder : passlist) {
+						list.add(paasOrder);
+					}
+			}
 			Pageinfo pi=pageutil.initpage(num, page);
 			pi.setBegin(num);
-			int i = Integer.parseInt(page);
-			List<PaasOrder> list = passordermapper.selectByCondition(i,tenantId, instanceName, templateCategory,counm);
 			/*PageInfo pageInfo = new PageInfo(list);*/
 			pi.setResultObj(list);
 			return pi;
@@ -145,18 +158,30 @@ public class PaasOrderAndTemplateService {
 		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
-				@RequestParam(value="tenantId") String tenantId,
+				@RequestParam(value="tetantList") ArrayList<String> tetantList,
 				@RequestParam(value="instanceName") String instanceName,
 				@RequestParam(value="templateCategory") String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm){
-				
-				List countBycondition = passordermapper.selectOrderCountBycondition(tenantId, instanceName, templateCategory);
-				Integer num = countBycondition.size();
-				
+					
+				Integer num =null;
 				/*PageHelper.startPage(page, counm);*/
-				Pageinfo pi=pageutil.initpage(num, page);
 				int i = Integer.parseInt(page);
-				List<PaasOrder> list = passordermapper.selectByInstanceName(i,tenantId, instanceName, templateCategory,counm);
+				List<PaasOrder> list=null;
+				JSONObject jo=JSONObject.fromObject(tetantList);
+				JSONArray jsonArray = jo.getJSONArray("tenantList");
+				for (Object object : jsonArray) {
+					JSONObject JSONObject = (JSONObject) object;
+					Object object2 = JSONObject.get("id");
+					String tenantId = object2.toString();
+					List countBycondition = passordermapper.selectOrderCountBycondition(tenantId, instanceName, templateCategory);
+					 num = num+countBycondition.size();
+					 List<PaasOrder> passlist = passordermapper.selectByCondition(i,tenantId, instanceName, templateCategory,counm);
+						for (PaasOrder paasOrder : passlist) {
+							list.add(paasOrder);
+						}
+				}
+				Pageinfo pi=pageutil.initpage(num, page);
+				
 				/*PageInfo pageInfo = new PageInfo(list);*/
 				pi.setResultObj(list);
 				pi.setBegin(num);
