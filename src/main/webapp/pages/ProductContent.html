@@ -35,13 +35,20 @@
 			font-family: 微软雅黑; 
 			text-align: center;       	
         }
+        .passclass{
+        	width: 180px;height: 40px; font-size: 20px; color: #458fe9; background-color: #f7f7f7; border: 1px solid #dcdedd;
+        }
+        .passclass:hover{
+        	background-color:#377ed2;
+        	color:#FFFFFF;
+        }
     </style>
 </head>
 <body>
 <ul id="myTab" class="nav nav-tabs" style="background-color: #F7F7F7;border: 2px solid #F7F7F7;">
     <li id="ProductListTab" class="active">
     	<a href="#Content" id="cententa" data-toggle="tab" style="width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;" onclick="changeothstyle()">
-    		<img src="../img/prochecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    		<img src="../img/appover.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
     		<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">产品列表</div>
     	</a>
     </li>
@@ -50,7 +57,7 @@
     		<a href="javascript:hiddenTab()">&times;</a>
     	</span>
     	<a href="#editProduct" id="editproducta" data-toggle="tab" style="width: 190px;height: 70px;" onclick="changestyle()">
-	    	<img src="../img/editTemplate.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+	    	<img src="../img/bianji.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
 	    	<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">编辑产品</div>
     	</a>
     </li>
@@ -62,12 +69,12 @@
         <form class="form-inline" style="text-align: right; margin-right: 1%;">
             <div class="form-group">
 <!--                 <label for="exampleInputName2">按名称查询</label> -->
-                <input type="text" class="form-control" placeholder="输入名称,回车查询" ng-model="templateName" id="templateName">
+                <input type="text" class="form-control" placeholder="输入名称,回车查询" ng-model="templateName" id="templateName" style="height: 50px;width:250px; font-size: 16px;color: #333;background-color: #f7f7f7;">
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <h id="dropdownMenuStatuetitle" ng-model="userMode">按状态过滤</h>
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 50px; font-size: 16px;color: #333; width:200px; background-color: #f7f7f7;">
+                        <h id="dropdownMenuStatuetitle" ng-model="userMode" >按状态过滤</h>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
@@ -80,7 +87,7 @@
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"  style="height: 50px; width:200px; font-size: 16px;color: #333;background-color: #f7f7f7;">
                         <h id="dropdownMenuClasstitle" ng-model=templateCategory>按分类过滤</h>
                         <span class="caret"></span>
                     </button>
@@ -121,7 +128,7 @@
                 <td style="text-align: center" ng-if="templates.isPub == 0">未发布</td>
                 <td style="text-align: center">
                     <div class="btn-group">
-                        <a href="javascript:showeditmodel('{{templates.templateId}}')" class="btn btn-default">编辑</a>
+                        <a href="javascript:showeditmodel('{{templates.templateId}}')" class="btn btn-default" style="width: 150%;">编辑</a>
                     </div>
                 </td>
             </tr>
@@ -151,54 +158,70 @@
     <div class="tab-pane fade" id="editProduct" style=" width: 80%;">
         <div class="form-horizontal">
             <div class="form-group">
-                <label for="exampleInputName2" class="col-sm-2 control-label">模板ID</label>
+                <label for="exampleInputName2" class="col-sm-2 control-label" style="margin-top: -5px;" ><div style="font-size: 20px; color: #555555; text-align: right; ">模板ID</div></label>
                 <div class="col-sm-6">
                 	<input type="hidden" id="id" value="">
-                    <input type="text" class="form-control" id="modelId" placeholder="模板ID" Readonly>
+                    <input type="text" class="form-control" id="modelId" placeholder="模板ID" Readonly style="font-size: 20px; color: #333333;">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-2 control-label">版本号</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label"  style="margin-top: -5px;"><div style="font-size: 20px; color: #555555; text-align: right; ">版本号</div></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="versionId" placeholder="版本号" Readonly>
+                    <input type="text" class="form-control" id="versionId" placeholder="版本号" Readonly style="font-size: 20px; color: #333333;">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-2 control-label">类型</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label" style="margin-top: -5px;"><div style="font-size: 20px; color: #555555; text-align: right; ">类型</div></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="producttype" placeholder="类型" Readonly>
+                    <input type="text" class="form-control" id="producttype" placeholder="类型" Readonly style="font-size: 20px; color: #333333;">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-2 control-label">产品名称</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label" style="margin-top: -5px;"><div style="font-size: 20px; color: #555555; text-align: right; ">产品名称</div></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="ProductName" placeholder="产品名称">
+                    <input type="text" class="form-control" id="ProductName" placeholder="产品名称" style="font-size: 20px; color: #333333;">
                 </div>
             </div>
             <div class="form-group">
-                <label for="exampleInputEmail2" class="col-sm-2 control-label">分类</label>
+                <label for="exampleInputEmail2" class="col-sm-2 control-label" style="margin-top: -5px;"><div style="font-size: 20px; color: #555555; text-align: right; ">分类</div></label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="productClass" placeholder="分类" Readonly>
+                    <input type="text" class="form-control" id="productClass" placeholder="分类" Readonly style="font-size: 20px; color: #333333;">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-6">
                     <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="ispub"> 向租户发布
+                        <label style="width: 30%;">
+                            <input type="checkbox" id="ispub" style="margin-left: -70px; margin-top: 10px;"><div style="font-size: 20px; color: #555555;">向租户发布</div>
                         </label>
                     </div>
                 </div>
             </div>
-            <br>
         </div>
-        <div class="col-sm-offset-2 col-sm-4 modal-footer" style="width:282px;">
-            <button type="button" class="btn btn-primary" onclick="hiddenTab()">（首选项）关闭</button>
-            <button type="button" class="btn btn-success" ng-click="edittemplate()">（成功）应用</button>
+        <div class="col-sm-offset-2 col-sm-4 modal-footer" style="width:500px; height: 70px;margin-left: 9%;">
+        	<input type="button" id="passbtn" ng-click="edittemplate()" value="提交" class="passclass">
+        	<input type="button" id="passbtn" onclick="hiddenTab()" value="关闭" class="passclass">
+<!--         	<button type="button" class="btn btn-success" ng-click="edittemplate()" style="width: 180px;height: 40px; font-size: 20px; color: #FFFFFF;">提交</button> -->
+<!--             <button type="button" class="btn btn-primary" onclick="hiddenTab()" style="width: 180px;height: 40px; font-size: 20px; color: #FFFFFF;">关闭</button> -->
         </div>
     </div>
 </div>
-
+<!-- 自定义弹窗 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 460px;height: 230px;">
+		<div class="modal-content" style="width: 460px;height: 230px;">
+			<div style="margin-top: 60px;margin-left: 100px;margin-right: auto;">
+				<div style="width: 60px;height: 60px;float: left;padding-top: 10px;"><img alt="" src="../img/waring2.png" style="height: 50px;width: 50px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"></strong></h3></div>
+			</div>
+			<div style="margin-top: 160px;">
+				<div ><button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
+			</div>
+				
+		</div>
+	</div>
+</div>
 <script>
     function changedropdown(id,title)
     {

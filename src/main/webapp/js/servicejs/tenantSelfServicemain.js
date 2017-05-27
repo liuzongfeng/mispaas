@@ -80,22 +80,26 @@ function ordertoscope($scope,$http,id) {
 		$scope.templateShowpng1=false;
 		$scope.templateShowpng2=true;
 		$scope.appcolor="#458fe9";
+		$("#appcolor").css("color","#458fe9");
 	};
 	$scope.appleave=function(){
 		$scope.templateShowpng1=true;
 		$scope.templateShowpng2=false;
 		$scope.appcolor="#8e9094";
+		$("#appcolor").css("color","#8e9094");
 	};
 	//应用菜单样式控制
 	$scope.insover=function(){
 		$scope.instanceShowpng1=false;
 		$scope.instanceShowpng2=true;
 		$scope.inscolor="#458fe9";
+		$("#inscolor").css("color","#458fe9");
 	};
 	$scope.insleave=function(){
 		$scope.instanceShowpng1=true;
 		$scope.instanceShowpng2=false;
 		$scope.inscolor="#8e9094";
+		$("#inscolor").css("color","#8e9094");
 	};
 };
 function transmitOrderId(orderId,$scope,$http){

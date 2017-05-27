@@ -13,7 +13,7 @@
     <result column="TENANT_ID" property="tenantId" jdbcType="INTEGER" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="CRATE_DATE" property="crateDate" jdbcType="TIMESTAMP" />
-    <result column="APPROVE_ID" property="approveId" jdbcType="INTEGER" />
+    <result column="APPROVE_ID" property="approveId" jdbcType="VARCHAR" />
     <result column="APPROVE_DATE" property="approveDate" jdbcType="TIMESTAMP" />
     <result column="APPROVE_DESCIBE" property="approveDescibe" jdbcType="VARCHAR" />
     <result column="INSTANCE_ID" property="instanceId" jdbcType="VARCHAR" />
@@ -62,7 +62,7 @@
     <result column="TENANT_ID" property="tenantId" jdbcType="INTEGER" />
     <result column="STATUS" property="status" jdbcType="INTEGER" />
     <result column="CRATE_DATE" property="crateDate" jdbcType="TIMESTAMP" />
-    <result column="APPROVE_ID" property="approveId" jdbcType="INTEGER" />
+    <result column="APPROVE_ID" property="approveId" jdbcType="VARCHAR" />
     <result column="APPROVE_DATE" property="approveDate" jdbcType="TIMESTAMP" />
     <result column="APPROVE_DESCIBE" property="approveDescibe" jdbcType="VARCHAR" />
     <result column="INSTANCE_ID" property="instanceId" jdbcType="VARCHAR" />
