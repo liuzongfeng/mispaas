@@ -10,30 +10,48 @@ angular.module('auth', []).factory(
 					}
 				}					
 			}
+			
 			$rootScope.LogOut_fn = function(){
-				alert("退出");
 				var arrayObj = $rootScope.authorities;
 				for(var i=0; i<arrayObj.length; i++){
 					var userRole = arrayObj[i].authority;
 					$rootScope[userRole] = false;              //将该用户所有的权限置为true
 				}
 				
-				
-				
+				$rootScope.LogoOut = false;                    //认证通过，可以登出
+				auth.authenticated = false;
+				window.location.href="http://192.168.6.165:8080/logout";
+			}
+			
+			login_fn = function(){
 				$http({
 					  method: 'GET',
-					  params:{"service":"http://localhost:8080/login"},
-					  url: 'http://localhost:8080/logout'
+					  url: 'http://192.168.6.165:8080/obtainUserInfo'
 					}).then(function successCallback(response) {
-						$rootScope.LogoOut = false;                    //认证通过，可以登出
-						auth.authenticated = false;
+						$rootScope.userId = response.data.username;       //用户id --退出使用
+						$rootScope.token = response.data.password;        //token --退出使用
 						
+						$rootScope.username =  response.data.name;        //用户名--展示使用
+						$rootScope.authorities = response.data.authorities;
+						
+						var arrayObj  = response.data.authorities;
+						for(var i=0; i<arrayObj.length; i++){
+							var userRole = arrayObj[i].authority;
+							$rootScope[userRole] = true;              //将该用户所有的权限置为true
+						}
+						
+						$rootScope.LogoOut = true;                    //认证通过，可以登出
+						
+						auth.authenticated = true;
+						callback && callback(auth.authenticated);
+						$location.path(auth.path==auth.loginPath ? auth.homePath : auth.path);
 					}, function errorCallback(response) {
 					    // called asynchronously if an error occurs
 					    // or server returns response with an error status.
 				});
 				
-			}
+			} 
+			login_fn();
 			
 			var auth = {
 
@@ -66,31 +84,8 @@ angular.module('auth', []).factory(
 						auth.authenticated = false;
 						callback && callback(false);
 					});*/
-					$http({
-						  method: 'GET',
-						  url: 'http://localhost:8080/obtainUserInfo'
-						}).then(function successCallback(response) {
-							$rootScope.userId = response.data.username;       //用户id --退出使用
-							$rootScope.token = response.data.password;        //token --退出使用
-							
-							$rootScope.username =  response.data.name;        //用户名--展示使用
-							$rootScope.authorities = response.data.authorities;
-							
-							var arrayObj  = response.data.authorities;
-							for(var i=0; i<arrayObj.length; i++){
-								var userRole = arrayObj[i].authority;
-								$rootScope[userRole] = true;              //将该用户所有的权限置为true
-							}
-							
-							$rootScope.LogoOut = true;                    //认证通过，可以登出
-							
-							auth.authenticated = true;
-							callback && callback(auth.authenticated);
-							$location.path(auth.path==auth.loginPath ? auth.homePath : auth.path);
-						}, function errorCallback(response) {
-						    // called asynchronously if an error occurs
-						    // or server returns response with an error status.
-					});
+					
+					auth.authenticated = true;
 					
 					
 				},

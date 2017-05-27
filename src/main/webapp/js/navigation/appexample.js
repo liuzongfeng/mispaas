@@ -15,7 +15,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				$http({
 					  method: 'GET',
 					  params:{"pageNo":page,"pageSize":pageSize,"instanceStatus":instanceStatus,"instanceName":instanceName},
-					  url: 'http://localhost:8080/obtainInstanceList'
+					  url: 'http://192.168.6.165:8080/obtainInstanceList'
 					}).then(function successCallback(response) {
 						
 						$scope.instances = response.data.list;   //要展示的数据
@@ -94,7 +94,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				$http({
 					  method: 'GET',
-					  url: 'http://localhost:8080/obtainInstanceStatus'
+					  url: 'http://192.168.6.165:8080/obtainInstanceStatus'
 					}).then(function successCallback(response) {
 						$scope.instanceStatus = response.data;
 						
@@ -295,7 +295,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				var req = {
 						 method: 'POST',
-						 url: 'http://localhost:8080/editInstance',
+						 url: 'http://192.168.6.165:8080/editInstance',
 						 headers: {
 						   'Content-Type': "application/json"
 						 },
