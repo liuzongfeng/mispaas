@@ -150,6 +150,12 @@
         		$scope.CateGorys=response.category;
         	});
         }
+        $scope.logout=function()
+        {
+        	window.location.href= "http://localhost:8080/logout";
+//         	$http.get("/logout").success(function(response){
+//         	});
+        }
     });
     app.directive('repeatFinish',function(){
         return {
