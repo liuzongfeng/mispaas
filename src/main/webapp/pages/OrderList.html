@@ -80,8 +80,15 @@
     var app=angular.module("myapp",[]);
     var jsondatas;
     var pagenum;
+    var userinfo;
     var url="/rest/orderService/getAllOrder";
     app.controller('myController', function($scope,$http) {
+    	//获取用户信息
+    	$http.get("/obtainUserInfo").success(function(response){
+    		userinfo=response;
+    		$scope.name=response.name;
+    		console.log(response);
+    	});
     	request($http,url);
         $scope.selectData=function(){
         	var TenantName=$('#TenantName').val();
@@ -123,12 +130,17 @@
         	});
         }
         $scope.update=function(statue){
+        	if(userinfo==null || userinfo=='undefine')
+        	{
+        		$('#myModal #myModalLabel').html("请先登录！");
+    			$('#myModal').modal("show");
+        	}
         	var id=$('#id').val();
         	var perTenantId=$('#perTenantName').html();//获取租户ID 此处获取租户的姓名
         	var resion=$('#resion').val();
         	var proid=$('#proid').val();
         	var instanceId=$('#instanceId').val();
-        	var updateUrl="/rest/orderService/updateOrder?userId=&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
+        	var updateUrl="/rest/orderService/updateOrder?userId="+userinfo.username+"&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
         	$http.get(updateUrl).success(function(response){
         		if(response.code == "success")
         		{

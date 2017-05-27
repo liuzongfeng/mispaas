@@ -7,12 +7,18 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
-import net.sf.json.JSONObject;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.sf.json.JSONObject;
 @Configuration
 //@RestController
 public class OrgRequestUtil {
@@ -35,5 +41,28 @@ public class OrgRequestUtil {
 		}
 		JSONObject jo=JSONObject.fromObject(result.toString()); 
 		return result.toString();
+	}
+	
+	public Map<String,Object> getContentMap(String geturl) throws IOException {
+		
+		URL url=new URL(geturl);
+		URLConnection uc=url.openConnection();
+		HttpURLConnection connection = (HttpURLConnection)uc;
+		InputStream is=connection.getInputStream();
+		BufferedReader br=new BufferedReader(new InputStreamReader(is));
+		String readline="";
+		StringBuffer result=new StringBuffer();
+		while((readline=br.readLine())!=null)
+		{
+			result.append(readline);
+		}
+		JSONObject jo=JSONObject.fromObject(result.toString());
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		for(Iterator iter = jo.keys(); iter.hasNext();){
+			String key = (String)iter.next();
+			map.put(key, jo.get(key));
+		};
+		return map;
 	}
 }

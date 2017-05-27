@@ -60,7 +60,13 @@
     var jsondatas;
     var url="/rest/productService/getAllproduct";
     var pagenum;
+    var userinfo;
     app.controller('myController', function($scope,$http) {
+    	//获取用户信息
+    	$http.get("/obtainUserInfo").success(function(response){
+    		userinfo=response;
+    		$scope.name=response.name;
+    	});
     	request($http,url);
     	loadFilterInfo();
         $scope.selectData=function (templateName){

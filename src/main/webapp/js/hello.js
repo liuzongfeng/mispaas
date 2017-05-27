@@ -29,7 +29,8 @@ var hello1 = angular
 					}).otherwise('/');
 
 					$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
+					
+					
 				}).run(function(auth) {
 
 			// Initialize auth module with the home page and login/logout path

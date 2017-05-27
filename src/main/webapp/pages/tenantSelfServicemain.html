@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head lang="en">
 <meta charset="UTF-8">
 <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -26,6 +26,7 @@
 <script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
 <script type="text/javascript" src="../js/tree.js"></script>
 <script type="text/javascript" src="../js/Listcontroller.js"></script>
+ <script type="text/javascript" src="../js/servicejs/logout.js"></script>
 <script type="text/javascript"
 	src="../js/servicejs/tenantSelfServicemain.js"></script>
 <!-- 接口js -->
@@ -37,18 +38,10 @@
             var divfm= $("#leftiframe");
             var heighbosy=window.screen.availHeight;
             var heightdiv=document.documentElement.clientHeight;
-            ifm.css("height",heightdiv);
-            divfm.css("height",heightdiv-100);
+            ifm.css("height",heightdiv*100%);
+            divfm.css("height",heightdiv*90%);
         }
-        window.onload=function(){
-            var heightdiv=document.documentElement.clientHeight;
-            if(heightdiv<=800){
-                var ifm= $("#leftiframe");
-                ifm.css("height","800px");
-            }else{
-                changeFrameHeight();
-            }
-        }
+       
 </script>
 <style>
 .tabclost {
@@ -129,23 +122,23 @@ ul.log li.dark {
 </style>
 </head>
 <body ng-app="listApp" ng-controller="ListCtrl" text="black"
-	style="height: auto; padding-bottom: 0px;">
+	style="height: auto; padding-bottom: 0px;padding-top: 0px;height: 100%" >
 	<!--上边页头 -->
-	<div ng-include="'../pages/header.html'"></div>
+	<div ng-include="'../pages/header2.html'"></div>
 	<!--页面中间-->
 	<div id="leftiframe" style="height: 90%; padding: 0px;"
 		ng-init="tenantId='admin'">
 		<table class="table table-bordered"
-			style="margin-bottom: 0; border: none; height: 100%;">
+			style="margin-bottom: 0px;margin-top:0px; border: none; height: 100%;padding: 0px;">
 			<tbody style="border: none; height: 100%">
 				<tr style="border: none; height: 100%">
 					<!--左边导航栏 -->
 					<td
-						style="width: 8.8%; background-color: #21242b; border: none; padding: 0px; height: 100%;">
-						<div id="solso-sidebar" style="width: 100%; padding: 0px;">
+						style="width: 8.8%; background-color: #21242b; border: none; padding: 0px; height: 100%;border-top: 1px solid;border-bottom: 1px solid">
+						<div id="solso-sidebar" style="width: 100%; padding: 0px;border: none;">
 							<div style="width: 170px;"></div>
 							<div class="panel-group" id="accordion">
-								<div style="height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" ng-mouseover="appover()"
+								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" ng-mouseover="appover()"
 								ng-show="chanpincaidan1" ng-init="chanpincaidan1=false"
 								ng-mouseleave="appleave()">
 									<div ng-show="templateShowpng1" ng-init="templateShowpng1='true'" ng-model="templateShowpng1"
@@ -159,12 +152,12 @@ ul.log li.dark {
 									<div id="collapseOne"
 										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
 										<div style="width: 100px;">
-											<span ng-model="appcolor" ng-init="appcolor='#8e9094'"
+											<span ng-model="appcolor" ng-init="appcolor='#8e9094'" id="appcolor"
 												style="color: {{appcolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">产品列表</span>
 										</div>
 									</div>
 								</div>
-								<div style="height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" 
+								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" 
 								ng-show="chanpincaidan2" ng-init="chanpincaidan2='true'">
 									<div 
 										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
@@ -178,8 +171,7 @@ ul.log li.dark {
 										</div>
 									</div>
 								</div>
-								<hr style="height: 1px; color: #34373e; padding: 0px;" />
-								<div style="height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" ng-mouseover="insover()"
+								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" ng-mouseover="insover()"
 								ng-show="yingyongcaidan1" ng-init="yingyongcaidan1='true'"
 								ng-mouseleave="insleave()">
 									<div ng-show="instanceShowpng1" ng-init="instanceShowpng1='true'" ng-model="instanceShowpng1"
@@ -193,12 +185,12 @@ ul.log li.dark {
 									<div id="collapsetwo"
 										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
 										<div style="width: 100px;">
-											<span ng-model="inscolor" ng-init="inscolor='#8e9094'"
+											<span ng-model="inscolor" ng-init="inscolor='#8e9094'" id="inscolor"
 												style="color:{{inscolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">应用管理</span>
 										</div>
 									</div>
 								</div>
-								<div style="height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" 
+								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" 
 								ng-show="yingyongcaidan2">
 									<div 
 										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
@@ -212,7 +204,7 @@ ul.log li.dark {
 										</div>
 									</div>
 								</div>
-								<hr style="height: 1px; color: #34373e; padding: 0px;" />
+								<!-- <hr style="height: 1px; color: #34373e; padding: 0px;" /> -->
 							</div>
 
 						</div>
@@ -367,7 +359,7 @@ ul.log li.dark {
 																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
 																	<td>{{template.templateCategory}}</td>
 																	<td>{{template.templateName}}</td>
-																	<td><button type="button" style="height: 30px;background-color: #f7f7f7"
+																	<td><button type="button" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
 																			class="btn btn-default btn-sm"
 																			ng-click="BuyGoodsDetails(template.id)">购买</button></td>
 																</tr>
@@ -465,146 +457,6 @@ ul.log li.dark {
 														</div>
 													</div>
 												</div>
-												<!--账单列表-->
-												<!--                     <div id="theBillListTab" class="tab-pane fade">
-                        <div style="" ng-show="theBillList" ng-model="theBillList">
-                            查询条件
-                            <div style="float: right;margin-top: 10px;">
-                                <div style="float: right">
-                                    <form role="form">
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input type="text" class="form-control"  placeholder="按计费项目过滤">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
-                                                </span>
-                                        </div>
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input type="text" class="form-control"placeholder="按应用过滤">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
-                                                </span>
-                                        </div>
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <input id="startDate"  class="form-control" type="text"
-                                                   readonly="readonly" placeholder="按时间范围过滤" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
-                                                </span>
-                                        </div>
-                                        <div class="input-group" style="width:220px;float: left;margin-right: 30px;">
-                                            <select class="form-control">
-                                                <option selected="selected" >按状态过滤</option>
-                                                <option >状态1</option>
-                                                <option >状态2</option>
-                                                <option >状态3</option>
-                                            </select>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                            <div style="height: 60px;"></div>
-                            数据表格
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th style="width: 25%">账单ID</th>
-                                    <th style="width:15%;">支付最后期限</th>
-                                    <th style="width:15%;">应用名称</th>
-                                    <th style="width:15%;">计费项目</th>
-                                    <th style="width:15%;">总金额</th>
-                                    <th style="width:15%;">状态</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr  >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                <tr >
-                                    <td><a href="#">123456</a></td>
-                                    <td>23/11/2013</td>
-                                    <td>CRE</td>
-                                    <td>基础费用</td>
-                                    <td>￥800</td>
-                                    <td>已支付</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            分页
-                            <nav aria-label="Page navigation" style="text-align: right;margin-right: 20px;">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div> -->
 												<!-- 应用列表-->
 												<div id="myApplicationListTab" class="tab-pane fade">
 													<div style="" ng-show="myApplicationList"
@@ -683,9 +535,9 @@ ul.log li.dark {
 																	<td ng-if="paasOrder.status==2">驳回</td>
 																	<td ng-if="paasOrder.status==3">撤销</td>
 																	<td><button type="button"
-																			class="btn btn-default btn-sm" style="height: 30px;background-color: #f7f7f7"
+																			class="btn btn-default btn-sm" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
 																			ng-click="showApplicationUetails(paasOrder.id)">修改</button>
-																		<button style="height: 30px;background-color: #f7f7f7"
+																		<button style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
 																			ng-if="!(paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1)"
 																			type="button" class="btn btn-default btn-sm"
 																			ng-click="repealorder(paasOrder.id)">撤销</button></td>
@@ -895,8 +747,8 @@ ul.log li.dark {
 		</table>
 	</div>
 	<!-- 下边页脚 -->
-	<div id="footer" ng-include="'../pages/footer.html'"
-		style="width: 100%; padding: 0px;"></div>
+	<!-- <div id="footer" ng-include="'../pages/footer.html'"
+	style="width: 100%; padding: 0px;border: none;"></div> -->
 	<!-- 自定义弹窗 -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
@@ -916,4 +768,3 @@ ul.log li.dark {
 
 </body>
 </html>
-

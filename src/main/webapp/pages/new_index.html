@@ -34,7 +34,7 @@
        <div class="leftsth">
            <div class="userinfo_area">
                <div class="user_pic"><img data-src="holder.js/35x35" class="img-circle"></div>
-               <div class="user_name">哈密690371344</div>
+               <div class="user_name" id="username">哈密690371344</div>
            </div>
            <div class="fenge">|</div>
            <div class="logout">登出</div>
@@ -207,72 +207,78 @@
 </body>
 <script type="text/javascript">
 	var app=angular.module("myapp",[]);
-	var url="/rest/productService/getIndexPageElement/admin";
+	var url="/rest/productService/getIndexPageElement/";
+	var userinfo;
 	app.controller('myController', function($scope,$http) {
-		$http.get(url).success(function (response){
-			var i=0,j=0;
-			var paasSubserviceslist=new Array();
-			var paasTemplateFilelist=new Array();
-			$(response).each(function(index,element){
-				$(element.paasSubservices).each(function(index,element){
-					paasSubserviceslist[i]=element;
-					i++;
-				});
-				$(element.paasTemplateFile).each(function(index,element){
-					paasTemplateFilelist[j]=element;
-					j++;
-				});
-			});
-			for(var subi=0;subi<(i);subi++)
-			{
-				var modelid=paasSubserviceslist[subi].id;
-				for(var filei=0;filei<(j);filei++)
-				{
-					if(paasTemplateFilelist[filei].moduleId!=null &&paasTemplateFilelist[filei].moduleId==modelid)
-					{
-						paasSubserviceslist[subi].moduleImgName=paasTemplateFilelist[filei].file;
-					}
-				}
-			}
-			var rows=new Array();
-			for(var n=0;n < parseInt(parseInt(paasSubserviceslist.length/4)+1);n++)
-			{
-				rows[n]=new Array();
-				for(var m=0;m<4;m++)
-				{
-					var start=n*4+m;
-					if(start>(i-1))
-					{
-						break;
-					}else
-					{
-						rows[n][m]=paasSubserviceslist[start];						
-					}
-				}
-			};
-			$scope.rows=rows;
-		});
-		$http.get("/rest/productService/getusersprivilegeIdList/admin").success(function (response){
-			console.log(response);
-			var isadmin=0;
-			if(response.indexOf("PID_SYSTEM_ADMIN")!=-1)
-			{
-				isadmin=1;
-			}
-			$scope.isadmin=isadmin;
-			var isyunwei=0;
-			if(response.indexOf("PID_SYSTEM_OPERATION")!=-1)
-			{
-				isyunwei=1;
-			}
-			$scope.isyunwei=isyunwei;
-			var isyunyin=0;
-			if(response.indexOf("PID_BUSINESS_OPERATION")!=-1)
-			{
-				isyunyin=1;
-			}
-			$scope.isyunyin=isyunyin;
-		});
+		//获取用户信息
+    	$http.get("/obtainUserInfo").success(function(response){
+    		userinfo=response;
+    		$('#username').html(response.name);
+    		$http.get(url+userinfo.username).success(function (response){
+    			var i=0,j=0;
+    			var paasSubserviceslist=new Array();
+    			var paasTemplateFilelist=new Array();
+    			$(response).each(function(index,element){
+    				$(element.paasSubservices).each(function(index,element){
+    					paasSubserviceslist[i]=element;
+    					i++;
+    				});
+    				$(element.paasTemplateFile).each(function(index,element){
+    					paasTemplateFilelist[j]=element;
+    					j++;
+    				});
+    			});
+    			for(var subi=0;subi<(i);subi++)
+    			{
+    				var modelid=paasSubserviceslist[subi].id;
+    				for(var filei=0;filei<(j);filei++)
+    				{
+    					if(paasTemplateFilelist[filei].moduleId!=null &&paasTemplateFilelist[filei].moduleId==modelid)
+    					{
+    						paasSubserviceslist[subi].moduleImgName=paasTemplateFilelist[filei].file;
+    					}
+    				}
+    			}
+    			var rows=new Array();
+    			for(var n=0;n < parseInt(parseInt(paasSubserviceslist.length/4)+1);n++)
+    			{
+    				rows[n]=new Array();
+    				for(var m=0;m<4;m++)
+    				{
+    					var start=n*4+m;
+    					if(start>(i-1))
+    					{
+    						break;
+    					}else
+    					{
+    						rows[n][m]=paasSubserviceslist[start];						
+    					}
+    				}
+    			};
+    			$scope.rows=rows;
+    		});
+    		$http.get("/rest/productService/getusersprivilegeIdList/"+userinfo.username).success(function (response){
+    			console.log(response);
+    			var isadmin=0;
+    			if(response.indexOf("PID_SYSTEM_ADMIN")!=-1)
+    			{
+    				isadmin=1;
+    			}
+    			$scope.isadmin=isadmin;
+    			var isyunwei=0;
+    			if(response.indexOf("PID_SYSTEM_OPERATION")!=-1)
+    			{
+    				isyunwei=1;
+    			}
+    			$scope.isyunwei=isyunwei;
+    			var isyunyin=0;
+    			if(response.indexOf("PID_BUSINESS_OPERATION")!=-1)
+    			{
+    				isyunyin=1;
+    			}
+    			$scope.isyunyin=isyunyin;
+    		});
+    	});
 	});
 	app.config(function($compileProvider){//配置这段代码即可
         //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可
