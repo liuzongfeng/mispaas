@@ -1,6 +1,8 @@
 package rest.mybatis.dao.passDao.Imp;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -80,4 +82,15 @@ public class PaasInstanceImp{
 		session.close();
 		return list;
 	}
+	public boolean getInstancesByorgid(String orgid,String instanceId)
+	{
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("orgid", orgid);
+		map.put("instanceId", instanceId);
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasOrder> list=session.selectList("selectOrderandInsbyorgid",map);
+		session.close();
+		return list.size()>0?true:false;
+	}
 }
+

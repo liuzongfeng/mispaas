@@ -515,4 +515,12 @@
 	left join PAAS_ORDER b on a.ORD_ID=b.ID
 	where 1=1 and b.STATUS=1 and a.ORG_ID=#{orgid}
   </select>
+  
+   <select id="selectOrderandInsbyorgid" parameterType="java.util.Map" resultMap="instanceResultMap">
+	  	select distinct b.*
+		from PAAS_ORD_TENANT_ORG_R a
+		left join PAAS_ORDER b on a.ORD_ID=b.ID
+		where 1=1 and b.STATUS=1 and a.ORG_ID=#{orgid}
+		and b.INSTANCE_ID=#{instanceId}
+  </select>
 </mapper>
