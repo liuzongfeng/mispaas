@@ -11,6 +11,8 @@ angular.module('auth', []).factory(
 				}					
 			}
 			
+			$rootScope.basePath = "http://192.168.6.165:8080";
+			
 			$rootScope.LogOut_fn = function(){
 				var arrayObj = $rootScope.authorities;
 				for(var i=0; i<arrayObj.length; i++){
@@ -20,13 +22,14 @@ angular.module('auth', []).factory(
 				
 				$rootScope.LogoOut = false;                    //认证通过，可以登出
 				auth.authenticated = false;
-				window.location.href="http://192.168.6.165:8080/logout";
+				window.location.href= logoutPath;
 			}
 			
 			login_fn = function(){
+				
 				$http({
 					  method: 'GET',
-					  url: 'http://192.168.6.165:8080/obtainUserInfo'
+					  url: obtainUserInfoPath
 					}).then(function successCallback(response) {
 						$rootScope.userId = response.data.username;       //用户id --退出使用
 						$rootScope.token = response.data.password;        //token --退出使用

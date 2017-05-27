@@ -15,7 +15,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				$http({
 					  method: 'GET',
 					  params:{"pageNo":page,"pageSize":pageSize,"instanceStatus":instanceStatus,"instanceName":instanceName},
-					  url: 'http://192.168.6.165:8080/obtainInstanceList'
+					  url: obtainInstanceListPath
 					}).then(function successCallback(response) {
 						
 						$scope.instances = response.data.list;   //要展示的数据
@@ -224,6 +224,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				if($scope.editAppexample_title){
                     $("#activeEditEx").css("display","");
 				}
+				$("#searchInstanceDetail").show();
 				autoHeight_fn_s();
             }
             
@@ -239,7 +240,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					$('.checkbox_1').prop("checked",false);
 					return;
 				}
-				
+				$("#searchInstanceDetail").show();
 				var aa = 0;
 				//判断是否有选中的复选框
 				$('.checkbox_1').each(function () {  
@@ -295,7 +296,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				var req = {
 						 method: 'POST',
-						 url: 'http://192.168.6.165:8080/editInstance',
+						 url: editInstancePath,
 						 headers: {
 						   'Content-Type': "application/json"
 						 },
