@@ -1,25 +1,28 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <title></title>
 </head>
 <!--上边页头 -->
-<nav class="navbar navbar-default" role="navigation" style="height: 82px;vertical-align: middle;background-color: #273040;">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="index.html"><img src="../img/LOGO.png"></a>
+<div class="navbar  navbar-fixed-top" style="height: 82px; background-color: #273040;">
+    <!-- Logo -->
+    <div style="width:10% ; position:static;float: left;vertical-align: middle;text-align:center; margin-top: 14px;">
+    	<img alt="" src="../img/LOGO.png" />
     </div>
-    <div>
-        <!--向左对齐-->
-        <p class="navbar-text navbar-left">平台名称</p>
-        <!--向右对齐-->
-        <form class="navbar-form navbar-right" role="search">
-            <button type="submit" class="btn btn-default">
-                退出
-            </button>
-        </form>
-        <p class="navbar-text navbar-right">您好！XXXX</p>
-	</div>
-</nav>
+    <!-- 個服務 -->
+    <div style="width:90%">
+    	<div style="position:static;float: left; vertical-align: middle; margin-top: 35px;">
+    		<img id="yunweilogo" alt="" src="">
+    	</div>
+    
+    	<div style="positon:static;float: right;vertical-align: middle;margin-top:40px;">
+    		
+    			<span  style="color:#FFFFFF">欢迎    {{username}}</span>
+    			
+    			<a >退出</a>
+    		
+    	</div>
+    </div>
+</div>
+</html>
