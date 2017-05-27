@@ -10,6 +10,16 @@
 }*/
 var app = angular.module('listApp', []);
 app.controller('ListCtrl', function($scope,$http) {
+	//获取用户信息
+	$scope.tenantId=null;
+	$http({
+        method: 'GET',
+        url:tenantSelfinterfaces.Var_geUserDetails,
+        contentType: "application/json",        
+    }).then(function successCallback(response) {
+    	$scope.tenantId=response.data.name;
+    	$scope.userName=response.data.username;
+    });
 	var id= null;
 	var page=null;
 	templateListController($scope,$http,id,page);
@@ -310,22 +320,31 @@ function appListBynameController($scope,$http,page){
 		reurl=tenantSelfinterfaces.Var_showApplicationListByInstanceName;
 	}
 	$http({
-        method: 'POST',
-        url: reurl,
+        method: 'GET',
+        url: tenantSelfinterfaces.Var_gettenantList,
         contentType: "application/json",
-        params:{"page":page,"tenantId":$scope.tenantId,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+        params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
     }).then(function successCallback(response) {
-    	for(i=0;i<response.data.resultObj.length;i++){
-    		var newTime = new Date(response.data.resultObj[i].crateDate);
-    		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
-    	}
-    	$scope.pagenum =response.data.pageStr.split(",");
-    	$scope.pageinfo = response.data;
-    	console.log(response.data);
-    	$scope.applicationList=response.data.resultObj;
-    	$scope.pages=response.data.allpage;
-    	$scope.totalSize=response.data.begin;
-    	$scope.nowpage=response.data.pagenum;
+    	$scope.tetantList=response.data[0];
+    	console.log($scope.tetantList);
+    	$http({
+            method: 'POST',
+            url: reurl,
+            contentType: "application/json",
+            params:{"page":page,"tetantList":$scope.tetantList,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+        }).then(function successCallback(response) {
+        	for(i=0;i<response.data.resultObj.length;i++){
+        		var newTime = new Date(response.data.resultObj[i].crateDate);
+        		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
+        	}
+        	$scope.pagenum =response.data.pageStr.split(",");
+        	$scope.pageinfo = response.data;
+        	$scope.applicationList=response.data.resultObj;
+        	$scope.pages=response.data.allpage;
+        	$scope.totalSize=response.data.begin;
+        	$scope.nowpage=response.data.pagenum;
+            }, function errorCallback(response) {
+        }); 
         }, function errorCallback(response) {
     }); 
 	    $scope.myApplicationListTab=true;

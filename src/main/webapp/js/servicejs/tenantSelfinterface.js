@@ -31,4 +31,6 @@ tenantSelfinterfaces={
 		Var_othergettentant:'http://100.0.10.100:8080/usermanager/api/authorization/tenants/',
 		//第三方获取用户信息接口
 		Var_othergetuser:'http://100.0.10.100:8080/usermanager/api/authorization/users/',
+		//初始页面获取用户信息
+		Var_geUserDetails:paasrest_dns+'/obtainUserInfo',
 };

@@ -38,10 +38,18 @@
             var divfm= $("#leftiframe");
             var heighbosy=window.screen.availHeight;
             var heightdiv=document.documentElement.clientHeight;
-            ifm.css("height",heightdiv*100%);
-            divfm.css("height",heightdiv*90%);
+            ifm.css("height",heightdiv);
+            divfm.css("height",heightdiv-100);
         }
-       
+        window.onload=function(){
+            var heightdiv=document.documentElement.clientHeight;
+            if(heightdiv<=800){
+                var ifm= $("#leftiframe");
+                ifm.css("height","800px");
+            }else{
+                changeFrameHeight();
+            }
+        }
 </script>
 <style>
 .tabclost {
@@ -115,19 +123,15 @@ ul.log li.dark {
 .ztree li span.button.roots_open {
 	background-position: -92px 0
 }
-.ztree li span.button.chk {width:13px; height:13px; margin:0 8px 0 8px; cursor: auto;}
-.nav-tabs > li.active > a {
-		border-top: 2px solid #3f8dce;
-	}
+
 </style>
 </head>
 <body ng-app="listApp" ng-controller="ListCtrl" text="black"
-	style="height: auto; padding-bottom: 0px;padding-top: 0px;height: 100%" >
+	style="height: auto; padding-bottom: 0px;padding-top: 0px;height: 100%;" >
 	<!--上边页头 -->
-	<div ng-include="'../pages/header2.html'"></div>
+	<div ng-include="'../pages/header2.html'" style=""></div>
 	<!--页面中间-->
-	<div id="leftiframe" style="height: 90%; padding: 0px;"
-		ng-init="tenantId='admin'">
+	<div id="leftiframe" style="height: 90%; padding: 0px;"ng-model="tenantId">
 		<table class="table table-bordered"
 			style="margin-bottom: 0px;margin-top:0px; border: none; height: 100%;padding: 0px;">
 			<tbody style="border: none; height: 100%">
@@ -224,7 +228,7 @@ ul.log li.dark {
 													ng-model="ListOfGoodsTab"
 													style="height: 70px; width: 190px; background-color: #f7f7f7">
 						 							
-													<a href="#ListOfGoodsTab" data-toggle="tab" style="height: 70px;">
+													<a href="#ListOfGoodsTab" data-toggle="tab" style="height: 70px;border-top: 2px solid #3f8dce;">
 															<img alt="" src="../img/templateShow.png" style="float: left;margin-left: 20px; margin-top: 8px;"/>
 														
 														<div style="float: left; margin-left: 14px;">
