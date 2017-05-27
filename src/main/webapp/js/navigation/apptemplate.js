@@ -13,7 +13,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				$http({
 					  method: 'GET',
 					  params:{"pageNo":page,"pageSize":pageSize,"templateCategory":templateCategory,"templateName":templateName},
-					  url: 'http://localhost:8080/obtainTemplateList'
+					  url: 'http://192.168.6.165:8080/obtainTemplateList'
 					}).then(function successCallback(response) {
 						
 						$scope.templates = response.data.list;   //要展示的数据
@@ -93,7 +93,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				
 				$http({
 					  method: 'GET',
-					  url: 'http://localhost:8080/obtainTemplateCategory'
+					  url: 'http://192.168.6.165:8080/obtainTemplateCategory'
 					}).then(function successCallback(response) {
 						$scope.categorys = response.data;
 						
@@ -122,7 +122,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				formData.append("file1",$('#uploadForm')[0]);
 				formData.append("file1",$('#uploadForm')[1]);
 				$.ajax({
-				    url: 'http://localhost:8080/testUploadFile',
+				    url: 'http://192.168.6.165:8080/testUploadFile',
 				    type: 'POST',
 				    cache: false,
 				    data: formData,
@@ -192,6 +192,11 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1_title = true;
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
+					
+					var heightdiv=document.documentElement.clientHeight;
+					var ifm_left= $("#leftdiv");
+	                ifm_left.css("height",0);
+	                ifm_left.css("height",heightdiv);
 				}
 				
 			}
@@ -329,7 +334,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$http({
 		    						  method: 'GET',
 		    						  params:{"templateId":templateId},
-		    						  url: 'http://localhost:8080/deleteTemplateByTemplateId'
+		    						  url: 'http://192.168.6.165:8080/deleteTemplateByTemplateId'
 		    						}).then(function successCallback(response) {
 		    							
 		    							
