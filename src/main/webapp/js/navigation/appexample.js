@@ -146,14 +146,13 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 			}
 			
-			var autoHeight_fn = function(){
+			var autoHeight_fn_s = function(){
 				//高度自适应
-				var ifm_right= $("#rightdiv");
-                var h_r = ifm_right.css("height");
-                var h_l_c = h_r.split("px")[0] - (-60);
+				//instance高度自适应
+                var rightDiv = document.getElementById("rightdiv");
+                var ch_t = rightDiv.clientHeight;
                 var ifm_left= $("#leftdiv");
-                var h_l = ifm_left.css("height");
-                ifm_left.css("height",h_l_c);
+                ifm_left.css("height",ch_t+35);
 			}
 			
 			//创建实例
@@ -225,7 +224,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				if($scope.editAppexample_title){
                     $("#activeEditEx").css("display","");
 				}
-				
+				autoHeight_fn_s();
             }
             
 			//编辑实例
@@ -285,7 +284,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					swal("请先选中实例!", "", "warning");
 					$scope.closeEditExample_fn();
 				}
-				autoHeight_fn();
+				autoHeight_fn_s();
 			}
 			
 			
@@ -357,12 +356,11 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			$(function() {
 				
 				//高度自适应
-				var ifm_right= $("#rightdiv");
-                var h_r = ifm_right.css("height");
-                var h_l_c = h_r.split("px")[0] - 102;
+				//instance高度自适应
+                var rightDiv = document.getElementById("instanceBody");
+                var ch_t = rightDiv.clientHeight;
                 var ifm_left= $("#leftdiv");
-                var h_l = ifm_left.css("height");
-                ifm_left.css("height",h_l_c);
+                ifm_left.css("height",ch_t-20*$scope.pageSize);
 				
 				//按分类查询
 				$("#byInstanceStatus").change(function(){

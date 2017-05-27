@@ -151,7 +151,12 @@
         		</exclusion>
         	</exclusions>
         </dependency>
+<<<<<<< HEAD
         <dependency>
+=======
+        
+         <dependency>
+>>>>>>> 50b40291830874485bac60b0ef25762c1cfb7f14
         	<groupId>org.springframework.security</groupId>
         	<artifactId>CASClient4cre</artifactId>        	
         	<version>1.0</version>

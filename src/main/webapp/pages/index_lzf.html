@@ -75,27 +75,20 @@
 </html>
 <script>
        window.onload=function(){
-    	   var heighbosy=window.screen.availHeight;
-            var heightdiv=document.documentElement.clientHeight;
-           
-            if(heightdiv<=800){
-            	var ifm_right= $("#rightdiv");
-                ifm_right.css("height","auto");
-                var hh = ifm_right.css("height");
-                if(hh.split("px")[0] - 0 < 600){
-                	hh = heightdiv - 32;
-                	hh = heighbosy;
-                };
-                
-                var ifm_left= $("#leftdiv");
-                ifm_left.css("height",hh);
-                
-            }else{
-            	var ifm_right= $("#rightdiv");
-                ifm_right.css("height","auto");
-                var hh = ifm_right.css("height");
-                var ifm_left= $("#leftdiv");
-                ifm_left.css("height",hh);
-            }
+    	   
+    	   $("#yunweilogo").prop("src","../img/yunweilogo.png");
+    	   
+    	   	var heighbosy=window.screen.availHeight;
+           	var heightdiv=document.documentElement.clientHeight;
+           	
+           	var ifm_right= $("#rightdiv");
+            ifm_right.css("height","auto");
+            var hh = ifm_right.css("height");
+            if(hh.split("px")[0] - 0 < 600){
+            	hh = heightdiv - 32;
+            	
+            };
+            var ifm_left= $("#leftdiv");
+            ifm_left.css("height",hh);
         }
-	</script>
+ </script>

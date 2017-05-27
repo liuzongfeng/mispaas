@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.github.pagehelper.PageInfo;
 
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.model.passModel.PaasInstance;
+import rest.security.UserInfo;
 
 @Controller
 public class InstanceService {
@@ -27,6 +30,25 @@ public class InstanceService {
 	private PaasInstanceMapper paasInstanceMapper;
 	
 ////////////////////////////////接口区域：start//////////////////////////////////////////////////////////////////////////
+	/*@RequestMapping(value = "/obtainHelp", method = RequestMethod.GET)
+	@ResponseBody
+	public String obtainHelp(HttpSession session){
+		
+		SecurityContext context = (SecurityContext)session.getAttribute("SPRING_SECURITY_CONTEXT");
+		String attribute = (String)session.getAttribute("testSession");
+		System.out.println(attribute);
+		System.out.println(context);
+		return null;
+	}
+	*/
+	@RequestMapping(value = "/obtainUserInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public UserInfo obtainUserInfo(HttpSession session){
+		
+		return (UserInfo)session.getAttribute(session.getId());
+		
+	}
+	
 	
 	@RequestMapping(value = "/editInstance", method = RequestMethod.POST)
 	@ResponseBody
@@ -76,20 +98,7 @@ public class InstanceService {
 		
 	}
 	
-	/**
-	 * TODO 获得模板分类
-	 * @return
-	 */
-	/*@RequestMapping(value = "/obtainInstanceStatus", method = RequestMethod.GET)
-	@ResponseBody
-	public List<String> obtainInstanceStatus(){
-		
-		
-		List<String> instanceStatus = paasInstanceMapper.obtainInstanceStatus();
-		
-		return null != instanceStatus ? instanceStatus : new ArrayList<String>() ;
-	}
-	*/
+	
 	/**
 	 * TODO 查询实例
 	 * @param req
