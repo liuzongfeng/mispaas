@@ -19,7 +19,6 @@ app.controller('ListCtrl', function($scope,$http) {
     }).then(function successCallback(response) {
     	$scope.tenantId=response.data.name;
     	$scope.userName=response.data.username;
-    	
     });
 	var id= null;
 	var page=null;

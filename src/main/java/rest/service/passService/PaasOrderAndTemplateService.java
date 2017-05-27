@@ -158,15 +158,15 @@ public class PaasOrderAndTemplateService {
 		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
-				@RequestParam(value="tetantList") ArrayList<String> tetantList,
+				@RequestParam(value="tetantList") String tetantList,
 				@RequestParam(value="instanceName") String instanceName,
 				@RequestParam(value="templateCategory") String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm){
 					
-				Integer num =null;
+				Integer num =0;
 				/*PageHelper.startPage(page, counm);*/
 				int i = Integer.parseInt(page);
-				List<PaasOrder> list=null;
+				List<PaasOrder> list= new ArrayList<PaasOrder>();
 				JSONObject jo=JSONObject.fromObject(tetantList);
 				JSONArray jsonArray = jo.getJSONArray("tenantList");
 				for (Object object : jsonArray) {
