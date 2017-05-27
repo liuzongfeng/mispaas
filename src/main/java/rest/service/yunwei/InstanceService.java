@@ -44,7 +44,7 @@ public class InstanceService {
 	*/
 	@RequestMapping(value = "/obtainUserInfo", method = RequestMethod.GET)
 	@ResponseBody
-//	@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = { "x-auth-token", "x-requested-with" })
+	@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = { "x-auth-token", "x-requested-with" })
 	public UserInfo obtainUserInfo(HttpSession session){
 		
 		return (UserInfo)session.getAttribute(session.getId());
