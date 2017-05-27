@@ -13,7 +13,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				$http({
 					  method: 'GET',
 					  params:{"pageNo":page,"pageSize":pageSize,"templateCategory":templateCategory,"templateName":templateName},
-					  url: 'http://192.168.6.165:8080/obtainTemplateList'
+					  url: obtainTemplateList
 					}).then(function successCallback(response) {
 						
 						$scope.templates = response.data.list;   //要展示的数据
@@ -93,7 +93,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				
 				$http({
 					  method: 'GET',
-					  url: 'http://192.168.6.165:8080/obtainTemplateCategory'
+					  url: obtainTemplateCategoryPath
 					}).then(function successCallback(response) {
 						$scope.categorys = response.data;
 						
@@ -122,7 +122,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				formData.append("file1",$('#uploadForm')[0]);
 				formData.append("file1",$('#uploadForm')[1]);
 				$.ajax({
-				    url: 'http://192.168.6.165:8080/testUploadFile',
+				    url: testUploadFilePath,
 				    type: 'POST',
 				    cache: false,
 				    data: formData,
@@ -334,7 +334,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$http({
 		    						  method: 'GET',
 		    						  params:{"templateId":templateId},
-		    						  url: 'http://192.168.6.165:8080/deleteTemplateByTemplateId'
+		    						  url: deleteTemplateByTemplateIdPath
 		    						}).then(function successCallback(response) {
 		    							
 		    							
