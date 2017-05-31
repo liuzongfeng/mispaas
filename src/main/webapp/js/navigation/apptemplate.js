@@ -176,10 +176,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				//高度自适应
 				//template高度自适应
                 var rightDiv = document.getElementById("rightdiv");
-                var ch_t = rightDiv.clientHeight;
+                var rdiv_offsetHeight = rightDiv.offsetHeight;
                 var ifm_left= $("#leftdiv");
-                ifm_left.css("height",0);
-                ifm_left.css("height",ch_t);
+                ifm_left.css("height",rdiv_offsetHeight);
 			}
 			
 			//应用模板
@@ -193,10 +192,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
 					
-					var heightdiv=document.documentElement.clientHeight;
-					var ifm_left= $("#leftdiv");
-	                ifm_left.css("height",0);
-	                ifm_left.css("height",heightdiv);
+					//autoHeight_fn();
 				}
 				
 			}
@@ -372,7 +368,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    		}
 				});
 				
-				
 		}
 			
 			//导出模板
@@ -401,14 +396,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			$(function() {
 				//template高度自适应
-	            var rightDiv = document.getElementById("templateBody");
-	            var ch_t = rightDiv.clientHeight;
-	            var ifm_left= $("#leftdiv");
-	            var count = 12.5*$scope.pageSize;
-	            
-	            ifm_left.css("height",0);
-	            
-	            ifm_left.css("height",ch_t-count);
+				autoHeight_fn();
 				
                 
 				//按分类查询
