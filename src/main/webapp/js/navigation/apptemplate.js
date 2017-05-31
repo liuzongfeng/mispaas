@@ -145,6 +145,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 							if(isUploadMore){
 								swal.close();
 								selectPage_aa(1);
+								$("#inputfile").val("");
+								
 							}else{
 								//1.将模态框进行隐藏
 								$("#file1").val("");
@@ -152,13 +154,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								//2.发起查询模板列表的请求
 								swal.close();
 								selectPage_aa(1);
+								$("#inputfile").val("");
 								
 							}
 						});
-					}else{
+					}else if("hasExi" == res){
 						swal({   
 							title:"导入失败",
-							text: res,   
+							text: "存在相同的模板id,请选择覆盖?",   
 							type: "error",   
 							closeOnConfirm: true 
 						}, 
@@ -167,6 +170,23 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$("#file1").val("");
 								$("#myModal").modal('hide');
 								selectPage_aa(1);
+								$("#inputfile").val("");
+								
+						});
+					}else{
+						swal({   
+							title:"导入失败",
+							text: "系统异常,请联系管理员",   
+							type: "error",   
+							closeOnConfirm: true 
+						}, 
+						function(){
+								//1.将模态框进行隐藏
+								$("#file1").val("");
+								$("#myModal").modal('hide');
+								selectPage_aa(1);
+								$("#inputfile").val("");
+								
 						});
 					}
 				});
