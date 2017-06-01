@@ -76,10 +76,6 @@
         <!-- 数据查询模块 -->
         <form class="form-inline" style="text-align: right; margin-right: 1%;">
             <div class="form-group">
-<!--                 <label for="exampleInputName2">按租户名称查询</label> -->
-                <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="租户名称（回车查询）" style="width:250px; background-color: #f7f7f7;">
-            </div>
-            <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:150px; font-size: 16px;color: #333;background-color: #f7f7f7;">
                         <h id="dropdownMenuStatuetitle" ng-model="statue" data="">按状态过滤</h>
@@ -100,6 +96,10 @@
             <div class="form-group">
                 <label for="exampleInputName2">结束时间</label>
                 <input type="date" class="form-control" id="endDate" placeholder="按时间过滤" ng-model="endDate"  style="background-color: #f7f7f7;">
+            </div>
+            <div class="form-group">
+<!--                 <label for="exampleInputName2">按租户名称查询</label> -->
+                <input type="text" class="form-control" id="TenantName" ng-model="TenantName" placeholder="租户名称（回车查询）" style="width:250px; background-color: #f7f7f7;">
             </div>
             <button type="button" class="btn btn-primary" style="width: 100px;" id="selectBtn" ng-click="selectData()">查询</button>
         </form>
@@ -205,7 +205,7 @@
 				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"></strong></h3></div>
 			</div>
 			<div style="margin-top: 160px;">
-				<div ><button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
+				<div ><button type="button" class="btn btn-primary" onclick="closemodel()" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
 			</div>
 				
 		</div>
@@ -280,5 +280,10 @@
 			$('#selectBtn').click();
 		}
 	});
+    function closemodel()
+    {
+    	$('#myModal').modal("hide");
+    	hiddenTab();
+    }
 </script>
 </html>
