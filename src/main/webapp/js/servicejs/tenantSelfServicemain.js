@@ -3,8 +3,6 @@ function ordertoscope($scope,$http,id) {
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
 		var names = onCheckName($http,$scope,zTree);
-		var ids=null;
-		var names=null;
 		if($scope.value=="请选择租户"){
 			$("#myModal").modal('show');
 			return;
@@ -68,7 +66,6 @@ function ordertoscope($scope,$http,id) {
 	 changeorderpage($scope,$http,id);
 	//撤销定单
 	$scope.repealorder=function(orderId){
-		
 		$http({
 	        method: 'PUT',
 	        url: tenantSelfinterfaces.Var_repealOrder,
@@ -77,9 +74,8 @@ function ordertoscope($scope,$http,id) {
 	    }).then(function successCallback(response) {
 	        }, function errorCallback(response) {
 	    });
-		var page=null;
+		var page=$scope.nowpage;
 		appListBynameController($scope,$http,page);
-		
 	};
 	//产品列表菜单样式控制
 	$scope.appover=function(){

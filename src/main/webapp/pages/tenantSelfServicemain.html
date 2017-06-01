@@ -26,7 +26,8 @@
 <script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
 <script type="text/javascript" src="../js/tree.js"></script>
 <script type="text/javascript" src="../js/Listcontroller.js"></script>
- <script type="text/javascript" src="../js/servicejs/logout.js"></script>
+<script type="text/javascript" src="../js/servicejs/logout.js"></script>
+<script src="../js/auth/auth.js" type="text/javascript"></script>
 <script type="text/javascript"
 	src="../js/servicejs/tenantSelfServicemain.js"></script>
 <!-- 接口js -->
@@ -351,7 +352,7 @@ ul.log li.dark {
 																</tr>
 															</thead>
 															<tbody>
-																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;">
+																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;font-family: Microsoft YaHei">
 																	<td><a
 																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
 																	<td>{{template.templateCategory}}</td>

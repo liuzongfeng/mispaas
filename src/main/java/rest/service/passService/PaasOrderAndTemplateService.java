@@ -69,7 +69,6 @@ public class PaasOrderAndTemplateService {
 	@ResponseBody
 	public Pageinfo showApplicationList(@RequestParam(value="page",defaultValue="1") String page,
 			@RequestBody String tetantList,
-			
 			@RequestParam(value="instanceName") String instanceName,
 			@RequestParam(value="templateCategory") String templateCategory,
 			@RequestParam(value="counm",defaultValue="10") Integer counm){
@@ -159,7 +158,7 @@ public class PaasOrderAndTemplateService {
 		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
-				@RequestParam(value="tetantList") String tetantList,
+				@RequestBody String tetantList,
 				@RequestParam(value="instanceName") String instanceName,
 				@RequestParam(value="templateCategory") String templateCategory,
 				@RequestParam(value="counm",defaultValue="10") Integer counm){
@@ -176,7 +175,7 @@ public class PaasOrderAndTemplateService {
 					String tenantId = object2.toString();
 					List countBycondition = passordermapper.selectOrderCountBycondition(tenantId, instanceName, templateCategory);
 					 num = num+countBycondition.size();
-					 List<PaasOrder> passlist = passordermapper.selectByCondition(i,tenantId, instanceName, templateCategory,counm);
+					 List<PaasOrder> passlist = passordermapper.selectByInstanceName(i,tenantId, instanceName, templateCategory,counm);
 						for (PaasOrder paasOrder : passlist) {
 							list.add(paasOrder);
 						}

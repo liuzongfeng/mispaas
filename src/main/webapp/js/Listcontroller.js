@@ -283,7 +283,11 @@ app.controller('ListCtrl', function($scope,$http) {
     $('#startDate').focus(function(){
         $('#startDate').datetimepicker('show');
     });
-    
+  //登出
+    $scope.logout=function()
+    {
+    	window.location.href= "http://192.168.6.16:8080/logout";
+    } 
 });
 //产品列表接口调用
 function templateListController($scope,$http,id,page){
@@ -318,7 +322,7 @@ function templateListController($scope,$http,id,page){
 };
 //综合应用列表接口
 function appListBynameController($scope,$http,page){
-	if($scope.templateCategory=="应用分类过滤"){
+	if($scope.templateCategory=="应用分类过滤"||$scope.templateCategory==null){
 		$scope.templateCategory='';
 	}
 	var reurl = null;
@@ -348,6 +352,7 @@ function appListBynameController($scope,$http,page){
         	}
         	$scope.pagenum =response.data.pageStr.split(",");
         	$scope.pageinfo = response.data;
+        	console.log(response.data.resultObj);
         	$scope.applicationList=response.data.resultObj;
         	$scope.pages=response.data.allpage;
         	$scope.totalSize=response.data.begin;
