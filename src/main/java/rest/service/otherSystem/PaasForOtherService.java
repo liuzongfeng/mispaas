@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rest.mybatis.dao.passDao.PaasInstanceMapper;
+import rest.mybatis.dao.passDao.PaasTemplateMapper;
 import rest.mybatis.dao.passDao.Imp.PaasInstanceImp;
+import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrder;
+import rest.mybatis.model.passModel.PaasTemplate;
 import rest.otherSystem.Obj.InstanceidTenentid;
 import rest.otherSystem.Obj.OrgidsInstanceid;
 import rest.page.util.Message;
@@ -32,6 +36,11 @@ public class PaasForOtherService {
 	private PaasInstanceImp paasInstanceImp;
 	@Autowired
 	private RequestUtil requestUtil;
+	
+	@Autowired
+	private PaasTemplateMapper paasTemplateMapper;
+	@Autowired
+	private PaasInstanceMapper paasInstanceMapper;
 	/**
 	 * 根据组织机构id数组和应用实例id获取租户id列表。
 	 * 需要运营管理平台提供 根据应用实例id和组织机构（用户群）获取租户列表的接口；组织机构可以为空，此时返回购买了当前应用实例的所有租户
@@ -58,9 +67,26 @@ public class PaasForOtherService {
 	@RequestMapping(value="/paasService/findOrgidsByInstanceidTenentid",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<String> findOrgidsByInstanceidTenentid(@RequestBody InstanceidTenentid instanceidTenentid){
 		List<String> list=null;
-		list=new ArrayList<String>();
+		/*list=new ArrayList<String>();
 		list.add("11C5EDB2-8B09-4457-BF20-19D5336C8513");
-		list.add("161C994E-5650-448E-AB49-26E027E9D26C");
+		list.add("161C994E-5650-448E-AB49-26E027E9D26C");*/
+		//1.获取参数
+		String instanceId = instanceidTenentid.getInstanceid();
+		String tenentId = instanceidTenentid.getTenentid();
+		//2.根据实例id 查询模板，判断是否共享
+		PaasInstance instance_T = paasInstanceMapper.selectByPrimaryKey(instanceId);
+		
+		PaasTemplate template_t = paasTemplateMapper.selectByPrimaryKey(instance_T.getTemplateId());
+		String userMode = template_t.getUserMode();
+		if("share".equals(userMode)){
+			//3.1根据实例id查询用户群
+			
+		}else{
+			if(null != tenentId){
+			//3.2根据实例id和租户id查询用户群
+			}
+		}
+		
 		return list;
 	}
 	

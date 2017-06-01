@@ -119,25 +119,25 @@ font-family: Microsoft YaHei;">
                 		<div class="form-group" style="width:80rem;">
                     	<label for="templateId" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
 						<div class="col-sm-10">
-                           <input disabled="disabled" type="text" class="form-control" id="templateId" value="{{Template.templateId}}">
+                           <input disabled="disabled" type="text" class="form-control myfont" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;"  id="templateId" value="{{Template.templateId}}">
 						</div>
                       	</div>
                        	<div class="form-group" style="width:80rem;">
                           <label for="version" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">版本号</span></label>
                           <div class="col-sm-10">
-                          <input disabled="disabled" type="text" class="form-control" id="version" value="{{Template.version}}">
+                          <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="version" value="{{Template.version}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
                           <label for="templateName" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模版名称</span></label>
                           <div class="col-sm-10">
-                          <input disabled="disabled" type="text" class="form-control" id="templateName" value="{{Template.templateName}}">
+                          <input disabled="disabled" type="text" class="form-control " id="templateName" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" value="{{Template.templateName}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
                           <label for="templateType" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">类型</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control" id="templateType">
+                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateType">
                               <option value="{{Template.templateType}}">{{Template.templateType}}</option>
                               
                           </select>
@@ -146,7 +146,7 @@ font-family: Microsoft YaHei;">
                        <div class="form-group" style="width:80rem;">
                           <label for="templateFL" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">分类</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control" id="templateFL">
+                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300;vertical-align: middle;" id="templateFL">
                               <option value="{{Template.templateCategory}}">{{Template.templateCategory}}</option>
                           </select>
                           </div>
@@ -154,7 +154,7 @@ font-family: Microsoft YaHei;">
                        <div class="form-group" style="width:80rem;">
                           <label for="templateMS" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">使用模式</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control" id="templateMS">
+                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateMS">
                               <option value="{{Template.userMode}}">{{Template.userMode}}</option>
                              
                           </select>
@@ -163,13 +163,13 @@ font-family: Microsoft YaHei;">
                        <div class="form-group" style="width:80rem;">
                           <label for="uploadPerson" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传人</span></label>
                           <div class="col-sm-10">
-                          <input disabled="disabled" type="text" class="form-control" id="uploadPerson" value="{{Template.uploadPerson}}">
+                          <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="uploadPerson" value="{{Template.uploadPerson}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
                           <label for="uploadDate" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传时间</span></label>
                           <div class="col-sm-10">
-                          <input disabled="disabled" type="text" class="form-control" id="uploadDate" value="{{Template.uploadDate | date:'yyyy-MM-dd'}}">
+                          <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="uploadDate" value="{{Template.uploadDate | date:'yyyy-MM-dd'}}">
                           </div>
                        </div>
                        
@@ -230,7 +230,7 @@ font-family: Microsoft YaHei;">
                                     <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="overWriteExist">是否覆盖
+                                                    <input  id="overWriteExistId" type="checkbox" name="overWriteExist">是否覆盖
                                                 </label>
                                             </div>
                                     </div>

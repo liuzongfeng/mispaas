@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.ho.yaml.Yaml;
 import org.ho.yaml.exception.YamlException;
@@ -36,6 +37,7 @@ import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasSubservice;
 import rest.mybatis.model.passModel.PaasTemplate;
 import rest.mybatis.model.passModel.PaasTemplateFile;
+import rest.security.UserInfo;
 
 @Controller
 public class TemplateService<T> {
@@ -51,6 +53,8 @@ public class TemplateService<T> {
 	private PaasTemplateFileMapper paasTemplateFileMapper;
 	@Autowired
 	private PaasInstanceMapper paasInstanceMapper;
+	@Autowired
+	private HttpSession session;
 	
 	/**
 	 * TODO 使用ThreadLocal处理多线程相关
@@ -380,7 +384,10 @@ public class TemplateService<T> {
 	public void delAfterUploadFail(){
 		
 		PaasTemplate paasTemplate_del = passTemplateThread.getTl().get();
-		deleteTemplateById(String.valueOf(paasTemplate_del.getId()));
+		if(null != paasTemplate_del){
+			deleteTemplateById(String.valueOf(paasTemplate_del.getId()));
+		}
+		
 	}
 	
 	/**
@@ -472,16 +479,24 @@ public class TemplateService<T> {
 					            		passTemplateThread.getTl().set(passTemplate);
 					            		deleteSubserviceFile(); //只对应的删除子服务和文件
 					            	}
-					            }else{//不进行覆盖
-					            	PaasTemplate passTemplate = new PaasTemplate();
-					            	paasTemplateMapper.insert(passTemplate);
-					            	passTemplateThread.getTl().set(passTemplate);
+					            }else{//不进行覆盖:如果已经存在提示是否覆盖
+					            	//根据templateId 查询template
+					            	List<PaasTemplate> paasTemplate_Exi = paasTemplateMapper.selectByTemplateIdConfig(tplId);
+					            	if(null != paasTemplate_Exi && paasTemplate_Exi.size() >0){
+					            		throw new Exception("hasExi");
+					            	}else{
+					            		PaasTemplate passTemplate = new PaasTemplate();
+						            	paasTemplateMapper.insert(passTemplate);
+						            	passTemplateThread.getTl().set(passTemplate);
+					            	}
+					            	
 					            }
+					            UserInfo userInfo = (UserInfo)session.getAttribute(session.getId());
 				            	//添加模板信息
 					            passTemplateThread.getTl().get().setTemplateId(tplId);                         				//模板id
 					            passTemplateThread.getTl().get().setTemplateName((String)father.get("description"));        //模板名称
 					            passTemplateThread.getTl().get().setTemplateCategory((String)father.get("category"));       //模板分类
-					            passTemplateThread.getTl().get().setUploadPerson("上传人");									//上传人
+					            passTemplateThread.getTl().get().setUploadPerson(userInfo.getName());									//上传人
 					            passTemplateThread.getTl().get().setUploadDate(new Date());									//上传时间
 					            passTemplateThread.getTl().get().setProductName((String)father.get("description"));			//产品名称
 						    }       
@@ -666,7 +681,7 @@ public class TemplateService<T> {
 			throw e;
 		}catch(Exception e){
 			e.printStackTrace();
-			throw new Exception("系统异常请联系管理员");
+			throw e;
 		}
 	}
 	
