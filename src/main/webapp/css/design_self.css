@@ -135,7 +135,13 @@ div.ng-scope{
 /* === END SIDEBAR MENU === */
 
 
-
+	myfont {
+		font-family: Microsoft YaHei;
+		font-size: 20px;
+		color:#555555;
+		font-weight: 300;
+	
+	}
 
 
 

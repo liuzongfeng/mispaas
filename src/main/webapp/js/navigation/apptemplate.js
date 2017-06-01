@@ -145,6 +145,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 							if(isUploadMore){
 								swal.close();
 								selectPage_aa(1);
+								$("#inputfile").val("");
+								
 							}else{
 								//1.将模态框进行隐藏
 								$("#file1").val("");
@@ -152,13 +154,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								//2.发起查询模板列表的请求
 								swal.close();
 								selectPage_aa(1);
+								$("#inputfile").val("");
 								
 							}
 						});
-					}else{
+					}else if("hasExi" == res){
 						swal({   
 							title:"导入失败",
-							text: res,   
+							text: "存在相同的模板id,请选择覆盖?",   
 							type: "error",   
 							closeOnConfirm: true 
 						}, 
@@ -167,6 +170,23 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$("#file1").val("");
 								$("#myModal").modal('hide');
 								selectPage_aa(1);
+								$("#inputfile").val("");
+								
+						});
+					}else{
+						swal({   
+							title:"导入失败",
+							text: "系统异常,请联系管理员",   
+							type: "error",   
+							closeOnConfirm: true 
+						}, 
+						function(){
+								//1.将模态框进行隐藏
+								$("#file1").val("");
+								$("#myModal").modal('hide');
+								selectPage_aa(1);
+								$("#inputfile").val("");
+								
 						});
 					}
 				});
@@ -176,10 +196,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				//高度自适应
 				//template高度自适应
                 var rightDiv = document.getElementById("rightdiv");
-                var ch_t = rightDiv.clientHeight;
+                var rdiv_offsetHeight = rightDiv.offsetHeight;
                 var ifm_left= $("#leftdiv");
-                ifm_left.css("height",0);
-                ifm_left.css("height",ch_t);
+                ifm_left.css("height",rdiv_offsetHeight);
 			}
 			
 			//应用模板
@@ -193,10 +212,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
 					
-					var heightdiv=document.documentElement.clientHeight;
-					var ifm_left= $("#leftdiv");
-	                ifm_left.css("height",0);
-	                ifm_left.css("height",heightdiv);
+					//autoHeight_fn();
 				}
 				
 			}
@@ -372,7 +388,6 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		    		}
 				});
 				
-				
 		}
 			
 			//导出模板
@@ -401,14 +416,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			$(function() {
 				//template高度自适应
-	            var rightDiv = document.getElementById("templateBody");
-	            var ch_t = rightDiv.clientHeight;
-	            var ifm_left= $("#leftdiv");
-	            var count = 12.5*$scope.pageSize;
-	            
-	            ifm_left.css("height",0);
-	            
-	            ifm_left.css("height",ch_t-count);
+				autoHeight_fn();
 				
                 
 				//按分类查询

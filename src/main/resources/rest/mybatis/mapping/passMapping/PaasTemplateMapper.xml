@@ -382,8 +382,8 @@
     <if test="templateName!= null and templateName != ''">
      and TEMPLATE_NAME like CONCAT('%',#{templateName},'%')
     </if>
-    <if test="templateCategory != null  and templateCategory != ''">
-     and TEMPLATE_CATEGORY=#{templateCategory} 
+    <if test="isPub != null">
+     and IS_PUB=#{isPub} 
     </if> 
     <if test="userMode!= null  and userMode!=''">
      and USER_MODE=#{userMode}
@@ -400,8 +400,8 @@
     <if test="ConditionObj.templateName!= null and ConditionObj.templateName != ''">
      and TEMPLATE_NAME like CONCAT('%',#{ConditionObj.templateName},'%')
     </if>
-    <if test="ConditionObj.templateCategory != null and ConditionObj.templateCategory != ''">
-     and TEMPLATE_CATEGORY=#{ConditionObj.templateCategory} 
+    <if test="ConditionObj.isPub != null">
+     and IS_PUB=#{ConditionObj.isPub} 
     </if> 
     <if test="ConditionObj.userMode!= null and ConditionObj.userMode!=''">
      and USER_MODE=#{ConditionObj.userMode}

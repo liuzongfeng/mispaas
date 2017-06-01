@@ -37,7 +37,7 @@
                <div class="user_name" id="username">哈密690371344</div>
            </div>
            <div class="fenge">|</div>
-           <div class="logout">登出</div>
+           <div class="logout"><a href="javascript:void(0);" ng-click="logout();">登出</a></div>
        </div>
        <div class="rightsth">
 
@@ -64,7 +64,7 @@
 	                </div>
 	            </div>
             </a>
-            <a href="#" ng-if="isadmin == 1">
+            <a href="tenantSelfServicemain.html" ng-if="isadmin == 1">
 	            <div class="childModel" style="margin-left: 6px;">
 	                <img src="../img/oneselfservice.png" class="modelPic">
 	                <div class="Modeltext">
@@ -280,6 +280,12 @@
     			$scope.isyunyin=isyunyin;
     		});
     	});
+    	 $scope.logout=function()
+         {
+         	window.location.href= "http://192.168.6.165:8080/logout";
+//          	$http.get("/logout").success(function(response){
+//          	});
+         }
 	});
 	app.config(function($compileProvider){//配置这段代码即可
         //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可

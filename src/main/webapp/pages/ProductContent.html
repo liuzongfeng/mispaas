@@ -88,12 +88,14 @@
             <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"  style="height: 50px; width:200px; font-size: 16px;color: #333;background-color: #f7f7f7;">
-                        <h id="dropdownMenuClasstitle" ng-model=templateCategory>按分类过滤</h>
+                        <h id="dropdownMenuClasstitle" ng-model=templateCategory>是否已发布</h>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
-                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','按分类过滤');">按分类过滤</a></li>
-                        <li ng-repeat="cateGory in CateGorys"><a href="javascript:changedropdown('dropdownMenuClasstitle','{{cateGory}}');">{{cateGory}}</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','是否已发布');">是否已发布</a></li>
+<!--                         <li ng-repeat="cateGory in CateGorys"><a href="javascript:changedropdown('dropdownMenuClasstitle','{{cateGory}}');">{{cateGory}}</a></li> -->
+                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','已发布');">已发布</a></li>
+                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','未发布');">未发布</a></li>
 <!--                         <li><a href="javascript:changedropdown('dropdownMenuClasstitle','新闻');">新闻</a></li> -->
 <!--                         <li><a href="javascript:changedropdown('dropdownMenuClasstitle','故事');">故事</a></li> -->
                     </ul>
@@ -199,7 +201,7 @@
             </div>
         </div>
         <div class="col-sm-offset-2 col-sm-4 modal-footer" style="width:500px; height: 70px;margin-left: 9%;">
-        	<input type="button" id="passbtn" ng-click="edittemplate()" value="提交" class="passclass">
+        	<input type="button" id="passbtn" ng-click="edittemplate()" value="更新" class="passclass">
         	<input type="button" id="passbtn" onclick="hiddenTab()" value="关闭" class="passclass">
 <!--         	<button type="button" class="btn btn-success" ng-click="edittemplate()" style="width: 180px;height: 40px; font-size: 20px; color: #FFFFFF;">提交</button> -->
 <!--             <button type="button" class="btn btn-primary" onclick="hiddenTab()" style="width: 180px;height: 40px; font-size: 20px; color: #FFFFFF;">关闭</button> -->
@@ -216,7 +218,7 @@
 				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"></strong></h3></div>
 			</div>
 			<div style="margin-top: 160px;">
-				<div ><button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
+				<div ><button type="button" class="btn btn-primary" onclick="closemodel()" style="width: 130px;height: 40px; margin: 0 auto;"><span style="font-size: 20px;">OK</span></button></div>
 			</div>
 				
 		</div>
@@ -230,7 +232,9 @@
     }
     function showeditmodel(id)
     {
+    	console.log(id);
         $(jsondatas.resultObj).each(function (index,element){
+        	console.log(element.templateId);
             if(element.templateId == id)
             {
                 $('#id').attr("value",element.id);
@@ -279,6 +283,12 @@
 			$('#selectBtn').click();
 		}
 	});
+    function closemodel()
+    {
+    	$('#myModal').modal("hide");
+    	hiddenTab();
+    	$('#selectBtn').click();
+    }
 </script>
 
 <!--</html>-->

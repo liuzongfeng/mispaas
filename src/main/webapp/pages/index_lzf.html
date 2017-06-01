@@ -48,7 +48,9 @@
 	</div>
 	<!--right class="container"-->
     <div id="rightdiv" >
+    	
     	<div ng-view  style="width:100%;" ></div>
+    
     </div>
 
 
@@ -77,19 +79,16 @@
        window.onload=function(){
     	   
     	   $("#yunweilogo").prop("src","../img/yunweilogo.png");
-    	   
+    	   var rightDiv = document.getElementById("rightdiv");
     	   	var heighbosy=window.screen.availHeight;
            	var heightdiv=document.documentElement.clientHeight;
-           	
-           	var ifm_right= $("#rightdiv");
-            ifm_right.css("height","auto");
-            var hh = ifm_right.css("height");
-            if(hh.split("px")[0] - 0 < 600){
-            	hh = heightdiv - 32;
-            	
-            };
+           	var rdiv_offsetHeight = rightDiv.offsetHeight;
+           
+            if(rdiv_offsetHeight < heightdiv){
+            	rdiv_offsetHeight = heightdiv;
+            }
             var ifm_left= $("#leftdiv");
-            ifm_left.css("height",heightdiv);
+            ifm_left.css("height",rdiv_offsetHeight);
         }
 
  </script>

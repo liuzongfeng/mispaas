@@ -11,7 +11,7 @@ angular.module('auth', []).factory(
 				}					
 			}
 			
-			$rootScope.basePath = "http://192.168.6.165:8080";
+			$rootScope.basePath = "http://localhost:8080";
 			
 			$rootScope.LogOut_fn = function(){
 				var arrayObj = $rootScope.authorities;

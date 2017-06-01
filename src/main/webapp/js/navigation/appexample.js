@@ -123,6 +123,9 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					$scope.appexample_title=true;
 					$scope.appExample = true;
 					$scope.divPage=true;
+					
+					//高度自适应
+					//autoHeight_fn_s();
 				}
                 
 			}
@@ -150,9 +153,10 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				//高度自适应
 				//instance高度自适应
                 var rightDiv = document.getElementById("rightdiv");
-                var ch_t = rightDiv.clientHeight;
+                var rdiv_offsetHeight = rightDiv.offsetHeight;
+                
                 var ifm_left= $("#leftdiv");
-                ifm_left.css("height",ch_t+35);
+                ifm_left.css("height",rdiv_offsetHeight);
 			}
 			
 			//创建实例
@@ -358,10 +362,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				//高度自适应
 				//instance高度自适应
-                var rightDiv = document.getElementById("instanceBody");
-                var ch_t = rightDiv.clientHeight;
-                var ifm_left= $("#leftdiv");
-                ifm_left.css("height",ch_t-20*$scope.pageSize);
+				autoHeight_fn_s();
 				
 				//按分类查询
 				$("#byInstanceStatus").change(function(){
