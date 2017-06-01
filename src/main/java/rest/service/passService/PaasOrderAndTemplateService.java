@@ -68,7 +68,8 @@ public class PaasOrderAndTemplateService {
 	@RequestMapping(value="/passService/showApplicationList",method=RequestMethod.POST)
 	@ResponseBody
 	public Pageinfo showApplicationList(@RequestParam(value="page",defaultValue="1") String page,
-			@RequestParam(value="tetantList") String tetantList,
+			@RequestBody String tetantList,
+			
 			@RequestParam(value="instanceName") String instanceName,
 			@RequestParam(value="templateCategory") String templateCategory,
 			@RequestParam(value="counm",defaultValue="10") Integer counm){
