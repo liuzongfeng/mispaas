@@ -26,7 +26,8 @@
 <script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
 <script type="text/javascript" src="../js/tree.js"></script>
 <script type="text/javascript" src="../js/Listcontroller.js"></script>
- <script type="text/javascript" src="../js/servicejs/logout.js"></script>
+<script type="text/javascript" src="../js/servicejs/logout.js"></script>
+<script src="../js/auth/auth.js" type="text/javascript"></script>
 <script type="text/javascript"
 	src="../js/servicejs/tenantSelfServicemain.js"></script>
 <!-- 接口js -->
@@ -69,7 +70,7 @@ div.content_wrap {
 
 div.content_wrap div.left {
 	float: left;
-	width: 400px;
+	width: 410px;
 }
 
 div.content_wrap div.right {
@@ -123,7 +124,7 @@ ul.log li.dark {
 .ztree li span.button.roots_open {
 	background-position: -92px 0
 }
-
+.ztree li span {font-size: 16px;font-family: Microsoft YaHei;color: #333333;}
 </style>
 </head>
 <body ng-app="listApp" ng-controller="ListCtrl" text="black"
@@ -190,7 +191,7 @@ ul.log li.dark {
 										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
 										<div style="width: 100px;">
 											<span ng-model="inscolor" ng-init="inscolor='#8e9094'" id="inscolor"
-												style="color:{{inscolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">应用管理</span>
+												style="color:{{inscolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">我的应用</span>
 										</div>
 									</div>
 								</div>
@@ -204,7 +205,7 @@ ul.log li.dark {
 										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
 										<div style="width: 100px;">
 											<span 
-												style="color: #458fe9; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">应用管理</span>
+												style="color: #458fe9; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">我的应用</span>
 										</div>
 									</div>
 								</div>
@@ -276,7 +277,7 @@ ul.log li.dark {
 														</div>
 														<div style="float: left; margin-left: 14px;">
 															<h4
-																style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">应用管理</h4>
+																style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">我的应用</h4>
 														</div>
 												</a></li>
 												<li class="" ng-show="myApplicationDetails"
@@ -315,32 +316,25 @@ ul.log li.dark {
 															<div style="float: right">
 																<form role="form">
 																	<div style="margin-right: 20px; float: left">
-																		<div style="float: left;margin-right: 6px;">
-																			<h4 style="color: #333333; font-size: 16px; font-family: Microsoft YaHei">产品分类过滤:</h4>
-																		</div>
 																		<div class="form-group"
-																			style="width: 220px; margin-right: 20px; float: right;">
-																			<select class="form-control" style="background-color: #f7f7f7;"
-																				ng-init="templateCategory2=''"
-																				ng-model="templateCategory2"
-																				ng-change="gettemplateBytemplateCategory()">
-																				<option selected="selected"></option>
+																			style="width: 220px;  float: right;">
+																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;"
+																				 id="gettemplateBytemplateCategory" >
+																				<option >产品分类过滤</option>
 																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
 																			</select>
 																		</div>
 																	</div>
 																	<div style="float: left; margin-right: 30px;">
-																		<div style="float: left;margin-right: 6px;">
-																			<h4 style="color: #333333; font-size: 16px; font-family: Microsoft YaHei">产品名称查询:</h4>
-																		</div>
+																		
 																		<div class="input-group"
 																			style="width: 220px; ">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;"
-																				placeholder="按名称查询" ng-model="productName"
+																			<input type="text" class="form-control" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #333333;font-size: 16px;" 
+																				placeholder="产品名称查询" ng-model="productName"
 																				ng-init="productName=''"
 																				ng-blur="gettemplatesBytemplateName()"> <span
 																				class="input-group-btn">
-																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
+																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #666666;">GO</button>
 																			</span>
 																		</div>
 																	</div>
@@ -358,7 +352,7 @@ ul.log li.dark {
 																</tr>
 															</thead>
 															<tbody>
-																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;">
+																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;font-family: Microsoft YaHei">
 																	<td><a
 																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
 																	<td>{{template.templateCategory}}</td>
@@ -450,10 +444,10 @@ ul.log li.dark {
 																<div class="col-sm-6">
 																	<button ng-show="Details" type="button"
 																		class="btn btn-primary"
-																		style="margin-top: 20px; margin-right: 20px;background-color: "
+																		style="margin-top: 20px; margin-right: 20px;font-size: 20px;font-family: Microsoft YaHei;"
 																		ng-click="createOrder()">确认购买</button>
 																	<button type="button" class="btn btn-default"
-																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;b"
+																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;font-size: 20px;color: #666666;font-family: Microsoft YaHei;"
 																		ng-click="closeGoodsDetails()">取消</button>
 																	
 																</div>
@@ -469,32 +463,24 @@ ul.log li.dark {
 															<div style="float: right">
 																<form role="form">
 																	<div style="margin-right: 20px; float: left">
-																		<div style="float: left;margin-right: 6px;">
-																			<h4 style="color: #333333; font-size: 16px; font-family: Microsoft YaHei">应用分类过滤:</h4>
-																		</div>
 																		<div class="form-group"
 																			style="width: 220px; margin-right: 20px; float: right">
-																			<select class="form-control" style="background-color: #f7f7f7;"
-																				ng-init="templateCategory=''"
-																				ng-model="templateCategory"
-																				ng-change="getapplicationBytemplateCategory()">
-																				<option></option>
+																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;"
+																		    id="getapplicationBytemplateCategory">
+																				<option >应用分类过滤</option>
 																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
 																			</select>
 																		</div>
 																	</div>
 																	<div style="float: left; margin-right: 30px;">
-																		<div style="float: left;margin-right: 6px;">
-																			<h4 style="color: #333333; font-size: 16px; font-family: Microsoft YaHei">应用名称查询:</h4>
-																		</div>
 																		<div class="input-group"
 																			style="width: 220px; float: left;">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;"
-																				placeholder="按名称查询" ng-model="instanceName"
+																			<input type="text" class="form-control" style="background-color: #f7f7f7;color: #333333; font-size: 16px; font-family: Microsoft YaHei"
+																				placeholder="应用名称查询" ng-model="instanceName"
 																				ng-init="instanceName=''"
 																				ng-blur="getapplicationByInstanceName()"> <span
 																				class="input-group-btn">
-																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go!</button>
+																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go</button>
 																			</span>
 																		</div>
 																	</div>
@@ -516,16 +502,15 @@ ul.log li.dark {
 																<tr ng-repeat="paasOrder in applicationList" style="font-size: 20px;color: #666666;border-color: #eff0f0">
 																	<td
 																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
-																		<span class="glyphicon glyphicon-wrench"></span><a
+																		<a
 																		href="#"
 																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a>
 																	</td>
-																	<td ng-if="paasOrder.status!=1"><span
-																		class="glyphicon glyphicon-wrench"></span><a href="#"
+																	<td ng-if="paasOrder.status!=1"><a href="#"
 																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
 																	<td
 																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">
-																		<span class="glyphicon glyphicon-wrench"></span><a
+																		<a
 																		href="#"
 																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a>
 																	</td>
@@ -602,19 +587,20 @@ ul.log li.dark {
 																	class="col-sm-4 control-label"><span
 																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
 																<div class="col-sm-6"
-																	style="width: 25%; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
+																	style="width: 425px; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
+																	
 																	<table class="table" style="">
 																		<tr style="height: 10%;background-color: #f7f7f7">
-																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
-																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
+																			<td style="width: 40%"><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
+																			<td style="width: 60%"><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
 																			<td></td>
 																			<td></td>
 																			<td></td>
 																		</tr> 
-																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666"
+																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
 																			ng-repeat="paasSubservice in chapplicationDetails.paasSubservices">
-																			<td><span class="glyphicon glyphicon-cog"></span>{{paasSubservice.moduleName}}</td>
-																			<td>{{paasSubservice.moduleDes}}</td>
+																			<td style="width: 40%"><span ></span>{{paasSubservice.moduleName}}</td>
+																			<td style="width: 60%">{{paasSubservice.moduleDes}}</td>
 																			<td></td>
 																			<td></td>
 																			<td></td>
@@ -643,10 +629,10 @@ ul.log li.dark {
 																class="col-sm-4 control-label"></label>
 															<div class="col-sm-6" style="">
 																<button type="button" class="btn btn-primary"
-																	style=" margin-right: 20px;background-color: "
+																	style=" margin-right: 20px;width:80px;font-size: 20px;font-family: Microsoft YaHei;"
 																	ng-click="changeApplicationUser()">保存</button>
 																	<button type="button" class="btn btn-default"
-																		style="margin-left: 20px;background-color: #ededed;width: 80px;"
+																		style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
 																		ng-click="closemyApplicationUsers()">取消</button>
 															</div>
 														</div>
@@ -689,7 +675,7 @@ ul.log li.dark {
 																	class="col-sm-4 control-label"><span
 																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
 																<div class="col-sm-6"
-																	style="width: 25%; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
+																	style="width: 425px; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
 																	<table class="table">
 																		<tr style="height: 10%;background-color: #f7f7f7;">
 																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
@@ -700,10 +686,8 @@ ul.log li.dark {
 																		</tr>
 																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666"
 																			ng-repeat="paasSubservice in applicationDetails.paasSubservices">
-																			<td ng-if="applicationDetails.paasInstance==null"><span
-																				class="glyphicon glyphicon-cog"></span><a href="#">{{paasSubservice.moduleName}}</a></td>
-																			<td ng-if="applicationDetails.paasInstance!=null"><span
-																				class="glyphicon glyphicon-cog"></span><a
+																			<td ng-if="applicationDetails.paasInstance==null"><a href="#">{{paasSubservice.moduleName}}</a></td>
+																			<td ng-if="applicationDetails.paasInstance!=null"><a
 																				href="{{http+applicationDetails.paasInstance.pubDns+applicationDetails.paasInstance.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
 																			<td>{{paasSubservice.moduleDes}}</td>
 																			<td></td>
@@ -733,7 +717,7 @@ ul.log li.dark {
 																class="col-sm-4 control-label"></label>
 															<div class="col-sm-6" style="margin-top: 10px;">
 																<button type="button" class="btn btn-default"
-																	style="margin-left: 20px;background-color: #ededed;width: 80px;"
+																	style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
 																	ng-click="closeApplicationDetails()">取消</button>
 															</div>
 														</div>
@@ -771,4 +755,5 @@ ul.log li.dark {
 	</div>
 
 </body>
+
 </html>
