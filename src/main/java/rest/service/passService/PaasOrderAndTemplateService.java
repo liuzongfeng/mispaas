@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
@@ -43,6 +44,7 @@ public class PaasOrderAndTemplateService {
 	@Autowired
 	private PageUtil pageutil;
 	//创建订单he维护订单租户和组织机构的关系
+	@ApiOperation(value="创建订单",notes="创建订单(PaasOrder)并且维护订单，租户，组织机构的关系")
 	@RequestMapping(value="/passService/createPaasOrder",method=RequestMethod.POST)
 	public void createPaasOrder(@RequestBody PaasOrder paasOrder,@RequestParam(value="ids",required=false)ArrayList<String> ids,
 			@RequestParam("tenantId") String tenantId,
@@ -65,6 +67,7 @@ public class PaasOrderAndTemplateService {
 		}
 	}
 	//查询已购买的应用（订单，模板，实例）
+	@ApiOperation(value="查询用户已购买的应用",notes="根据用户查到用户所拥有的的租户列表id，在根据租户列表id获取购买的应用")
 	@RequestMapping(value="/passService/showApplicationList",method=RequestMethod.POST)
 	@ResponseBody
 	public Pageinfo showApplicationList(@RequestParam(value="page",defaultValue="1") String page,
@@ -97,6 +100,7 @@ public class PaasOrderAndTemplateService {
 			return pi;
 	}
 	//查询应用详情(实例详情)
+	@ApiOperation(value="查询应用详情",notes="根据订单id获取该订单购买的产品id，根据产品Id获取详情")
 	@RequestMapping(value="/passService/showApplicationDetails",method=RequestMethod.GET)
 	@ResponseBody
 	public Object showApplicationDetails(@RequestParam("orderId") Integer orderId){
@@ -104,6 +108,7 @@ public class PaasOrderAndTemplateService {
 		return paasOrder;
 	}
 	//获取应用实例和组织机构的关系
+	@ApiOperation(value="获取应用实例和组织机构的关系",notes="根据订单id获取该订单与应用和组织机构的关系")
 	@RequestMapping(value="/passService/getInstanceAndOrgShip",method=RequestMethod.GET)
 	@ResponseBody
 	public List<PaasOrdTenantOrgR> getInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
@@ -111,6 +116,7 @@ public class PaasOrderAndTemplateService {
 		return list;
 	}
 	//插入订单组织机构关系
+	@ApiOperation(value="插入订单组织机构关系",notes="为某个订单根据订单ID添加组织机构的关系")
 	@RequestMapping(value="/passService/addInstanceAndOrgShip",method=RequestMethod.POST)
 	@ResponseBody
 	public void addInstanceAndOrgShip(@RequestParam(value="ids",required=false)ArrayList<String> ids,@RequestParam("tenantId") String tenantId,
@@ -132,6 +138,7 @@ public class PaasOrderAndTemplateService {
 	}
 	
 	//删除订单组织机构关系
+	@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
 	@RequestMapping(value="/passService/deleteInstanceAndOrgShip",method=RequestMethod.DELETE)
 	@ResponseBody
 	public void deleteInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
@@ -139,6 +146,7 @@ public class PaasOrderAndTemplateService {
 	}
 	
 	//查询已发布的产品列表（订单，模板，实例）
+		@ApiOperation(value="查询已发布的产品列表",notes="查询状态为发布的产品列表，应用了动态SQl实现，同时具有名字模糊查询和产品类别过滤的功能")
 		@RequestMapping(value="/passService/showTempliteList",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showTempliteList(@RequestParam(value="page",defaultValue="1") Integer page,
@@ -155,6 +163,7 @@ public class PaasOrderAndTemplateService {
 				return pi;
 		}
 		//名称模糊查询应用列表
+		@ApiOperation(value="名称模糊查询应用列表",notes="名字模糊查询应用，和根据类别过滤应用")
 		@RequestMapping(value="/passService/showApplicationListByInstanceName",method=RequestMethod.POST)
 		@ResponseBody
 		public Pageinfo showApplicationListByInstanceName(@RequestParam(value="page",defaultValue="1") String page,
@@ -188,6 +197,7 @@ public class PaasOrderAndTemplateService {
 				return pi;
 		}
 		//获取模板分类
+		@ApiOperation(value="获取模板分类",notes="动态查询表中的所有模板列别，用于生成列别过滤条件下拉框")
 		@RequestMapping(value="/passService/getTemplateCategorys",method=RequestMethod.GET)
 		@ResponseBody
 		public List<PaasTemplate> getTemplateCategorys(){
@@ -196,6 +206,7 @@ public class PaasOrderAndTemplateService {
 		}
 		
 		//撤销定单
+		@ApiOperation(value="撤销订单",notes="根据订单ID撤销订单，修改订单状态，和实例状态")
 		@RequestMapping(value="/passService/repealOrder",method=RequestMethod.PUT)
 		@ResponseBody
 		public void repealOrder(@RequestParam("orderId") Integer orderId){
@@ -211,6 +222,7 @@ public class PaasOrderAndTemplateService {
 			paasInstanceMapper.updateByPrimaryKeySelective(instance);
 		}
 		//获取组织机构
+		@ApiOperation(value="获取组织结构",notes="底层调用第三方接口获取组织结构列表，用于生成组织机构树")
 		@RequestMapping(value="/passService/getOrgtree",method=RequestMethod.GET)
 		@ResponseBody
 		public String getOrgtree(@RequestParam("geturl") String geturl) throws IOException{
@@ -219,6 +231,7 @@ public class PaasOrderAndTemplateService {
 			return orgjson;
 		}
 		//获取某用户的租户身份群
+		@ApiOperation(value="获取某用户的租户身份群",notes="根据用户ID获取，用户的租户身份群用于加载已购买的应用列表")
 		@RequestMapping(value="/passService/gettenantList",method=RequestMethod.GET)
 		@ResponseBody
 		public String gettenantList(@RequestParam("userurl") String userurl,@RequestParam("tenanturl") String tenanturl) throws IOException{
