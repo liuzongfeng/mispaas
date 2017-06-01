@@ -40,6 +40,11 @@ public class PaasForOtherService {
 	private PaasOrdTenantOrgRMapper paasOrdTenantOrgRMapper;
 	@Autowired
 	private RequestUtil requestUtil;
+	
+	@Autowired
+	private PaasTemplateMapper paasTemplateMapper;
+	@Autowired
+	private PaasInstanceMapper paasInstanceMapper;
 	/**
 	 * 根据组织机构id数组和应用实例id获取租户id列表。
 	 * 需要运营管理平台提供 根据应用实例id和组织机构（用户群）获取租户列表的接口；组织机构可以为空，此时返回购买了当前应用实例的所有租户
