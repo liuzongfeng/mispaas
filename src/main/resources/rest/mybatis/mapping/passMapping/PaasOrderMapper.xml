@@ -520,7 +520,8 @@
 	  	select distinct b.*
 		from PAAS_ORD_TENANT_ORG_R a
 		left join PAAS_ORDER b on a.ORD_ID=b.ID
+		left join PAAS_SUBSERVICE c on b.PRO_ID=c.TEMPLATE_ID
 		where 1=1 and b.STATUS=1 and a.ORG_ID=#{orgid}
-		and b.INSTANCE_ID=#{instanceId}
+		and c.MODULE_URL=#{url}
   </select>
 </mapper>

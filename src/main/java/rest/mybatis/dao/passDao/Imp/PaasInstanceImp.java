@@ -82,11 +82,11 @@ public class PaasInstanceImp{
 		session.close();
 		return list;
 	}
-	public boolean getInstancesByorgid(String orgid,String instanceId)
+	public boolean getInstancesByorgid(String orgid,String url)
 	{
 		Map<String, String> map=new HashMap<String, String>();
 		map.put("orgid", orgid);
-		map.put("instanceId", instanceId);
+		map.put("url", url);
 		SqlSession session=sqlSessionFactory.openSession();
 		List<PaasOrder> list=session.selectList("selectOrderandInsbyorgid",map);
 		session.close();

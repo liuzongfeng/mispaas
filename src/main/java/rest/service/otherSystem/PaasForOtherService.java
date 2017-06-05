@@ -96,8 +96,8 @@ public class PaasForOtherService {
 	 * @throws IOException 
 	  */
 	@ApiOperation(value="根据应用实例id和租户id返回是否可以访问",notes="根据应用实例id和租户id返回是否可以访问")
-	@RequestMapping(value="/rest/productService/ispermit/{userid}/{instanceId}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public Message ispermit(@PathVariable(value="userid") String userid,@PathVariable(value="instanceId") String instanceId) throws IOException{
+	@RequestMapping(value="/rest/productService/ispermit/{userid}/{url}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public Message ispermit(@PathVariable(value="userid") String userid,@PathVariable(value="url") String url) throws IOException{
 		List<PaasOrder> reslut=new ArrayList<PaasOrder>();
 		JSONObject jsono=requestUtil.getContent(userid);
 		JSONArray ja=jsono.getJSONArray("userList");
@@ -110,7 +110,7 @@ public class PaasForOtherService {
 		for (int i = 0; i < orgary.length; i++) {
 			String orjcode=orgary[i].toString();
 			orjcode=orjcode.replaceAll("\"", "");
-			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,instanceId);
+			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,"/"+url);
 			if(conresult)
 			{
 				result=true;
