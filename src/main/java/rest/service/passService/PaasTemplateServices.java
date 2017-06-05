@@ -128,7 +128,7 @@ public class PaasTemplateServices {
 		for (int i = 0; i < orgary.length; i++) {
 			String orjcode=orgary[i].toString();
 			orjcode=orjcode.replaceAll("\"", "");
-			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,"/"+url);
+			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,url);
 			if(conresult)
 			{
 				result=true;
