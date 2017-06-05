@@ -3,6 +3,7 @@ package rest.mybatis.dao.passDao.Imp;
 import java.io.IOException;
 import java.util.List;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,13 +38,21 @@ public class PaasOrderImp{
 	public List<PaasOrder> getOrderListbyCondition(Pageinfo record) throws IOException {
 		SqlSession session=sqlSessionfactory.openSession();
 		List<PaasOrder> list=session.selectList("selectPaasOrderObjByCondit",record);
-//		for (int i = 0; i < list.size(); i++) {
-//			PaasOrder po=list.get(i);
-//			JSONObject jo=requestUtil.getContent(po.getTenantId());
-//			JSONObject joo=jo.getJSONArray("userList").getJSONObject(0);
-//			po.setTenantName(joo.getString("name"));
-//		}
 		session.close();
+		JSONObject jo=requestUtil.getAlladminContent();
+		JSONArray jona=jo.getJSONArray("tenantList");
+		for (int i = 0; i < list.size(); i++) {
+			PaasOrder po=list.get(i);
+			for (int j = 0; j < jona.size(); j++) {
+				JSONObject joo=jona.getJSONObject(j);
+				String tenlantid=joo.getString("id");
+				if(po.getTenantId().equals(tenlantid))
+				{
+					po.setTenantName(joo.getString("name"));
+					break;
+				}
+			}
+		}
 		return list;
 	}
 //	/**

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 //@RestController
 public class RequestUtil {
 	private static String getUserUrl="http://100.0.10.100:8080/usermanager/api/authorization/users/";
-	private static String getAlladminUrl="http://100.0.10.100:8080/usermanager/api/authorization/users/";
+	private static String getAlladminUrl="http://100.0.10.100:8080/usermanager/api/authorization/tenants";
 //	@RequestMapping("/getContent")
 //	public JSONObject getContent() throws IOException
 //	{
@@ -42,6 +42,22 @@ public class RequestUtil {
 	public JSONObject getAlladminContent() throws IOException
 	{
 		URL url=new URL(getAlladminUrl);
+		URLConnection uc=url.openConnection();
+		HttpURLConnection connection = (HttpURLConnection)uc;
+		InputStream is=connection.getInputStream();
+		BufferedReader br=new BufferedReader(new InputStreamReader(is));
+		String readline="";
+		StringBuffer result=new StringBuffer();
+		while((readline=br.readLine())!=null)
+		{
+			result.append(readline);
+		}
+		JSONObject jo=JSONObject.fromObject(result.toString()); 
+		return jo;
+	}
+	public JSONObject gettenantsContent(String name) throws IOException
+	{
+		URL url=new URL(getAlladminUrl+"/query?tenantName="+name);
 		URLConnection uc=url.openConnection();
 		HttpURLConnection connection = (HttpURLConnection)uc;
 		InputStream is=connection.getInputStream();

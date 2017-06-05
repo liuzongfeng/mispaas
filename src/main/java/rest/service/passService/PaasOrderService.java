@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ import rest.mybatis.model.passModel.PaasTemplate;
 import rest.page.util.Message;
 import rest.page.util.PageUtil;
 import rest.page.util.Pageinfo;
+import rest.page.util.RequestUtil;
 
 @RestController
 public class PaasOrderService {
@@ -36,12 +39,24 @@ public class PaasOrderService {
 	private PaasInstanceImp paasInstanceImp;
 	@Autowired
 	private PageUtil pageutil;
+	@Autowired
+	private RequestUtil requestUtil;
 	@RequestMapping("/rest/orderService/getAllOrder")
 	public Pageinfo getAllOrder(@RequestParam(name="TenantName",required=false,defaultValue="") String TenantName,@RequestParam(name="Status",required=false,defaultValue="") Integer Status,@RequestParam(name="startTime",required=false,defaultValue="") String startTime,@RequestParam(name="endTime",required=false,defaultValue="") String endTime,@RequestParam(name="page",required=false,defaultValue="1") String page) throws ParseException, IOException
 	{
 		PaasOrder po=new PaasOrder();
 		//从远端那到租户ID 然后封装
-		po.setTenantName(TenantName);
+		if(!"".equals(TenantName))
+		{
+			JSONObject jo=requestUtil.gettenantsContent(TenantName);
+			String tenantId=jo.getString("tenantIdList");
+			if(!"".equals(tenantId))
+			{
+				tenantId=tenantId.substring(tenantId.indexOf("\"")+1, tenantId.lastIndexOf("\""));
+			}
+			po.setTenantId(tenantId);
+			po.setTenantName(TenantName);
+		}
 		po.setStatus(Status);
 		if(startTime!=null && !"".equals(startTime))
 		{
