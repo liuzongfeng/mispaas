@@ -20,6 +20,13 @@ app.controller('ListCtrl', function($scope,$http) {
     	$scope.tenantId=response.data.name;
     	$scope.userName=response.data.username;
     });
+	$http({
+        method: 'GET',
+        url: tenantSelfinterfaces.Var_getTemplateCategorys,
+	}).then(function successCallback(response) {
+    	$scope.templateCategoryList=response.data;
+        }, function errorCallback(response) {
+    }); 
 	var id= null;
 	var page=null;
 	templateListController($scope,$http,id,page);
@@ -30,6 +37,7 @@ app.controller('ListCtrl', function($scope,$http) {
    //列表控制
     //产品列表
     $scope.nListOfGoods = function(){
+    	$scope.selPage=1;
     	$scope.chanpincaidan1=false;
 		$scope.chanpincaidan2=true;
 		$scope.appcolor="#458fe9";
@@ -53,12 +61,14 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //应用列表
     $scope.nmyApplicationList = function(){
+    	$scope.selPage=1;
     	$scope.yingyongcaidan1=false;
 		$scope.yingyongcaidan2=true;
 		$scope.chanpincaidan1=true;
 		$scope.chanpincaidan2=false;
 		$scope.inscolor="#458fe9";
 		$scope.appcolor="#8e9094";
+		$scope.templateCategory='';
     	var page=null;
     	appListBynameController($scope,$http,page);
 		var lis=$("#appfenye").children();
@@ -144,11 +154,11 @@ app.controller('ListCtrl', function($scope,$http) {
         }).then(function successCallback(response) {
         	$scope.tetantList=response.data[0];
             }, function errorCallback(response) {
+            	alert(response);
         }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
-        
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             $(e.target).css("border-top","2px solid #3f8dce");
             // 获取前一个激活的标签页的名称
@@ -273,17 +283,17 @@ app.controller('ListCtrl', function($scope,$http) {
     $('#startDate').focus(function(){
         $('#startDate').datetimepicker('show');
     });
-    
+  //登出
+    $scope.logout=function()
+    {
+    	window.location.href= "http://192.168.6.16:8080/logout";
+    } 
 });
 //产品列表接口调用
 function templateListController($scope,$http,id,page){
-	$http({
-        method: 'GET',
-        url: tenantSelfinterfaces.Var_getTemplateCategorys,
-	}).then(function successCallback(response) {
-    	$scope.templateCategoryList=response.data;
-        }, function errorCallback(response) {
-    }); 
+	if($scope.templateCategory2=="产品分类过滤"){
+		$scope.templateCategory2='';
+	}
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showTempliteList,
@@ -312,6 +322,9 @@ function templateListController($scope,$http,id,page){
 };
 //综合应用列表接口
 function appListBynameController($scope,$http,page){
+	if($scope.templateCategory=="应用分类过滤"||$scope.templateCategory==null){
+		$scope.templateCategory='';
+	}
 	var reurl = null;
 	if(($scope.instanceName==null||$scope.instanceName=='')&&($scope.templateCategory==null||$scope.templateCategory=='')){
 		
@@ -326,19 +339,20 @@ function appListBynameController($scope,$http,page){
         params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
     }).then(function successCallback(response) {
     	$scope.tetantList=response.data[0];
-    	console.log($scope.tetantList);
     	$http({
             method: 'POST',
             url: reurl,
             contentType: "application/json",
-            params:{"page":page,"tetantList":$scope.tetantList,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
-        }).then(function successCallback(response) {
+            params:{"page":page,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+            data:$scope.tetantList
+    	}).then(function successCallback(response) {
         	for(i=0;i<response.data.resultObj.length;i++){
         		var newTime = new Date(response.data.resultObj[i].crateDate);
         		response.data.resultObj[i].crateDate = newTime.Format("yyyy-MM-dd hh:mm"); 
         	}
         	$scope.pagenum =response.data.pageStr.split(",");
         	$scope.pageinfo = response.data;
+        	console.log(response.data.resultObj);
         	$scope.applicationList=response.data.resultObj;
         	$scope.pages=response.data.allpage;
         	$scope.totalSize=response.data.begin;

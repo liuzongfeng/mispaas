@@ -3,8 +3,6 @@ function ordertoscope($scope,$http,id) {
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
 		var names = onCheckName($http,$scope,zTree);
-		var ids=null;
-		var names=null;
 		if($scope.value=="请选择租户"){
 			$("#myModal").modal('show');
 			return;
@@ -29,9 +27,13 @@ function ordertoscope($scope,$http,id) {
 	        data:passOrde
 	    }).then(function successCallback(response) {
 	    	var page=null;
-	    	applictionListController($scope,$http,page);
+	    	appListBynameController($scope,$http,page);
 	        }, function errorCallback(response) {
 	    });
+		$scope.yingyongcaidan1=false;
+		$scope.yingyongcaidan2=true;
+		$scope.chanpincaidan1=true;
+		$scope.chanpincaidan2=false;
 	};
 	//名称模糊查询应用
 	$scope.getapplicationByInstanceName=function(){
@@ -39,16 +41,18 @@ function ordertoscope($scope,$http,id) {
 		appListBynameController($scope,$http,page);
 	};
 	//分类查询应用
-	$scope.getapplicationBytemplateCategory=function(){
+	$("#getapplicationBytemplateCategory").change(function(){
+		$scope.templateCategory=$("#getapplicationBytemplateCategory").val();
 		var page=null;
 		appListBynameController($scope,$http,page);
-	};
+		});
 	//分类查询产品
-	$scope.gettemplateBytemplateCategory=function(){
+	$("#gettemplateBytemplateCategory").change(function(){
 		var id=null;
 		var page=null;
+		$scope.templateCategory2=$("#gettemplateBytemplateCategory").val();
 		templateListController($scope,$http,id,page);
-	};
+		});
 	//名字模糊查产品
 	$scope.gettemplatesBytemplateName=function(){
 		var id=null;
@@ -62,7 +66,6 @@ function ordertoscope($scope,$http,id) {
 	 changeorderpage($scope,$http,id);
 	//撤销定单
 	$scope.repealorder=function(orderId){
-		
 		$http({
 	        method: 'PUT',
 	        url: tenantSelfinterfaces.Var_repealOrder,
@@ -71,9 +74,8 @@ function ordertoscope($scope,$http,id) {
 	    }).then(function successCallback(response) {
 	        }, function errorCallback(response) {
 	    });
-		var page=null;
-		applictionListController($scope,$http,page);
-		
+		var page=$scope.nowpage;
+		appListBynameController($scope,$http,page);
 	};
 	//产品列表菜单样式控制
 	$scope.appover=function(){
@@ -125,7 +127,7 @@ function transmitOrderId(orderId,$scope,$http){
 	        datatype:"json",
 	    }).then(function successCallback(response) {
 	    	var page=null;
-	    	applictionListController($scope,$http,page);
+	    	appListBynameController($scope,$http,page);
 	        }, function errorCallback(response) {
 	    });
 	};

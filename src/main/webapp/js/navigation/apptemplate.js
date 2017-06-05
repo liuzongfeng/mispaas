@@ -146,6 +146,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								swal.close();
 								selectPage_aa(1);
 								$("#inputfile").val("");
+								if($("#overWriteExistId").prop("checked")){
+									$("#overWriteExistId").prop("checked",false);
+								};
 								
 							}else{
 								//1.将模态框进行隐藏
@@ -155,6 +158,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								swal.close();
 								selectPage_aa(1);
 								$("#inputfile").val("");
+								if($("#overWriteExistId").prop("checked")){
+									$("#overWriteExistId").prop("checked",false);
+								};
 								
 							}
 						});
@@ -171,6 +177,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$("#myModal").modal('hide');
 								selectPage_aa(1);
 								$("#inputfile").val("");
+								if($("#overWriteExistId").prop("checked")){
+									$("#overWriteExistId").prop("checked",false);
+								};
 								
 						});
 					}else{
@@ -186,6 +195,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								$("#myModal").modal('hide');
 								selectPage_aa(1);
 								$("#inputfile").val("");
+								if($("#overWriteExistId").prop("checked")){
+									$("#overWriteExistId").prop("checked",false);
+								};
 								
 						});
 					}
@@ -430,8 +442,13 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				$('#myModal').modal('hide');
 				//关闭模态框出发事件
 				$('#myModal').on('hide.bs.modal',
-						    function() {
-						        //alert('嘿，我听说您喜欢模态框...');
+					function() {
+					$("#inputfile").val("");
+					if($("#overWriteExistId").prop("checked")){
+						$("#overWriteExistId").prop("checked",false);
+					};
+					
+						       
 				});
 				
 				//复选框的反选
