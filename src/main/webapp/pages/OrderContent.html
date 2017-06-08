@@ -52,7 +52,7 @@
     <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
     <li id="OrderListTab" class="active">
     	<a href="#OrderList" id="cententa" data-toggle="tab" style="width: 190px;height: 70px; border-top:2px solid #3f8dce; border-left: none;border-right: none;" onclick="changeothstyle()">
-    	<img src="../img/appover.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    	<img src="../img/prounchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
     	<div style=" margin-top: 13px;font-family:方正兰亭黑简体;font-size: 20px;color: #5e6575;">
     		订单列表
     	</div>
@@ -63,7 +63,7 @@
     		<a href="javascript:hiddenTab()">&times;</a>
     	</span>
     	<a href="#OrderPass" id="editproducta" data-toggle="tab" style="width: 190px;height: 70px;"  onclick="changestyle()">
-    		<img src="../img/bianji.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
+    		<img src="../img/orderunchecked.png" style="float: left; margin-left: 20px;margin-top: 13px;"/>
 	    	<div style=" margin-top: 13px;font-family: 方正兰亭黑简体;font-size: 20px;color: #5e6575;">
 	    		订单审核
 	    	</div>
@@ -116,7 +116,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr  ng-repeat="order in datas" style="font-size: 17px;color: #666666;">
+            <tr  ng-repeat="order in datas" style="font-size: 20px;color: #666666; font-weight: 500;">
                 <td style="text-align: center;"><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></th>
                 <td style="text-align: center">{{order.paasTemplate.templateName}}</td>
                 <td style="text-align: center">{{order.crateDate|date:"yyyy-MM-dd HH:mm:ss"}}</td>
@@ -143,6 +143,11 @@
                 <li>
                     <a id="next" href="javascript:void(0)" ng-click="changepage(next)" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="next" href="javascript:void(0)"aria-label="Next" ng-model="allpage">
+                    	<span aria-hidden="true">总共{{allpage}}页</span>
                     </a>
                 </li>
             </ul>

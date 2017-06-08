@@ -44,26 +44,26 @@
 </head>
 <body ng-app="myapp" ng-controller="myController" style="padding: 0 0;">
 <!-- header -->
-	<div style="width:100%;float:left;">
+	<div style="width:100%;float:left;position: fixed;z-index: 10;">
        <div ng-include="'../pages/head.html'"></div>
     </div>
-<div style="float: left;position: relative; width: 10%;height: 900px; background-color: #21242B;" id="leftiframe" ng-include="'Left.html'">
+<div style="float: left;position: relative; width: 10%;height: 900px; background-color: #21242B; margin-top: 80px;" id="leftiframe" ng-include="'Left.html'">
 
 </div>
 <!-- <div class="rightClass"> -->
 <!-- 	<div style="text-align: center;position: relative;margin: 0 auto; width: 100%"; id="rightiframe" ng-include="'OrderContent.html'"> -->
 	
 <!-- 	</div> -->
-	<div style="border:2px solid #F7F7F7;float: left;text-align: center;position: relative;margin: 0 auto;margin-top:2%;margin-left:20px; width: 86%; " id="rightiframe" ng-include="'OrderContent.html'">
+	<div style="border:2px solid #F7F7F7;float: left;text-align: center;position: relative;margin: 0 auto;margin-top: 140px;margin-left:20px; width: 86%; " id="rightiframe" ng-include="'OrderContent.html'">
 	
 	</div>
 <!-- </div> -->
-<div style="position: relative;float: right; height: 40px; width: 100%;margin-bottom: 0px; margin-top: 0px; ">
-    <!-- 下边页脚 -->
-    <div style="background-color: #3d3d3d;height: 30px;clear: both; " >
-        <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6>
-    </div>
-</div>
+<!-- <div style="position: relative;float: right; height: 40px; width: 100%;margin-bottom: 0px; margin-top: 0px; "> -->
+<!--     下边页脚 -->
+<!--     <div style="background-color: #3d3d3d;height: 30px;clear: both; " > -->
+<!--         <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6> -->
+<!--     </div> -->
+<!-- </div> -->
 </body>
 <script>
     function changeFrameHeight(){
@@ -128,6 +128,7 @@
                 pagenum=response.pagenum;
                 $scope.next=response.next;
                 $scope.previous=response.prev;
+                $scope.allpage=response.allpage;
                 $('.pagination li').each(function (index,element){
                 	$(element).removeClass("active");
                 });
