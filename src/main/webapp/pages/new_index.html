@@ -102,7 +102,7 @@
     <div class="cremodel">
     	<div class="cremodelrow" ng-repeat="x in rows">
     		<div class="crechildnode" ng-repeat="n in x track by $index">
-    		<a href="{{n.moduleUrl}}" style="text-decoration: none;">
+    		<a href="{{n.moduleUrl}}" style="text-decoration: none;" target="_blank">
                 <div class="imagearea">
                     <img src="data:image/png;base64,{{n.moduleImgName}}"  class="img-circle imgclass">
                 </div>
@@ -282,7 +282,7 @@
     	});
     	 $scope.logout=function()
          {
-         	window.location.href= "http://192.168.6.165:8080/logout";
+         	window.location.href= "http://192.168.6.23:8080/logout";
 //          	$http.get("/logout").success(function(response){
 //          	});
          }

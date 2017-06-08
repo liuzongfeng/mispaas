@@ -110,11 +110,11 @@ public class PaasTemplateServices {
 	}
 	
 	/**
-	 * 更具用户ID 实例ID 查询是否有访问权限
+	 * 更具用户ID url 查询是否有访问权限
 	 */
-	//@RequestMapping("/rest/productService/ispermit/{userid}/{instanceId}")
+//	@RequestMapping("/rest/productService/ispermit/{userid}/{url}")
 //	public Message ispermit(@PathVariable(value="userid") String userid,@PathVariable(value="instanceId") String instanceId) throws IOException
-	public Message ispermit(String userid,String instanceId) throws IOException
+	public Message ispermit(String userid,String url) throws IOException
 	{
 		List<PaasOrder> reslut=new ArrayList<PaasOrder>();
 		JSONObject jsono=requestUtil.getContent(userid);
@@ -128,7 +128,7 @@ public class PaasTemplateServices {
 		for (int i = 0; i < orgary.length; i++) {
 			String orjcode=orgary[i].toString();
 			orjcode=orjcode.replaceAll("\"", "");
-			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,instanceId);
+			boolean conresult=paasInstanceImp.getInstancesByorgid(orjcode,url);
 			if(conresult)
 			{
 				result=true;

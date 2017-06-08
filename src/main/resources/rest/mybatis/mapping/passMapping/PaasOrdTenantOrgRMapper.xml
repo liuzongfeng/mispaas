@@ -32,6 +32,18 @@
     from PAAS_ORD_TENANT_ORG_R
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  
+  <!-- 根据实例id和租户ID动态查询组织机构id集合 -->
+  <select id="selectByOrderIdstemp" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from PAAS_ORD_TENANT_ORG_R 
+    where ORD_ID in
+    <foreach collection="list" item="orderId" index="index" open="(" close=")" separator=",">
+    	#{orderId}
+    </foreach>
+  </select>
+  
   <!-- 查询组织关系表ByOrderId -->
   <select id="selectPaasOrdTenantOrgRByOrderID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
