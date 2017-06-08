@@ -147,6 +147,7 @@
         	var proid=$('#proid').val();
         	var instanceId=$('#instanceId').val();
         	var updateUrl="/rest/orderService/updateOrder?userId="+userinfo.username+"&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
+        	console.log(updateUrl);
         	$http.get(updateUrl).success(function(response){
         		if(response.code == "success")
         		{
