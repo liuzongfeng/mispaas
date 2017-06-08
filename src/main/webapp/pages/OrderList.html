@@ -87,7 +87,6 @@
     	$http.get("/obtainUserInfo").success(function(response){
     		userinfo=response;
     		$scope.name=response.name;
-    		console.log(response);
     	});
     	 $scope.logout=function()
          {
