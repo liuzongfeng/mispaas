@@ -1,6 +1,6 @@
 //接口的URL配置管理js
 //bathpath
-var bathPath = "http://192.168.6.165:8080";
+var bathPath = "http://192.168.6.23:8080";
 //登出接口
 var logoutPath = bathPath + "/logout";
 //获取用户信息接口
