@@ -1,5 +1,5 @@
 /*var paasrest_dns="http://127.0.0.1:8080";*/
-var paasrest_dns="http://192.168.6.23:8080";
+var paasrest_dns="http://192.168.6.165:8080";
 tenantSelfinterfaces={
 		//创建订单he维护订单租户和组织机构的关系
 		Var_createPaasOrder:paasrest_dns+'/passService/createPaasOrder',

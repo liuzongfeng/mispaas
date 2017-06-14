@@ -1,0 +1,8 @@
+/* here you can put your own css to customize and override the theme */
+.dataTable .row-details.row-details-none {
+    background: url("../img/datatable-row-openclose.png") no-repeat scroll 0 -86px rgba(0, 0, 0, 0);
+}
+table .input-icon i {
+    margin: 7px 2px 4px 7px;
+    z-index: 10;
+}
