@@ -3,7 +3,7 @@
 <head lang="en">
 <meta charset="UTF-8">
 <meta http-equiv="Access-Control-Allow-Origin" content="*">
-<title></title>
+<title>租户自服务</title>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
@@ -39,8 +39,8 @@
             var divfm= $("#leftiframe");
             var heighbosy=window.screen.availHeight;
             var heightdiv=document.documentElement.clientHeight;
-            ifm.css("height",heightdiv);
-            divfm.css("height",heightdiv-100);
+            ifm.css("height",heightdiv-100-82);
+            divfm.css("height",heightdiv-100-82);
         }
         window.onload=function(){
             var heightdiv=document.documentElement.clientHeight;
@@ -132,33 +132,33 @@ ul.log li.dark {
 	<!--上边页头 -->
 	<div ng-include="'../pages/header2.html'" style=""></div>
 	<!--页面中间-->
-	<div id="leftiframe" style="height: 90%; padding: 0px;"ng-model="tenantId">
-		<table class="table table-bordered"
+	<div id="leftiframe" style="height: 90%; padding: 0px;padding-top: 82px;"ng-model="tenantId">
+		<table class="table table-bordered" 
 			style="margin-bottom: 0px;margin-top:0px; border: none; height: 100%;padding: 0px;">
-			<tbody style="border: none; height: 100%">
-				<tr style="border: none; height: 100%">
+			<tbody style="border: none; height: 90%">
+				<tr style="border: none; height: 90%">
 					<!--左边导航栏 -->
 					<td
 						style="width: 8.8%; background-color: #21242b; border: none; padding: 0px; height: 100%;border-top: 1px solid;border-bottom: 1px solid">
 						<div id="solso-sidebar" style="width: 100%; padding: 0px;border: none;">
-							<div style="width: 170px;"></div>
-							<div class="panel-group" id="accordion">
+							
+							<div  id="accordion">
 								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" ng-mouseover="appover()"
 								ng-show="chanpincaidan1" ng-init="chanpincaidan1=false"
 								ng-mouseleave="appleave()">
 									<div ng-show="templateShowpng1" ng-init="templateShowpng1='true'" ng-model="templateShowpng1"
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
+										style=" width: 27px; height: 27px;background-color: #21242b; margin-left: auto; margin-right: auto;">
 										<img alt="" src="../img/templateShow.png" />
 									</div>
 									<div ng-show="templateShowpng2" ng-model="templateShowpng2"
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
+										style=" width: 27px; height: 27px;background-color: #21242b; margin-left: auto; margin-right: auto;">
 										<img alt="" src="../img/appover.png" />
 									</div>
 									<div id="collapseOne"
-										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 100px;">
+										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
+										<div style="width: 80px;margin-left: auto; margin-right: auto;">
 											<span ng-model="appcolor" ng-init="appcolor='#8e9094'" id="appcolor"
-												style="color: {{appcolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">产品列表</span>
+												style="color: {{appcolor}}; font-size: 20px;  font-family: Microsoft YaHei">产品列表</span>
 										</div>
 									</div>
 								</div>
@@ -169,10 +169,10 @@ ul.log li.dark {
 										<img alt="" src="../img/appover.png" />
 									</div>
 									<div id="collapseOne"
-										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 100px;">
-											<span 
-												style="color: #458fe9; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">产品列表</span>
+										style="margin-top: 14px; margin-left: auto; margin-right: auto;">
+										<div style="width: 80px;margin-left: auto; margin-right: auto;">
+											<span
+												style="color: #458fe9; font-size: 20px;  font-family: Microsoft YaHei">产品列表</span>
 										</div>
 									</div>
 								</div>
@@ -188,10 +188,10 @@ ul.log li.dark {
 										<img alt="" src="../img/instanceover.png" />
 									</div>
 									<div id="collapsetwo"
-										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 100px;">
+										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
+										<div style="width: 80px;margin-left: auto; margin-right: auto;">
 											<span ng-model="inscolor" ng-init="inscolor='#8e9094'" id="inscolor"
-												style="color:{{inscolor}}; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">我的应用</span>
+												style="color:{{inscolor}}; font-size: 20px;  font-family: Microsoft YaHei">我的应用</span>
 										</div>
 									</div>
 								</div>
@@ -202,10 +202,10 @@ ul.log li.dark {
 										<img alt="" src="../img/instanceover.png" />
 									</div>
 									<div id="collapseOne"
-										style="width: 50%; margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 100px;">
+										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
+										<div style="width: 80px;margin-left: auto; margin-right: auto;">
 											<span 
-												style="color: #458fe9; font-size: 20px; margin-left: 10px; font-family: Microsoft YaHei">我的应用</span>
+												style="color: #458fe9; font-size: 20px; font-family: Microsoft YaHei">我的应用</span>
 										</div>
 									</div>
 								</div>
@@ -315,26 +315,26 @@ ul.log li.dark {
 														<div style="float: right; margin-top: 10px;">
 															<div style="float: right">
 																<form role="form">
-																	<div style="margin-right: 20px; float: left">
+																	<div style="margin-right: 20px; float: left;margin-top: 30px;">
 																		<div class="form-group"
-																			style="width: 220px;  float: right;">
-																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;"
+																			style="width: 220px;  float: right;height: 46px;">
+																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;height: 46px;"
 																				 id="gettemplateBytemplateCategory" >
 																				<option >产品分类过滤</option>
 																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
 																			</select>
 																		</div>
 																	</div>
-																	<div style="float: left; margin-right: 30px;">
+																	<div style="float: left; margin-right: 30px;margin-top: 30px;">
 																		
 																		<div class="input-group"
 																			style="width: 220px; ">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #333333;font-size: 16px;" 
+																			<input type="text" class="form-control" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #333333;font-size: 16px;height: 46px;" 
 																				placeholder="产品名称查询" ng-model="productName"
 																				ng-init="productName=''"
 																				ng-blur="gettemplatesBytemplateName()"> <span
 																				class="input-group-btn">
-																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #666666;">GO</button>
+																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #666666;height: 46px;" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'">Go!</button>
 																			</span>
 																		</div>
 																	</div>
@@ -352,13 +352,13 @@ ul.log li.dark {
 																</tr>
 															</thead>
 															<tbody>
-																<tr ng-repeat=" template in templateList" style="font-size: 20px;color: #666666;border-color: #eff0f0;font-family: Microsoft YaHei">
+																<tr ng-repeat=" template in templateList" style="font-size: 20px;font-weight: 500;color: #666666;border-color: #eff0f0;font-family: Microsoft YaHei;">
 																	<td><a
 																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
 																	<td>{{template.templateCategory}}</td>
 																	<td>{{template.templateName}}</td>
 																	<td><button type="button" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
-																			class="btn btn-default btn-sm"
+																			class="btn btn-default btn-sm" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																			ng-click="BuyGoodsDetails(template.id)">购买</button></td>
 																</tr>
 															</tbody>
@@ -443,12 +443,15 @@ ul.log li.dark {
 																	class="col-sm-4 control-label"></label>
 																<div class="col-sm-6">
 																	<button ng-show="Details" type="button"
-																		class="btn btn-primary"
+																		class="btn btn-primary" 
 																		style="margin-top: 20px; margin-right: 20px;font-size: 20px;font-family: Microsoft YaHei;"
 																		ng-click="createOrder()">确认购买</button>
-																	<button type="button" class="btn btn-default"
+																	<button ng-show="Details" type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;font-size: 20px;color: #666666;font-family: Microsoft YaHei;"
 																		ng-click="closeGoodsDetails()">取消</button>
+																		<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
+																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;font-size: 20px;color: #666666;font-family: Microsoft YaHei;"
+																		ng-click="closeGoodsDetails()">关闭</button>
 																	
 																</div>
 															</div>
@@ -462,25 +465,26 @@ ul.log li.dark {
 														<div style="float: right; margin-top: 10px;">
 															<div style="float: right">
 																<form role="form">
-																	<div style="margin-right: 20px; float: left">
+																	<div style="margin-right: 20px; float: left;margin-top: 30px;">
 																		<div class="form-group"
 																			style="width: 220px; margin-right: 20px; float: right">
-																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;"
+																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;height: 46px;"
 																		    id="getapplicationBytemplateCategory">
 																				<option >应用分类过滤</option>
 																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
 																			</select>
 																		</div>
 																	</div>
-																	<div style="float: left; margin-right: 30px;">
+																	<div style="float: left; margin-right: 30px;margin-top: 30px;">
 																		<div class="input-group"
 																			style="width: 220px; float: left;">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;color: #333333; font-size: 16px; font-family: Microsoft YaHei"
+																			<input type="text" class="form-control" style="background-color: #f7f7f7;color: #333333; font-size: 16px; font-family: Microsoft YaHei;height: 46px"
 																				placeholder="应用名称查询" ng-model="instanceName"
 																				ng-init="instanceName=''"
 																				ng-blur="getapplicationByInstanceName()"> <span
 																				class="input-group-btn">
-																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" style="background-color: #f7f7f7;">Go</button>
+																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
+																				style="background-color: #f7f7f7;height: 46px;">Go</button>
 																			</span>
 																		</div>
 																	</div>
@@ -499,7 +503,7 @@ ul.log li.dark {
 																</tr>
 															</thead>
 															<tbody>
-																<tr ng-repeat="paasOrder in applicationList" style="font-size: 20px;color: #666666;border-color: #eff0f0">
+																<tr ng-repeat="paasOrder in applicationList" style="font-size: 20px;color: #666666;border-color: #eff0f0;font-weight: 500;">
 																	<td
 																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
 																		<a
@@ -523,12 +527,12 @@ ul.log li.dark {
 																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">运行中</td>
 																	<td ng-if="paasOrder.status==2">驳回</td>
 																	<td ng-if="paasOrder.status==3">撤销</td>
-																	<td><button type="button"
+																	<td><button type="button" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																			class="btn btn-default btn-sm" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
 																			ng-click="showApplicationUetails(paasOrder.id)">修改</button>
 																		<button style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
 																			ng-if="!(paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1)"
-																			type="button" class="btn btn-default btn-sm"
+																			type="button" class="btn btn-default btn-sm" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																			ng-click="repealorder(paasOrder.id)">撤销</button></td>
 																</tr>
 															</tbody>
@@ -597,7 +601,7 @@ ul.log li.dark {
 																			<td></td>
 																			<td></td>
 																		</tr> 
-																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
+																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;font-weight: 500;"
 																			ng-repeat="paasSubservice in chapplicationDetails.paasSubservices">
 																			<td style="width: 40%"><span ></span>{{paasSubservice.moduleName}}</td>
 																			<td style="width: 60%">{{paasSubservice.moduleDes}}</td>
@@ -631,7 +635,7 @@ ul.log li.dark {
 																<button type="button" class="btn btn-primary"
 																	style=" margin-right: 20px;width:80px;font-size: 20px;font-family: Microsoft YaHei;"
 																	ng-click="changeApplicationUser()">保存</button>
-																	<button type="button" class="btn btn-default"
+																	<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																		style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
 																		ng-click="closemyApplicationUsers()">取消</button>
 															</div>
@@ -684,7 +688,7 @@ ul.log li.dark {
 																			<td></td>
 																			<td></td>
 																		</tr>
-																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666"
+																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;font-weight: 500"
 																			ng-repeat="paasSubservice in applicationDetails.paasSubservices">
 																			<td ng-if="applicationDetails.paasInstance==null"><a href="#">{{paasSubservice.moduleName}}</a></td>
 																			<td ng-if="applicationDetails.paasInstance!=null"><a
@@ -716,9 +720,9 @@ ul.log li.dark {
 															<label for="exampleInputEmail2"
 																class="col-sm-4 control-label"></label>
 															<div class="col-sm-6" style="margin-top: 10px;">
-																<button type="button" class="btn btn-default"
+																<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
 																	style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
-																	ng-click="closeApplicationDetails()">取消</button>
+																	ng-click="closeApplicationDetails()">关闭</button>
 															</div>
 														</div>
 													</div>

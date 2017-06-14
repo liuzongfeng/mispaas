@@ -35,21 +35,21 @@
 </head>
 <body ng-app="myapp" ng-controller="myController" style="padding: 0 0;">
 <!-- header -->
-	<div style="width:100%;float:left;">
+	<div style="width:100%;float:left; position: fixed;z-index: 10;">
        <div ng-include="'../pages/head.html'"></div>
     </div>
-<div style="float: left;position: relative; width: 10%;height: 80rem; background-color: #21242B;" id="leftiframe" ng-include="'Left.html'">
+<div style="float: left;position: relative; width: 10%;height: 80rem;margin-top: 80px; background-color: #21242B;" id="leftiframe" ng-include="'Left.html'">
 
 </div>
-<div style="border:2px solid #F7F7F7;float: left;text-align: center;position: relative;margin-top:2%;margin-left:20px; width: 88%;margin-bottom: 2%;" id="rightiframe" ng-include="'ProductContent.html'">
+<div style="border:2px solid #F7F7F7;float: left;text-align: center;position: relative;margin-top: 140px;margin-left:20px; width: 88%;margin-bottom: 2%;" id="rightiframe" ng-include="'ProductContent.html'">
 
 </div>
-<div style="position: relative;float: right; height: 40px; width: 100%; margin-bottom: 0px; margin-top: 0px; ">
-    <!-- 下边页脚 -->
-    <div style="background-color: #3d3d3d;height: 30px;clear: both;" >
-        <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6>
-    </div>
-</div>
+<!-- <div style="position: relative;float: right; height: 40px; width: 100%; margin-bottom: 0px; margin-top: 0px; "> -->
+<!--     下边页脚 -->
+<!--     <div style="background-color: #3d3d3d;height: 30px;clear: both;" > -->
+<!--         <h6 style="margin: 0;padding: 0;color: orange;font-style: italic;vertical-align: middle;text-align: center;">北京中科大洋科技发展股份有限公司@2017</h6> -->
+<!--     </div> -->
+<!-- </div> -->
 <!--<iframe style="float: left;position: relative;" src="Left.html" id="leftiframe" onload="changeFrameHeight()" width="18%" frameborder="no" border="0" scrolling="no">-->
 <!--</iframe>-->
 <!--<iframe style="float: right;text-align: center;position: relative;margin-right: 2%;" width="78%" id="rightiframe"  src="ProductContent.html" frameborder="no" border="0" scrolling="no">-->
@@ -79,7 +79,6 @@
         		templateCategory=(templateCategory=="已发布"?1:0);	
         	}
         	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page=1";
-        	console.log(geturl);
         	request($http,geturl)
         };
         $scope.changepage=function(page){
@@ -109,6 +108,7 @@
                 pagenum=response.pagenum;
                 $scope.next=response.next;
                 $scope.previous=response.prev;
+                $scope.allpage=response.allpage;
                 $('.pagination li').each(function (index,element){
                 	$(element).removeClass("active");
                 });
