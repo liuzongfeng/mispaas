@@ -149,7 +149,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 			}
 			
-			var autoHeight_fn_s = function(){
+			/*var autoHeight_fn_s = function(){
 				//高度自适应
 				//instance高度自适应
                 var rightDiv = document.getElementById("rightdiv");
@@ -157,7 +157,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
                 
                 var ifm_left= $("#leftdiv");
                 ifm_left.css("height",rdiv_offsetHeight);
-			}
+			}*/
 			
 			//创建实例
 			$scope.createExample_fn = function(){
@@ -229,7 +229,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
                     $("#activeEditEx").css("display","");
 				}
 				$("#searchInstanceDetail").show();
-				autoHeight_fn_s();
+				//autoHeight_fn_s();
             }
             
 			//编辑实例
@@ -289,7 +289,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					swal("请先选中实例!", "", "warning");
 					$scope.closeEditExample_fn();
 				}
-				autoHeight_fn_s();
+				//autoHeight_fn_s();
 			}
 			
 			
@@ -362,7 +362,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				//高度自适应
 				//instance高度自适应
-				autoHeight_fn_s();
+				//autoHeight_fn_s();
 				
 				//按分类查询
 				$("#byInstanceStatus").change(function(){

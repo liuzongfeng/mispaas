@@ -1,19 +1,19 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title></title>
 </head>
-<!--上边页头 -->
+上边页头
 <div class="navbar  navbar-fixed-top" style="height: 82px; background-color: #273040;">
-    <!-- Logo -->
-    <div style="width:10% ; position:static;float: left;vertical-align: middle;text-align:center; margin-top: 14px;">
-    	<img alt="" src="../img/LOGO.png" />
+    Logo
+    <div style="width:10% ;height:82px; position:static;float: left;">
+    	<img alt="" src="../img/LOGO.png" style="vertical-align: middle;text-align: center;"/>
     </div>
-    <!-- 個服務 -->
-    <div style="width:90%">
-    	<div style="position:static;float: left; vertical-align: middle; margin-top: 35px;">
-    		<img id="yunweilogo" alt="" src="">
+    個服務
+    <div style="width:90% height:82px;">
+    	<div style="position:static;float: left; height:82px;">
+    		<img id="yunweilogo" alt="" src="" style="vertical-align:middle;">
     	</div>
     
     	<div style="positon:static;float: right;vertical-align: middle;margin-top:40px;">
@@ -25,4 +25,81 @@
     	</div>
     </div>
 </div>
-</html>
+</html> -->
+
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner d-header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="javascript:void(0)"><img  src="../images/paas/logo.png" alt="logo" class="img-responsive"/></a>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <img src="../assets/img/menu-toggler.png" alt=""/>
+        </a>
+        <!-- BEGIN HORIZANTAL MENU -->
+        <div class="hor-menu hidden-sm hidden-xs">
+            <img src="../images/paas/logo-usermanager.png" alt=""/>
+        </div>
+        <!-- END HORIZANTAL MENU -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+                <a href="javascript:void(0)" id="dropdown_toggle_a" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                        <span class="username">
+                             你好，Lucian
+                        </span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul id="dropdown-menu_ul" class="dropdown-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-th"></i>管理中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-pencil"></i>修改密码
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="dyicon-logout2"></i>退出
+                            <!--<span class="badge badge-danger">-->
+                            <!--3-->
+                            <!--</span>-->
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+		<script type="text/javascript">
+			var isblockFlag = 0;
+			
+          	$("#dropdown_toggle_a").mouseover(function(){
+           		$("#dropdown-menu_ul").css("display","block");
+           	});
+          	$("#dropdown-menu_ul").mouseover(function(){
+         		isblockFlag = 2;
+           		$("#dropdown-menu_ul").css("display","block");
+           	});
+         // --移出
+         	$("#dropdown_toggle_a").mouseout(function(){
+         		
+         			var t=setTimeout(function(){
+         				if(isblockFlag != 2){
+                 			$("#dropdown-menu_ul").css("display","none");
+                 		}
+         			},800);
+         		
+         	}); 
+         // --移出
+         	$("#dropdown-menu_ul").mouseout(function(){
+         		isblockFlag = 0;
+         		$("#dropdown-menu_ul").css("display","none");
+         	});
+         </script>
