@@ -151,10 +151,10 @@ public class PaasForOtherService {
 		}
 		if(result)
 		{
-			return new Message("success", "有访问权！", new Date());
+			return new Message("200", "有访问权！", new Date());
 		}else
 		{
-			return new Message("fail", "无访问权！", new Date());
+			return new Message("401", "无访问权！", new Date());
 		}
 	}
 }

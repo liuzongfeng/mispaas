@@ -2,7 +2,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 		'appexample',
 
 		function($route,$http, auth,$rootScope,$scope) {
-			
+			$scope.pageSize = 5;                      //临时赋值
 			//查询实例
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
@@ -10,7 +10,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				var instanceStatus = $scope.instanceStatus;   //分类模板
 				var instanceName = $scope.instanceName;   //名称名称
-				$scope.pageSize = 8;                      //临时赋值
+				//$scope.pageSize = 8;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
@@ -45,6 +45,9 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 								i = $scope.pages -5;
 							}
 							for ( ; i < ((page + 2) > $scope.pages ? $scope.pages : (page + 2)) ; i++) {
+								if(i+1 <0){
+									i = 0;
+								}
 								newpageList.push(i + 1);
 							}
 							$scope.pageList = newpageList;
@@ -164,8 +167,9 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				
 				var tag = window.event.target || window.event.srcElement;
 				
-				$(tag).parent().prev().prev().children("[type=checkbox]").prop("checked",true);
-				
+				$(tag).parent().prev().prev().find("[type=checkbox]").prop("checked",true);
+				$("span[class=checked]").attr("class","");
+				$(tag).parent().prev().find("div").find("span").attr("class","checked");
 				$scope.editExample_fn();
 				
 				
@@ -198,6 +202,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				$scope.appexample_title=true;
 				$scope.appExample = true;
 				$scope.divPage=true;
+				 $("span[class=checked]").attr("class","");
 				
 			}
             $scope.closeEditExample_fn = function () {
@@ -209,6 +214,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
                 $scope.appexample_title=true;
                 $scope.appExample = true;
                 $scope.divPage=true;
+                $("span[class=checked]").attr("class","");
             }
             
             $scope.editExample_save_fn = function(){
@@ -355,7 +361,15 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				});
 		}
 			
-			
+			$scope.searchInstanceStatusLI_fn = function(event){
+         		event = event ? event : window.event; 
+				var liObj = event.srcElement ? event.srcElement : event.target;
+				var instanceStatus = $(liObj).attr("value");
+				$scope.instanceStatus = instanceStatus;
+				
+				selectPage_aa(1);
+				$("#byInstanceStatusUL").css("display","");
+         	}
 			
 			
 			$(function() {
@@ -372,6 +386,24 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					selectPage_aa(1);
 				});
 				
+				//选择页面数据数
+				$("#selectPageSize").change(function(){
+					var psize = this.options[this.options.selectedIndex].value;
+					$scope.pageSize  = psize;
+					
+					selectPage_aa(1);
+				});
+				//跳转到多少页
+				$("#turnAroundPage").click(function(event){
+					
+					var re =  /^[1-9]+[0-9]*]*$/ ;
+					var turnpage = $(this).prev().prev().val();
+					if(re.test(turnpage)){
+						selectPage_aa(turnpage);
+					}else{
+						alert("请输入正确页码");
+					}
+				});
 				//复选框的反选
 			    $('#checkbox_1').click(function(){
 			    	

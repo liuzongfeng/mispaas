@@ -37,7 +37,7 @@
         </a>
         <!-- BEGIN HORIZANTAL MENU -->
         <div class="hor-menu hidden-sm hidden-xs">
-            <img src="../images/paas/logo-usermanager.png" alt=""/>
+            <img id="yunweilogo" src="{{yuweilogo}}" alt=""/>
         </div>
         <!-- END HORIZANTAL MENU -->
         <!-- BEGIN TOP NAVIGATION MENU -->
@@ -47,7 +47,7 @@
                 <a href="javascript:void(0)" id="dropdown_toggle_a" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <img alt="" src="../assets/img/avatar1_small.jpg"/>
                         <span class="username">
-                             你好，Lucian
+                             你好，{{username}}
                         </span>
                     <i class="fa fa-caret-down"></i>
                 </a>
@@ -63,7 +63,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
+                        <a ng-click="LogOut_fn();">
                             <i class="dyicon-logout2"></i>退出
                             <!--<span class="badge badge-danger">-->
                             <!--3-->
