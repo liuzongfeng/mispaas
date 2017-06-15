@@ -17,7 +17,7 @@ angular.module('auth', []).factory(
 				var arrayObj = $rootScope.authorities;
 				for(var i=0; i<arrayObj.length; i++){
 					var userRole = arrayObj[i].authority;
-					$rootScope[userRole] = false;              //将该用户所有的权限置为true
+					$rootScope[userRole] = false;              //将该用户所有的权限置为false
 				}
 				$rootScope.LogoOut = false;                    //认证通过，可以登出
 				auth.authenticated = false;
@@ -45,7 +45,7 @@ angular.module('auth', []).factory(
 						$rootScope.LogoOut = true;                    //认证通过，可以登出
 						
 						auth.authenticated = true;
-						callback && callback(auth.authenticated);
+						//callback && callback(auth.authenticated);
 						$location.path(auth.path==auth.loginPath ? auth.homePath : auth.path);
 					}, function errorCallback(response) {
 					    // called asynchronously if an error occurs

@@ -65,24 +65,36 @@
 		}
 	</style>
 </head>
-<body>
+<body onload="load()">
 <div id="solso-sidebar" style="height: 30%;">
     <div class="element">
     	<a href="ProductList.html" style="text-decoration: none; width: 10%" id="pro">
 	   	 	<div class="poarea">
-	   	 		<div class="poimg"></div>
-	    		<div class="text">产品管理</div>
+	   	 		<div class="poimg" id="proman"></div>
+	    		<div class="text" id="promant">产品管理</div>
 	   	 	</div>
    	 	</a>
     </div>
     <div class="element">
     	<a href="OrderList.html" style="text-decoration: none;" id="ord">
 	    	<div class="poarea">
-	    		<div class="orimg"></div>
-	    		<div class="text">订单管理</div>
+	    		<div class="orimg" id="ordman"></div>
+	    		<div class="text" id="ordmant">订单管理</div>
 	    	</div>
 	    </a>
     </div>
 </div>
 </body>
+<script type="text/javascript">
+	if(window.location.pathname.indexOf("ProductList.html")!=-1)
+   	{	
+   		$('#proman').css("background","url(../img/appover.png) no-repeat");
+   		$('#promant').css("color","#458FE9");
+   	}
+	if(window.location.pathname.indexOf("OrderList.html")!=-1)
+   	{
+   		$('#ordman').css("background","url(../img/orderchecked.png) no-repeat");
+   		$('#ordmant').css("color","#458FE9");
+   	}
+</script>
 </html>

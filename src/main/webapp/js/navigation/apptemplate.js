@@ -204,14 +204,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				});
 			}
 			
-			var autoHeight_fn = function(){
+			/*var autoHeight_fn = function(){
 				//高度自适应
 				//template高度自适应
                 var rightDiv = document.getElementById("rightdiv");
                 var rdiv_offsetHeight = rightDiv.offsetHeight;
                 var ifm_left= $("#leftdiv");
                 ifm_left.css("height",rdiv_offsetHeight);
-			}
+			}*/
 			
 			//应用模板
 			$scope.appTemplate_fn = function(){
@@ -247,7 +247,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
  				$scope.editTemplate = true;
  				$scope.editTemplate_title=true;
  				
- 				autoHeight_fn();
+ 				//autoHeight_fn();
 			}
 			
 			//编辑模板
@@ -298,7 +298,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					swal("请先选中模板!", "", "warning");
 					$scope.closeEditTemplate_fn();
 				}
-				autoHeight_fn();
+				//autoHeight_fn();
 				
 			}
             $scope.closeEditTemplate_fn = function () {
@@ -428,7 +428,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			
 			$(function() {
 				//template高度自适应
-				autoHeight_fn();
+				//autoHeight_fn();
 				
                 
 				//按分类查询

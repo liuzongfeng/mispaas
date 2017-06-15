@@ -1,0 +1,1528 @@
+/*bootstrap*/
+.dropdown-menu {
+  z-index: 9999;
+  font-family: "Microsoft Yahei", Arial, sans-serif;
+}
+.dropdown-menu li a {
+  color: #666;
+}
+.dropdown-menu li a:hover {
+  background-color: #ddd;
+}
+.dropdown-menu .active a {
+  background-color: #ddd;
+}
+.dropdown-menu .active a:hover {
+  background-color: #ddd;
+}
+.navbar {
+  margin-bottom: 0px;
+}
+.btn-small {
+  font-size: 12px;
+}
+.button-image {
+  margin-right: 4px;
+}
+.button-space {
+  margin-right: 6px;
+}
+.mark-corrected .container-form-label {
+  color: #35AA47;
+}
+.mark-corrected .container-form-label .fold-line {
+  color: #35AA47;
+}
+.mark-corrected .form-control {
+  border-color: #35AA47;
+}
+.mark-corrected .form-control .select2-choice {
+  border-color: #35AA47;
+}
+.mark-corrected .input-group-btn .btn.default,
+.mark-corrected .input-group-btn .btn.default:hover,
+.mark-corrected .input-group-btn .btn.default:focus,
+.mark-corrected .input-group-btn .btn.default:active,
+.mark-corrected .input-group-btn .btn.default.active,
+.mark-corrected .input-group-btn .btn.default[disabled],
+.mark-corrected .input-group-btn .btn.default.disabled {
+  color: #fff;
+  background-color: #35AA47 !important;
+}
+.mark-modified .container-form-label {
+  color: #FFB848;
+}
+.mark-modified .container-form-label .fold-line {
+  color: #FFB848;
+}
+.mark-modified .form-control {
+  border-color: #FFB848;
+}
+.mark-modified .form-control .select2-choice {
+  border-color: #FFB848;
+}
+.mark-modified .input-group-btn .btn.default,
+.mark-modified .input-group-btn .btn.default:hover,
+.mark-modified .input-group-btn .btn.default:focus,
+.mark-modified .input-group-btn .btn.default:active,
+.mark-modified .input-group-btn .btn.default.active,
+.mark-modified .input-group-btn .btn.default[disabled],
+.mark-modified .input-group-btn .btn.default.disabled {
+  color: #fff;
+  background-color: #FFB848 !important;
+}
+.mark-error .container-form-label {
+  color: #E02222;
+}
+.mark-error .container-form-label .fold-line {
+  color: #E02222;
+}
+.mark-error .form-control {
+  border-color: #E02222;
+}
+.mark-error .form-control .select2-choice {
+  border-color: #E02222;
+}
+.mark-error .input-group-btn .btn.default,
+.mark-error .input-group-btn .btn.default:hover,
+.mark-error .input-group-btn .btn.default:focus,
+.mark-error .input-group-btn .btn.default:active,
+.mark-error .input-group-btn .btn.default.active,
+.mark-error .input-group-btn .btn.default[disabled],
+.mark-error .input-group-btn .btn.default.disabled {
+  color: #fff;
+  background-color: #E02222 !important;
+}
+/*
+    布局
+*/
+/*layout*/
+.layout {
+  width: 100%;
+}
+.layout-fixed {
+  width: 1170px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+body {
+  font-family: "Microsoft Yahei", Arial, sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Microsoft Yahei", Arial, sans-serif;
+}
+.inline {
+  padding-left: 0px;
+}
+/*
+    定义背景色
+*/
+.bg-fff {
+  background: #fff !important;
+}
+.bg-transparent {
+  background: transparent !important;
+}
+.bg-transparent tr:nth-child(2n+1) td,
+.bg-transparent tr:nth-child(2n+1) th {
+  background: transparent !important;
+}
+.bg-transparent:hover {
+  background: transparent !important;
+}
+/*
+    浮动样式
+*/
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.fn {
+  float: none;
+}
+/*
+    元素块级定义
+*/
+.dis-in-tab {
+  display: inline-table;
+}
+.dis-in-b {
+  display: inline-block;
+}
+.dis-b {
+  display: block !important;
+}
+.dis-i {
+  display: inline !important;
+}
+/*
+    定义图片、视频、图标的样式
+*/
+.tiles-img {
+  max-width: 106px;
+  max-height: 80px;
+}
+.tiles-video {
+  max-width: 106px;
+  max-height: 80px;
+}
+.tiles-ico {
+  max-width: 80px;
+  max-height: 80px;
+}
+.tiles-border {
+  border: 1px solid #fff;
+}
+/*
+    定义颜色
+*/
+a {
+  color: #45b5e9;
+  text-shadow: none !important;
+}
+a:hover {
+  text-decoration: none;
+  color: #1e80f2;
+}
+a:active {
+  text-decoration: none;
+  color: #1e80f2;
+  cursor: pointer;
+}
+.color-999 {
+  color: #999 !important;
+}
+.color-ccc {
+  color: #ccc !important;
+}
+.color-ddd {
+  color: #ddd;
+}
+.color-fff {
+  color: #fff !important;
+}
+.color-danger {
+  color: #B94A48;
+}
+.color-success {
+  color: #468847;
+}
+.color-default {
+  color: #CCCCCC;
+}
+.color-info {
+  color: #27A9E3;
+}
+.color-warning {
+  color: #DBC056;
+}
+.color-orange {
+  color: #E15F00;
+}
+.color-black {
+  color: #000;
+}
+.icon-purple {
+  color: #852b99;
+}
+.icon-pink {
+  color: #d84e9b;
+}
+.icon-danger {
+  color: #B94A48;
+}
+.icon-success {
+  color: #468847;
+}
+.icon-info {
+  color: #27A9E3;
+}
+.icon-warning {
+  color: #DBC056;
+}
+.color-warning {
+  color: #DBC056 !important;
+}
+.color-success {
+  color: #468847 !important;
+}
+.color-danger {
+  color: #B94A48 !important;
+}
+/*
+    定义字体大小
+*/
+.font-12 {
+  font-size: 12px !important;
+}
+.font-14 {
+  font-size: 14px !important;
+}
+.font-16 {
+  font-size: 16px !important;
+}
+.font-18 {
+  font-size: 18px !important;
+}
+.font-20 {
+  font-size: 20px !important;
+}
+.font-22 {
+  font-size: 22px !important;
+}
+/*
+    定义表格边框
+*/
+.border-none {
+  border: 0;
+}
+.border {
+  border: 1px solid #ddd;
+}
+.dotted {
+  border-bottom: 1px dotted #ddd;
+}
+.table-resource {
+  border: 1px solid #ddd;
+  border-top: 0;
+}
+.table-resource thead tr th,
+.table-resource tbody tr th,
+.table-resource tfoot tr th,
+.table-resource thead tr td,
+.table-resource tbody tr td,
+.table-resource tfoot tr td {
+  border-top: 0 !important;
+}
+.table-radio .radio-inline {
+  padding-top: 0;
+}
+.table .progress,
+.table-bordered .progress {
+  margin-bottom: 0;
+}
+.table tbody .table-active-on td,
+.table-bordered tbody .table-active-on td,
+.table tbody .table-active-on th,
+.table-bordered tbody .table-active-on th {
+  background-color: #dff0d8 !important;
+}
+.table tbody .table-active-on:hover td,
+.table-bordered tbody .table-active-on:hover td,
+.table tbody .table-active-on:hover th,
+.table-bordered tbody .table-active-on:hover th {
+  background-color: #dff0d8 !important;
+}
+.table tbody .select td,
+.table-bordered tbody .select td,
+.table tbody .select th,
+.table-bordered tbody .select th {
+  background-color: #d8f2fc !important;
+}
+.table tbody .select:hover td,
+.table-bordered tbody .select:hover td,
+.table tbody .select:hover th,
+.table-bordered tbody .select:hover th {
+  background-color: #d8f2fc !important;
+}
+.table tbody .table-active td,
+.table-bordered tbody .table-active td,
+.table tbody .table-active th,
+.table-bordered tbody .table-active th {
+  background-color: #d9edf7 !important;
+}
+.table tbody .table-active:hover td,
+.table-bordered tbody .table-active:hover td,
+.table tbody .table-active:hover th,
+.table-bordered tbody .table-active:hover th {
+  background-color: #d9edf7 !important;
+}
+.table .input-text,
+.table-bordered .input-text {
+  position: relative;
+  display: block;
+}
+.table .input-text .form-control,
+.table-bordered .input-text .form-control {
+  border-color: transparent;
+  background: transparent;
+  height: 20px;
+  padding: 0 6px;
+  width: 95%;
+}
+.table .input-text .form-control:hover,
+.table-bordered .input-text .form-control:hover {
+  border-color: #999;
+  background: #fff;
+}
+.table .input-text .form-control:focus,
+.table-bordered .input-text .form-control:focus {
+  border-color: #45b5e9;
+  background: #fff;
+}
+.table .input-text .fa-edit,
+.table-bordered .input-text .fa-edit {
+  position: absolute;
+  right: 0;
+  top: 4px;
+  color: #999;
+}
+.table .input-text .fa-edit:hover,
+.table-bordered .input-text .fa-edit:hover,
+.table .input-text .fa-edit:focus,
+.table-bordered .input-text .fa-edit:focus {
+  color: #45b5e9;
+}
+.table thead tr td.white,
+.table-bordered thead tr td.white,
+.table tbody tr td.white,
+.table-bordered tbody tr td.white,
+.table tfoot tr td.white,
+.table-bordered tfoot tr td.white,
+.table thead tr th.white,
+.table-bordered thead tr th.white,
+.table tbody tr th.white,
+.table-bordered tbody tr th.white,
+.table tfoot tr th.white,
+.table-bordered tfoot tr th.white {
+  border: 1px solid #f5f5f5 !important;
+  background: #fff;
+}
+.table thead tr td.white:hover,
+.table-bordered thead tr td.white:hover,
+.table tbody tr td.white:hover,
+.table-bordered tbody tr td.white:hover,
+.table tfoot tr td.white:hover,
+.table-bordered tfoot tr td.white:hover,
+.table thead tr th.white:hover,
+.table-bordered thead tr th.white:hover,
+.table tbody tr th.white:hover,
+.table-bordered tbody tr th.white:hover,
+.table tfoot tr th.white:hover,
+.table-bordered tfoot tr th.white:hover {
+  background: #f5f5f5;
+}
+.table thead tr td.green,
+.table-bordered thead tr td.green,
+.table tbody tr td.green,
+.table-bordered tbody tr td.green,
+.table tfoot tr td.green,
+.table-bordered tfoot tr td.green,
+.table thead tr th.green,
+.table-bordered thead tr th.green,
+.table tbody tr th.green,
+.table-bordered tbody tr th.green,
+.table tfoot tr th.green,
+.table-bordered tfoot tr th.green {
+  border: 1px solid #f5f5f5 !important;
+  background: #d6e6de;
+}
+.table thead tr td.green:hover,
+.table-bordered thead tr td.green:hover,
+.table tbody tr td.green:hover,
+.table-bordered tbody tr td.green:hover,
+.table tfoot tr td.green:hover,
+.table-bordered tfoot tr td.green:hover,
+.table thead tr th.green:hover,
+.table-bordered thead tr th.green:hover,
+.table tbody tr th.green:hover,
+.table-bordered tbody tr th.green:hover,
+.table tfoot tr th.green:hover,
+.table-bordered tfoot tr th.green:hover {
+  background: #c8e5d7;
+}
+.table thead tr td.yellow,
+.table-bordered thead tr td.yellow,
+.table tbody tr td.yellow,
+.table-bordered tbody tr td.yellow,
+.table tfoot tr td.yellow,
+.table-bordered tfoot tr td.yellow,
+.table thead tr th.yellow,
+.table-bordered thead tr th.yellow,
+.table tbody tr th.yellow,
+.table-bordered tbody tr th.yellow,
+.table tfoot tr th.yellow,
+.table-bordered tfoot tr th.yellow {
+  border: 1px solid #f5f5f5 !important;
+  background: #f1f0d1;
+}
+.table thead tr td.yellow:hover,
+.table-bordered thead tr td.yellow:hover,
+.table tbody tr td.yellow:hover,
+.table-bordered tbody tr td.yellow:hover,
+.table tfoot tr td.yellow:hover,
+.table-bordered tfoot tr td.yellow:hover,
+.table thead tr th.yellow:hover,
+.table-bordered thead tr th.yellow:hover,
+.table tbody tr th.yellow:hover,
+.table-bordered tbody tr th.yellow:hover,
+.table tfoot tr th.yellow:hover,
+.table-bordered tfoot tr th.yellow:hover {
+  background: #f2f0b1;
+}
+.table thead tr td.purple,
+.table-bordered thead tr td.purple,
+.table tbody tr td.purple,
+.table-bordered tbody tr td.purple,
+.table tfoot tr td.purple,
+.table-bordered tfoot tr td.purple,
+.table thead tr th.purple,
+.table-bordered thead tr th.purple,
+.table tbody tr th.purple,
+.table-bordered tbody tr th.purple,
+.table tfoot tr th.purple,
+.table-bordered tfoot tr th.purple {
+  border: 1px solid #f5f5f5 !important;
+  background: #cfcdd1;
+}
+.table thead tr td.purple:hover,
+.table-bordered thead tr td.purple:hover,
+.table tbody tr td.purple:hover,
+.table-bordered tbody tr td.purple:hover,
+.table tfoot tr td.purple:hover,
+.table-bordered tfoot tr td.purple:hover,
+.table thead tr th.purple:hover,
+.table-bordered thead tr th.purple:hover,
+.table tbody tr th.purple:hover,
+.table-bordered tbody tr th.purple:hover,
+.table tfoot tr th.purple:hover,
+.table-bordered tfoot tr th.purple:hover {
+  background: #c8bed1;
+}
+.table thead tr td.pink,
+.table-bordered thead tr td.pink,
+.table tbody tr td.pink,
+.table-bordered tbody tr td.pink,
+.table tfoot tr td.pink,
+.table-bordered tfoot tr td.pink,
+.table thead tr th.pink,
+.table-bordered thead tr th.pink,
+.table tbody tr th.pink,
+.table-bordered tbody tr th.pink,
+.table tfoot tr th.pink,
+.table-bordered tfoot tr th.pink {
+  border: 1px solid #f5f5f5 !important;
+  background: #fad1d0;
+}
+.table thead tr td.pink:hover,
+.table-bordered thead tr td.pink:hover,
+.table tbody tr td.pink:hover,
+.table-bordered tbody tr td.pink:hover,
+.table tfoot tr td.pink:hover,
+.table-bordered tfoot tr td.pink:hover,
+.table thead tr th.pink:hover,
+.table-bordered thead tr th.pink:hover,
+.table tbody tr th.pink:hover,
+.table-bordered tbody tr th.pink:hover,
+.table tfoot tr th.pink:hover,
+.table-bordered tfoot tr th.pink:hover {
+  background: #f9c1bf;
+}
+.table thead tr td.blue,
+.table-bordered thead tr td.blue,
+.table tbody tr td.blue,
+.table-bordered tbody tr td.blue,
+.table tfoot tr td.blue,
+.table-bordered tfoot tr td.blue,
+.table thead tr th.blue,
+.table-bordered thead tr th.blue,
+.table tbody tr th.blue,
+.table-bordered tbody tr th.blue,
+.table tfoot tr th.blue,
+.table-bordered tfoot tr th.blue {
+  border: 1px solid #f5f5f5 !important;
+  background: #ededf7;
+}
+.table thead tr td.blue:hover,
+.table-bordered thead tr td.blue:hover,
+.table tbody tr td.blue:hover,
+.table-bordered tbody tr td.blue:hover,
+.table tfoot tr td.blue:hover,
+.table-bordered tfoot tr td.blue:hover,
+.table thead tr th.blue:hover,
+.table-bordered thead tr th.blue:hover,
+.table tbody tr th.blue:hover,
+.table-bordered tbody tr th.blue:hover,
+.table tfoot tr th.blue:hover,
+.table-bordered tfoot tr th.blue:hover {
+  background: #d8d8fa;
+}
+.table thead tr td.grey,
+.table-bordered thead tr td.grey,
+.table tbody tr td.grey,
+.table-bordered tbody tr td.grey,
+.table tfoot tr td.grey,
+.table-bordered tfoot tr td.grey,
+.table thead tr th.grey,
+.table-bordered thead tr th.grey,
+.table tbody tr th.grey,
+.table-bordered tbody tr th.grey,
+.table tfoot tr th.grey,
+.table-bordered tfoot tr th.grey {
+  border: 1px solid #f5f5f5 !important;
+  background: #e1d9d8;
+}
+.table thead tr td.grey:hover,
+.table-bordered thead tr td.grey:hover,
+.table tbody tr td.grey:hover,
+.table-bordered tbody tr td.grey:hover,
+.table tfoot tr td.grey:hover,
+.table-bordered tfoot tr td.grey:hover,
+.table thead tr th.grey:hover,
+.table-bordered thead tr th.grey:hover,
+.table tbody tr th.grey:hover,
+.table-bordered tbody tr th.grey:hover,
+.table tfoot tr th.grey:hover,
+.table-bordered tfoot tr th.grey:hover {
+  background: #d8d0d0;
+}
+.table thead tr td.orange,
+.table-bordered thead tr td.orange,
+.table tbody tr td.orange,
+.table-bordered tbody tr td.orange,
+.table tfoot tr td.orange,
+.table-bordered tfoot tr td.orange,
+.table thead tr th.orange,
+.table-bordered thead tr th.orange,
+.table tbody tr th.orange,
+.table-bordered tbody tr th.orange,
+.table tfoot tr th.orange,
+.table-bordered tfoot tr th.orange {
+  border: 1px solid #f5f5f5 !important;
+  background: #ffc475;
+}
+.table thead tr td.orange:hover,
+.table-bordered thead tr td.orange:hover,
+.table tbody tr td.orange:hover,
+.table-bordered tbody tr td.orange:hover,
+.table tfoot tr td.orange:hover,
+.table-bordered tfoot tr td.orange:hover,
+.table thead tr th.orange:hover,
+.table-bordered thead tr th.orange:hover,
+.table tbody tr th.orange:hover,
+.table-bordered tbody tr th.orange:hover,
+.table tfoot tr th.orange:hover,
+.table-bordered tfoot tr th.orange:hover {
+  background: #fdba5f;
+}
+.table thead tr td.lightblue,
+.table-bordered thead tr td.lightblue,
+.table tbody tr td.lightblue,
+.table-bordered tbody tr td.lightblue,
+.table tfoot tr td.lightblue,
+.table-bordered tfoot tr td.lightblue,
+.table thead tr th.lightblue,
+.table-bordered thead tr th.lightblue,
+.table tbody tr th.lightblue,
+.table-bordered tbody tr th.lightblue,
+.table tfoot tr th.lightblue,
+.table-bordered tfoot tr th.lightblue {
+  border: 1px solid #f5f5f5 !important;
+  background: #d3e4f0;
+}
+.table thead tr td.lightblue:hover,
+.table-bordered thead tr td.lightblue:hover,
+.table tbody tr td.lightblue:hover,
+.table-bordered tbody tr td.lightblue:hover,
+.table tfoot tr td.lightblue:hover,
+.table-bordered tfoot tr td.lightblue:hover,
+.table thead tr th.lightblue:hover,
+.table-bordered thead tr th.lightblue:hover,
+.table tbody tr th.lightblue:hover,
+.table-bordered tbody tr th.lightblue:hover,
+.table tfoot tr th.lightblue:hover,
+.table-bordered tfoot tr th.lightblue:hover {
+  background: #c0dcef;
+}
+.table thead tr.white td,
+.table-bordered thead tr.white td,
+.table tbody tr.white td,
+.table-bordered tbody tr.white td,
+.table tfoot tr.white td,
+.table-bordered tfoot tr.white td,
+.table thead tr.white th,
+.table-bordered thead tr.white th,
+.table tbody tr.white th,
+.table-bordered tbody tr.white th,
+.table tfoot tr.white th,
+.table-bordered tfoot tr.white th {
+  background: #fff;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.white:hover td,
+.table-bordered thead tr.white:hover td,
+.table tbody tr.white:hover td,
+.table-bordered tbody tr.white:hover td,
+.table tfoot tr.white:hover td,
+.table-bordered tfoot tr.white:hover td,
+.table thead tr.white:hover th,
+.table-bordered thead tr.white:hover th,
+.table tbody tr.white:hover th,
+.table-bordered tbody tr.white:hover th,
+.table tfoot tr.white:hover th,
+.table-bordered tfoot tr.white:hover th {
+  background: #f5f5f5;
+}
+.table thead tr.green td,
+.table-bordered thead tr.green td,
+.table tbody tr.green td,
+.table-bordered tbody tr.green td,
+.table tfoot tr.green td,
+.table-bordered tfoot tr.green td,
+.table thead tr.green th,
+.table-bordered thead tr.green th,
+.table tbody tr.green th,
+.table-bordered tbody tr.green th,
+.table tfoot tr.green th,
+.table-bordered tfoot tr.green th {
+  background: #d6e6de;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.green:hover td,
+.table-bordered thead tr.green:hover td,
+.table tbody tr.green:hover td,
+.table-bordered tbody tr.green:hover td,
+.table tfoot tr.green:hover td,
+.table-bordered tfoot tr.green:hover td,
+.table thead tr.green:hover th,
+.table-bordered thead tr.green:hover th,
+.table tbody tr.green:hover th,
+.table-bordered tbody tr.green:hover th,
+.table tfoot tr.green:hover th,
+.table-bordered tfoot tr.green:hover th {
+  background: #c8e5d7;
+}
+.table thead tr.yellow td,
+.table-bordered thead tr.yellow td,
+.table tbody tr.yellow td,
+.table-bordered tbody tr.yellow td,
+.table tfoot tr.yellow td,
+.table-bordered tfoot tr.yellow td,
+.table thead tr.yellow th,
+.table-bordered thead tr.yellow th,
+.table tbody tr.yellow th,
+.table-bordered tbody tr.yellow th,
+.table tfoot tr.yellow th,
+.table-bordered tfoot tr.yellow th {
+  background: #f1f0d1;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.yellow:hover td,
+.table-bordered thead tr.yellow:hover td,
+.table tbody tr.yellow:hover td,
+.table-bordered tbody tr.yellow:hover td,
+.table tfoot tr.yellow:hover td,
+.table-bordered tfoot tr.yellow:hover td,
+.table thead tr.yellow:hover th,
+.table-bordered thead tr.yellow:hover th,
+.table tbody tr.yellow:hover th,
+.table-bordered tbody tr.yellow:hover th,
+.table tfoot tr.yellow:hover th,
+.table-bordered tfoot tr.yellow:hover th {
+  background: #f2f0b1;
+}
+.table thead tr.purple td,
+.table-bordered thead tr.purple td,
+.table tbody tr.purple td,
+.table-bordered tbody tr.purple td,
+.table tfoot tr.purple td,
+.table-bordered tfoot tr.purple td,
+.table thead tr.purple th,
+.table-bordered thead tr.purple th,
+.table tbody tr.purple th,
+.table-bordered tbody tr.purple th,
+.table tfoot tr.purple th,
+.table-bordered tfoot tr.purple th {
+  background: #cfcdd1;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.purple:hover td,
+.table-bordered thead tr.purple:hover td,
+.table tbody tr.purple:hover td,
+.table-bordered tbody tr.purple:hover td,
+.table tfoot tr.purple:hover td,
+.table-bordered tfoot tr.purple:hover td,
+.table thead tr.purple:hover th,
+.table-bordered thead tr.purple:hover th,
+.table tbody tr.purple:hover th,
+.table-bordered tbody tr.purple:hover th,
+.table tfoot tr.purple:hover th,
+.table-bordered tfoot tr.purple:hover th {
+  background: #c8bed1;
+}
+.table thead tr.pink td,
+.table-bordered thead tr.pink td,
+.table tbody tr.pink td,
+.table-bordered tbody tr.pink td,
+.table tfoot tr.pink td,
+.table-bordered tfoot tr.pink td,
+.table thead tr.pink th,
+.table-bordered thead tr.pink th,
+.table tbody tr.pink th,
+.table-bordered tbody tr.pink th,
+.table tfoot tr.pink th,
+.table-bordered tfoot tr.pink th {
+  background: #fad1d0;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.pink:hover td,
+.table-bordered thead tr.pink:hover td,
+.table tbody tr.pink:hover td,
+.table-bordered tbody tr.pink:hover td,
+.table tfoot tr.pink:hover td,
+.table-bordered tfoot tr.pink:hover td,
+.table thead tr.pink:hover th,
+.table-bordered thead tr.pink:hover th,
+.table tbody tr.pink:hover th,
+.table-bordered tbody tr.pink:hover th,
+.table tfoot tr.pink:hover th,
+.table-bordered tfoot tr.pink:hover th {
+  background: #f9c1bf;
+}
+.table thead tr.blue td,
+.table-bordered thead tr.blue td,
+.table tbody tr.blue td,
+.table-bordered tbody tr.blue td,
+.table tfoot tr.blue td,
+.table-bordered tfoot tr.blue td,
+.table thead tr.blue th,
+.table-bordered thead tr.blue th,
+.table tbody tr.blue th,
+.table-bordered tbody tr.blue th,
+.table tfoot tr.blue th,
+.table-bordered tfoot tr.blue th {
+  background: #ededf7;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.blue:hover td,
+.table-bordered thead tr.blue:hover td,
+.table tbody tr.blue:hover td,
+.table-bordered tbody tr.blue:hover td,
+.table tfoot tr.blue:hover td,
+.table-bordered tfoot tr.blue:hover td,
+.table thead tr.blue:hover th,
+.table-bordered thead tr.blue:hover th,
+.table tbody tr.blue:hover th,
+.table-bordered tbody tr.blue:hover th,
+.table tfoot tr.blue:hover th,
+.table-bordered tfoot tr.blue:hover th {
+  background: #d8d8fa;
+}
+.table thead tr.grey td,
+.table-bordered thead tr.grey td,
+.table tbody tr.grey td,
+.table-bordered tbody tr.grey td,
+.table tfoot tr.grey td,
+.table-bordered tfoot tr.grey td,
+.table thead tr.grey th,
+.table-bordered thead tr.grey th,
+.table tbody tr.grey th,
+.table-bordered tbody tr.grey th,
+.table tfoot tr.grey th,
+.table-bordered tfoot tr.grey th {
+  background: #e1d9d8;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.grey:hover td,
+.table-bordered thead tr.grey:hover td,
+.table tbody tr.grey:hover td,
+.table-bordered tbody tr.grey:hover td,
+.table tfoot tr.grey:hover td,
+.table-bordered tfoot tr.grey:hover td,
+.table thead tr.grey:hover th,
+.table-bordered thead tr.grey:hover th,
+.table tbody tr.grey:hover th,
+.table-bordered tbody tr.grey:hover th,
+.table tfoot tr.grey:hover th,
+.table-bordered tfoot tr.grey:hover th {
+  background: #d8d0d0;
+}
+.table thead tr.orange td,
+.table-bordered thead tr.orange td,
+.table tbody tr.orange td,
+.table-bordered tbody tr.orange td,
+.table tfoot tr.orange td,
+.table-bordered tfoot tr.orange td,
+.table thead tr.orange th,
+.table-bordered thead tr.orange th,
+.table tbody tr.orange th,
+.table-bordered tbody tr.orange th,
+.table tfoot tr.orange th,
+.table-bordered tfoot tr.orange th {
+  background: #ffc475;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.orange:hover td,
+.table-bordered thead tr.orange:hover td,
+.table tbody tr.orange:hover td,
+.table-bordered tbody tr.orange:hover td,
+.table tfoot tr.orange:hover td,
+.table-bordered tfoot tr.orange:hover td,
+.table thead tr.orange:hover th,
+.table-bordered thead tr.orange:hover th,
+.table tbody tr.orange:hover th,
+.table-bordered tbody tr.orange:hover th,
+.table tfoot tr.orange:hover th,
+.table-bordered tfoot tr.orange:hover th {
+  background: #fdba5f;
+}
+.table thead tr.lightblue td,
+.table-bordered thead tr.lightblue td,
+.table tbody tr.lightblue td,
+.table-bordered tbody tr.lightblue td,
+.table tfoot tr.lightblue td,
+.table-bordered tfoot tr.lightblue td,
+.table thead tr.lightblue th,
+.table-bordered thead tr.lightblue th,
+.table tbody tr.lightblue th,
+.table-bordered tbody tr.lightblue th,
+.table tfoot tr.lightblue th,
+.table-bordered tfoot tr.lightblue th {
+  background: #d3e4f0;
+  border: 1px solid #f5f5f5 !important;
+}
+.table thead tr.lightblue:hover td,
+.table-bordered thead tr.lightblue:hover td,
+.table tbody tr.lightblue:hover td,
+.table-bordered tbody tr.lightblue:hover td,
+.table tfoot tr.lightblue:hover td,
+.table-bordered tfoot tr.lightblue:hover td,
+.table thead tr.lightblue:hover th,
+.table-bordered thead tr.lightblue:hover th,
+.table tbody tr.lightblue:hover th,
+.table-bordered tbody tr.lightblue:hover th,
+.table tfoot tr.lightblue:hover th,
+.table-bordered tfoot tr.lightblue:hover th {
+  background: #c0dcef;
+}
+.table-change-height th {
+  height: 28px !important;
+  line-height: 28px !important;
+  padding: 4px 5px !important;
+}
+.table-change-height td {
+  height: 28px !important;
+  line-height: 28px !important;
+  padding: 4px 5px !important;
+}
+.table-change-height td .form-control {
+  height: 28px;
+  padding: 4px 6px;
+}
+.table-change-height td .bootstrap-select {
+  padding: 0px;
+}
+.table-change-height td .bootstrap-select button {
+  height: 28px;
+  padding: 4px 6px;
+}
+.table-select {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  position: relative !important;
+}
+.table-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  position: relative !important;
+}
+.border-right-none {
+  border-right: 0px;
+}
+.table-border-none {
+  border: 0px;
+}
+.table-border-none thead tr th {
+  border-top: 0px !important;
+}
+.table-border-none tbody tr td {
+  border-top: 0px !important;
+}
+.table-border-none tfoot tr td {
+  border-top: 0px !important;
+}
+.border-top-none {
+  border-top: 0px;
+}
+.table-border-ddd {
+  border: 1px solid #ddd;
+}
+.table-radius {
+  border-radius: 4px;
+}
+.border-left-ddd {
+  border-left: 1px solid #ddd !important;
+}
+.border-bottom-ddd {
+  border-bottom: 1px solid #DDD !important;
+}
+.border-top-ddd {
+  border-top: 1px solid #DDD !important;
+}
+.table-fixed-thead {
+  margin-bottom: 0px;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+.table-fixed-td {
+  width: 60px;
+}
+/*
+    定义按钮
+*/
+.btn-group .btn-none {
+  background: transparent !important;
+  padding: 0px !important;
+}
+.btn-group .btn-none:hover {
+  background: transparent !important;
+}
+.btn-group .btn-none:focus {
+  background: transparent !important;
+}
+/*
+    清除浮动
+*/
+.clear {
+  clear: both;
+}
+/*
+    定义背景色
+*/
+.bg-none {
+  background: transparent !important;
+}
+/*
+    定义元素溢出
+*/
+.over-auto {
+  overflow: auto;
+}
+.over-hide {
+  overflow: hidden;
+}
+/*
+    定义三角形
+*/
+.triangle {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #000000 transparent transparent;
+  border-image: none;
+  border-style: solid;
+  border-width: 4px;
+  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 6px;
+  float: right;
+}
+.triangle-up {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: transparent transparent #000000;
+  border-image: none;
+  border-style: solid;
+  border-width: 4px;
+  display: inline-block;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 6px;
+  float: right;
+}
+/*
+    定义文字溢出
+*/
+.to {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.to-english {
+  display: inline-block;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.fold-line {
+  display: inline-block;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+.fold-break {
+  display: inline-block;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+td.fold-break {
+  display: block;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+td .fold-break {
+  display: block;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.width-50 {
+  width: 50px;
+}
+.width-70 {
+  width: 70px;
+}
+.width-80 {
+  width: 80px;
+}
+.width-90 {
+  width: 90px;
+}
+.width-100 {
+  width: 100px;
+}
+.width-120 {
+  width: 120px;
+}
+.width-150 {
+  width: 150px;
+}
+.width-200 {
+  width: 200px;
+}
+/*
+    定义margin值
+*/
+.margin-top-0 {
+  margin-top: 0px !important;
+}
+.margin-top-3 {
+  margin-top: 3px !important;
+}
+.margin-top-5 {
+  margin-top: 5px !important;
+}
+.margin-top-20 {
+  margin-top: 20px !important;
+}
+.margin-bottom-10 {
+  margin-bottom: 10px !important;
+}
+.margin-bottom-0 {
+  margin-bottom: 0px !important;
+}
+.margin-right-0 {
+  margin-right: 0px !important;
+}
+.margin-right-10 {
+  margin-right: 10px !important;
+}
+.margin-left-0 {
+  margin-left: 0px !important;
+}
+.margin-left-20 {
+  margin-left: 20px !important;
+}
+.margin-left-10 {
+  margin-left: 10px !important;
+}
+.margin-left-30 {
+  margin-left: 30px !important;
+}
+.margin-left-40 {
+  margin-left: 40px !important;
+}
+/*
+    padding值
+*/
+.padding-bottom-10 {
+  padding-bottom: 10px;
+}
+.padding-bottom-0 {
+  padding-bottom: 0;
+}
+.padding-left-5 {
+  padding-left: 5px;
+}
+.padding-left-10 {
+  padding-left: 10px;
+}
+.padding-0 {
+  padding: 0 !important;
+}
+/*
+    水平位置
+*/
+.tc {
+  text-align: center !important;
+}
+.tl {
+  text-align: left !important;
+}
+.tr {
+  text-align: right !important;
+}
+/*
+    最小高度
+*/
+.min-height-500 {
+  min-height: 500px;
+}
+/*
+    定位
+*/
+.pr {
+  position: relative !important;
+}
+.pa {
+  position: absolute !important;
+}
+.pos-re {
+  position: relative !important;
+}
+.pos-ab {
+  position: absolute !important;
+}
+.pos-st {
+  position: static !important;
+}
+/*
+    鼠标指针
+*/
+.cursor-pointer {
+  cursor: pointer;
+}
+/*
+    下拉按钮
+*/
+.fa-default {
+  padding: 3px 0 2px 0px;
+}
+/*
+    下拉点位置问题
+*/
+.table .dropdown-table {
+  position: static;
+}
+.table .dropdown-table .dropdown-menu {
+  top: auto;
+  left: auto;
+  margin-top: 8px;
+}
+.table .dropdown.open .dropdown-toggle {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.table .dropdown-toggle {
+  color: #666;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .power-change-table .table .dropdown-table {
+    position: static;
+  }
+  .power-change-table .table .dropdown-table .dropdown-menu {
+    top: 0;
+    left: 446px;
+    margin-top: 8px;
+  }
+}
+/*
+      删除线
+  */
+.del-line {
+  background: url("../../images/line.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+  display: inline-block;
+  height: 36px;
+  left: 0;
+  margin-top: -10px;
+  position: absolute;
+  width: 100%;
+  padding-left: 0 !important;
+}
+/*
+      下横线
+  */
+.under-line {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/*
+      表单
+  */
+div.radio {
+  margin-left: 0px;
+  margin-top: 0px;
+}
+.first-radio {
+  margin-left: 30px !important;
+}
+.first-checkbox {
+  margin-left: 30px !important;
+}
+.form-operation-btn {
+  position: relative;
+}
+.form-operation-btn i {
+  position: absolute;
+  top: 7px;
+  margin-left: 10px;
+  display: inline-block;
+  color: #ccc;
+}
+.form-operation-btn .fa-warning {
+  color: #b94a48;
+}
+.form-operation-btn .fa-info-circle {
+  top: 3px;
+  left: -9px;
+}
+/*
+      定义文本域
+  */
+.resize-none {
+  resize: none;
+}
+/*
+      表格字号重新定义
+  */
+.table-14 {
+  font-size: 14px;
+}
+/*
+  定义背景色
+*/
+.badge {
+  background: #5BB6E2;
+}
+/*
+  定义a链接颜色
+*/
+a:focus {
+  text-decoration: none;
+}
+.subject-title a {
+  color: #666666 !important;
+}
+.subject-title a:hover,
+.subject-title a:active {
+  color: #45b5e9 !important;
+}
+.editable-click,
+a.editable-click,
+a.editable-click {
+  color: #666666;
+  border-bottom: dashed 1px #666666 !important;
+}
+.editable-click:hover,
+a.editable-click:hover,
+a.editable-click:hover,
+.editable-click:active,
+a.editable-click:active,
+a.editable-click:active {
+  color: #45b5e9;
+  border-bottom: dashed 1px #45b5e9 !important;
+}
+.d-booking-results .booking-result h2 a.text {
+  color: #666666;
+}
+.d-booking-results .booking-result h2 a.text:hover,
+.d-booking-results .booking-result h2 a.text:active {
+  color: #45b5e9;
+}
+table a {
+  color: #666666;
+}
+table a:hover {
+  text-decoration: none;
+  color: #45b5e9;
+  cursor: pointer;
+}
+table a:active {
+  text-decoration: none;
+  color: #45b5e9;
+  cursor: pointer;
+}
+.detail-content {
+  padding: 20px;
+}
+.business-rule .table {
+  margin-bottom: 0;
+}
+.main-page {
+  padding-top: 10px;
+}
+.main-page .btn{
+  background-color: #fff;
+}
+.group-table-edit-btn:focus {
+  color: #272636;
+}
+.user-manager {
+  margin-top: 10px;
+}
+.user-manager .table {
+  margin-bottom: 10px;
+}
+.sub-table-info .base-table-custom {
+  margin: 0 -5px 0 -5px;
+}
+.sub-table-info .base-table-custom .table {
+  margin-bottom: 0;
+}
+.sub-table-info .base-table-custom .table .checker {
+  margin-left: -4px;
+}
+.sub-table-info .custom-made-button {
+  margin-top: 10px;
+}
+.view-upload li .view-img {
+  width: 100px;
+  height: 100px;
+}
+.view-upload li .view-img img {
+  max-height: 100px;
+  max-width: 100px;
+}
+.view-upload li .view-img .photo-50-50 {
+  max-height: 50px;
+  max-width: 50px;
+}
+.view-upload li .text {
+  text-align: center;
+  margin-top: 6px;
+}
+.index-view-subject {
+  padding-left: 48px;
+}
+.index-view-subject li {
+  margin-right: 22px !important;
+}
+.belong-channel {
+  margin-top: 10px;
+}
+.set-role-jurisdiction {
+  padding: 0;
+  border-top: 1px solid #b3b3b3;
+  margin-top: -1px;
+  min-height: 280px;
+}
+.set-role-jurisdiction .set-title {
+  height: 40px;
+  line-height: 40px;
+  background: #F5F5F5;
+  border-color: #b3b3b3;
+  padding-left: 30px;
+}
+.set-role-jurisdiction .set-left {
+  width: 50%;
+  float: left;
+}
+.set-role-jurisdiction .set-left .set-left-info {
+  border-right: 1px solid #b3b3b3;
+  padding-left: 30px;
+  padding-top: 15px;
+  margin-bottom: -10px;
+}
+.set-role-jurisdiction .set-left .set-left-info p:hover {
+  background: #F5F5F5;
+}
+.set-role-jurisdiction .set-left .set-title {
+  border-right: 1px solid #b3b3b3;
+}
+.set-role-jurisdiction .set-right {
+  float: left;
+  width: 50%;
+}
+.set-role-jurisdiction .set-right .set-right-info {
+  padding-left: 30px;
+}
+.add-user {
+  padding: 0;
+  border-top: 1px solid #b3b3b3;
+  margin-top: -1px;
+  min-height: 280px;
+}
+.add-user .set-title {
+  height: 40px;
+  line-height: 40px;
+  background: #F5F5F5;
+  border-color: #b3b3b3;
+  padding-left: 15px;
+}
+.add-user .set-title .form-search .input-group {
+  float: left;
+  margin-top: 3px;
+}
+.add-user .set-tree {
+  width: 33%;
+  float: left;
+}
+.add-user .set-tree .set-tree-info {
+  padding-left: 15px;
+  border-right: 1px solid #F5F5F5;
+  min-height: 250px;
+  margin-top: 15px ;
+  margin-bottom: 15px;
+}
+.add-user .set-left {
+  width: 33%;
+  float: left;
+}
+.add-user .set-left .set-left-info {
+  border-right: 1px solid #b3b3b3;
+  padding-left: 15px;
+  padding-top: 15px;
+  margin-bottom: -10px;
+}
+.add-user .set-left .set-left-info p:hover {
+  background: #F5F5F5;
+}
+.add-user .set-left .set-title {
+  border-right: 1px solid #b3b3b3;
+}
+.add-user .set-right {
+  float: left;
+  width: 34%;
+}
+.add-user .set-right .set-right-info {
+  padding-left: 15px;
+  padding-top: 15px;
+  margin-right: 15px;
+}
+.add-user .set-right .set-right-info p {
+  position: relative;
+}
+.add-user .set-right .set-right-info p i {
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
+.add-user .set-right .set-right-info p:hover {
+  background: #F5F5F5;
+}
+.add-user .set-right .set-right-info p:hover i {
+  color: #B94A48;
+}
+.new-group-dropdown {
+  padding: 1px 5px 1px 0 !important;
+}

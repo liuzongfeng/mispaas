@@ -47,7 +47,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 //			.csrf().disable()
 //			;
 		http.authorizeRequests()//配置安全策略
-		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
+		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**","/**/paasService/**").permitAll()
 		.anyRequest().authenticated()
 		.and().logout().permitAll()
 		.and().formLogin();

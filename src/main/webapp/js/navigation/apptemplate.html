@@ -1,173 +1,177 @@
-<!-- 标签页 -->
      <div id="templateBody" style="width:100%;margin-right:2.5%;">
-         <!-- 标签页头 -->
          <ul id="myTab" class="nav nav-tabs" ng-show="appTab" style="background-color: #f7f7f7;width:100%;height:70px;">
              <li id="activeTemplate"  ng-show="apptemplate1_title">
              	<a ng-click="appTemplate_fn()" style="width:208px;height:70px;padding-top:25px;">
              	<img alt="应用模板" src="../img/templateShow.png"  style="padding-left:14px;"/>
-             		<span style="padding-left:18px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">应用模板</span>
+             		<span style="padding-left:16px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">应用模板</span>
              	</a>
              </li>
              <li id="activeEdit" ng-show="editTemplate_title">
-                 <button ng-click="closeEditTemplate_fn()" type="button" class="close" style="padding-left: 190px;
+                 <button ng-click="closeEditTemplate_fn()" type="button" class="close" style="margin-left: 195px;margin-top: 3px;
                  position: absolute;z-index: 9999;">
                      <img alt="" src="../img/closeTemplate.png" width="15px" height="15px">
                  </button>
                  <a ng-click="editTemplate_save_fn()" style="width:208px;height:70px;padding-top:25px;">
                  	<img alt="" src="../img/searchTemplate.png" style="padding-left:14px;"/>
-                 	<span style="padding-left:18px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">查看模板</span>
+                 	<span style="padding-left:16px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">查看模板</span>
                  </a>
              </li>
          </ul>
 
 	
          
-         <!-- 标签页体 -->
-         <div id="myTabContent" class="tab-content">
-             
-             <!-- 应用模板  -->
-             <div  ng-show="apptemplate1" class="tab-pane fade in active" id="apptemplate">
-                 <!-- 按钮区-->
-                
-                 <div class="btn-group" style="margin-left: 2%;margin-top:30px;">
-                    <button id="uploadTemplateImg" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal" style="width:208px;height:48px;margin-right: 2px;
-                    font-family: Microsoft YaHei;font-size: 20px;color:#327CD5;vertical-align: bottom;">
-                    	<img alt="" src="../img/uploadTemplateShow.png" style="vertical-align: middle;"/>	
-                    	<span class="myfontonchange" style="padding-left:7px;font-family: Microsoft YaHei;font-size: 20px;color:#327CD5;vertical-align: bottom;">导入模板</span>
-                    </button>
-                 
-                    
-                    <button id="searchTemplateImg" type="button" class="btn btn-default" ng-click="editTemplate_fn()" style="width:208px;height:48px;margin-right: 2px">
-                    	<img alt="" src="../img/searchTemplateShow.png" style="vertical-align: middle;"/>  
-                    	<span style="padding-left:7px;font-family: Microsoft YaHei;font-size: 20px;color:#327CD5;vertical-align: bottom;">查看模板</span>
-                    </button>
-                    <button id="delTemplateImg" type="button" class="btn btn-default" ng-click="delTemplate_fn()" style="width:208px;height:48px;margin-right: 0.2rem">
-                    	<img alt="" src="../img/delTemplateShow.png" style="vertical-align: middle;"/>
-                    	<span style="padding-left:7px;font-family: Microsoft YaHei;font-size: 20px;color:#327CD5;vertical-align: bottom;">删除模板</span>
-                    </button>
-                    
-                    <button id="exportTemplateImg" disabled="disabled" type="button" class="btn btn-default" ng-click="checkOutTemplate_fn()" style="width:208px;height:48px;margin-right: 0.2rem">
-                    	<img alt="" src="../img/exportTemplateShow.png" style="vertical-align: bottom;"/>
-                    	<span style="padding-left:7px;font-family: Microsoft YaHei;font-size: 20px;color:#327CD5;vertical-align: bottom;">导出模板</span>
-                    </button>
-                 </div>
-                 
-                 <!--表单区 -->
-                 <div style="width:100%; margin-top:20px;">
-                             <form class="form-inline" role="form" ng-submit="searchTemplate_fn()" style="margin-right:2%;">
+         <div id="myTabContent" >
+            <div  ng-show="apptemplate1"  id="apptemplate">
+           		<div class="tab-content tab-resource">
+                	<div class="tab-pane fade active in" id="tab_51_1">
+                	
+		            	<div class="form-toolbar" >
+	                       	<div class="toolbar-left" style="margin-left: 2%;margin-top:30px;width:100%;">
+			                    <button  class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="tbicon-add button-image"></i>导入模板</button>
+			                    <button  class="btn btn-default" type="button" ng-click="editTemplate_fn()"><i class="tbicon-edit button-image"></i>查看模板</button>
+			                    <button  class="btn btn-default" type="button" ng-click="delTemplate_fn()"><i class="tbicon-delete button-image"></i>删除模板</button>
+			                    <button  disabled="disabled" class="btn btn-default" type="button" ng-click="checkOutTemplate_fn()"><i class="tbicon-setting button-image"></i>导出模板</button>
+	                    	</div>
+	                    </div>
+	                    
+                 		<div style="width:100%; margin-top:40px;">
+                             <form class="form-inline" role="form" style="margin-right:2%;">
                                  <div class="form-group" style="float:right">
-			                     <div class="input-group">
-				                    <input type="text" class="form-control" id="templateName_S" placeholder="请输入名称" style="height: 48px;
-width: 208px;
-background-color: #f7f7f7;
-text-align: center;
-font-size: 20px;
-color: #999999;
-font-family: Microsoft YaHei;">
-				                    <span class="input-group-btn">
-				                        <button class="btn btn-default" type="submit" style="height: 48px;">Go!</button>
-				                    </span>
-			                	</div>
+			                	<!-- 查询框 -->
+			                	<div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input id="templateName_S" type="text" placeholder="请输入名称" class="form-control">
+                                            <span class="input-group-addon">
+                                                <i class="picon-search" onclick="searchTemplate_fn();"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                  </div>
-                                 
+                                 <!-- 下拉框 -->
 								<div class="form-group" style="float:right;margin-right:20px;">
-                                     <select class="form-control " id="byCategory" style="background-color: #f7f7f7;height: 48px;width: 208px;text-align: center;font-family: Microsoft YaHei;font-size: 20px;color:#333333;font-weight: 300;">
+                                     <select class="form-control " id="byCategory" style="background-color: #f7f7f7;height: 58px;width: 208px;text-align: center;font-family: Microsoft YaHei;font-size: 20px;color:#333333;font-weight: 300;">
                                      	 <option value="">按分类过滤</option>
                                      	 <option ng-repeat="category in categorys" value="{{category}}">{{category}}</option>
                                      </select>
                                  </div>
                              </form>
-                 </div>
-                 
-                 <!-- 响应表格-->
-                 <div class="table-responsive" style="width:96%;padding-top: 20px;margin-left:2%;">
-                     <table class="table" style="border: 1px solid #eff0f0;">
-
+           				</div>
+           				
+                 <div class="table-responsive table-content " style="width:96%;padding-top: 20px;margin-left:2%;">
+                     <table class="table table-bordered table-hover table-paas" >
                          <thead>
-                         <tr style="height: 56px;background-color: #f7f7f7; border-top: 1px solid #dcdedd">
-                             <th><input id="checkbox_1" class="checkbox_2" type="checkbox" >模板ID</th>
-                             <th>模板名称</th>
-                             <th>版本号</th>
+                         <tr >
+                             <th style="text-align: center;"><span class="table-checkbox"><input id="checkbox_1" class="checkbox_2" type="checkbox" ></span>&nbsp;&nbsp;模板ID</th>
+                             <th style="text-align: center;">模板名称</th>
+                             <th style="text-align: center;">版本号</th>
 
-                             <th>模板类型</th>
-                             <th>模板分类</th>
+                             <th style="text-align: center;">模板类型</th>
+                             <th style="text-align: center;">模板分类</th>
 
                          </tr>
                          </thead>
 
                          <tbody>
 						 <tr ng-repeat="template in templates">
-						 	<td><input  class="checkbox_1" type="checkbox" value="{{template.id}}">{{template.templateId}}</td>
+						 	<td><span class="table-checkbox"><input  class="checkbox_1" type="checkbox" value="{{template.id}}"></span>&nbsp;&nbsp;{{template.templateId}}</td>
                              <td><a ng-click="a_searchTemplate_fn()">{{template.templateName}}</a></td>
                              <td>{{template.version}}</td>
 
                              <td>{{template.templateType}}</td>
                              <td>{{template.templateCategory}}</td>
-						 
 						 </tr>
                          </tbody>
                      </table>
-
                  </div>
-
+				
+				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:30px;">
+            		<p class="page-info">
+	                	<span class="page-size page-text">每页</span>
+	                	<select class="form-control bs-select  page-size page-size-select">
+		                    <option>5</option>
+		                    <option>10</option>
+		                    <option>20</option>
+	                	</select>
+	                	<span class="page-size page-text">条</span>共&nbsp;{{totalSize}}&nbsp;条记录
+            		</p>
+	            <div class="page-button">
+	                <span class="page-number">转到第</span>
+	                <input type="text" class="input-mini form-control">
+	                <span class="page-text">页</span>
+	                <button class="btn btn-default goto-page">跳转</button>
+	            </div>
+	            <ul class="pagination">
+	                <li><a ng-click="Previous()">前一页</a></li>
+	                <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
+						<a ng-click="selectPage(page)" >{{ page }}</a>
+					 </li>
+					 <li><span>共{{pages}}页</span></li>
+	                <li><a ng-click="Next()">后一页</a></li>
+	            </ul>
+        	</div>
+        	
+            		</div>
+                 </div>
 				
              </div>
 			 
-			 <!-- 编辑模板 -->
 			 <div ng-show="editTemplate">
 			 	<form class="form-horizontal" role="form" ng-submit="submitTemplate_fn()" style="margin-top: 6rem;margin-left: 18rem;">
                 		<div class="form-group" style="width:80rem;">
-                    	<label for="templateId" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
+                    	<label for="templateId" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
 						<div class="col-sm-10">
                            <input disabled="disabled" type="text" class="form-control myfont" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;"  id="templateId" value="{{Template.templateId}}">
 						</div>
                       	</div>
                        	<div class="form-group" style="width:80rem;">
-                          <label for="version" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">版本号</span></label>
+                          <label for="version" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">版本号</span></label>
                           <div class="col-sm-10">
                           <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="version" value="{{Template.version}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="templateName" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模版名称</span></label>
+                          <label for="templateName" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模版名称</span></label>
                           <div class="col-sm-10">
                           <input disabled="disabled" type="text" class="form-control " id="templateName" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" value="{{Template.templateName}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="templateType" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">类型</span></label>
+                          <label for="templateType" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">类型</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateType">
+                          <!-- <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateType">
                               <option value="{{Template.templateType}}">{{Template.templateType}}</option>
                               
-                          </select>
+                          </select> -->
+                          <input disabled="disabled" type="text" class="form-control " id="templateType" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" value="{{Template.templateType}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="templateFL" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">分类</span></label>
+                          <label for="templateFL" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">分类</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300;vertical-align: middle;" id="templateFL">
+                          <!-- <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300;vertical-align: middle;" id="templateFL">
                               <option value="{{Template.templateCategory}}">{{Template.templateCategory}}</option>
-                          </select>
+                          </select> -->
+                          <input disabled="disabled" type="text" class="form-control " id="templateFL" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" value="{{Template.templateCategory}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="templateMS" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">使用模式</span></label>
+                          <label for="templateMS" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">使用模式</span></label>
                           <div class="col-sm-10">
-                          <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateMS">
+                          <!-- <select disabled="disabled" class="form-control " style="font-family: Microsoft YaHei;font-size: 17px;color:#555555;font-weight: 300; vertical-align: middle;" id="templateMS">
                               <option value="{{Template.userMode}}">{{Template.userMode}}</option>
                              
-                          </select>
+                          </select> -->
+                          <input disabled="disabled" type="text" class="form-control " id="templateMS" style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" value="{{Template.userMode}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="uploadPerson" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传人</span></label>
+                          <label for="uploadPerson" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传人</span></label>
                           <div class="col-sm-10">
                           <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="uploadPerson" value="{{Template.uploadPerson}}">
                           </div>
                        </div>
                        <div class="form-group" style="width:80rem;">
-                          <label for="uploadDate" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传时间</span></label>
+                          <label for="uploadDate" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">上传时间</span></label>
                           <div class="col-sm-10">
                           <input disabled="disabled" type="text" class="form-control " style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;" id="uploadDate" value="{{Template.uploadDate | date:'yyyy-MM-dd'}}">
                           </div>
@@ -175,16 +179,16 @@ font-family: Microsoft YaHei;">
                        
                        
                        <div class="form-group" style="width:80rem;">
-                           <label for="templateList" class="col-sm-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">子服务列表</span></label>
+                           <label for="templateList" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">子服务列表</span></label>
                            <div class="col-sm-10">
                            
                            	<div class="table-responsive" style="height: 20rem;">
 							  <table class="table table-bordered" >
 							    <thead>
 							      <tr>
-							        <th>子服务名称</th>
-							        <th>子路径</th>
-							        <th>是否在Portal显示</th></tr>
+							        <th style="text-align: center;">子服务名称</th>
+							        <th style="text-align: center;">子路径</th>
+							        <th style="text-align: center;">是否在Portal显示</th></tr>
 							    </thead>
 							    <tbody>
 							      <tr ng-repeat="subService in subServices">
@@ -200,7 +204,6 @@ font-family: Microsoft YaHei;">
                        
                       <div class="form-group" style="width:80rem; margin-top:3rem;">
 			    		<div class="col-sm-offset-2 col-sm-10">
-			      		<!-- <button type="submit" class="btn btn-default">提交</button> -->
 			      		
 			      		<button type="button" ng-click="cancleTemplate_fn()" class="btn btn-default" style="margin-left:4rem;">关闭</button>
 			    		</div>
@@ -208,7 +211,6 @@ font-family: Microsoft YaHei;">
              	</form>
 	 		</div>
 			 
-			 <!-- 导入模板模态框 --><!-- enctype="multipart/form-data" -->
 		     <div>
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				    <div class="modal-dialog">
@@ -220,25 +222,24 @@ font-family: Microsoft YaHei;">
 					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					                <h4 class="modal-title" id="myModalLabel">导入模板</h4>
 					            </div>
-					          <!--   body -->
-					            <div class="modal-body">
-	                                 <div class="form-group">
-	                                     <label class="sr-only" for="inputfile">导入模板</label>
-	                                     <input type="file" id="inputfile" name="file1"  id="file1" accept="*.zip">
-	                                 </div>
-	                                 <!-- 是否覆盖 -->
-                                    <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input  id="overWriteExistId" type="checkbox" name="overWriteExist">是否覆盖
-                                                </label>
-                                            </div>
+					            <div class="modal-body" style="height: 140px;">
+	                                 <div style="vertical-align: middle;margin-top:26px;">
+		                                 <div class="form-group">
+		                                     <label class="sr-only" for="inputfile">导入模板</label>
+		                                     <input type="file" id="inputfile" name="file1"  id="file1" accept="*.zip" style="height:36px;font-size:16px;">
+		                                 </div>
+	                                    <div class="form-group">
+	                                            <div class="checkbox">
+	                                                <label>
+	                                                    <input  id="overWriteExistId" type="checkbox" name="overWriteExist" /><span style="font-size:16px;padding-left:4px;">是否覆盖</span>
+	                                                </label>
+	                                            </div>
+	                                    </div>
                                     </div>
 								</div>
-						<!-- 		footer -->
 					            <div class="modal-footer">
-					                <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					                 <button type="button" class="btn btn-primary" ng-click="importTemplate_fn()">提交</button>
+					                <button id="closeModal" type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #ededed;border: 0;color: #5e6576;">关闭</button>
+					                 <button type="button" class="btn btn-primary" ng-click="importTemplate_fn()" style="background-color: #458fe9;border: 0;color: #fff;">提交</button>
 					            </div>
 				            </form>
 				        </div>
@@ -250,8 +251,8 @@ font-family: Microsoft YaHei;">
 		 
 		 
 	     
-	     <!-- 分页 -->
-	     <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;margin-right: 2%;">
+	    
+	     <!-- <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;margin-right: 2%;">
 	         <ul class="pagination">
 	             <li><a ng-click="Previous()">&laquo;</a></li>
 	             
@@ -262,7 +263,7 @@ font-family: Microsoft YaHei;">
 	             <li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
 	             <li><a ng-click="Next()">&raquo;</a></li>
 	         </ul>
-	     </div>
+	     </div> -->
      </div>
      
     

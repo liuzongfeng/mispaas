@@ -274,7 +274,7 @@ app.controller('ListCtrl', function($scope,$http) {
   //登出
     $scope.logout=function()
     {
-    	window.location.href= "http://192.168.6.16:8080/logout";
+    	window.location.href= "http://192.168.6.165:8080/logout";
     } 
 });
 //产品列表接口调用

@@ -1,0 +1,9 @@
+.nav-tabs > li.active > a {
+		border-top: 2px solid #3f8dce;
+	}
+	
+.header.navbar .header-inner .navbar-nav .user .dropdown-toggle {
+  display: inline-block;
+  padding: 19px 0px 19px 6px !important;
+}
+
