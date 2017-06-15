@@ -38,12 +38,8 @@ app.controller('ListCtrl', function($scope,$http) {
     //产品列表
     $scope.nListOfGoods = function(){
     	$scope.selPage=1;
-    	$scope.chanpincaidan1=false;
-		$scope.chanpincaidan2=true;
-		$scope.appcolor="#458fe9";
-		$scope.yingyongcaidan1=true;
-		$scope.yingyongcaidan2=false;
-		$scope.inscolor="#8e9094";
+    	$("#nListOfGoods").attr("class","open");
+    	$("#nmyApplicationList").attr("class","");
 		var lis=$("#chanpinfenye").children();
 		for(i=0;i<lis.length;i++){
 			lis.eq(i).children().css("backgroundColor","white");
@@ -52,37 +48,31 @@ app.controller('ListCtrl', function($scope,$http) {
 		lis.eq(1).children().css("backgroundColor","#458fe9");
     	var page=null;
     	templateListController($scope,$http,id,page);
-    	
-    	  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-              $(e.target).css("border-top","2px solid #3f8dce");
-              // 获取前一个激活的标签页的名称
-            $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-          });
+    	$("#tab_51_1").attr("class","tab-pane fade in active");
+    	$("#ListOfGoodsTab").attr("class","active");
     };
     //应用列表
     $scope.nmyApplicationList = function(){
     	$scope.selPage=1;
-    	$scope.yingyongcaidan1=false;
-		$scope.yingyongcaidan2=true;
-		$scope.chanpincaidan1=true;
-		$scope.chanpincaidan2=false;
-		$scope.inscolor="#458fe9";
-		$scope.appcolor="#8e9094";
-		$scope.templateCategory='';
+    	
+    	$("#nListOfGoods").attr("id");
+    	$scope.useapptemplateCategory='';
     	var page=null;
     	appListBynameController($scope,$http,page);
+    	$("#nListOfGoods").attr("class","");
+    	$("#nmyApplicationList").attr("class","open");
 		var lis=$("#appfenye").children();
 		for(i=0;i<lis.length;i++){
 			lis.eq(i).children().css("backgroundColor","white");
 		}
-		lis.eq(3).children().css("backgroundColor","#458fe9");	
-		
-		  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	            $(e.target).css("border-top","2px solid #3f8dce");
-	            // 获取前一个激活的标签页的名称
-	          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-	        });
-	    };
+		lis.eq(3).children().css("backgroundColor","#458fe9");
+		$("#tab_51_3").attr("class","tab-pane fade in active");
+		$("#tab_51_4").attr("class","tab-pane fade");
+		$("#tab_51_5").attr("class","tab-pane fade");
+		$scope.myApplicationDetails=false;
+		$scope.myApplicationUsers=false;
+		$("#myApplicationListTab").attr("class","active");
+	 };
     //账单列表
     $scope.ntheBillList = function(){
         $scope.theBillListTab =true;
@@ -115,15 +105,14 @@ app.controller('ListCtrl', function($scope,$http) {
             }, function errorCallback(response) {
         });
     	$scope.Details=false;
-        $scope.DetailsOfGoodsTab =true;
-        $scope.myApplicationList=false;
-        
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $(e.target).css("border-top","2px solid #3f8dce");
-            // 获取前一个激活的标签页的名称
-          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-        });
-        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show')
+        $scope.DetailsOfGoodsTab=true;
+        var lis=$("li");
+       for(i=0;i<lis.length;i++){
+    	   $(lis[i]).removeClass("active");
+       }
+        $("#DetailsOfGoodsTab").toggleClass("active");
+        $("#tab_51_2").attr("class","tab-pane fade in active");
+        $("#tab_51_1").attr("class","tab-pane fade");
     };
     //购买产品
     $scope.BuyGoodsDetails=function(id){
@@ -154,22 +143,23 @@ app.controller('ListCtrl', function($scope,$http) {
         }).then(function successCallback(response) {
         	$scope.tetantList=response.data[0];
             }, function errorCallback(response) {
-            	alert(response);
         }); 
     	$scope.Details=true;
     	$scope.DetailsOfGoodsTab =true;
         $scope.myApplicationList=false;
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $(e.target).css("border-top","2px solid #3f8dce");
-            // 获取前一个激活的标签页的名称
-          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-        });
-        $('#myTab a[href="#DetailsOfGoodsTab"]').tab('show');
+        var lis=$("li");
+        for(i=0;i<lis.length;i++){
+     	   $(lis[i]).removeClass("active");
+        }
+         $("#DetailsOfGoodsTab").attr("class","active");
+         $("#tab_51_2").attr("class","tab-pane fade in active");
+         $("#tab_51_1").attr("class","tab-pane fade");
         ordertoscope($scope,$http,id);
     };
     $scope.closeGoodsDetails=function(){
         $scope.DetailsOfGoodsTab =false;
-        $('#myTab a[href="#ListOfGoodsTab"]').tab('show')
+        $("#ListOfGoodsTab").attr("class","active");
+        $("#tab_51_1").attr("class","tab-pane fade in active");
     };
     //应用详情
     $scope.showApplicationDetails=function(orderId){
@@ -205,18 +195,17 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.myApplicationDetails=true;
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
-       // $scope.myApplicationList=false;
-        
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $(e.target).css("border-top","2px solid #3f8dce");
-            // 获取前一个激活的标签页的名称
-          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-        });
-        $('#myTab a[href="#myApplicationDetails"]').tab('show')
+        $("#myApplicationDetails").attr("class","active");
+        $("#myApplicationListTab").attr("class","");
+        $("#tab_51_5").attr("class","tab-pane fade in active");
+        $("#tab_51_3").attr("class","tab-pane fade");
     };
     $scope.closeApplicationDetails=function(){
         $scope.myApplicationDetails=false;
-        $('#myTab a[href="#myApplicationListTab"]').tab('show')
+        
+        $("#myApplicationListTab").attr("class","active");
+        $("#tab_51_5").attr("class","tab-pane fade");
+        $("#tab_51_3").attr("class","tab-pane fade in active");
     };
     //修改用户群组
     $scope.showApplicationUetails=function(orderId){
@@ -253,16 +242,15 @@ app.controller('ListCtrl', function($scope,$http) {
         $scope.myApplicationUsers=true;
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $(e.target).css("border-top","2px solid #3f8dce");
-            // 获取前一个激活的标签页的名称
-          $(e.relatedTarget).css("border-top","1px solid #dcdedd");
-        });
-        $('#myTab a[href="#myApplicationUsers"]').tab('show')
+        $("#myApplicationListTab").attr("class","");
+        $("#myApplicationUsers").attr("class","active");
+        $("#tab_51_4").attr("class","tab-pane fade in active");
+        $("#tab_51_3").attr("class","tab-pane fade");
     };
     $scope.closemyApplicationUsers=function(){
         $scope.myApplicationUsers=false;
-        $('#myTab a[href="#myApplicationListTab"]').tab('show')
+        $("#myApplicationListTab").attr("class","active");
+        $("#tab_51_3").attr("class","tab-pane fade in active");
     };
     //购物车
     $scope.showShoppingCar=function(){
@@ -291,15 +279,15 @@ app.controller('ListCtrl', function($scope,$http) {
 });
 //产品列表接口调用
 function templateListController($scope,$http,id,page){
-	if($scope.templateCategory2=="产品分类过滤"){
-		$scope.templateCategory2='';
+	if($scope.usetemplateCategory=="chanpinguolv"){
+		$scope.usetemplateCategory='';
 	}
 	$http({
         method: 'POST',
         url: tenantSelfinterfaces.Var_showTempliteList,
         
         datatype:"JSONP",
-        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.templateCategory2,"counm":''},
+        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.usetemplateCategory,"counm":''},
     }).then(function successCallback(response) {
     	$scope.tepagenum =response.data.pageStr.split(",");
     	$scope.tepageinfo = response.data;
@@ -322,11 +310,11 @@ function templateListController($scope,$http,id,page){
 };
 //综合应用列表接口
 function appListBynameController($scope,$http,page){
-	if($scope.templateCategory=="应用分类过滤"||$scope.templateCategory==null){
-		$scope.templateCategory='';
+	if($scope.useapptemplateCategory=="yingyongguolv"||$scope.useapptemplateCategory==null){
+		$scope.useapptemplateCategory='';
 	}
 	var reurl = null;
-	if(($scope.instanceName==null||$scope.instanceName=='')&&($scope.templateCategory==null||$scope.templateCategory=='')){
+	if(($scope.instanceName==null||$scope.instanceName=='')&&($scope.useapptemplateCategory==null||$scope.useapptemplateCategory=='')){
 		
 			reurl=tenantSelfinterfaces.Var_showApplicationList;
 	}else{
@@ -343,7 +331,7 @@ function appListBynameController($scope,$http,page){
             method: 'POST',
             url: reurl,
             contentType: "application/json",
-            params:{"page":page,"instanceName":$scope.instanceName,"templateCategory":$scope.templateCategory,"counm":''},
+            params:{"page":page,"instanceName":$scope.instanceName,"templateCategory":$scope.useapptemplateCategory,"counm":''},
             data:$scope.tetantList
     	}).then(function successCallback(response) {
         	for(i=0;i<response.data.resultObj.length;i++){
@@ -386,3 +374,4 @@ Date.prototype.Format = function (fmt) { //author: meizz
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
+

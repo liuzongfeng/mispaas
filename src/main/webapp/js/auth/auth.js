@@ -19,7 +19,6 @@ angular.module('auth', []).factory(
 					var userRole = arrayObj[i].authority;
 					$rootScope[userRole] = false;              //将该用户所有的权限置为false
 				}
-				
 				$rootScope.LogoOut = false;                    //认证通过，可以登出
 				auth.authenticated = false;
 				window.location.href= logoutPath;
