@@ -1,5 +1,6 @@
 /*var paasrest_dns="http://127.0.0.1:8080";*/
-var paasrest_dns="http://192.168.6.23:8080";
+var paasrest_dns="http://192.168.6.16:8080";
+var cas_ipPort="http://100.0.10.100:8080";
 tenantSelfinterfaces={
 		//创建订单he维护订单租户和组织机构的关系
 		Var_createPaasOrder:paasrest_dns+'/passService/createPaasOrder',
@@ -24,13 +25,13 @@ tenantSelfinterfaces={
 		//获取组织机构
 		Var_getOrgtree:paasrest_dns+'/passService/getOrgtree',
 		//第三方会获取组织机构接口
-		Var_othergetOrgtree:'http://100.0.10.100:8080/usermanager/api/authorization/organizations?pageStart=1&pageSize=1000',
+		Var_othergetOrgtree:cas_ipPort+'/usermanager/api/authorization/organizations?pageStart=1&pageSize=1000',
 		//获取某用户的租户身份群
 		Var_gettenantList:paasrest_dns+'/passService/gettenantList',
 		//第三方接口获取租户信息
-		Var_othergettentant:'http://100.0.10.100:8080/usermanager/api/authorization/tenants/',
+		Var_othergettentant:cas_ipPort+'/usermanager/api/authorization/tenants/',
 		//第三方获取用户信息接口
-		Var_othergetuser:'http://100.0.10.100:8080/usermanager/api/authorization/users/',
+		Var_othergetuser:cas_ipPort+'/usermanager/api/authorization/users/',
 		//初始页面获取用户信息
 		Var_geUserDetails:paasrest_dns+'/obtainUserInfo',
 };

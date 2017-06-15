@@ -34,6 +34,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
     private CasProperties casProperties;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
+		http.authorizeRequests().anyRequest().permitAll();
 //		http.authorizeRequests()
 //			.antMatchers("/testUploadFile").permitAll()
 //			.antMatchers("/css/**","/index").permitAll()
