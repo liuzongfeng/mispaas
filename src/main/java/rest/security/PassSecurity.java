@@ -45,8 +45,8 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 //			.and()
 //			.csrf().disable()
 //			;
-		http.authorizeRequests()//配置安全策略
-		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**","/**/paasService/**").permitAll()
+		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
+		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
 		.anyRequest().authenticated()
 		.and().logout().permitAll()
 		.and().formLogin();
@@ -73,7 +73,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
     public CasAuthenticationFilter casAuthenticationFilter() throws Exception {  
         CasAuthenticationFilter casAuthenticationFilter = new CasAuthenticationFilter();  
         casAuthenticationFilter.setAuthenticationManager(authenticationManager());  
-        casAuthenticationFilter.setFilterProcessesUrl(casProperties.getAppLoginUrl());  
+        casAuthenticationFilter.setFilterProcessesUrl(casProperties.getAppLoginUrl()); 
         return casAuthenticationFilter;  
     }
     /**指定service相关信息*/  
@@ -112,7 +112,9 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
         return new Cas20ServiceTicketValidator(casProperties.getCasServerUrl());  
     }
 	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/js/**","/css/**","/images/**");		
+		web.ignoring().antMatchers("/js/**","/assets/**","/css/**","/dist/**","/img/**","/images/**","/fonts/**","/less/**")
+		.and().ignoring().mvcMatchers("/paasService/findTenentsByOrgsAppid/**","/paasService/findOrgidsByInstanceidTenentid/**","/rest/productService/ispermit/**")
+		;
 	}
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

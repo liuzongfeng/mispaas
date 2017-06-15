@@ -89,7 +89,9 @@ angular.module('auth', []).factory(
 					});*/
 					
 					auth.authenticated = true;
-					
+					$rootScope.yuweilogo = "../img/yunweilogo.png";
+					//$rootScope.yuweilogo = "../images/paas/logo-usermanager.png";
+					// $("#yunweilogo").attr("src","/pass/src/main/webapp/images/paas/logo-usermanager.png");
 					
 				},
 				clear : function() {
