@@ -1,9 +1,13 @@
 function ordertoscope($scope,$http,id) {
+	$scope.gettenantByid=function(tenantId,tenantName){
+		$("#userMenuStatuetitle").html(tenantName);
+		$scope.newtenantId=tenantId;
+	};
 	$scope.createOrder=function(){
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
 		var names = onCheckName($http,$scope,zTree);
-		if($scope.value=="请选择租户"){
+		if($("#userMenuStatuetitle").html()=="请选择租户"){
 			$("#myModal").modal('show');
 			return;
 		}
@@ -12,7 +16,7 @@ function ordertoscope($scope,$http,id) {
 				id: null,
 				billNo: null,
 				proId: id,
-				tenantId:$scope.value,
+				tenantId:$scope.newtenantId,
 				status: null,
 				crateDate: new Date(),
 				approveId: null,
@@ -22,7 +26,7 @@ function ordertoscope($scope,$http,id) {
 		$http({
 	        method: 'POST',
 	        url: tenantSelfinterfaces.Var_createPaasOrder,
-	        params:{"tenantId":$scope.value,"ids":ids,"names":names},
+	        params:{"tenantId":$scope.newtenantId,"ids":ids,"names":names},
 	        datatype:"json",
 	        data:passOrde
 	    }).then(function successCallback(response) {
@@ -32,6 +36,10 @@ function ordertoscope($scope,$http,id) {
 	    });
 		 $("#myApplicationListTab").attr("class","active");
          $("#tab_51_3").attr("class","tab-pane fade in active");
+         $scope.ListOfGoodsTab=false;
+         $scope.DetailsOfGoodsTab=false;
+         $("#tab_51_1").attr("class","tab-pane fade");
+         $("#tab_51_2").attr("class","tab-pane fade");
 	};
 	//分类查询产品
 	$scope.gettemplateBytemplateCategory=function(templateCategory){
