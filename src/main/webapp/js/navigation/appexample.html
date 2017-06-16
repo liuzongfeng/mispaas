@@ -59,7 +59,7 @@
                                         <div class="input-group">
                                             <input id="instanceName_S" type="text" placeholder="请输入名称" class="form-control">
                                             <span class="input-group-addon">
-                                                <i class="picon-search" onclick="searchExample_fn();"></i>
+                                                <i class="picon-search" ng-click="searchExample_fn();"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -77,14 +77,14 @@
                                  <div class="form-group" style="float:right;margin-right:20px;">
 					                <div class="dropdown">
 					                    <button class="btn btn-default dropdown-toggle" type="button" id="byInstanceStatusSelect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:4px;height: 58px; font-size: 16px;color: #333; width:208px; background-color: #f7f7f7;">
-					                        <h  >按状态过滤</h>
+					                        <h  id="choseText">按状态过滤</h>
 					                        <span class="caret" style="margin-left:14px;"></span>
 					                    </button>
 					                    <ul id="byInstanceStatusUL" class="dropdown-menu" aria-labelledby="dropdownMenuStatue" style="width:208px;">
 					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="">按状态过滤</a></li>
 					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="0">待创建</a></li>
 					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="1">运行中</a></li>
-					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="2">已取消</a></li>
+					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="2">已撤消</a></li>
 					                        
 					                    </ul>
 				                    </div>

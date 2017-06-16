@@ -38,6 +38,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 						
 						//最多显示分页数5
 						if (page > 2) {
+							alert(page);
 						//因为只显示5个页码，大于2页开始分页转换
 							var newpageList = [];
 							var i = (page - 3);
@@ -81,7 +82,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 								alert("最后一页");
 							}else{
 								
-								$scope.selectPage($scope.selPage + 1);
+								$scope.selectPage($scope.selPage - (-1));
 							}
 						};
 					  }, function errorCallback(response) {
@@ -126,7 +127,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					$scope.appexample_title=true;
 					$scope.appExample = true;
 					$scope.divPage=true;
-					
+					$("span[class=checked]").attr("class","");
 					//高度自适应
 					//autoHeight_fn_s();
 				}
@@ -364,6 +365,8 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 			$scope.searchInstanceStatusLI_fn = function(event){
          		event = event ? event : window.event; 
 				var liObj = event.srcElement ? event.srcElement : event.target;
+				var atext = $(liObj).text();
+				$("#choseText").text(atext);
 				var instanceStatus = $(liObj).attr("value");
 				$scope.instanceStatus = instanceStatus;
 				
@@ -399,7 +402,8 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					var re =  /^[1-9]+[0-9]*]*$/ ;
 					var turnpage = $(this).prev().prev().val();
 					if(re.test(turnpage)){
-						selectPage_aa(turnpage);
+						var pageInt = parseInt(turnpage);
+						selectPage_aa(pageInt);
 					}else{
 						alert("请输入正确页码");
 					}
@@ -407,10 +411,10 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				//复选框的反选
 			    $('#checkbox_1').click(function(){
 			    	
-			    	$('.checkbox_1').each(function () {  
+			    	/*$('.checkbox_1').each(function () {  
 			    		$(this).prop("checked", !$(this).prop("checked"));  
 			    	});
-			    	$('#checkbox_1').prop("checked",false);  
+			    	$('#checkbox_1').prop("checked",false);  */
 			    });
 
 			  //编辑实例按钮控制 --移入

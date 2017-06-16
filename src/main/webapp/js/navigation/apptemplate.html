@@ -42,7 +42,7 @@
                                         <div class="input-group">
                                             <input id="templateName_S" type="text" placeholder="请输入名称" class="form-control">
                                             <span class="input-group-addon">
-                                                <i class="picon-search" onclick="searchTemplate_fn();"></i>
+                                                <i class="picon-search" ng-click="searchTemplate_fn();"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                  <div class="form-group" style="float:right;margin-right:20px;">
 					                <div class="dropdown">
 					                    <button class="btn btn-default dropdown-toggle" type="button" id="byCategorySelect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:4px;height: 58px; font-size: 16px;color: #333; width:208px; background-color: #f7f7f7;">
-					                        <h  >按分类过滤</h>
+					                        <h  id="choseText">按分类过滤</h>
 					                        <span class="caret" style="margin-left:14px;"></span>
 					                    </button>
 					                    <ul id="byCategoryUL" class="dropdown-menu" aria-labelledby="dropdownMenuStatue" style="width:208px;">
@@ -124,18 +124,7 @@
                          </tbody>
                      </table>
                  </div>
-				<script>
-					var chooseChecked_fn = function(event){
-						event = event ? event : window.event; 
-						var checkObj = event.srcElement ? event.srcElement : event.target; 
-						
-						 $("span[class=checked]").attr("class","");
-						
-						var spanObj = $(checkObj).parent();
-						spanObj.attr("class","checked");
-						
-					}
-				</script>
+				
 				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
             		<p class="page-info">
 	                	<span class="page-size page-text">每页</span>
@@ -281,11 +270,18 @@
 		                                     <input type="file" id="inputfile" name="file1"  id="file1" accept="*.zip" style="height:36px;font-size:16px;">
 		                                 </div>
 	                                    <div class="form-group">
-	                                            <div class="checkbox">
+	                                            <!-- <div class="checkbox">
 	                                                <label>
 	                                                    <input  id="overWriteExistId" type="checkbox" name="overWriteExist" /><span style="font-size:16px;padding-left:4px;">是否覆盖</span>
 	                                                </label>
-	                                            </div>
+	                                            </div> -->
+	                                            <span class="table-checkbox">
+										 			<div class="checker">
+										 				<span class="">
+										 					<input  onclick="chooseChecked_fn();" id="overWriteExistId" type="checkbox" name="overWriteExist"/>
+										 				</span>
+										 			</div>
+										 		</span>&nbsp;&nbsp;是否覆盖
 	                                    </div>
                                     </div>
 								</div>
@@ -298,25 +294,20 @@
 				    </div>
 				</div>
 		     </div>
-         
          </div>
-		 
-		 
-	     
-	    
-	     <!-- <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;margin-right: 2%;">
-	         <ul class="pagination">
-	             <li><a ng-click="Previous()">&laquo;</a></li>
-	             
-	             <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
-					<a ng-click="selectPage(page)" >{{ page }}</a>
-				 </li>
-	             
-	             <li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
-	             <li><a ng-click="Next()">&raquo;</a></li>
-	         </ul>
-	     </div> -->
      </div>
      
-    
+    <script>
+		var chooseChecked_fn = function(event){
+			event = event ? event : window.event; 
+			var checkObj = event.srcElement ? event.srcElement : event.target;
+			var spanObj = $(checkObj).parent();
+			if(spanObj.attr("class") == "checked" || spanObj.attr("class") == true){
+				spanObj.attr("class","");
+			}else{
+				$("span[class=checked]").attr("class","");
+				spanObj.attr("class","checked");
+			}
+		}
+	</script>
     

@@ -80,7 +80,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								alert("最后一页");
 							}else{
 								
-								$scope.selectPage($scope.selPage + 1);
+								$scope.selectPage($scope.selPage - (-1));
 							}
 						};
 					  }, function errorCallback(response) {
@@ -135,7 +135,19 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				}).done(function(res) { 
 					if("uploadOK" == res){
 						
-						swal({   
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入成功!", "", "success");
+						
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
+						
+						/*swal({   
 							title:"导入成功",
 							text: "是否继续导入?",   
 							type: "success",   
@@ -167,9 +179,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								};
 								
 							}
-						});
+						});*/
 					}else if("hasExi" == res){
-						swal({   
+						/*swal({   
 							title:"导入失败",
 							text: "存在相同的模板id,请选择覆盖?",   
 							type: "error",   
@@ -185,9 +197,21 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 									$("#overWriteExistId").prop("checked",false);
 								};
 								
-						});
+						});*/
+						//1.将模态框进行隐藏
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入失败!", "存在相同的模板id,请选择覆盖", "error");
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
 					}else{
-						swal({   
+						
+						/*swal({   
 							title:"导入失败",
 							text: "系统异常,请联系管理员",   
 							type: "error",   
@@ -203,7 +227,18 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 									$("#overWriteExistId").prop("checked",false);
 								};
 								
-						});
+						});*/
+						//1.将模态框进行隐藏
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入失败!", "系统异常,请联系管理员", "error");
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
 					}
 				});
 			}
@@ -227,7 +262,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1_title = true;
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
-					
+					$("span[class=checked]").attr("class","");
 					//autoHeight_fn();
 				}
 				
@@ -434,6 +469,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			$scope.searchByCategoryLI_fn = function(event){
          		event = event ? event : window.event; 
 				var liObj = event.srcElement ? event.srcElement : event.target;
+				var atext = $(liObj).text();
+				$("#choseText").text(atext);
 				var templateCategory = $(liObj).attr("value");
 				$scope.templateCategory = templateCategory;
 				
@@ -467,7 +504,8 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					var re =  /^[1-9]+[0-9]*]*$/ ;
 					var turnpage = $(this).prev().prev().val();
 					if(re.test(turnpage)){
-						selectPage_aa(turnpage);
+						var pageInt = parseInt(turnpage);
+						selectPage_aa(pageInt);
 					}else{
 						alert("请输入正确页码");
 					}
@@ -489,10 +527,10 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				//复选框的反选
 			    $('#checkbox_1').click(function(){
 			    	
-			    	$('.checkbox_1').each(function () {  
+			    	/*$('.checkbox_1').each(function () {  
 			    		$(this).prop("checked", !$(this).prop("checked"));  
 			    	});
-			    	$('#checkbox_1').prop("checked",false); 
+			    	$('#checkbox_1').prop("checked",false); */
 			    });
 			    //导入模板按钮控制 --移入
 			    $("#uploadTemplateImg").mouseover(function(){
