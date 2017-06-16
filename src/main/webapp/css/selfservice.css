@@ -1,0 +1,44 @@
+/*zhangpeng*/
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-temptenat {
+  width: 27px;
+  height: 27px;
+  background: url("../img/newtempmoren.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-temptenat {
+  background: url("../img/newtemchose.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-temptenat {
+  background: url("../img/newtempover.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-temptenat,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-temptenat {
+  background: url("../img/newtempover.png");
+}
+/*app*/
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-app {
+  width: 27px;
+  height: 27px;
+  background: url("../img/newmoren.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-app {
+  background: url("../img/newappChose.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-app {
+  background: url("../img/newappover.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-app,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-app {
+  background: url("../img/newappover.png");
+}
