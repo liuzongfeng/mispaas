@@ -35,7 +35,7 @@ public class PaasTemplateServices {
 	@Autowired
 	private RequestUtil requestUtil;
 	@RequestMapping("/rest/productService/getAllproduct")
-	public Pageinfo getAllproductList(@RequestParam(value="ProductName",defaultValue="",required=false) String ProductName,@RequestParam(value="userModel",defaultValue="",required=false) String userModel,@RequestParam(value="ispub",defaultValue="",required=false) Integer ispub,@RequestParam(value="page",defaultValue="1",required=false) String page)
+	public Pageinfo getAllproductList(@RequestParam(value="ProductName",defaultValue="",required=false) String ProductName,@RequestParam(value="userModel",defaultValue="",required=false) String userModel,@RequestParam(value="ispub",defaultValue="",required=false) Integer ispub,@RequestParam(value="page",defaultValue="1",required=false) String page,@RequestParam(value="shownum",defaultValue="10",required=false) Integer shownum)
 	{
 		PaasTemplate paasTemplate=new PaasTemplate();
 		paasTemplate.setTemplateName(ProductName);
@@ -43,7 +43,7 @@ public class PaasTemplateServices {
 //		paasTemplate.setTemplateCategory(templateCategory);
 		paasTemplate.setIsPub(ispub);
 		int resultnum=paasTemplateImp.selectByCondition(paasTemplate);
-		Pageinfo pi=pageUtil.initpage(resultnum, page);
+		Pageinfo pi=pageUtil.initpage(resultnum,page,shownum);
 		pi.setConditionObj(paasTemplate);
 		List<PaasTemplate> resultlist=paasTemplateImp.selectObjByCondition(pi);
 		pi.setResultObj(resultlist);

@@ -42,7 +42,7 @@ public class PaasOrderService {
 	@Autowired
 	private RequestUtil requestUtil;
 	@RequestMapping("/rest/orderService/getAllOrder")
-	public Pageinfo getAllOrder(@RequestParam(name="TenantName",required=false,defaultValue="") String TenantName,@RequestParam(name="Status",required=false,defaultValue="") Integer Status,@RequestParam(name="startTime",required=false,defaultValue="") String startTime,@RequestParam(name="endTime",required=false,defaultValue="") String endTime,@RequestParam(name="page",required=false,defaultValue="1") String page) throws ParseException, IOException
+	public Pageinfo getAllOrder(@RequestParam(name="TenantName",required=false,defaultValue="") String TenantName,@RequestParam(name="Status",required=false,defaultValue="") Integer Status,@RequestParam(name="startTime",required=false,defaultValue="") String startTime,@RequestParam(name="endTime",required=false,defaultValue="") String endTime,@RequestParam(name="page",required=false,defaultValue="1") String page,@RequestParam(value="shownum",defaultValue="10",required=false) Integer shownum) throws ParseException, IOException
 	{
 		PaasOrder po=new PaasOrder();
 		//从远端那到租户ID 然后封装
@@ -50,7 +50,8 @@ public class PaasOrderService {
 		{
 			JSONObject jo=requestUtil.gettenantsContent(TenantName);
 			String tenantId=jo.getString("tenantIdList");
-			if(!"".equals(tenantId))
+			System.out.println(tenantId);
+			if(!"".equals(tenantId)&&!"[]".equals(tenantId))
 			{
 				tenantId=tenantId.substring(tenantId.indexOf("\"")+1, tenantId.lastIndexOf("\""));
 			}
@@ -67,7 +68,8 @@ public class PaasOrderService {
 			po.setEndDate(new SimpleDateFormat("yyyy-MM-dd").parse(endTime));
 		}
 		int num=paasOrderImp.getOrderNumbyCondition(po);
-		Pageinfo pi=pageutil.initpage(num, page);
+		Pageinfo pi=pageutil.initpage(num,page,shownum);
+		pi.setShownum(shownum);
 		pi.setConditionObj(po);
 		List<PaasOrder> list=paasOrderImp.getOrderListbyCondition(pi);
 		pi.setResultObj(list);

@@ -15,6 +15,7 @@ public class Pageinfo {
 	private Integer end;
 	private Object resultObj; //查询结果对象
 	private Object ConditionObj; //页面查询元素对象
+	private Integer allCount;//所有满足条件的记录数
 	public Integer getFirstpage() {
 		return firstpage;
 	}
@@ -90,6 +91,12 @@ public class Pageinfo {
 		this.end = end;
 	}
 	
+	public Integer getAllCount() {
+		return allCount;
+	}
+	public void setAllCount(Integer allCount) {
+		this.allCount = allCount;
+	}
 	public Pageinfo(Integer firstpage, Integer prev, Integer next,
 			Integer pagenum, Integer allpage, Integer lastpage,
 			Integer shownum, String pageStr, Integer begin, Integer end,
