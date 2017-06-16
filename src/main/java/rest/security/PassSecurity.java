@@ -34,7 +34,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
     private CasProperties casProperties;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-//		http.authorizeRequests().anyRequest().permitAll();
+		http.authorizeRequests().anyRequest().permitAll();
 //		http.authorizeRequests()
 //			.antMatchers("/testUploadFile").permitAll()
 //			.antMatchers("/css/**","/index").permitAll()
@@ -46,15 +46,15 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 //			.and()
 //			.csrf().disable()
 //			;
-		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
-		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
-		.anyRequest().authenticated()
-		.and().logout().permitAll()
-		.and().formLogin();
-		
-		http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
-		.and().addFilter(casAuthenticationFilter())
-		.addFilterBefore(casLogoutFilter(), LogoutFilter.class);
+//		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
+//		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
+//		.anyRequest().authenticated()
+//		.and().logout().permitAll()
+//		.and().formLogin();
+//		
+//		http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
+//		.and().addFilter(casAuthenticationFilter())
+//		.addFilterBefore(casLogoutFilter(), LogoutFilter.class);
 		
 		http.csrf().disable();
 		
