@@ -7,3 +7,76 @@
   padding: 19px 0px 19px 6px !important;
 }
 
+.resource-page-sidebar ul.page-sidebar-menu > li a,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a {
+  background-color: #21242B !important;
+  text-align: center;
+  color: #666E81 !important;
+  padding-bottom: 17px;
+  font-size: 16px;
+  border-top: 0px !important;
+  border-bottom: 1px solid #2E3138 !important;
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee1 {
+  width: 26px;
+  height: 27px;
+  background: url("../img/template_show.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
+  width: 28px;
+  height: 27px;
+  background: url("../img/instance_show.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee1 {
+  background: url("../img/template_hover.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-user1 {
+  background: url("../img/instance_hover.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-lessee1 {
+  background: url("../img/template_focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user1 {
+  background: url("../img/instance_focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee1 {
+  background: url("../img/template_show.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user1,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
+  background: url("../img/instance_show.png");
+}
+
+thead > tr > th{
+	vertical-align: middle;
+	padding-left: 30px;
+}
+
+tbody > tr > td {
+	text-align: inherit;
+	padding-left: 30px;
+	vertical-align: middle;
+}
+.subservices_1 {
+	vertical-align: middle;
+	padding-left: 30px;
+}
+
+
+
+
+

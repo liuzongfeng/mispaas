@@ -1,7 +1,7 @@
      <div id="templateBody" style="width:100%;margin-right:2.5%;">
          <ul id="myTab" class="nav nav-tabs" ng-show="appTab" style="background-color: #f7f7f7;width:100%;height:70px;">
              <li id="activeTemplate"  ng-show="apptemplate1_title">
-             	<a ng-click="appTemplate_fn()" style="width:208px;height:70px;padding-top:25px;">
+             	<a ng-click="appTemplate_fn()" style="width:208px;height:70px;padding-top:20px;border-left:0;">
              	<img alt="应用模板" src="../img/templateShow.png"  style="padding-left:14px;"/>
              		<span style="padding-left:16px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">应用模板</span>
              	</a>
@@ -11,7 +11,7 @@
                  position: absolute;z-index: 9999;">
                      <img alt="" src="../img/closeTemplate.png" width="15px" height="15px">
                  </button>
-                 <a ng-click="editTemplate_save_fn()" style="width:208px;height:70px;padding-top:25px;">
+                 <a ng-click="editTemplate_save_fn()" style="width:208px;height:70px;padding-top:20px;">
                  	<img alt="" src="../img/searchTemplate.png" style="padding-left:14px;"/>
                  	<span style="padding-left:16px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">查看模板</span>
                  </a>
@@ -42,18 +42,41 @@
                                         <div class="input-group">
                                             <input id="templateName_S" type="text" placeholder="请输入名称" class="form-control">
                                             <span class="input-group-addon">
-                                                <i class="picon-search" onclick="searchTemplate_fn();"></i>
+                                                <i class="picon-search" ng-click="searchTemplate_fn();"></i>
                                             </span>
                                         </div>
                                     </div>
                                  </div>
                                  <!-- 下拉框 -->
-								<div class="form-group" style="float:right;margin-right:20px;">
+								<!-- <div class="form-group" style="float:right;margin-right:20px;">
                                      <select class="form-control " id="byCategory" style="background-color: #f7f7f7;height: 58px;width: 208px;text-align: center;font-family: Microsoft YaHei;font-size: 20px;color:#333333;font-weight: 300;">
                                      	 <option value="">按分类过滤</option>
                                      	 <option ng-repeat="category in categorys" value="{{category}}">{{category}}</option>
                                      </select>
-                                 </div>
+                                 </div> -->
+                                 <div class="form-group" style="float:right;margin-right:20px;">
+					                <div class="dropdown">
+					                    <button class="btn btn-default dropdown-toggle" type="button" id="byCategorySelect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:4px;height: 58px; font-size: 16px;color: #333; width:208px; background-color: #f7f7f7;">
+					                        <h  id="choseText">按分类过滤</h>
+					                        <span class="caret" style="margin-left:14px;"></span>
+					                    </button>
+					                    <ul id="byCategoryUL" class="dropdown-menu" aria-labelledby="dropdownMenuStatue" style="width:208px;">
+					                        <li><a ng-click="searchByCategoryLI_fn();"  value="">按状态过滤</a></li>
+					                        <li ng-repeat="category in categorys" ><a ng-click="searchByCategoryLI_fn();" value="{{category}}">{{category}}</a></li>
+					                    </ul>
+				                    </div>
+            					</div>
+                                 <script type="text/javascript">
+                                 	$("#byCategorySelect").click(function(){
+                                 		var aa = $("#byCategoryUL").css("display");
+                                 		if(aa != "block"){
+                                 			$("#byCategoryUL").css("display","block");
+                                 		}else{
+                                 			$("#byCategoryUL").css("display","");
+                                 		}
+                                 		
+                                 	});
+                                 </script>
                              </form>
            				</div>
            				
@@ -61,19 +84,37 @@
                      <table class="table table-bordered table-hover table-paas" >
                          <thead>
                          <tr >
-                             <th style="text-align: center;"><span class="table-checkbox"><input id="checkbox_1" class="checkbox_2" type="checkbox" ></span>&nbsp;&nbsp;模板ID</th>
-                             <th style="text-align: center;">模板名称</th>
-                             <th style="text-align: center;">版本号</th>
+                             <th >
+                             	<span class="table-checkbox">
+                             		<div class="checker">
+                             			<span>
+                             				<input id="checkbox_1" class="checkbox_2" type="checkbox" >
+                             			</span>
+                             		</div>
+                             	</span>
+                             	&nbsp;&nbsp;模板ID
+                             </th>
+                             <th>模板名称</th>
+                             <th>版本号</th>
 
-                             <th style="text-align: center;">模板类型</th>
-                             <th style="text-align: center;">模板分类</th>
+                             <th>模板类型</th>
+                             <th>模板分类</th>
 
                          </tr>
                          </thead>
 
                          <tbody>
 						 <tr ng-repeat="template in templates">
-						 	<td><span class="table-checkbox"><input  class="checkbox_1" type="checkbox" value="{{template.id}}"></span>&nbsp;&nbsp;{{template.templateId}}</td>
+						 	<td>
+						 		<span class="table-checkbox">
+						 			<div class="checker">
+						 				<span class="">
+						 					<input onclick="chooseChecked_fn();"  class="checkbox_1" type="checkbox" value="{{template.id}}">
+						 				</span>
+						 			</div>
+						 		</span>
+						 		&nbsp;&nbsp;{{template.templateId}}
+						 	 </td>
                              <td><a ng-click="a_searchTemplate_fn()">{{template.templateName}}</a></td>
                              <td>{{template.version}}</td>
 
@@ -84,13 +125,13 @@
                      </table>
                  </div>
 				
-				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:30px;">
+				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
             		<p class="page-info">
 	                	<span class="page-size page-text">每页</span>
-	                	<select class="form-control bs-select  page-size page-size-select">
-		                    <option>5</option>
-		                    <option>10</option>
-		                    <option>20</option>
+	                	<select class="form-control bs-select  page-size page-size-select" id="selectPageSize">
+		                    <option value=5>5</option>
+		                    <option value=10>10</option>
+		                    <option value=20>20</option>
 	                	</select>
 	                	<span class="page-size page-text">条</span>共&nbsp;{{totalSize}}&nbsp;条记录
             		</p>
@@ -98,7 +139,7 @@
 	                <span class="page-number">转到第</span>
 	                <input type="text" class="input-mini form-control">
 	                <span class="page-text">页</span>
-	                <button class="btn btn-default goto-page">跳转</button>
+	                <button class="btn btn-default goto-page" id="turnAroundPage">跳转</button>
 	            </div>
 	            <ul class="pagination">
 	                <li><a ng-click="Previous()">前一页</a></li>
@@ -116,7 +157,7 @@
              </div>
 			 
 			 <div ng-show="editTemplate">
-			 	<form class="form-horizontal" role="form" ng-submit="submitTemplate_fn()" style="margin-top: 6rem;margin-left: 18rem;">
+			 	<form class="form-horizontal" role="form" ng-submit="submitTemplate_fn()" style="margin-top: 60px;margin-left: 18rem;">
                 		<div class="form-group" style="width:80rem;">
                     	<label for="templateId" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
 						<div class="col-sm-10">
@@ -185,16 +226,16 @@
                            	<div class="table-responsive" style="height: 20rem;">
 							  <table class="table table-bordered" >
 							    <thead>
-							      <tr>
-							        <th style="text-align: center;">子服务名称</th>
-							        <th style="text-align: center;">子路径</th>
-							        <th style="text-align: center;">是否在Portal显示</th></tr>
+							      <tr style="height:56px;">
+							        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子服务名称</th>
+							        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子路径</th>
+							        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">是否在Portal显示</th></tr>
 							    </thead>
 							    <tbody>
 							      <tr ng-repeat="subService in subServices">
-							        <td>{{subService.moduleName}}</td>
-							        <td>{{subService.moduleUrl}}</td>
-							        <td>{{subService.moduleIsDis}}</td></tr>
+							        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleName}}</td>
+							        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleUrl}}</td>
+							        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleIsDis}}</td></tr>
 							     
 							    </tbody>
 							  </table>
@@ -205,7 +246,7 @@
                       <div class="form-group" style="width:80rem; margin-top:3rem;">
 			    		<div class="col-sm-offset-2 col-sm-10">
 			      		
-			      		<button type="button" ng-click="cancleTemplate_fn()" class="btn btn-default" style="margin-left:4rem;">关闭</button>
+			      		<button type="button" ng-click="cancleTemplate_fn()" class="btn btn-default" style="margin-left:4rem;background-color: #ededed;border: 0;color: #5e6576;">关闭</button>
 			    		</div>
 		  			</div>
              	</form>
@@ -229,11 +270,18 @@
 		                                     <input type="file" id="inputfile" name="file1"  id="file1" accept="*.zip" style="height:36px;font-size:16px;">
 		                                 </div>
 	                                    <div class="form-group">
-	                                            <div class="checkbox">
+	                                            <!-- <div class="checkbox">
 	                                                <label>
 	                                                    <input  id="overWriteExistId" type="checkbox" name="overWriteExist" /><span style="font-size:16px;padding-left:4px;">是否覆盖</span>
 	                                                </label>
-	                                            </div>
+	                                            </div> -->
+	                                            <span class="table-checkbox">
+										 			<div class="checker">
+										 				<span class="">
+										 					<input  onclick="chooseChecked_fn();" id="overWriteExistId" type="checkbox" name="overWriteExist"/>
+										 				</span>
+										 			</div>
+										 		</span>&nbsp;&nbsp;是否覆盖
 	                                    </div>
                                     </div>
 								</div>
@@ -246,25 +294,20 @@
 				    </div>
 				</div>
 		     </div>
-         
          </div>
-		 
-		 
-	     
-	    
-	     <!-- <div ng-show="divPage"  style="float:right;position: static;margin-bottom: 1px;margin-right: 2%;">
-	         <ul class="pagination">
-	             <li><a ng-click="Previous()">&laquo;</a></li>
-	             
-	             <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
-					<a ng-click="selectPage(page)" >{{ page }}</a>
-				 </li>
-	             
-	             <li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
-	             <li><a ng-click="Next()">&raquo;</a></li>
-	         </ul>
-	     </div> -->
      </div>
      
-    
+    <script>
+		var chooseChecked_fn = function(event){
+			event = event ? event : window.event; 
+			var checkObj = event.srcElement ? event.srcElement : event.target;
+			var spanObj = $(checkObj).parent();
+			if(spanObj.attr("class") == "checked" || spanObj.attr("class") == true){
+				spanObj.attr("class","");
+			}else{
+				$("span[class=checked]").attr("class","");
+				spanObj.attr("class","checked");
+			}
+		}
+	</script>
     

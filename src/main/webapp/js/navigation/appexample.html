@@ -59,37 +59,86 @@
                                         <div class="input-group">
                                             <input id="instanceName_S" type="text" placeholder="请输入名称" class="form-control">
                                             <span class="input-group-addon">
-                                                <i class="picon-search" onclick="searchExample_fn();"></i>
+                                                <i class="picon-search" ng-click="searchExample_fn();"></i>
                                             </span>
                                         </div>
                                     </div>
                                  </div>
                                  <!-- 下拉框 -->
-								<div class="form-group" style="float:right;margin-right:20px;">
+								<!-- <div class="form-group" style="float:right;margin-right:20px;">
                                      <select class="form-control " id="byInstanceStatus" style="background-color: #f7f7f7;height: 58px;width: 208px;text-align: center;font-family: Microsoft YaHei;font-size: 20px;color:#333333;font-weight: 300;">
                                      	 <option value="">按状态过滤</option>
                                      	 <option value="0">待创建</option>
                                          <option value="1">运行中</option>
                                          <option value="2">已取消</option>
                                      </select>
-                                 </div>
+                                 </div> -->
+                                 
+                                 <div class="form-group" style="float:right;margin-right:20px;">
+					                <div class="dropdown">
+					                    <button class="btn btn-default dropdown-toggle" type="button" id="byInstanceStatusSelect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-radius:4px;height: 58px; font-size: 16px;color: #333; width:208px; background-color: #f7f7f7;">
+					                        <h  id="choseText">按状态过滤</h>
+					                        <span class="caret" style="margin-left:14px;"></span>
+					                    </button>
+					                    <ul id="byInstanceStatusUL" class="dropdown-menu" aria-labelledby="dropdownMenuStatue" style="width:208px;">
+					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="">按状态过滤</a></li>
+					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="0">待创建</a></li>
+					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="1">运行中</a></li>
+					                        <li><a ng-click="searchInstanceStatusLI_fn();"  value="2">已撤消</a></li>
+					                        
+					                    </ul>
+				                    </div>
+            					</div>
+            					
                              </form>
            				</div>
+           				<script type="text/javascript">
+                                 	$("#byInstanceStatusSelect").click(function(){
+                                 		var aa = $("#byInstanceStatusUL").css("display");
+                                 		if(aa != "block"){
+                                 			$("#byInstanceStatusUL").css("display","block");
+                                 		}else{
+                                 			$("#byInstanceStatusUL").css("display","");
+                                 		}
+                                 		
+                                 	});
+                                 	
+                                 	
+                                 	
+                                 </script>
                 	<!-- 响应式表格-->
                  	<div class="table-responsive table-content" style="width:96%;padding-top: 20px;margin-left:2%;">
                      	<table class="table table-bordered table-hover table-paas">
                          	<thead>
                          		<tr style="height: 56px;background-color: #f7f7f7;border-top: 1px solid #dcdedd">
-                             		<th style="text-align: center;"><span class="table-checkbox"><input id="checkbox_1" class="checkbox_2" type="checkbox"></span>&nbsp;&nbsp;模板ID</th>
-		                             <th style="text-align: center;">版本号</th>
-		                             <th style="text-align: center;">实例ID</th>
-		                             <th style="text-align: center;">实例名称</th>
-		                             <th style="text-align: center;">状态</th>
+                             		<th >
+	                             		<span class="table-checkbox">
+		                             		<div class="checker">
+		                             			<span>
+		                             				<input id="checkbox_1" class="checkbox_2" type="checkbox" >
+		                             			</span>
+		                             		</div>
+		                             	</span>
+		                             	&nbsp;&nbsp;模板ID
+                             		</th>
+		                             <th >版本号</th>
+		                             <th >实例ID</th>
+		                             <th >实例名称</th>
+		                             <th >状态</th>
                          		</tr>
                          	</thead>
                          	<tbody>
                          		<tr ng-repeat="Instance in instances">
-	                             <td><span class="table-checkbox"><input class="checkbox_1" type="checkbox" value="{{Instance.instanceId}}"></span>&nbsp;&nbsp;{{Instance.paasTemplate.templateId}}</td>
+	                             <td>
+	                             	<span class="table-checkbox">
+							 			<div class="checker">
+							 				<span class="">
+							 					<input onclick="chooseChecked_fn();"  class="checkbox_1" type="checkbox" value="{{Instance.instanceId}}">
+							 				</span>
+							 			</div>
+							 		</span>
+							 			&nbsp;&nbsp;{{Instance.paasTemplate.templateId}}
+	                             </td>
 	                             <td>{{Instance.version}}</td>
 	                             <td><a ng-click="createExample_fn()">{{Instance.instanceId}}</a></td>
 	                             <td>{{Instance.instanceName}}</td>
@@ -100,14 +149,24 @@
                          </tbody>
                      </table>
                  	</div>
+                 	<script>
                  	
-                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;">
+					var chooseChecked_fn = function(event){
+						event = event ? event : window.event; 
+						var checkObj = event.srcElement ? event.srcElement : event.target; 
+						 $("span[class=checked]").attr("class","");
+						var spanObj = $(checkObj).parent();
+						spanObj.attr("class","checked");
+						
+					}
+				</script>
+                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
 	            		<p class="page-info">
 		                	<span class="page-size page-text">每页</span>
-		                	<select class="form-control bs-select  page-size page-size-select">
-			                    <option>5</option>
-			                    <option>10</option>
-			                    <option>20</option>
+		                	<select class="form-control bs-select  page-size page-size-select" id="selectPageSize">
+			                    <option value=5>5</option>
+			                    <option value=10>10</option>
+			                    <option value=20>20</option>
 		                	</select>
 		                	<span class="page-size page-text">条</span>共&nbsp;{{totalSize}}&nbsp;条记录
 	            		</p>
@@ -115,7 +174,7 @@
 			                <span class="page-number">转到第</span>
 			                <input type="text" class="input-mini form-control">
 			                <span class="page-text">页</span>
-			                <button class="btn btn-default goto-page">跳转</button>
+			                <button class="btn btn-default goto-page" id="turnAroundPage">跳转</button>
 			            </div>
 			            <ul class="pagination">
 			                <li><a ng-click="Previous()">前一页</a></li>
@@ -134,7 +193,7 @@
          	<!-- 编辑实例 -->
 			 <div ng-show="editExample">
 			 
-			 	<form role="form" class="form-horizontal" style="margin-top: 6rem;margin-left: 18rem;">
+			 	<form role="form" class="form-horizontal" style="margin-top: 60px;margin-left: 18rem;">
 
                             <div class="form-group" style="width:80rem;">
                                 <label for="templateID1" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
@@ -195,16 +254,16 @@
 	                               <div class="table-responsive" style="height: 20rem;">
 									  <table class="table table-bordered" >
 									    <thead>
-									      <tr>
-									        <th>子服务名称</th>
-									        <th>子路径</th>
-									        <th>是否在Portal显示</th></tr>
+									      <tr style="height: 56px;">
+									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子服务名称</th>
+									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子路径</th>
+									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">是否在Portal显示</th></tr>
 									    </thead>
 									    <tbody>
 									      <tr ng-repeat="subService in subServices">
-									        <td>{{subService.moduleName}}</td>
-									        <td>{{subService.moduleUrl}}</td>
-									        <td>{{subService.moduleIsDis}}</td></tr>
+									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleName}}</td>
+									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleUrl}}</td>
+									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleIsDis}}</td></tr>
 									     
 									    </tbody>
 									  </table>

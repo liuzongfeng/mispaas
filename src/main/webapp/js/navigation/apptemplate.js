@@ -2,13 +2,14 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		'apptemplate', 
 
 		function($route,$http, auth,$rootScope,$scope) {
+			$scope.pageSize = 5;                      //临时赋值
 			
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
 				
 				var templateCategory = $scope.templateCategory;   //分类模板
 				var templateName = $scope.templateName;   //名称名称
-				$scope.pageSize = 8;                      //临时赋值
+				//$scope.pageSize = 8;                      //临时赋值
 				var pageSize = $scope.pageSize;           //每页显示的条数
 				$http({
 					  method: 'GET',
@@ -43,6 +44,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								i = $scope.pages -5;
 							}
 							for ( ; i < ((page + 2) > $scope.pages ? $scope.pages : (page + 2)) ; i++) {
+								if(i+1 <0){
+									i = 0;
+								}
 								newpageList.push(i + 1);
 							}
 							$scope.pageList = newpageList;
@@ -76,7 +80,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								alert("最后一页");
 							}else{
 								
-								$scope.selectPage($scope.selPage + 1);
+								$scope.selectPage($scope.selPage - (-1));
 							}
 						};
 					  }, function errorCallback(response) {
@@ -131,7 +135,19 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				}).done(function(res) { 
 					if("uploadOK" == res){
 						
-						swal({   
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入成功!", "", "success");
+						
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
+						
+						/*swal({   
 							title:"导入成功",
 							text: "是否继续导入?",   
 							type: "success",   
@@ -163,9 +179,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 								};
 								
 							}
-						});
+						});*/
 					}else if("hasExi" == res){
-						swal({   
+						/*swal({   
 							title:"导入失败",
 							text: "存在相同的模板id,请选择覆盖?",   
 							type: "error",   
@@ -181,9 +197,21 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 									$("#overWriteExistId").prop("checked",false);
 								};
 								
-						});
+						});*/
+						//1.将模态框进行隐藏
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入失败!", "存在相同的模板id,请选择覆盖", "error");
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
 					}else{
-						swal({   
+						
+						/*swal({   
 							title:"导入失败",
 							text: "系统异常,请联系管理员",   
 							type: "error",   
@@ -199,7 +227,18 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 									$("#overWriteExistId").prop("checked",false);
 								};
 								
-						});
+						});*/
+						//1.将模态框进行隐藏
+						$("#file1").val("");
+						$("#myModal").modal('hide');
+						
+						swal("导入失败!", "系统异常,请联系管理员", "error");
+						selectPage_aa(1);
+						$("#inputfile").val("");
+						if($("#overWriteExistId").prop("checked")){
+							$("#overWriteExistId").prop("checked",false);
+						};
+						//$("#myModal").modal('dismiss');
 					}
 				});
 			}
@@ -223,7 +262,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					$scope.apptemplate1_title = true;
 					$scope.apptemplate1=true;
 					$scope.divPage=true;
-					
+					$("span[class=checked]").attr("class","");
 					//autoHeight_fn();
 				}
 				
@@ -233,8 +272,9 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				
 				var tag = window.event.target || window.event.srcElement;
 				
-				$(tag).parent().prev().children("[type=checkbox]").prop("checked",true);
-				
+				$(tag).parent().prev().find("[type=checkbox]").prop("checked",true);
+				$("span[class=checked]").attr("class","");
+				$(tag).parent().prev().find("div").find("span").attr("class","checked");
 				$scope.editTemplate_fn();
 				
 			}
@@ -309,6 +349,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
                 $scope.apptemplate1_title = true;
                 $scope.apptemplate1=true;
                 $scope.divPage=true;
+                $("span[class=checked]").attr("class","");
             }
 			//取消编辑
 			$scope.cancleTemplate_fn = function(){
@@ -319,6 +360,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				$scope.apptemplate1_title = true;
 				$scope.apptemplate1=true;
 				$scope.divPage=true;
+				 $("span[class=checked]").attr("class","");
 			}
 			//提交编辑模板
 			$scope.submitTemplate_fn = function(){
@@ -424,7 +466,17 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				selectPage_aa(1);//查询列表
 			}
 			
-			
+			$scope.searchByCategoryLI_fn = function(event){
+         		event = event ? event : window.event; 
+				var liObj = event.srcElement ? event.srcElement : event.target;
+				var atext = $(liObj).text();
+				$("#choseText").text(atext);
+				var templateCategory = $(liObj).attr("value");
+				$scope.templateCategory = templateCategory;
+				
+				selectPage_aa(1);
+				$("#byCategoryUL").css("display","");
+         	}
 			
 			$(function() {
 				//template高度自适应
@@ -438,6 +490,27 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 					
 					selectPage_aa(1);
 				});
+				
+				//选择页面数据数
+				$("#selectPageSize").change(function(){
+					var psize = this.options[this.options.selectedIndex].value;
+					$scope.pageSize  = psize;
+					
+					selectPage_aa(1);
+				});
+				//跳转到多少页
+				$("#turnAroundPage").click(function(event){
+					
+					var re =  /^[1-9]+[0-9]*]*$/ ;
+					var turnpage = $(this).prev().prev().val();
+					if(re.test(turnpage)){
+						var pageInt = parseInt(turnpage);
+						selectPage_aa(pageInt);
+					}else{
+						alert("请输入正确页码");
+					}
+				});
+				
 				//模态框隐藏
 				$('#myModal').modal('hide');
 				//关闭模态框出发事件
@@ -454,10 +527,10 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 				//复选框的反选
 			    $('#checkbox_1').click(function(){
 			    	
-			    	$('.checkbox_1').each(function () {  
+			    	/*$('.checkbox_1').each(function () {  
 			    		$(this).prop("checked", !$(this).prop("checked"));  
 			    	});
-			    	$('#checkbox_1').prop("checked",false); 
+			    	$('#checkbox_1').prop("checked",false); */
 			    });
 			    //导入模板按钮控制 --移入
 			    $("#uploadTemplateImg").mouseover(function(){

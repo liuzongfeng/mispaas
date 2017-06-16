@@ -1,58 +1,41 @@
 <!DOCTYPE html>
-<html style="height: 100%">
-<head lang="en">
-<meta charset="UTF-8">
-<meta http-equiv="Access-Control-Allow-Origin" content="*">
-<title>租户自服务</title>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-
-<!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<!--<link rel="stylesheet" href="../dist/css/bootstrap-theme.min.css">-->
-<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" type="text/css"
-	href="../css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="../css/design.css">
-<link href="../css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script type="text/javascript" src="../js/bootstrap.min.js"></script>
-<script type="text/javascript"
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>租户自服务</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta name="renderer" content="webkit">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/jstree/dist/themes/default/style.min.css"/>
+    <!-- END THEME STYLES -->
+    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
+	<link href="../assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<!-- <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script> -->
+	<script type="text/javascript"
 	src="../js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript"
+	<script type="text/javascript"
 	src="../js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-<script type="text/javascript" src="../js/angular.min.js"></script>
-<script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
-<script type="text/javascript" src="../js/tree.js"></script>
-<script type="text/javascript" src="../js/Listcontroller.js"></script>
-<script type="text/javascript" src="../js/servicejs/logout.js"></script>
-<script src="../js/auth/auth.js" type="text/javascript"></script>
-<script type="text/javascript"
-	src="../js/servicejs/tenantSelfServicemain.js"></script>
-<!-- 接口js -->
-<script type="text/javascript"
-	src="../js/servicejs/tenantSelfinterface.js"></script>
-<script>
-        function changeFrameHeight(){
-            var ifm= $("body");
-            var divfm= $("#leftiframe");
-            var heighbosy=window.screen.availHeight;
-            var heightdiv=document.documentElement.clientHeight;
-            ifm.css("height",heightdiv-100-82);
-            divfm.css("height",heightdiv-100-82);
-        }
-        window.onload=function(){
-            var heightdiv=document.documentElement.clientHeight;
-            if(heightdiv<=800){
-                var ifm= $("#leftiframe");
-                ifm.css("height","800px");
-            }else{
-                changeFrameHeight();
-            }
-        }
-</script>
-<style>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.ztree.all.min.js"></script>
+	<script type="text/javascript" src="../js/tree.js"></script>
+	<script type="text/javascript" src="../js/Listcontroller.js"></script>
+	<!-- <script type="text/javascript" src="../js/servicejs/logout.js"></script> -->
+	<!-- <script src="../js/auth/auth.js" type="text/javascript"></script> -->
+	<script type="text/javascript"
+		src="../js/servicejs/tenantSelfServicemain.js"></script>
+	<!-- 接口js -->
+	<script type="text/javascript"
+		src="../js/servicejs/tenantSelfinterface.js"></script>
+<style >
 .tabclost {
 	width: 15px;
 	height: 15px;
@@ -127,637 +110,818 @@ ul.log li.dark {
 .ztree li span {font-size: 16px;font-family: Microsoft YaHei;color: #333333;}
 </style>
 </head>
-<body ng-app="listApp" ng-controller="ListCtrl" text="black"
-	style="height: auto; padding-bottom: 0px;padding-top: 0px;height: 100%;" >
-	<!--上边页头 -->
-	<div ng-include="'../pages/header2.html'" style=""></div>
-	<!--页面中间-->
-	<div id="leftiframe" style="height: 90%; padding: 0px;padding-top: 82px;"ng-model="tenantId">
-		<table class="table table-bordered" 
-			style="margin-bottom: 0px;margin-top:0px; border: none; height: 100%;padding: 0px;">
-			<tbody style="border: none; height: 90%">
-				<tr style="border: none; height: 90%">
-					<!--左边导航栏 -->
-					<td
-						style="width: 8.8%; background-color: #21242b; border: none; padding: 0px; height: 100%;border-top: 1px solid;border-bottom: 1px solid">
-						<div id="solso-sidebar" style="width: 100%; padding: 0px;border: none;">
-							
-							<div  id="accordion">
-								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" ng-mouseover="appover()"
-								ng-show="chanpincaidan1" ng-init="chanpincaidan1=false"
-								ng-mouseleave="appleave()">
-									<div ng-show="templateShowpng1" ng-init="templateShowpng1='true'" ng-model="templateShowpng1"
-										style=" width: 27px; height: 27px;background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/templateShow.png" />
-									</div>
-									<div ng-show="templateShowpng2" ng-model="templateShowpng2"
-										style=" width: 27px; height: 27px;background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/appover.png" />
-									</div>
-									<div id="collapseOne"
-										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 80px;margin-left: auto; margin-right: auto;">
-											<span ng-model="appcolor" ng-init="appcolor='#8e9094'" id="appcolor"
-												style="color: {{appcolor}}; font-size: 20px;  font-family: Microsoft YaHei">产品列表</span>
+<body class="page-header-fixed bg-paas"  ng-app="listApp" ng-controller="ListCtrl">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-fixed-top mega-menu d-header">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner d-header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="javascript:void(0)"><img  src="../images/paas/logo.png" alt="logo" class="img-responsive"/></a>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <img src="../assets/img/menu-toggler.png" alt=""/>
+        </a>
+        <a class="navbar-brand" href="javascript:void(0)" style="width:270px;padding-left: 0px;padding-top: 20px;"> 
+        	<img  src="../img/selfServiceLogo.png" alt="logo"  style="width: 244px;height: 29px;margin-left: 0px;"/>
+        	</a>
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                        <span class="username">
+                             你好，{{tenantId}}
+                        </span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-th"></i>管理中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-pencil"></i>修改密码
+                        </a>
+                    </li> -->
+                    <li>
+                        <a href="javascript:void(0)" ng-click="logout();">
+                            <i class="dyicon-logout2"></i>退出
+                            <!--<span class="badge badge-danger">-->
+                            <!--3-->
+                            <!--</span>-->
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <div class="resource-page-sidebar">
+                <ul class="page-sidebar-menu">
+                    <li class="open" ng-click="nListOfGoods()" id="nListOfGoods">
+                        <a href="javascript:;">
+                            <i class="picon-temptenat"></i>
+                            <span class="title">
+                                产品列表
+                            </span>
+                        </a>
+                    </li>
+                    <li  ng-click="nmyApplicationList()" id="nmyApplicationList">
+                        <a href="javascript:;">
+                            <i class="picon-app"></i>
+                            <span class="title">
+                                我的应用
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="page-content-boxborder">
+                <div class="tabbable-custom tabbable-custom-paas">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active" ng-show="ListOfGoodsTab" id="ListOfGoodsTab"
+										   ng-model="ListOfGoodsTab">
+                            <a data-toggle="tab" href="#tab_51_1">
+                                产品列表
+                            </a>
+                        </li>
+                        <li  			  ng-show="DetailsOfGoodsTab" id="DetailsOfGoodsTab"
+									      ng-model="DetailsOfGoodsTab">
+                            <a data-toggle="tab" href="#tab_51_2">
+                                产品信息
+                            </a>
+                        </li>
+                        <li class="active" ng-show="myApplicationListTab" id="myApplicationListTab"
+										 ng-model="myApplicationListTab">
+                            <a data-toggle="tab" href="#tab_51_3">
+                                我的应用
+                            </a>
+                        </li>
+                        <li 				ng-show="myApplicationDetails" id="myApplicationDetails"
+											ng-model="myApplicationDetails">
+                            <a data-toggle="tab" href="#tab_51_5">
+                                  应用详情
+                            </a>
+                        </li>   
+              			<li 				ng-show="myApplicationUsers" id="myApplicationUsers"
+											ng-model="myApplicationUsers">
+                            <a data-toggle="tab" href="#tab_51_4">
+                                  修改用户群
+                            </a>
+                        </li>                           
+                      
+                    </ul>
+                    <div class="tab-content tab-resource">
+                    <!-- 产品列表 -->
+                        <div class="tab-pane fade active in" id="tab_51_1" ng-show="ListOfGoods" ng-model="ListOfGoods">
+                          
+                            <div class="form-toolbar" style="  float: right;">
+                                <div class="toolbar-left" style="margin-bottom: 20px;">
+                                   <div class="btn-group form-search">
+										<div class="input-group" style="width: 216px;height: 57px;">
+						                   <button class="btn btn-default dropdown-toggle" type="button"  id="dropdownMenuStatue"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:216px; font-size: 16px;color: #333;background-color: #f7f7f7;height: 57px;">
+						                       <h id="dropdownMenuStatuetitle">产品分类过滤</h>
+						                       <span class="caret"></span>
+						                   </button>
+						                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+						                   	   <li  style="width: 215px;" ><a href="" ng-click="gettemplateBytemplateCategory('chanpinguolv')">产品分类过滤</a></li>
+						                       <li ng-repeat="temlate in templateCategoryList" style="width: 215px;" ><a href="" ng-click="gettemplateBytemplateCategory(temlate.templateCategory)">{{temlate.templateCategory}}</a></li>
+						                   </ul>
+                						</div>
+                                    </div>
+                                    <div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="产品名称查询" class="form-control" style="color: #333333"
+                                            
+                                            ng-model="productName"
+											ng-init="productName=''"
+											ng-blur="gettemplatesBytemplateName()"
+											ng-keyup="appKeyup($event)">
+                                            <span class="input-group-addon">
+                                                <i class="picon-search"  ng-click="gettemplatesBytemplateName()"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--产品列表-->
+                            <div class="table-content">
+                                <table class="table table-hover table-striped table-bordered table-paas">
+                                    <thead>
+                                    <tr>
+                                    	<th style="width: 25%;padding-bottom: 10px;">产品名称</th>
+										<th style="width: 20%;padding-bottom: 10px;">分类</th>
+										<th style="width: 35%;padding-bottom: 10px;">描述</th>
+										<th style="width: 20%;padding-bottom: 10px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat=" template in templateList">
+                                       <td><a
+											href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
+										<td>{{template.templateCategory}}</td>
+										<td>{{template.templateName}}</td>
+										<td>
+												<button class="btn btn-default btn-paas-slim" style="height: 37px;font-size: 16px;padding: 5px 20px 28px" 
+												type="button" ng-click="BuyGoodsDetails(template.id)"><span style="margin-bottom: 20px;">购买</span></button>
+												</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                            <!--表格部分 结束-->
+                            <div class="main-page">
+                                <div class="page-button">
+                                    <span class="page-number">转到第</span>
+                                    <input type="text" class="input-mini form-control" ng-model="jumppage">
+                                    <span class="page-text">页</span>
+                                    <button ng-click="tepjump()" class="btn btn-default goto-page">跳转</button>
+                                </div>
+                                <!--分页-->
+								<ul class="pagination">
+										<li><a ng-click="tePrevious()">前一页</a></li>
+
+										<li ng-repeat="pi in tepagenum"
+											ng-class="{active: isActivePage(pi)}"><a
+											ng-click="teselectPage(pi)">{{ pi }}</a></li>
+
+										<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+										<li><a ng-click="teNext()">后一页</a></li>
+									</ul>
+                            </div>
+                        </div>
+                      <!-- 应用列表 --> 
+                        <div class="tab-pane fade" id="tab_51_3"  ng-show="myApplicationList" ng-modle="myApplicationList">
+                        	 <div class="form-toolbar" style="float: right;">
+                                <div class="toolbar-left" style="margin-bottom: 20px">
+                                    <div class="btn-group form-search" >
+                                 	<div class="input-group" style="width: 216px;height: 57px;">
+						                   <button class="btn btn-default dropdown-toggle" type="button"  id="dropdownMenuStatue"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:216px; font-size: 16px;color: #333;background-color: #f7f7f7;height: 57px;">
+						                       <h id="appMenuStatuetitle">应用分类过滤</h>
+						                       <span class="caret"></span>
+						                   </button>
+						                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+						                   	   <li  style="width: 215px;" ><a href="" ng-click="getapplicationBytemplateCategory('yingyongguolv')">应用分类过滤</a></li>
+						                       <li ng-repeat="temlate in templateCategoryList" style="width: 215px;" ><a href="" ng-click="getapplicationBytemplateCategory(temlate.templateCategory)">{{temlate.templateCategory}}</a></li>
+						                   </ul>
+                					  </div>
+                				</div>	
+                                <div class="btn-group form-search" >
+                                        <div class="input-group">
+                                            <input type="text" placeholder="应用名称查询" class="form-control"
+                                            style="color: #333333"
+                                            ng-model="instanceName"
+											ng-init="instanceName=''"
+											ng-blur="getapplicationByInstanceName()"
+											ng-keyup="tepKeyup($event)">
+                                            <span class="input-group-addon">
+                                                <i class="picon-search"  ng-click="getapplicationByInstanceName()"></i>
+                                            </span>
+                                        </div>
+                                  </div>
+                                </div>
+             				</div>
+                            <!--表格部分 开始-->
+                            <div class="table-content">
+                                <table class="table table-hover table-striped table-bordered table-paas">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 20%;">应用名称</th>
+										<th style="width: 20%;">分类</th>
+										<th style="width: 20%;">购买日期</th>
+										<th style="width: 20%;">状态</th>
+										<th style="width: 20%;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr ng-repeat="paasOrder in applicationList" >
+											<td
+												ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
+												<a
+												href="#"
+												ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a>
+											</td>
+											<td ng-if="paasOrder.status!=1"><a href="#"
+												ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
+											<td
+												ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">
+												<a
+												href="#"
+												ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a>
+											</td>
+											<td>{{paasOrder.paasTemplate.templateCategory}}</td>
+											<td>{{paasOrder.crateDate}}</td>
+											<td ng-if="paasOrder.status==0">待审核</td>
+											<td
+												ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">已审核</td>
+											<td
+												ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">运行中</td>
+											<td ng-if="paasOrder.status==2">驳回</td>
+											<td ng-if="paasOrder.status==3">撤销</td>
+											<td>													
+												<button class="btn btn-default btn-paas-slim" style="height: 37px;font-size: 16px;padding: 5px 20px 28px" 
+												type="button" ng-click="showApplicationUetails(paasOrder.id)">修改</button>
+												<button class="btn btn-default btn-paas-slim" style="height: 37px;font-size: 16px;padding: 5px 20px 28px" 
+												type="button" ng-click="repealorder(paasOrder.id)">撤销</button>
+											</td>
+										</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                           
+                            <!--表格部分 结束-->
+                            <div class="main-page">
+                              
+                                 <div class="page-button">
+                                    <span class="page-number">转到第</span>
+                                    <input type="text" class="input-mini form-control" ng-model="jumppage">
+                                    <span class="page-text">页</span>
+                                    <button ng-click="appjump()" class="btn btn-default goto-page">跳转</button>
+                                </div>
+                               <ul class="pagination">
+								<li><a ng-click="appPrevious()">&laquo;</a></li>
+
+								<li ng-repeat="pi in pagenum"
+									ng-class="{active: isActivePage(pi)}"><a
+									ng-click="appselectPage(pi)">{{ pi }}</a></li>
+
+								<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
+								<li><a ng-click="appNext()">&raquo;</a></li>
+							</ul>
+                            </div>
+                        </div>
+                        <!-- 产品详情 -->
+                        <div class="tab-pane fade" id="tab_51_2" ng-show="DetailsOfGoodsTab" ng-model="DetailsOfGoodsTab">
+                            <div class="form-horizontal">
+                                <div class="row">
+                                     <span ng-repeat="template in templates">
+										<div class="form-group">
+										<label class="col-md-2 control-label"> <span>产品名称:</span></label>
+											<div class="col-md-5" >
+											<span class="help-inline">{{template.productName}}</span>
+											</div>
+										</div>
+										<div class="form-group">
+										<label class="col-md-2 control-label"><span>版本号:</span></label>
+											<div class="col-md-5" >
+											<span class="help-inline">{{template.version}}</span>
+											</div>
+										</div>
+										<div class="form-group">
+										<label class="col-md-2 control-label"><span>分类:</span></label>
+											<div class="col-md-5" >
+											<span class="help-inline">{{template.templateCategory}}</span>
+											</div>
+										</div>
+									</span>
+									<div class="form-group" ng-show="Details"
+										ng-model="Details">
+										<label class="col-md-2 control-label"><span>选择租户:</span></label>
+										<div class="col-md-5"
+											style="">
+											 <button class="btn btn-default dropdown-toggle" type="button"  id="dropdownMenuStatue"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width:216px; font-size: 16px;color: #333;background-color: #f7f7f7;height: 57px;">
+						                       <h id="userMenuStatuetitle">请选择租户</h>
+						                       <span class="caret"></span>
+						                   </button>
+						                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue" style="margin-left: 15px;">
+						                       <li ng-repeat="tenant in tetantList" style="width: 215px;" ><a href="" ng-click="gettenantByid(tenant[0].id,tenant[0].name)">{{tenant[0].name}}</a></li>
+						                   </ul>
+											<!-- <select class="form-control" ng-model="value"
+												ng-init="value='请选择租户'" style="margin-top: ;font-size: 16px;font-family: Microsoft YaHei;color:#999;height: 40px;"">
+												<option selected="selected">请选择租户</option>
+												<option ng-repeat="tenant in tetantList" value="{{tenant[0].id}}">{{tenant[0].name}}</option>
+											</select> -->
 										</div>
 									</div>
-								</div>
-								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nListOfGoods()" 
-								ng-show="chanpincaidan2" ng-init="chanpincaidan2='true'">
-									<div 
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/appover.png" />
-									</div>
-									<div id="collapseOne"
-										style="margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 80px;margin-left: auto; margin-right: auto;">
-											<span
-												style="color: #458fe9; font-size: 20px;  font-family: Microsoft YaHei">产品列表</span>
-										</div>
-									</div>
-								</div>
-								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" ng-mouseover="insover()"
-								ng-show="yingyongcaidan1" ng-init="yingyongcaidan1='true'"
-								ng-mouseleave="insleave()">
-									<div ng-show="instanceShowpng1" ng-init="instanceShowpng1='true'" ng-model="instanceShowpng1"
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/instanceShow.png" />
-									</div>
-									<div ng-show="instanceShowpng2"  ng-model="instanceShowpng2"
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/instanceover.png" />
-									</div>
-									<div id="collapsetwo"
-										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 80px;margin-left: auto; margin-right: auto;">
-											<span ng-model="inscolor" ng-init="inscolor='#8e9094'" id="inscolor"
-												style="color:{{inscolor}}; font-size: 20px;  font-family: Microsoft YaHei">我的应用</span>
-										</div>
-									</div>
-								</div>
-								<div style="border-bottom: 1px solid #34373e;height: 138px; padding-top: 40px;cursor: pointer;" ng-click="nmyApplicationList()" 
-								ng-show="yingyongcaidan2">
-									<div 
-										style="width: 27px; height: 27px; background-color: #21242b; margin-left: auto; margin-right: auto;">
-										<img alt="" src="../img/instanceover.png" />
-									</div>
-									<div id="collapseOne"
-										style=" margin-top: 14px; margin-left: auto; margin-right: auto;">
-										<div style="width: 80px;margin-left: auto; margin-right: auto;">
-											<span 
-												style="color: #458fe9; font-size: 20px; font-family: Microsoft YaHei">我的应用</span>
-										</div>
-									</div>
-								</div>
-								<!-- <hr style="height: 1px; color: #34373e; padding: 0px;" /> -->
-							</div>
+									<div class="form-group"  ng-show="Details" style="margin-bottom: 5px;">
+									<label class="col-md-2 control-label"><span>设置用户群:</span></label>
+										<div class="col-md-5" style="margin-top: 10px;">
 
-						</div>
-					</td>
-					<!--右侧列表页-->
-					 <td style="width: 80%;height: auto;padding: 30px;background-color: #eff3f6">
-						<div>
-							<table class="table"
-								style="height: 100%; width: 100%; border-width: 1px;">
-								<tbody style="height: 100%; padding: 0px;">
-									<tr style="height: 100%; padding: 2px;">
-										<td
-											style="width: 100%; height: auto; padding: 0px; border-color: #dcdedd;">
-											<ul id="myTab" class="nav nav-tabs"
-												style="background-color: #f7f7f7">
-												<li class="active" ng-show="ListOfGoodsTab"
-													ng-model="ListOfGoodsTab"
-													style="height: 70px; width: 190px; background-color: #f7f7f7">
-						 							
-													<a href="#ListOfGoodsTab" data-toggle="tab" style="height: 70px;border-top: 2px solid #3f8dce;">
-															<img alt="" src="../img/templateShow.png" style="float: left;margin-left: 20px; margin-top: 8px;"/>
-														
-														<div style="float: left; margin-left: 14px;">
-															<h4
-																style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">产品列表</h4>
-														</div>
-													</a>
-													
-													
-												</li>
-												<li class="" ng-show="DetailsOfGoodsTab"
-													ng-model="DetailsOfGoodsTab"
-													style="height: 70px; width: 190px;background-color: #f7f7f7;">
-													<img
-													src="../img/close3.png" class="tabclost"
-													ng-click="closeGoodsDetails()"> 
-													<a href="#DetailsOfGoodsTab" data-toggle="tab" style="height: 70px;">
-														<img alt="" src="../img/xiangqing.png" style="float: left;margin-left: 20px; margin-top: 8px;"/>
-														<div style="float: left; margin-left: 14px;">
-															<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">产品信息</h4>
-														</div>
-														
-												</a>
-												</li>
-												<!-- <li class="" ng-show="ShoopingGoodsTab"
-													ng-model="ShoopingGoodsTab"
-													style="height: 70px; width: 190px">
-													<a
-													href="#ShoopingGoodsTab" data-toggle="tab" style="height: 70px;>
-													<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">产品购买</h4></a>
-												</li> -->
-												<!-- <li class="" ng-show="theBillListTab"
-													ng-model="theBillListTab"
-													style="height: 70px; width: 190px"><a
-													href="#theBillListTab" data-toggle="tab">
-														<h4
-															style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">账单列表</h4>
-												</a></li> -->
-												<li class="" ng-show="myApplicationListTab"
-													ng-model="myApplicationListTab"
-													style="height: 70px; width: 190px">
-													<a href="#myApplicationListTab" data-toggle="tab" style="height: 70px;">
-														<div style="float: left; margin-left: 20px; margin-top: 8px;">
-															<img alt="" src="../img/instanceShow.png" />
-														</div>
-														<div style="float: left; margin-left: 14px;">
-															<h4
-																style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">我的应用</h4>
-														</div>
-												</a></li>
-												<li class="" ng-show="myApplicationDetails"
-													ng-model="myApplicationDetails"
-													style="height: 70px; width: 190px">
-													<img src="../img/close3.png" class="tabclost"
-													ng-click="closeApplicationDetails()"> 
-													<a href="#myApplicationDetails" data-toggle="tab" style="height: 70px;">
-													<div style="float: left; margin-left: 20px; margin-top: 8px;">
-															<img alt="" src="../img/xiangqing.png" />
-													</div>
-													<div style="float: left; margin-left: 14px;">
-													<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">应用详情</h4>
-													</div>
-													</a>
-												</li>
-												<li class="" ng-show="myApplicationUsers"
-													ng-model="myApplicationUsers"
-													style="height: 70px; width: 200px"><img
-													src="../img/close3.png" class="tabclost"
-													ng-click="closemyApplicationUsers()"> 
-													<a href="#myApplicationUsers" data-toggle="tab" style="height: 70px;">
-														<div style="float: left; margin-left: 20px; margin-top: 8px;">
-															<img alt="" src="../img/MRbianji.png" />
-														</div>
-														<div style="float: left; margin-left: 14px;">
-														<h4 style="color: #5e6575; font-size: 20px; font-family: Microsoft YaHei">修改用户群</h4>
-														</div>
-												</a></li>
-											</ul>
-											<div class="tab-content" style="height: auto">
-												<!--产品列表-->
-												<div id="ListOfGoodsTab" class="tab-pane fade in active">
-													<div style="" ng-show="ListOfGoods" ng-model="ListOfGoods">
-														<div style="float: right; margin-top: 10px;">
-															<div style="float: right">
-																<form role="form">
-																	<div style="margin-right: 20px; float: left;margin-top: 30px;">
-																		<div class="form-group"
-																			style="width: 220px;  float: right;height: 46px;">
-																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;height: 46px;"
-																				 id="gettemplateBytemplateCategory" >
-																				<option >产品分类过滤</option>
-																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div style="float: left; margin-right: 30px;margin-top: 30px;">
-																		
-																		<div class="input-group"
-																			style="width: 220px; ">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #333333;font-size: 16px;height: 46px;" 
-																				placeholder="产品名称查询" ng-model="productName"
-																				ng-init="productName=''"
-																				ng-blur="gettemplatesBytemplateName()"> <span
-																				class="input-group-btn">
-																				<button ng-click="gettemplatesBytemplateName()"class="btn btn-default" type="button" style="background-color: #f7f7f7;font-family: Microsoft YaHei;color: #666666;height: 46px;" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'">Go!</button>
-																			</span>
-																		</div>
-																	</div>
-																</form>
-															</div>
-														</div>
-														<div style="padding: 30px;">
-														<table class="table" style="border-top: 1px solid #dededd;border-bottom: 1px solid #dededd;border-left: 1px solid #dededd;border-right:  1px solid #dededd">
-															<thead>
-																<tr style="background-color: #f7f7f7;font-size: 20px;color: #333333;height: 56px;">
-																	<th style="width: 25%;padding-bottom: 10px;">产品名称</th>
-																	<th style="width: 20%;padding-bottom: 10px;">分类</th>
-																	<th style="width: 35%;padding-bottom: 10px;">描述</th>
-																	<th style="width: 20%;padding-bottom: 10px;">操作</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr ng-repeat=" template in templateList" style="font-size: 20px;font-weight: 500;color: #666666;border-color: #eff0f0;font-family: Microsoft YaHei;">
-																	<td><a
-																		href="" ng-click="showGoodsDetails(template.id)">{{template.productName}}</a></td>
-																	<td>{{template.templateCategory}}</td>
-																	<td>{{template.templateName}}</td>
-																	<td><button type="button" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
-																			class="btn btn-default btn-sm" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																			ng-click="BuyGoodsDetails(template.id)">购买</button></td>
-																</tr>
-															</tbody>
-														</table>
-														</div>
-														<!--分页-->
-														<nav aria-label="Page navigation"
-															style="text-align: right; margin-right: 30px;">
-															<ul class="pagination">
-																<li><a ng-click="tePrevious()">&laquo;</a></li>
-
-																<li ng-repeat="pi in tepagenum"
-																	ng-class="{active: isActivePage(pi)}"><a
-																	ng-click="teselectPage(pi)">{{ pi }}</a></li>
-
-																<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
-																<li><a ng-click="teNext()">&raquo;</a></li>
-															</ul>
-														</nav>
-													</div>
-												</div>
-												<!-- 产品详情-->
-												<div id="DetailsOfGoodsTab" class="tab-pane fade">
-													<div style="" ng-show="DetailsOfGoodsTab"
-														ng-model="DetailsOfGoodsTab">
-														<div style="height: 40px;"></div>
-														<div class="form-horizontal">
-															<span ng-repeat="template in templates">
-																<div class="form-group">
-																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><span 
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">产品名称:</span></label>
-																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333" >
-																		{{template.productName}}</div>
-																</div>
-																<div class="form-group">
-																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><span
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">版本号:</span></label>
-																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
-																		{{template.version}}</div>
-																</div>
-																<div class="form-group">
-																	<label for="exampleInputEmail2"
-																		class="col-sm-4 control-label"><span
-																		style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">分类:</span></label>
-																	<div class="col-sm-6" style="margin-top: 8px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;">
-																		{{template.templateCategory}}</div>
-																</div>
-															</span>
-															<div class="form-group" ng-show="Details"
-																ng-model="Details">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">选择租户:</span></label>
-																<div class="col-sm-6"
-																	style="margin-top: 8px; width: 26%;">
-
-																	<select class="form-control" ng-model="value"
-																		ng-init="value='请选择租户'" style="margin-top: ;font-size: 20px;font-family: Microsoft YaHei;color: #333333;height: 40px;">
-																		<option selected="selected">请选择租户</option>
-																		<option ng-repeat="tenant in tetantList" value="{{tenant[0].id}}">{{tenant[0].name}}</option>
-																	</select>
-																</div>
-															</div>
-															<div class="form-group" ng-show="Details">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</span></label>
-																<div class="col-sm-6" style="margin-top: 13px;">
-
-																	<div id="menuContent" class="content_wrap" style="background-color: white;">
-																		<div class="zTreeDemoBackground left" style="background-color: white;">
-																			<ul id="treeDemo1" class="ztree"
-																				style="margin-top: 0; width: 100%;"></ul>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<div class="form-group" style="margin-bottom: 50px;">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"></label>
-																<div class="col-sm-6">
-																	<button ng-show="Details" type="button"
-																		class="btn btn-primary" 
-																		style="margin-top: 20px; margin-right: 20px;font-size: 20px;font-family: Microsoft YaHei;"
-																		ng-click="createOrder()">确认购买</button>
-																	<button ng-show="Details" type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;font-size: 20px;color: #666666;font-family: Microsoft YaHei;"
-																		ng-click="closeGoodsDetails()">取消</button>
-																		<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																		style="margin-top: 20px;margin-left: 20px;background-color: #ededed;width: 80px;font-size: 20px;color: #666666;font-family: Microsoft YaHei;"
-																		ng-click="closeGoodsDetails()">关闭</button>
-																	
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!-- 应用列表-->
-												<div id="myApplicationListTab" class="tab-pane fade">
-													<div style="" ng-show="myApplicationList"
-														ng-modle="myApplicationList ">
-														<div style="float: right; margin-top: 10px;">
-															<div style="float: right">
-																<form role="form">
-																	<div style="margin-right: 20px; float: left;margin-top: 30px;">
-																		<div class="form-group"
-																			style="width: 220px; margin-right: 20px; float: right">
-																			<select class="form-control" style="background-color: #f7f7f7;font-size: 16px;color: #333333;font-family: Microsoft YaHei;height: 46px;"
-																		    id="getapplicationBytemplateCategory">
-																				<option >应用分类过滤</option>
-																				<option ng-repeat="temlate in templateCategoryList">{{temlate.templateCategory}}</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div style="float: left; margin-right: 30px;margin-top: 30px;">
-																		<div class="input-group"
-																			style="width: 220px; float: left;">
-																			<input type="text" class="form-control" style="background-color: #f7f7f7;color: #333333; font-size: 16px; font-family: Microsoft YaHei;height: 46px"
-																				placeholder="应用名称查询" ng-model="instanceName"
-																				ng-init="instanceName=''"
-																				ng-blur="getapplicationByInstanceName()"> <span
-																				class="input-group-btn">
-																				<button ng-click="getapplicationByInstanceName()" class="btn btn-default" type="button" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																				style="background-color: #f7f7f7;height: 46px;">Go</button>
-																			</span>
-																		</div>
-																	</div>
-																</form>
-															</div>
-														</div>
-														<div style="padding: 30px;">
-															<table class="table" style="border-top: 1px solid #dededd;border-bottom: 1px solid #dededd;border-left: 1px solid #dededd;border-right:  1px solid #dededd">
-															<thead>
-																<tr style="background-color: #f7f7f7;font-size: 20px;color: #333333;height: 56px;">
-																	<th style="width: 20%;">应用名称</th>
-																	<th style="width: 20%;">分类</th>
-																	<th style="width: 20%;">购买日期</th>
-																	<th style="width: 20%;">状态</th>
-																	<th style="width: 20%;">操作</th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr ng-repeat="paasOrder in applicationList" style="font-size: 20px;color: #666666;border-color: #eff0f0;font-weight: 500;">
-																	<td
-																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">
-																		<a
-																		href="#"
-																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a>
-																	</td>
-																	<td ng-if="paasOrder.status!=1"><a href="#"
-																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasTemplate.productName}}</a></td>
-																	<td
-																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">
-																		<a
-																		href="#"
-																		ng-click="showApplicationDetails(paasOrder.id)">{{paasOrder.paasInstance.instanceName}}</a>
-																	</td>
-																	<td>{{paasOrder.paasTemplate.templateCategory}}</td>
-																	<td>{{paasOrder.crateDate}}</td>
-																	<td ng-if="paasOrder.status==0">待审核</td>
-																	<td
-																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus!=1">已审核</td>
-																	<td
-																		ng-if="paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1">运行中</td>
-																	<td ng-if="paasOrder.status==2">驳回</td>
-																	<td ng-if="paasOrder.status==3">撤销</td>
-																	<td><button type="button" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																			class="btn btn-default btn-sm" style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
-																			ng-click="showApplicationUetails(paasOrder.id)">修改</button>
-																		<button style="height: 30px;background-color: #f7f7f7;font-size: 16px;color: #666666;font-family: Microsoft YaHei;"
-																			ng-if="!(paasOrder.status==1&&paasOrder.paasInstance.instanceStatus==1)"
-																			type="button" class="btn btn-default btn-sm" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																			ng-click="repealorder(paasOrder.id)">撤销</button></td>
-																</tr>
-															</tbody>
-														</table>
-														</div>
-														<!--分页-->
-														<nav aria-label="Page navigation"
-															style="text-align: right; margin-right: 30px;">
-															<ul class="pagination">
-																<li><a ng-click="appPrevious()">&laquo;</a></li>
-
-																<li ng-repeat="pi in pagenum"
-																	ng-class="{active: isActivePage(pi)}"><a
-																	ng-click="appselectPage(pi)">{{ pi }}</a></li>
-
-																<li><span>共{{pages}}页，{{totalSize}}条记录</span></li>
-																<li><a ng-click="appNext()">&raquo;</a></li>
-															</ul>
-														</nav>
-													</div>
-												</div>
-												<!--修改应用详情-->
-												<div id="myApplicationUsers" class="tab-pane fade">
-													<div style="" ng-show="myApplicationUsers"
-														ng-modle="myApplicationUsers ">
-														<div style="height: 40px;"></div>
-														<div class="form-horizontal">
-
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="chapplicationDetails.paasInstance!=null">
-																	{{chapplicationDetails.paasInstance.instanceName}}</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333"
-																	ng-if="chapplicationDetails.paasInstance==null">
-																	{{chapplicationDetails.paasTemplate.productName}}</div>
-															</div>
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333"
-																	ng-if="chapplicationDetails.paasInstance==null">
-																	待创建</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333"
-																	ng-if="chapplicationDetails.paasInstance.instanceStatus==0">
-																	待创建</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333"
-																	ng-if="chapplicationDetails.paasInstance.instanceStatus==1">
-																	运行中</div>
-															</div>
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
-																<div class="col-sm-6"
-																	style="width: 425px; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
-																	
-																	<table class="table" style="">
-																		<tr style="height: 10%;background-color: #f7f7f7">
-																			<td style="width: 40%"><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
-																			<td style="width: 60%"><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
-																			<td></td>
-																			<td></td>
-																			<td></td>
-																		</tr> 
-																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;font-weight: 500;"
-																			ng-repeat="paasSubservice in chapplicationDetails.paasSubservices">
-																			<td style="width: 40%"><span ></span>{{paasSubservice.moduleName}}</td>
-																			<td style="width: 60%">{{paasSubservice.moduleDes}}</td>
-																			<td></td>
-																			<td></td>
-																			<td></td>
-																		</tr>
-																	</table>
-																</div>
-															</div>
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">设置用户群:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;">
-
-																	<div id="menuContent2" class="content_wrap" style="">
-																		<div class="zTreeDemoBackground left">
-																			<ul id="treeDemo2" class="ztree"
-																				style="margin-top: 0; width: 100%;"></ul>
-																		</div>
-																	</div>
-
-																</div>
-															</div>
-														</div>
-														<div class="form-group" style="margin-bottom: 80px;">
-															<label for="exampleInputEmail2"
-																class="col-sm-4 control-label"></label>
-															<div class="col-sm-6" style="">
-																<button type="button" class="btn btn-primary"
-																	style=" margin-right: 20px;width:80px;font-size: 20px;font-family: Microsoft YaHei;"
-																	ng-click="changeApplicationUser()">保存</button>
-																	<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																		style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
-																		ng-click="closemyApplicationUsers()">取消</button>
-															</div>
-														</div>
-													</div>
-												</div>
-												<!--应用详情-->
-												<div id="myApplicationDetails" class="tab-pane fade">
-													<div style="" ng-show="myApplicationDetails"
-														ng-modle="myApplicationDetails">
-														<div style="height: 40px;"></div>
-														<div class="form-horizontal">
-
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用名称:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="applicationDetails.paasInstance!=null">
-																	{{applicationDetails.paasInstance.instanceName}}</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="applicationDetails.paasInstance==null">
-																	{{applicationDetails.paasTemplate.productName}}</div>
-															</div>
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">状态:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="applicationDetails.paasInstance==null">
-																	待创建</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="applicationDetails.paasInstance.instanceStatus==0">
-																	待创建</div>
-																<div class="col-sm-6" style="margin-top: 10px;font-size: 20px;font-family: Microsoft YaHei;color: #333333;"
-																	ng-if="applicationDetails.paasInstance.instanceStatus==1">
-																	运行中</div>
-															</div>
-															<div class="form-group">
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">应用模块列表:</span></label>
-																<div class="col-sm-6"
-																	style="width: 425px; margin-top: 10px; height: 140px; overflow: auto; padding-right: 0px;">
-																	<table class="table">
-																		<tr style="height: 10%;background-color: #f7f7f7;">
-																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
-																			<td><span style="font-size: 20px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
-																			<td></td>
-																			<td></td>
-																			<td></td>
-																		</tr>
-																		<tr style="height: 10%;border-color: #eff0f0;font-size: 20px;font-family: Microsoft YaHei;color: #666666;font-weight: 500"
-																			ng-repeat="paasSubservice in applicationDetails.paasSubservices">
-																			<td ng-if="applicationDetails.paasInstance==null"><a href="#">{{paasSubservice.moduleName}}</a></td>
-																			<td ng-if="applicationDetails.paasInstance!=null"><a
-																				href="{{http+applicationDetails.paasInstance.pubDns+applicationDetails.paasInstance.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
-																			<td>{{paasSubservice.moduleDes}}</td>
-																			<td></td>
-																			<td></td>
-																			<td></td>
-																		</tr>
-																	</table>
-																</div>
-															</div>
-															<div class="form-group" >
-																<label for="exampleInputEmail2"
-																	class="col-sm-4 control-label"><span
-																	style="font-size: 20px;font-family: Microsoft YaHei;color: #555555">用户群组:</span></label>
-																<div class="col-sm-6" style="margin-top: 10px;">
-																	<div id="menuContent2" class="content_wrap" style="">
-																		<div class="zTreeDemoBackground left">
-																			<ul id="treeDemo3" class="ztree"
-																				style="margin-top: 0; width: 100%;"></ul>
-																		</div>
-																	</div>
-
-																</div>
-															</div>
-														</div>
-														<div class="form-group" style="margin-bottom: 80px;">
-															<label for="exampleInputEmail2"
-																class="col-sm-4 control-label"></label>
-															<div class="col-sm-6" style="margin-top: 10px;">
-																<button type="button" class="btn btn-default" onmouseover="style.backgroundColor='#458fe9'" onmouseout="style.backgroundColor='#f7f7f7'"
-																	style="margin-left: 20px;background-color: #ededed;width:80px;font-size: 20px;font-family: Microsoft YaHei;color: #666666;"
-																	ng-click="closeApplicationDetails()">关闭</button>
-															</div>
-														</div>
-													</div>
+											<div id="menuContent2" class="content_wrap" style="border-color: #e5e5e5;background-color: #ffffff">
+												<div class="zTreeDemoBackground left" style="border-color: #e5e5e5;background-color: #ffffff">
+													<ul id="treeDemo1" class="ztree" style="border-color: #e5e5e5;background-color: #ffffff;width: 100%;"></ul>
 												</div>
 											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<!-- 下边页脚 -->
-	<!-- <div id="footer" ng-include="'../pages/footer.html'"
-	style="width: 100%; padding: 0px;border: none;"></div> -->
-	<!-- 自定义弹窗 -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
-		<div class="modal-dialog" style="width: 460px;height: 230px;">
-			<div class="modal-content" style="width: 460px;height: 230px;">
-				<div style="margin-top: 60px;margin-left: 130px;margin-right: auto;">
-					<div style="width: 60px;height: 60px;float: left;padding-top: 10px;"><img alt="" src="../img/waring2.png" style="height: 50px;width: 50px;"/></div>
-					<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"> 请选择租户! </strong></h3></div>
+										</div>
+									</div>
+										<div class="form-group">
+										 <div class="col-md-5 col-md-offset-2">
+                                            <button  type="button" class="btn btn-info btn-page" ng-show="Details"
+                                            ng-click="createOrder()">确认购买</button>
+                                            <button ng-show="Details" type="button" class="btn btn-default margin-left-20 btn-page"
+                                            ng-click="closeGoodsDetails()">取消</button>
+                                            <button ng-show="!Details" type="button" class="btn btn-default btn-page"
+                                            ng-click="closeGoodsDetails()">关闭</button>
+                                        </div>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 修改应用 -->
+                        <div class="tab-pane fade" id="tab_51_4" >
+                      <div style=""  ng-modle="myApplicationUsers " ng-show="myApplicationUsers">
+								
+								<div class="form-horizontal">
+									<div class="form-group">
+									<label class="col-md-2 control-label"><span>应用名称:</span></label>
+										
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance!=null">
+											<span class="help-inline">{{chapplicationDetails.paasInstance.instanceName}}</span>
+										</div>
+										<div class="col-md-5"
+											ng-if="chapplicationDetails.paasInstance==null">
+											<span class="help-inline">{{chapplicationDetails.paasTemplate.productName}}</span>
+										</div>
+									</div>
+									<div class="form-group">
+									<label class="col-md-2 control-label"><span>状态:</span></label>
+									
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance==null">
+											<span class="help-inline">待创建</span>
+										</div>
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance.instanceStatus==0">
+											<span class="help-inline">待创建</span>
+										</div>
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance.instanceStatus==1">
+											<span class="help-inline">运行中</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label"><span>应用模块列表:</span></label>
+										
+										<div class="col-md-5"
+											style="width:425px;height: 140px; overflow: auto; padding-right: 0px;margin-top: 10px;">
+											
+											<table class="table" style="">
+												<tr style="height: 10%;background-color: #f7f7f7">
+													<td style="width: 40%"><span style="font-size: 16px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
+													<td style="width: 60%"><span style="font-size: 16px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr> 
+												<tr style=" height: 10%;border-color: #eff0f0;font-size: 16px;font-family: Microsoft YaHei;color: #666666;font-weight: 500;"
+													ng-repeat="paasSubservice in chapplicationDetails.paasSubservices">
+													<td style="width: 40%"><span >{{paasSubservice.moduleName}}</span></td>
+													<td style="width: 60%"><span>{{paasSubservice.moduleDes}}</span></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="form-group" style="margin-bottom: 5px;">
+										<label class="col-md-2 control-label"><span>设置用户群:</span></label>
+										<div class="col-md-5" style="margin-top: 10px;">
+
+											<div id="menuContent2" class="content_wrap" style="border-color: #e5e5e5;background-color: #ffffff">
+												<div class="zTreeDemoBackground left" style="border-color: #e5e5e5;background-color: #ffffff">
+													<ul id="treeDemo2" class="ztree" style="border-color: #e5e5e5;background-color: #ffffff;width: 100%;"></ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group" >
+									
+									<div class="col-md-5 col-md-offset-2">
+                                            <button  type="button" class="btn btn-info btn-page"
+                                            ng-click="changeApplicationUser()">保存</button>
+                                            <button  type="button" class="btn btn-default margin-left-20 btn-page"
+                                           ng-click="closemyApplicationUsers()">取消</button>
+                                     </div>
+								</div>
+								</div>
+							</div>
+                          
+                         </div>
+                         <!-- 应用详情 -->
+                       <div class="tab-pane fade active in" id="tab_51_5">
+                      <div  ng-modle="myApplicationDetails" ng-show="myApplicationDetails">
+								
+								<div class="form-horizontal">
+									<div class="form-group">
+									<label class="col-md-2 control-label"><span>应用名称:</span></label>
+										<div class="col-md-5" 
+											ng-if="applicationDetails.paasInstance!=null">
+											<span class="help-inline">{{applicationDetails.paasInstance.instanceName}}</span>
+										</div>
+										<div class="col-md-5"
+											ng-if="applicationDetails.paasInstance==null">
+											<span class="help-inline">{{applicationDetails.paasTemplate.productName}}</span>
+										</div>
+									</div>
+									<div class="form-group">
+									<label class="col-md-2 control-label"><span>状态:</span></label>
+									
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance==null">
+											<span class="help-inline">待创建</span>
+										</div>
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance.instanceStatus==0">
+											<span class="help-inline">待创建</span>
+										</div>
+										<div class="col-md-5" 
+											ng-if="chapplicationDetails.paasInstance.instanceStatus==1">
+											<span class="help-inline">运行中</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label"><span>应用模块列表:</span></label>
+										
+										<div class="col-md-5"
+											style="width:425px;height: 140px; overflow: auto; padding-right: 0px;margin-top: 10px;">
+											
+											<table class="table" style="">
+												<tr style="height: 10%;background-color: #f7f7f7">
+													<td style="width: 40%"><span style="font-size: 16px;font-family: Microsoft YaHei;color: #333333">模块名称</span></td>
+													<td style="width: 60%"><span style="font-size: 16px;font-family: Microsoft YaHei;color: #333333">模块说明</span></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr> 
+												<tr style="height: 10%;border-color: #eff0f0;font-size: 16px;font-family: Microsoft YaHei;color: #666666;font-weight: 500"
+													ng-repeat="paasSubservice in applicationDetails.paasSubservices">
+													<td ng-if="applicationDetails.paasInstance==null"><a href="#">{{paasSubservice.moduleName}}</a></td>
+													<td ng-if="applicationDetails.paasInstance!=null"><a
+														href="{{http+applicationDetails.paasInstance.pubDns+applicationDetails.paasInstance.urlPrefix+paasSubservice.moduleUrl}}">{{paasSubservice.moduleName}}</a></td>
+													<td>{{paasSubservice.moduleDes}}</td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<div class="form-group" style="margin-bottom: 5px;">
+										<label class="col-md-2 control-label"><span>用户群组:</span></label>
+										<div class="col-md-5" style="margin-top: 10px;">
+
+											<div id="menuContent2" class="content_wrap" style="border-color: #e5e5e5;background-color: #ffffff">
+												<div class="zTreeDemoBackground left" style="border-color: #e5e5e5;background-color: #ffffff">
+													<ul id="treeDemo3" class="ztree" style="border-color: #e5e5e5;background-color: #ffffff;width: 100%;"></ul>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="form-group" >
+									
+									<div class="col-md-5 col-md-offset-2">
+                                            <button  type="button" class="btn btn-default  btn-page"
+                                           ng-click="closeApplicationDetails()">关闭</button>
+                                     </div>
+								</div>
+								</div>
+							</div>
+                      </div>
+                     </div>
+                  </div>  
+                </div>
+           </div>
+                <div class="clearfix"></div>
+      </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+ 	</div>
+<div tabindex="-1" class="modal fade in" id="add-user-myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 class="modal-title">设置租户管理员</h4>
+            </div>
+            <div class="modal-body add-user">
+                <div class="set-tree">
+                    <div class="set-title">
+                        <div class="form-search">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="搜索用户" type="text">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-tree-info">
+                        <div id="tree_5" class="tree-demo">
+                            <ul>
+                                <li class="jstree-open">
+                                    本单位
+                                    <ul>
+                                        <li class="jstree-open">
+                                            中科大洋
+                                            <ul>
+                                                <li data-jstree='{ "selected" : "true" , "type" : "file" }'>
+                                                    产品部
+                                                </li>
+                                                <li data-jstree='{ "type" : "file" }'>
+                                                    New node
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li >
+                                            测试
+                                            <ul>
+                                                <li>
+                                                    测试1
+                                                    <ul>
+                                                        <li data-jstree='{ "type" : "file" }'>
+                                                            测试
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-left">
+                    <div class="set-title">
+                        <input type="checkbox" name="role">姓名
+                        <span style="padding-left:70px; ">ID</span>
+                    </div>
+                    <div class="set-left-info">
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-right">
+                    <div class="set-title">已选择(15)</div>
+                    <div class="set-right-info">
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <!--<div class="form-group">
+                    <div class="col-md-5 col-md-offset-2">
+                        <button type="button" class="btn btn-info btn-page">保存</button>
+                        <button type="button" class="btn btn-default margin-left-20 btn-page">取消</button>
+                    </div>
+                </div>-->
+
+                <button class="btn btn-info btn-page" data-dismiss="modal" type="button">确定</button>
+                <button class="btn default margin-left-20 btn-page" data-dismiss="modal" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 自定义弹窗 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 460px;height: 230px;">
+		<div class="modal-content" style="width: 460px;height: 230px;">
+			<div style="margin-top: 60px;margin-left: 130px;margin-right: auto;">
+				<div style="width: 60px;height: 60px;float: left;padding-top: 10px;"><img alt="" src="../img/waring2.png" style="height: 50px;width: 50px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"> 请选择租户! </strong></h3></div>
+			</div>
+			<div style="margin-top: 160px;">
+			<div style="margin-left: 140px;">
+					<button  type="button" class="btn btn-default margin-left-20 btn-page" data-dismiss="modal"
+                        >OK</button>
 				</div>
-				<div style="margin-top: 160px;">
-					<div ><button type="button" class="btn btn-primary" data-dismiss="modal" style="margin-left: 170px;width: 130px;height: 40px;"><span style="font-size: 20px;">OK</span></button></div>
-				</div>
-					
 			</div>
 		</div>
 	</div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 460px;height: 230px;">
+		<div class="modal-content" style="width: 460px;height: 230px;">
+			<div style="margin-top: 60px;margin-left: 130px;margin-right: auto;">
+				<div style="width: 60px;height: 60px;float: left;padding-top: 10px;"><img alt="" src="../img/waring.jpg" style="height: 50px;width: 50px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;"> 修改成功! </strong></h3></div>
+			</div>
+			<div style="margin-top: 160px;">
+			<div style="margin-left: 140px;">
+					<button  type="button" class="btn btn-default margin-left-20 btn-page" data-dismiss="modal"
+                        >OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
 
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="../assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="../assets/scripts/custom/ui-tree.js"></script>
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/core/app.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/scripts/custom/components-dropdowns.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        App.init();//initiate layout and plugins
+        ComponentsDropdowns.init();
+        $('.set-right-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-tree').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $("#add-user").bind('click', function() {
+            $('#add-user-myModal').modal({
+                backdrop:true,
+                keyboard:true,
+                show:true
+            });
+        });
+        UITree.init();
+        $(".page-content-boxborder").height(window.innerHeight - 142);
+    });
+</script>
+<!-- END JAVASCRIPTS -->
 </body>
-
+<!-- END BODY -->
 </html>
