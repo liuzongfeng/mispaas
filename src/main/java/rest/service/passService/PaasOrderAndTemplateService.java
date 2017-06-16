@@ -122,8 +122,10 @@ public class PaasOrderAndTemplateService {
 	public void addInstanceAndOrgShip(@RequestParam(value="ids",required=false)ArrayList<String> ids,@RequestParam("tenantId") String tenantId,
 			@RequestParam("orderId") Integer orderId,
 			@RequestParam(value="names",required=false)ArrayList<String> names){
+		PaasOrder order = passordermapper.selectByPrimaryId(orderId);
+		String tenantId2 = order.getTenantId();
 		PaasOrdTenantOrgR orgR = new PaasOrdTenantOrgR();
-		orgR.setTenantId(tenantId);
+		orgR.setTenantId(tenantId2);
 		orgR.setOrdId(orderId);
 		if(ids!=null){
 			int size = ids.size();
