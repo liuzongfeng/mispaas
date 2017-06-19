@@ -61,7 +61,7 @@ angular.module('auth', []).factory(
 
 				loginPath : '/login',
 				logoutPath : '/logout',
-				homePath : '/',
+				homePath : '/apptemplate2',
 				path : $location.path(),
 
 				authenticate : function(credentials, callback) {

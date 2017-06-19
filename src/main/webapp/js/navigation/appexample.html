@@ -3,7 +3,7 @@
          <!-- 标签页头 -->
          <ul id="myTab" class="nav nav-tabs" ng-show="appTab" style="background-color: #f7f7f7;width:100%;height:70px;">
              <li id="activeExample" ng-show="appexample_title">
-             	<a ng-click="appExample_fn()" style="width:208px;height:70px;padding-top:25px;">
+             	<a ng-click="appExample_fn()" style="width:208px;height:70px;padding-top:20px;border-left:0;">
              		<img alt="应用实例" src="../img/instanceShow.png"  style="padding-left:14px;"/>
              		<span style="padding-left:18px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">应用实例</span>
              	</a>
@@ -13,7 +13,7 @@
                  position: absolute;z-index: 9999;">
                     <img alt="" src="../img/closeTemplate.png" width="15px" height="15px">
                  </button>
-            	<a ng-click="createExample_fn_title()" style="width:208px;height:70px;padding-top:25px;">
+            	<a ng-click="createExample_fn_title()" style="width:208px;height:70px;padding-top:20px;">
             		<img alt="" src="../img/searchTemplate.png" style="padding-left:14px;"/>
             		<span style="padding-left:18px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">查看实例</span>
             	</a>
@@ -25,7 +25,7 @@
                      <img alt="" src="../img/closeTemplate.png" width="15px" height="15px">
                  </button>
 
-                 <a ng-click="editExample_save_fn()" style="width:208px;height:70px;padding-top:25px;">
+                 <a ng-click="editExample_save_fn()" style="width:208px;height:70px;padding-top:20px;">
                  	<img alt="" src="../img/editTemplate.png" style="padding-left:14px;"/>
                  	<span style="padding-left:18px;font-family: Microsoft YaHei;font-size: 20px;color:#5E6575;">编辑实例</span>
                  </a>
@@ -112,14 +112,14 @@
                          	<thead>
                          		<tr style="height: 56px;background-color: #f7f7f7;border-top: 1px solid #dcdedd">
                              		<th >
-	                             		<span class="table-checkbox">
+	                             		<!-- <span class="table-checkbox">
 		                             		<div class="checker">
 		                             			<span>
 		                             				<input id="checkbox_1" class="checkbox_2" type="checkbox" >
 		                             			</span>
 		                             		</div>
 		                             	</span>
-		                             	&nbsp;&nbsp;模板ID
+		                             	&nbsp;&nbsp; -->模板ID
                              		</th>
 		                             <th >版本号</th>
 		                             <th >实例ID</th>
@@ -160,7 +160,7 @@
 						
 					}
 				</script>
-                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
+                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:3px;">
 	            		<p class="page-info">
 		                	<span class="page-size page-text">每页</span>
 		                	<select class="form-control bs-select  page-size page-size-select" id="selectPageSize">
@@ -193,7 +193,7 @@
          	<!-- 编辑实例 -->
 			 <div ng-show="editExample">
 			 
-			 	<form role="form" class="form-horizontal" style="margin-top: 60px;margin-left: 18rem;">
+			 	<form role="form" class="form-horizontal" style="margin-top: 40px;margin-left: 18rem;">
 
                             <div class="form-group" style="width:80rem;">
                                 <label for="templateID1" class="col-md-2 control-label"><span style="font-family: Microsoft YaHei;font-size: 20px;color:#555555;font-weight: 300;">模板ID</span></label>
@@ -255,15 +255,15 @@
 									  <table class="table table-bordered" >
 									    <thead>
 									      <tr style="height: 56px;">
-									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子服务名称</th>
-									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">子路径</th>
-									        <th style="vertical-align: middle;padding-left: 30px;font-size: 20px">是否在Portal显示</th></tr>
+									        <th style="vertical-align: middle;padding-left: 30px;font-weight: 400;font-size: 18px;">子服务名称</th>
+									        <th style="vertical-align: middle;padding-left: 30px;font-weight: 400;font-size: 18px;">子路径</th>
+									        <th style="vertical-align: middle;padding-left: 30px;font-weight: 400;font-size: 18px;">是否在Portal显示</th></tr>
 									    </thead>
 									    <tbody>
 									      <tr ng-repeat="subService in subServices">
-									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleName}}</td>
-									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleUrl}}</td>
-									        <td style="vertical-align: middle;padding-left: 30px;font-size: 20px">{{subService.moduleIsDis}}</td></tr>
+									        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleName}}</td>
+									        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleUrl}}</td>
+									        <td style="vertical-align: middle;padding-left: 30px;">{{subService.moduleIsDis}}</td></tr>
 									     
 									    </tbody>
 									  </table>
