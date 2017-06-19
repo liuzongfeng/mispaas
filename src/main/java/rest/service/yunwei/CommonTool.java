@@ -3,10 +3,20 @@ package rest.service.yunwei;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.springframework.stereotype.Component;
 
 public class CommonTool{
+	
+	public static String obtainUrl(String needKey){
+		
+		Map<String, String> getenv = System.getenv();
+		return getenv.get(needKey);
+	}
+	
 	/**
 	 * 
 	 * @param file to byte[]
