@@ -67,20 +67,17 @@
                 <ul class="dropdown-menu">
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="fa fa-th"></i>管理中心
+                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px;width: 16px;"></i>管理中心
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="fa fa-pencil"></i>修改密码
+                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;"></i>修改密码
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="dyicon-logout2" ng-click="logout()"></i>退出
-                            <!--<span class="badge badge-danger">-->
-                            <!--3-->
-                            <!--</span>-->
+                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;"></i>退出
                         </a>
                     </li>
                 </ul>
@@ -159,10 +156,16 @@
                     <div class="tab-content tab-resource">
                         <div class="tab-pane fade active in" id="Content">
 					        <div class="form-toolbar">
-                                <div class="toolbar-left">
-                                    <button class="btn btn-default" type="button" onclick="showeditmodel('dayang-paas')"><i class="tbicon-edit button-image"></i>修改</button>
-                                    
-                                    <div class="btn-group form-search">
+					        	<div style="height: 57px;">
+	                                <div class="toolbar-left">
+	                                    <button class="btn btn-default" type="button" onclick="showeditmodel('dayang-paas')"><i class="tbicon-edit button-image"></i>修改</button>
+	                                    
+	                                    
+	                                </div>
+                                </div>
+                                <div style="height: 57px; margin-bottom: 40px;">
+                                <div class="toolbar-right">
+                                	<div class="btn-group form-search">
 					                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 57px; width:202px; font-size: 16px;color: #333;background-color: #f7f7f7;">
 					                        <h id="dropdownMenuStatuetitle" ng-model="userMode" >按状态过滤</h>
 					                        <span class="caret"></span>
@@ -195,6 +198,7 @@
                                     </div>
                                     <button type="button" class="btn btn-primary hidden" id="selectBtn" ng-click="selectData(templateName);">查询</button>
                                 </div>
+                                </div>
                             </div>
                             <!--表格部分 开始-->
                             <div class="table-content">
@@ -202,9 +206,9 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            <span class="table-checkbox">
-                                                <input type="checkbox" class="form-control">
-                                            </span>
+<!--                                             <span class="table-checkbox"> -->
+<!--                                                 <input type="checkbox" class="form-control"> -->
+<!--                                             </span> -->
                                             <span>模板ID</span>
                                         </th>
                                         <th>

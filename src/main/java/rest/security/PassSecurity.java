@@ -34,27 +34,27 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
     private CasProperties casProperties;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.authorizeRequests().anyRequest().permitAll();
-//		http.authorizeRequests()
-//			.antMatchers("/testUploadFile").permitAll()
-//			.antMatchers("/css/**","/index").permitAll()
-//			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
-////			.antMatchers("/passService/**").hasRole("ADMIN")
-//			.and()
-//			.formLogin()
-//			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
-//			.and()
-//			.csrf().disable()
-//			;
-//		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
-//		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
-//		.anyRequest().authenticated()
-//		.and().logout().permitAll()
-//		.and().formLogin();
-//		
-//		http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
-//		.and().addFilter(casAuthenticationFilter())
-//		.addFilterBefore(casLogoutFilter(), LogoutFilter.class);
+//		http.authorizeRequests().anyRequest().permitAll();
+		http.authorizeRequests()
+			.antMatchers("/testUploadFile").permitAll()
+			.antMatchers("/css/**","/index").permitAll()
+			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
+//			.antMatchers("/passService/**").hasRole("ADMIN")
+			.and()
+			.formLogin()
+			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
+			.and()
+			.csrf().disable()
+			;
+		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
+		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
+		.anyRequest().authenticated()
+		.and().logout().permitAll()
+		.and().formLogin();
+		
+		http.exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
+		.and().addFilter(casAuthenticationFilter())
+		.addFilterBefore(casLogoutFilter(), LogoutFilter.class);
 		
 		http.csrf().disable();
 		

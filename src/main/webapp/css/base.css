@@ -20,8 +20,8 @@
 @import "../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css";
 @import "../assets/global/plugins/simple-line-icons/simple-line-icons.css";
 @import "../assets/css/custom.css";
-@import "../css/fonts/font-awesome.css";
-@import "../fonts/iconfont.css";
+/* @import "../css/fonts/font-awesome.css"; */
+/* @import "../fonts/iconfont.css"; */
 /*
     custom-global
 */
@@ -1974,6 +1974,9 @@ em {
 }
 .main-page .page-info .btn-group .dropdown-menu li {
   text-align: left;
+}
+.main-page .page-info .btn-group .dropdown-menu li a{
+	width: 57px;
 }
 .main-page .page-info .page-size-select {
   margin-bottom: 0px;
@@ -7157,7 +7160,7 @@ a.editable-click.editable-disabled:hover {
 }
 .form-toolbar .toolbar-right {
   float: right;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 }
 .form-toolbar .toolbar-right .custom-made-form {
   margin-bottom: 0;
