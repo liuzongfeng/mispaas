@@ -35,17 +35,17 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		//http.authorizeRequests().anyRequest().permitAll();
-		http.authorizeRequests()
-			.antMatchers("/testUploadFile").permitAll()
-			.antMatchers("/css/**","/index").permitAll()
-			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
+//		http.authorizeRequests()
+//			.antMatchers("/testUploadFile").permitAll()
+//			.antMatchers("/css/**","/index").permitAll()
+//			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
 //			.antMatchers("/passService/**").hasRole("ADMIN")
-			.and()
-			.formLogin()
-			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
-			.and()
-			.csrf().disable()
-			;
+//			.and()
+//			.formLogin()
+//			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
+//			.and()
+//			.csrf().disable()
+//			;
 		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
 		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
 		.anyRequest().authenticated()
