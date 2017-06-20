@@ -21,6 +21,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 						$scope.instances = response.data.list;   //要展示的数据
 						
 						$scope.totalSize = response.data.total;   //共多少条数据
+						$("#totalSize").text($scope.totalSize);
 						$scope.pageSize = response.data.pageSize;  //每页条数
 						$scope.pages = response.data.pages; //共多少分页数
 						
@@ -380,6 +381,49 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				//高度自适应
 				//instance高度自适应
 				//autoHeight_fn_s();
+				App.init();//initiate layout and plugins
+		        ComponentsDropdowns.init();
+		        $('.set-right-info').slimScroll({
+		            height:  '280px',
+		            color: "rgb(221,221,221)"
+		        });
+		        $('.set-left-tree').slimScroll({
+		            height:  '280px',
+		            color: "rgb(221,221,221)"
+		        });
+		        $('.set-left-info').slimScroll({
+		            height:  '280px',
+		            color: "rgb(221,221,221)"
+		        });
+		        $("#add-user").bind('click', function() {
+		            $('#add-user-myModal').modal({
+		                backdrop:true,
+		                keyboard:true,
+		                show:true
+		            });
+		        });
+		        UITree.init();
+            ///////////////////////////////////////////////////////////////
+		        
+		      
+		        $("button").click(function(){
+        			var title = this.title;
+        			var re =  /^[1-9]+[0-9]*]*$/ ;
+        			if(re.test(title)){
+        				var odiv = $(this).next();
+        				$(this).css("border","0");
+        				odiv.css("display","block");
+        				odiv.find("a").bind("click",function(event){
+        					event = event ? event : window.event; 
+        					var aObj = event.srcElement ? event.srcElement : event.target;
+        					
+        					odiv.css("display","");
+        					
+        					//$("totalSize").text($scope.totalSize);
+        				})
+					}
+        			
+        		});
 				
 				//按分类查询
 				$("#byInstanceStatus").change(function(){

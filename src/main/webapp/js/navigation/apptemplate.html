@@ -127,13 +127,13 @@
 				
 				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:3px;">
             		<p class="page-info">
-	                	<span class="page-size page-text">每页</span>
-	                	<select class="form-control bs-select  page-size page-size-select" id="selectPageSize">
+	                	<span class="page-size page-text">每页</span><!--  -->
+	                	<select class="form-control bs-select  page-size page-size-select " id="selectPageSize" >
 		                    <option value=5>5</option>
 		                    <option value=10>10</option>
 		                    <option value=20>20</option>
 	                	</select>
-	                	<span class="page-size page-text">条</span>共&nbsp;{{totalSize}}&nbsp;条记录
+	                	<span class="page-size page-text">条&nbsp;</span>共<span id="totalSize" ></span>&nbsp;条记录
             		</p>
 	            <div class="page-button">
 	                <span class="page-number">转到第</span>
@@ -150,7 +150,22 @@
 	                <li><a ng-click="Next()">后一页</a></li>
 	            </ul>
         	</div>
-        	
+        	<script type="text/javascript">
+        		var optionOver_fn = function(event){
+        			event = event ? event : window.event; 
+    				var optionObj = event.srcElement ? event.srcElement : event.target;
+    				alert("111");
+    				$(optionObj).css("background","#f5f5f5");
+        		}
+        		var optionOut_fn = function(event){
+        			event = event ? event : window.event; 
+    				var optionObj = event.srcElement ? event.srcElement : event.target;
+    				$(optionObj).css("background","#fff");
+    				alert("222");
+        		}
+        		
+        		
+        	</script>
             		</div>
                  </div>
 				
