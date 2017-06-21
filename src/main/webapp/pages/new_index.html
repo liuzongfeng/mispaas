@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>门户</title>
-    <!-- Bootstrap -->
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/jstree/dist/themes/default/style.min.css"/>
+    <!-- END THEME STYLES -->
+    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
+    
     <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../js/jquery.min.js"></script>
+<!--     <script src="../js/jquery.min.js"></script> -->
     <script src="../dist/js/bootstrap.min.js"></script>
     <script src="../js/docs.min.js"></script>
     <link href="../dist/css/patch.css" rel="stylesheet">
-    <link href="../css/zhangxing.css" rel="stylesheet">
+    <link href="../css/zhangxing_2.css" rel="stylesheet">
     <link href="../dist/css/docs.min.css" rel="stylesheet">
     <!--[if lt IE 9]>-->
     <script src="../js/ie8-responsive-file-warning.js"></script>
@@ -23,188 +28,262 @@
 </head>
 <body ng-app="myapp" ng-controller="myController">
 <div class="head">
-    <div class="leftdiv">
-        <img class="head_logo" src="../img/logopic.png">
-        <div class="head_search">
-            <img class="search_logo" src="../img/search.png">
-            <input type="text" class="head_search_input" id="" placeholder="请输入关键词">
+	<div class="contentClass">
+        <div class="leftdiv">
+            <img class="head_logo" src="../img/LOGO.png">
+            <div class="head_search">
+                <img class="search_logo" src="../img/search.png">
+                <input type="text" class="head_search_input" id="" placeholder="请输入关键词">
+            </div>
+        </div>
+        <div class="rightdiv">
+            <div class="leftsth">
+                <div class="selfCenter">
+                    个人中心
+                </div>
+                <div class="infonum" style="border-radius:8px;">
+                    14
+                </div>
+<!--                 <div class="userinfo_area"> -->
+<!--                     <div class="user_pic"><img data-src="holder.js/35x35" class="img-circle"></div> -->
+<!--                     <div class="user_name" id="username">哈密690371344</div> -->
+<!--                 </div> -->
+                
+                <!-- BEGIN TOP NAVIGATION MENU -->
+		        <ul class="nav navbar-nav pull-right userinfo_area">
+		            <!-- BEGIN USER LOGIN DROPDOWN -->
+		            <li class="dropdown user">
+		                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+		                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+		                        <span class="username" id="username">
+		                             你好，色彩
+		                        </span>
+		                    <i class="fa fa-caret-down"></i>
+		                </a>
+		                <ul class="dropdown-menu">
+		                    <li>
+		                        <a href="javascript:void(0)">
+		                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px; width: 16px;float: left; margin-top: 3px;"></i>管理中心
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="javascript:void(0)">
+		                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;float: left; margin-top: 4px;"></i>修改密码
+		                        </a>
+		                    </li>
+		                    <li>
+		                        <a href="javascript:void(0)">
+		                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;float: left; margin-top: 5px;"></i>退出
+		                        </a>
+		                    </li>
+		                </ul>
+		            </li>
+		            <!-- END USER LOGIN DROPDOWN -->
+		        </ul>
+		        <!-- END TOP NAVIGATION MENU -->
+            </div>
         </div>
     </div>
-   <div class="rightdiv">
-       <div class="leftsth">
-           <div class="userinfo_area">
-               <div class="user_pic"><img data-src="holder.js/35x35" class="img-circle"></div>
-               <div class="user_name" id="username">哈密690371344</div>
-           </div>
-           <div class="fenge">|</div>
-           <div class="logout"><a href="javascript:void(0);" ng-click="logout();" style="color: #FFF;">登出</a></div>
-       </div>
-       <div class="rightsth">
-
-       </div>
-   </div>
 </div>
 <div class="banner">
-    <div class="bannertitle">媒体PaaS平台</div>
-    <div class="bannertitledesc">大洋PaaS平台是基于全新一代移动互联网技术，通过平台化和组件化的方式，帮助企业快速、低成本进行数字化转型的基础IT平台。支撑公司级业务流程的标准化管理和应用灵活扩展。</div>
+	<div class="contentClass">
+    	<div class="bannertitle">媒体PaaS平台</div>
+    	<div class="bannertitledesc">大洋PaaS平台是基于全新一代移动互联网技术，通过平台化和组件化的方式，帮助企业快速、低成本进行数字化转型的基础IT平台。支撑公司级业务流程的标准化管理和应用灵活扩展。</div>
+    </div>
 </div>
 <div class="paasArea">
-    <div class="paastitle">
-        <div class="cntitle">媒体PaaS平台</div>
-        <div class="entitle">MEDIA PAAS PLATFORM</div>
-    </div>
-    <div class="paasmodel">
-        <div class="package">
-        	<a href="#" ng-if="isadmin == 1">
-	            <div class="childModel" style="margin-left: 9px;">
-	                <img src="../img/usermanager.png" class="modelPic">
-	                <div class="Modeltext">
-	                    <div class="descripition">统一用户管理</div>
-	                    <div class="descripition_introduce">管理租户内的用户用户组织机构管理、权限</div>
-	                </div>
-	            </div>
-            </a>
-            <a href="tenantSelfServicemain.html" ng-if="isadmin == 1">
-	            <div class="childModel" style="margin-left: 6px;">
-	                <img src="../img/oneselfservice.png" class="modelPic">
-	                <div class="Modeltext">
-	                    <div class="descripition">租户自服务</div>
-	                    <div class="descripition_introduce">租户使用系统查看产品、购买产品、查看订单</div>
-	                </div>
-	            </div>
-            </a>
-            <a href="index_lzf.html" ng-if="isyunwei == 1">
-	            <div class="childModel" style="margin-left: 6px;">
-	                <img src="../img/yunweimanage.png" class="modelPic">
-	                <div class="Modeltext">
-	                    <div class="descripition">运维管理</div>
-	                    <div class="descripition_introduce">根据租户订单情况，创建应用实例;导入、导出、修改产品模板</div>
-	                </div>
-	            </div>
-            </a>
-            <a href="ProductPages.html" ng-if="isyunyin == 1">
-	            <div class="childModel" style="margin-left: 6px;">
-	                <img src="../img/yunyinmanage.png" class="modelPic">
-	                <div class="Modeltext">
-	                    <div class="descripition">运营管理</div>
-	                    <div class="descripition_introduce">运营人员修改产品发布状态，租户下单情况、审核订单</div>
-	                </div>
-	            </div>
-	        </a>
-        </div>
-    </div>
+	<div class="contentClass">
+	    <div class="paastitle">
+	        <div class="cntitle">媒体PaaS平台</div>
+	        <div class="entitle">MEDIA PAAS PLATFORM</div>
+	    </div>
+	    <div class="paasmodel">
+	        <div class="package">
+	        	<a href="#" ng-if="isadmin == 1">
+		            <div class="childModel" style="margin-left: 0px;">
+		                <img src="../img/usermanager.png" class="modelPic">
+		                <div class="Modeltext">
+		                    <div class="descripition">统一用户管理</div>
+		                    <div class="descripition_introduce">管理租户内的用户用户组织机构管理、权限</div>
+		                </div>
+		            </div>
+	            </a>
+	            <a href="tenantSelfServicemain.html" ng-if="isadmin == 1">
+		            <div class="childModel" style="margin-left: 4px;">
+		                <img src="../img/oneselfservice.png" class="modelPic">
+		                <div class="Modeltext">
+		                    <div class="descripition">租户自服务</div>
+		                    <div class="descripition_introduce">租户使用系统查看产品、购买产品、查看订单</div>
+		                </div>
+		            </div>
+	            </a>
+	            <a href="index_lzf.html" ng-if="isyunwei == 1">
+		            <div class="childModel" style="margin-left: 4px;">
+		                <img src="../img/yunweimanage.png" class="modelPic">
+		                <div class="Modeltext">
+		                    <div class="descripition">运维管理</div>
+		                    <div class="descripition_introduce">根据租户订单情况，创建应用实例;导入、导出、修改产品模板</div>
+		                </div>
+		            </div>
+	            </a>
+	            <a href="ProductPages.html" ng-if="isyunyin == 1">
+		            <div class="childModel" style="margin-left: 4px;">
+		                <img src="../img/yunyinmanage.png" class="modelPic">
+		                <div class="Modeltext">
+		                    <div class="descripition">运营管理</div>
+		                    <div class="descripition_introduce">运营人员修改产品发布状态，租户下单情况、审核订单</div>
+		                </div>
+		            </div>
+		        </a>
+	        </div>
+	    </div>
+	</div>
 </div>
 <div class="creArea">
-    <div class="cretitle">
-        <div class="crecntitle">CRE-融合资源平台</div>
-        <div class="creentitle">CONVERGED RESOURCE ENVIRONMENT</div>
+	<div class="contentClass">
+	    <div class="cretitle">
+	        <div class="crecntitle">CRE-融合资源平台</div>
+	        <div class="creentitle">CONVERGED RESOURCE ENVIRONMENT</div>
+	    </div>
+	    <div class="cremodel">
+	    	<div class="cremodelrow" ng-repeat="x in rows">
+	    		<div class="crechildnode" ng-repeat="n in x track by $index">
+	    		<a href="{{n.moduleUrl}}" style="text-decoration: none;" target="_blank">
+	                <div class="imagearea">
+	                    <img src="data:image/png;base64,{{n.moduleImgName}}"  class="img-circle imgclass">
+	                </div>
+	                <div class="cretextarea">
+	                    <div class="title">{{n.moduleName}}</div>
+	                    <div class="desc">{{n.moduleDes}}</div>
+	                </div>
+	            </a>
+	            </div>
+	    	</div>
+	    </div>
+    	<div class="nullarea"></div>
     </div>
-    <div class="cremodel">
-    	<div class="cremodelrow" ng-repeat="x in rows">
-    		<div class="crechildnode" ng-repeat="n in x track by $index">
-    		<a href="{{n.moduleUrl}}" style="text-decoration: none;" target="_blank">
-                <div class="imagearea">
-                    <img src="data:image/png;base64,{{n.moduleImgName}}"  class="img-circle imgclass">
-                </div>
-                <div class="cretextarea">
-                    <div class="title">{{n.moduleName}}</div>
-                    <div class="desc">{{n.moduleDes}}</div>
-                </div>
-            </a>
-            </div>
-    	</div>
-    </div>
-    <div class="nullarea"></div>
 </div>
 
 <div class="newsArea">
-    <div class="paastitle">
-        <div class="cntitle">大洋新闻</div>
-        <div class="entitle">NEWS</div>
-    </div>
-    <div class="newmodel">
-        <div class="newrow">
-            <div class="newnode">
-                <div class="node">
-                    <div class="img"><img src="../img/baoti.png"></div>
-                    <div class="text">
-                        <div class="texttitle">报题管理</div>
-                        <div class="textdesc">报题管理介绍报题管理报题管理介绍报题管理报题管理介绍</div>
-                    </div>
-                </div>
-            </div>
-            <div class="newnode">
-                <div class="node">
-                    <div class="img"><img src="../img/single.png"></div>
-                    <div class="text">
-                        <div class="texttitle">串联单编排</div>
-                        <div class="textdesc">电视串联单管理、电视串联单管理</div>
-                    </div>
-                </div>
-            </div>
-            <div class="newnode">
-                <div class="node">
-                    <div class="img"><img src="../img/gaojian.png"></div>
-                    <div class="text">
-                        <div class="texttitle">稿件</div>
-                        <div class="textdesc">管理租户内的用户用户组织结构用户组织结构管理、权限</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="newrow">
-            <div class="newnode">
-                <div class="node">
-                    <div class="img"><img src="../img/tongji.png"></div>
-                    <div class="text">
-                        <div class="texttitle">统计</div>
-                        <div class="textdesc">管理新媒体发布，管理新媒体发布管理新媒体发布管理新媒体发布</div>
-                    </div>
-                </div>
-            </div>
-            <div class="newnode">
-                <div class="node">
-                    <div class="img"><img src="../img/newmedia.png"></div>
-                    <div class="text">
-                        <div class="texttitle">新媒体发布</div>
-                        <div class="textdesc">管理新媒体发布，管理新媒体发布管理新媒体发布管理新媒体发布</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="contentClass">
+	    <div class="paastitle">
+	        <div class="cntitle">大洋新闻</div>
+	        <div class="entitle">NEWS</div>
+	    </div>
+	    <div class="newmodel">
+	        <div class="newrow">
+	            <div class="newnode">
+	                <div class="node">
+	                    <div class="img"><img src="../img/baoti.png"></div>
+	                    <div class="text">
+	                        <div class="texttitle">报题管理</div>
+	                        <div class="textdesc">报题管理介绍报题管理报题管理介绍报题管理报题管理介绍</div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="newnode">
+	                <div class="node">
+	                    <div class="img"><img src="../img/single.png"></div>
+	                    <div class="text">
+	                        <div class="texttitle">串联单编排</div>
+	                        <div class="textdesc">电视串联单管理、电视串联单管理</div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="newnode">
+	                <div class="node">
+	                    <div class="img"><img src="../img/gaojian.png"></div>
+	                    <div class="text">
+	                        <div class="texttitle">稿件</div>
+	                        <div class="textdesc">管理租户内的用户用户组织结构用户组织结构管理、权限</div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="newnode">
+	                <div class="node">
+	                    <div class="img"><img src="../img/tongji.png"></div>
+	                    <div class="text">
+	                        <div class="texttitle">统计</div>
+	                        <div class="textdesc">管理新媒体发布，管理新媒体发布管理新媒体发布管理新媒体发布</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="newrow">
+<!-- 	            <div class="newnode"> -->
+<!-- 	                <div class="node"> -->
+<!-- 	                    <div class="img"><img src="../img/tongji.png"></div> -->
+<!-- 	                    <div class="text"> -->
+<!-- 	                        <div class="texttitle">统计</div> -->
+<!-- 	                        <div class="textdesc">管理新媒体发布，管理新媒体发布管理新媒体发布管理新媒体发布</div> -->
+<!-- 	                    </div> -->
+<!-- 	                </div> -->
+<!-- 	            </div> -->
+	            <div class="newnode">
+	                <div class="node">
+	                    <div class="img"><img src="../img/newmedia.png"></div>
+	                    <div class="text">
+	                        <div class="texttitle">新媒体发布</div>
+	                        <div class="textdesc">管理新媒体发布，管理新媒体发布管理新媒体发布管理新媒体发布</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
 <div class="footer">
-    <div class="link">
-        <!--<div class="linkarea">-->
-            <!--<div class="linkmodel">-->
-                <!--<div class="alink">工具</div>-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-                <!--<div class="alink">数据</div>-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-                <!--<div class="alink">开发中心</div>-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-                <!--<div class="alink">关于我们</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="linkarea">-->
-            <!--<div class="linkmodel">-->
-                <!--<div class="alink"><a href="http://www.baidu.com">百度一下</a></div>-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-            <!--</div>-->
-            <!--<div class="linkmodel">-->
-            <!--</div>-->
-        <!--</div>-->
+    <div class="contentClass">
+        <div class="link">
+
+        </div>
+        <div class="cominfo">
+            <div class="cominfoarea">
+                <div class="logoarea"><img src="../img/buttom_logo.png" style="float: right"/></div>
+                <div class="telarea"><img src="../img/tel.png"/><div class="telphone">(010)58985588</div></div>
+                <div class="locarea"><img src="../img/location.png"/><div class="telphone">北京市海淀区中关村软件园11号楼中科大洋大厦</div></div>
+                <div class="fenxiangarea"><div class="telphone">分享&nbsp;&nbsp;&nbsp;</div></div>
+            </div>
+            <div class="erweima">
+                <div class="erweimaimg"><img src="../img/erweima.png"/></div>
+                <div class="fenxiang">
+                    <div class="weixin"></div>
+                    <div class="weibo"></div>
+                    <div class="tenxun"></div>
+                </div>
+            </div>
+        </div>
+        <div class="fengexian">
+            <div class="zhujiao">
+                <p style="margin: 0 0 0 0;">CopyRight@2014-2017</p>
+                <p style="height: 17px;">版权所有：北京中科大洋科技发展股份有限公司 京ICP备06031497号 京公网安备110108004180号</p>
+            </div>
+        </div>
     </div>
-    <div class="fengefu"></div>
 </div>
 </body>
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="../assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="../assets/scripts/custom/ui-tree.js"></script>
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/core/app.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/scripts/custom/components-dropdowns.js"></script>
 <script type="text/javascript">
 	var app=angular.module("myapp",[]);
 	var url="/rest/productService/getIndexPageElement/";
@@ -282,7 +361,8 @@
     	});
     	 $scope.logout=function()
          {
-         	window.location.href= "http://192.168.6.165:8080/logout";
+    		 alert();
+         	window.location.href= "http://192.168.6.23:8080/logout";
 //          	$http.get("/logout").success(function(response){
 //          	});
          }
