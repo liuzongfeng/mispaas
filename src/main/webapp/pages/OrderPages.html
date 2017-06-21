@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>管理中心-租户管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta name="renderer" content="webkit">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/jstree/dist/themes/default/style.min.css"/>
+    <!-- END THEME STYLES -->
+    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
+    <link type="text/css" rel="stylesheet" href="../css/lanrenzhijia.css" />
+	<link rel="stylesheet" type="text/css" href="../css/jquery-ui.css" />
+	<style type="text/css">
+		.tabclost{
+            width: 11px;
+            height: 11px;
+            float: right;
+            position: relative;
+            z-index: 10;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+	</style>
+</head>
+<body class="page-header-fixed bg-paas" ng-app="myapp" ng-controller="myController">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-fixed-top mega-menu d-header">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner d-header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="javascript:void(0)"><img  src="../images/paas/logo.png" alt="logo" class="img-responsive"/></a>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <img src="../assets/img/menu-toggler.png" alt=""/>
+        </a>
+        <!-- BEGIN HORIZANTAL MENU -->
+        <div class="hor-menu hidden-sm hidden-xs">
+            <img src="../images/paas/logo-usermanager.png" alt=""/>
+        </div>
+        <!-- END HORIZANTAL MENU -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                        <span class="username" ng-model="name">
+                             你好，{{name}}
+                        </span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px;width: 16px;"></i>管理中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;"></i>修改密码
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;"></i>退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <div class="resource-page-sidebar">
+                <ul class="page-sidebar-menu">
+                    <li>
+                        <a href="ProductPages.html">
+                            <i class="pro-lessee"></i>
+                            <span class="title">
+                                产品管理
+                            </span>
+                        </a>
+                    </li>
+                    <li class="open">
+                        <a href="OrderPages.html">
+                            <i class="order-lessee"></i>
+                            <span class="title">
+                                订单管理
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="page-content-boxborder">
+                <div class="tabbable-custom tabbable-custom-paas">
+                    <ul class="nav nav-tabs">
+                        <li id="OrderListTab" class="active">
+                            <a data-toggle="tab" href="#OrderList">
+                                订单列表
+                            </a>
+                        </li>
+                        <li id="OrderPassTab" class="hidden">
+                        	<span class="tabclost">
+					    		<a href="javascript:hiddenTab()"><div style="background: url('../img/close3.gif') no-repeat; width: 11px; height: 11px;"></div></a>
+					    	</span>
+                            <a data-toggle="tab" href="#OrderPass">
+                                订单审核
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-resource">
+                        <div class="tab-pane fade active in" id="OrderList">
+                            <div class="form-toolbar">
+<!--                             	<div class="toolbar-left"></div> -->
+                                <div class="toolbar-right">
+	                                <div class="btn-group form-search">
+					                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 57px; width:202px; font-size: 16px;color: #333;background-color: #f7f7f7;margin-left: -18px;">
+					                        <h id="dropdownMenuStatuetitle" ng-model="userMode" data="">按状态过滤</h>
+					                        <span class="caret"></span>
+					                    </button>
+					                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+					                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','按状态过滤','');">按状态过滤</a></li>
+					                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','待审核','0');">待审核</a></li>
+					                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','通过','1');">通过</a></li>
+					                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','驳回','2');">驳回</a></li>
+					                    </ul>
+					                </div>
+					                <div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input type="text" id="startDate" placeholder="起始时间" ng-model="startDate" class="form-control">
+                                            <span class="input-group-addon">
+                                            </span>
+                                        </div>
+                                    </div>
+					                <div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input type="text" id="endDate" placeholder="结束时间" ng-model="endDate" class="form-control">
+                                            <span class="input-group-addon">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input type="text" id="TenantName" ng-model="TenantName" placeholder="租户名称或标识" class="form-control" value="" style="color:#333">
+                                            <span class="input-group-addon">
+                                                <i class="picon-search" ng-click="selectData()"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary hidden" style="width: 100px;" id="selectBtn" ng-click="selectData()">查询</button>
+                                </div>
+                            </div>
+                            <!--表格部分 开始-->
+                            <div class="table-content">
+                                <table class="table table-hover table-striped table-bordered table-paas">
+                                    <thead>
+                                    <tr>
+                                        <th>
+<!--                                             <span class="table-checkbox"> -->
+<!--                                                 <input type="checkbox" class="form-control"> -->
+<!--                                             </span> -->
+                                            <span>订单ID</span>
+                                        </th>
+                                        <th>
+                                            产品名称
+                                        </th>
+                                        <th style="width: 200px">
+                                           下单时间
+                                        </th>
+                                        <th style="width: 150px">
+                                            租户名称
+                                        </th>
+                                        <th>
+                                           状态
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="order in datas">
+                                        <td>
+<!--                                             <span class="table-checkbox"> -->
+<!--                                             	<div class="checker"> -->
+<!--                                             		<span id="span{{order.id}}" class="" onclick="changechecked(this.id)"> -->
+<!--                                             			<input type="checkbox" class="form-control" name="tablecheckbox" value="{{order.id}}"> -->
+<!--                                             		</span> -->
+<!--                                             	</div> -->
+<!--                                             </span> -->
+                                            <span><a href="javascript:showinfo('{{order.id}}');">{{order.billNo}}</a></span>
+                                        </td>
+                                        <td>
+                                            {{order.paasTemplate.templateName}}
+                                        </td>
+                                        <td>
+                                            {{order.crateDate|date:"yyyy-MM-dd HH:mm:ss"}}
+                                        </td>
+                                        <td>
+                                            {{order.tenantName}}
+                                        </td>
+                                        <td ng-if="order.status==0">待审核</td>
+						                <td ng-if="order.status==1">通过</td>
+						                <td ng-if="order.status==2">驳回</td>
+						                <td ng-if="order.status==3">撤销</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--表格部分 结束-->
+                            <div class="main-page">
+                                <p class="page-info">
+                                    <span class="page-size page-text">每页</span>
+                                    <select id="shownum" class="form-control bs-select  page-size page-size-select" onchange="reloadData()">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                    <span class="page-size page-text" ng-model="allCount">条</span>共&nbsp;{{allCount}}&nbsp;条记录
+                                </p>
+                                <div class="page-button">
+                                    <span class="page-number">转到第</span>
+                                    <input type="text" class="input-mini form-control" ng-model="Tzpage">
+                                    <span class="page-text">页</span>
+                                    <button class="btn btn-default goto-page" ng-click="changepage(Tzpage)">跳转</button>
+                                </div>
+                                <ul class="pagination">
+                                    <li>
+					                    <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
+					                        <span aria-hidden="true">上一页</span>
+					                    </a>
+					                </li>
+					                <li id="page{{pi}}" ng-repeat="pi in pageinfo" repeat-finish="renderFinish()"> 
+					                	<a href="javascript:void(0)" ng-click="changepage(pi)">{{pi}}</a>
+					                </li>
+					                <li>
+					                    <a id="next" href="javascript:void(0)" ng-click="changepage(next)" aria-label="Next">
+					                        <span aria-hidden="true">下一页</span>
+					                    </a>
+					                </li>
+					                <li>
+					                    <a id="next" href="javascript:void(0)"aria-label="Next" ng-model="allpage">
+					                    	<span aria-hidden="true">总共{{allpage}}页</span>
+					                    </a>
+					                </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" id="OrderPass">
+                            <div class="form-horizontal">
+                                <div class="row">
+                                	<input type="hidden" value="" id="id">
+	           						<input type="hidden" value="" id="instanceId">
+	           						<input type="hidden" value="" id="proid">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">订单ID<span class="required">*</span></label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="订单ID" class="form-control" id="OrderId" Readonly>
+                                        </div>
+                                        <div class="col-md-5 padding-0">
+                                            <span class="help-inline">填写租户名称，建议使用电视台名称</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">产品名称<span class="required">*</span></label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="产品名称" class="form-control" id="templateName" Readonly>
+                                        </div>
+                                        <div class="col-md-5 padding-0">
+                                            <span class="help-inline">此处采用域名方式进行标记，以便实现多租户登录</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">下单时间</label>
+                                        <div class="col-md-5">
+                                        	<input type="hidden" value="" id="createDateNum">
+                                            <input type="text" placeholder="下单时间" class="form-control" id="CreateDate" Readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">租户名称</label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="租户名称" class="form-control" id="perTenantName" Readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">状态</label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="状态" class="form-control" id="statue" Readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">理由<span class="required">*</span></label>
+                                        <div class="col-md-5">
+											<textarea class="form-control" rows="3" id="resion" style="font-size: 20px;"></textarea>
+                                        </div>
+                                        <div class="col-md-5 padding-0">
+                                            <span class="help-inline">后面部分根据租户标识自动添加，用于开通服务时自动创建租户管理员</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-5 col-md-offset-2">
+                                            <button type="button" id="passbtn" class="btn btn-info btn-page" ng-click="update(1)">通过</button>
+                                            <button type="button" id="refursebtn" class="btn btn-info btn-page" ng-click="update(2)">驳回</button>
+                                            <button type="button" id="close" class="btn btn-default margin-left-20 btn-page"  onclick="hiddenTab()">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<!--<div class="footer">
+    <div class="footer-inner">
+        Copyright &copy;2016 Dayang-itech Inc. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;V0.18.0_Build20161221
+    </div>
+    <div class="scroll-to-top" style="display:block;">
+        <i class="icon-arrow-up"></i>
+    </div>
+    &lt;!&ndash;<div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </span>
+    </div>&ndash;&gt;
+</div>-->
+<!-- END FOOTER -->
+
+<!-- 自定义弹窗 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 540px;height: 290px;">
+		<div class="modal-content" style="width: 540px;height: 290px;">
+			<div style="margin-top: 80px;margin-left: 190px;margin-right: auto;">
+				<div style="width: 40px;height: 40px;float: left;margin-top: 14px;"><img alt="" src="../img/01.png" style="height: 40px;width: 40px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;font-size: 24px;"></strong></h3></div>
+			</div>
+			<div style="margin-top: 210px;">
+				<div class="col-md-5 col-md-offset-2" style="margin-left: 164px;">
+                   <button type="button" class="btn btn-info btn-page" onclick="closemodel()">OK</button>
+               </div>
+			</div>
+				
+		</div>
+	</div>
+</div>
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="../assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="../assets/scripts/custom/ui-tree.js"></script>
+<script src="../js/angular.min.js"></script>
+<script src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="../js/jquery.ui.datepicker-zh-CN.js"></script>
+<script src="../js/jquery-ui-timepicker-addon.js"></script>
+<script src="../js/jquery-ui-timepicker-zh-CN.js"></script>
+<script src="../js/common.js"></script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/core/app.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/scripts/custom/components-dropdowns.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        App.init();//initiate layout and plugins
+        ComponentsDropdowns.init();
+        $('.set-right-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-tree').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $("#add-user").bind('click', function() {
+            $('#add-user-myModal').modal({
+                backdrop:true,
+                keyboard:true,
+                show:true
+            });
+        });
+        UITree.init();
+        $(".page-content-boxborder").height(window.innerHeight - 142);
+    });
+    $("input[id='startDate'],input[id='endDate']").datetimepicker();
+    function reloadData()
+    {
+ 	   $('#selectBtn').click();
+    }
+</script>
+<script>
+    function changedropdown(id,title,value)
+    {
+        $('#'+id).html(title);
+        $('#'+id).attr("data",value);
+        $('#selectBtn').click();
+    }
+    function showinfo(orderid)
+    {
+        $(jsondatas.resultObj).each(function (index,element){
+            if(element.id == orderid)
+            {
+                $('#OrderId').val(element.billNo);
+                $('#templateName').val(element.paasTemplate.templateName);
+                var time2 = new Date(element.crateDate).Format("yyyy-MM-dd hh:mm:ss");
+                $('#createDateNum').val(element.crateDate);
+                $('#CreateDate').val(time2);
+                $('#perTenantName').val(element.tenantId);
+                if(element.status == 0)
+                {
+                	$('#statue').val("待审核");                	
+                }else if(element.status == 1)
+                {
+                	$('#statue').val("通过");
+                }else if(element.status == 2){
+                	$('#statue').val("驳回");
+                }else
+                {
+                	$('#statue').val("撤销");
+                }
+                $('#resion').val(element.approveDescibe);
+                $('#id').val(element.id);
+                $('#instanceId').val(element.instanceId);
+                $('#proid').val(element.proId);
+            }
+        });
+        $('#OrderListTab').attr('class','');
+        $('#OrderPassTab').attr('class','active');
+        $('#OrderPass').attr('class','tab-pane fade in active');
+        $('#OrderList').attr('class','tab-pane fade');
+        changestyle();
+    }
+    function hiddenTab()
+    {
+        $('#OrderListTab').attr('class','active');
+        $('#OrderPassTab').attr('class','hidden');
+        $('#OrderPass').attr('class','tab-pane fade');
+        $('#OrderList').attr('class','tab-pane fade in active');
+        changeothstyle();
+    }
+    function changestyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+    }
+    function changeothstyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+    }
+    $('#TenantName').bind('keyup', function(event) {
+		if (event.keyCode == "13") {
+			$('#selectBtn').click();
+		}
+	});
+    function closemodel()
+    {
+    	$('#myModal').modal("hide");
+    	hiddenTab();
+    	$('#selectBtn').click();
+    }
+    function changechecked(obj){
+ 	   var calssVar=$('#'+obj).attr("class");
+ 	   if(calssVar==""){
+ 		   $('#'+obj).attr("class","checked");
+ 	   }else if(calssVar=="checked")
+ 	   {
+ 		   $('#'+obj).attr("class","");
+ 	   }
+    }
+    function getshowNum(){
+    	return $('#shownum option:selected').val();
+    }
+</script>
+<script>
+    var app=angular.module("myapp",[]);
+    var jsondatas;
+    var pagenum;
+    var userinfo;
+    var url="/rest/orderService/getAllOrder";
+    app.controller('myController', function($scope,$http) {
+    	//获取用户信息
+    	$http.get("/obtainUserInfo").success(function(response){
+    		userinfo=response;
+    		$scope.name=response.name;
+    	});
+    	$scope.logout=function()
+        {
+         	window.location.href= "http://192.168.6.23:8080/logout";
+//          	$http.get("/logout").success(function(response){
+//          	});
+        }
+    	var pageshownum=getshowNum();
+     	var loadurl=url+"?shownum="+pageshownum;
+    	request($http,loadurl);
+        $scope.selectData=function(){
+        	var TenantName=$('#TenantName').val();
+        	var startTime=$('#startDate').val();
+        	var endTime=$('#endDate').val();
+        	var Status=$('#dropdownMenuStatuetitle').attr("data");
+        	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&endTime="+endTime+"&startTime="+startTime+"&page=1";
+        	var pageshownum=getshowNum();
+        	geturl=geturl+"&shownum="+pageshownum;
+        	console.log(geturl);
+        	request($http, geturl);
+        }
+        $scope.changepage=function(page){
+        	if(page!="... " && page != " ...")
+        	{
+        		var TenantName=$('#TenantName').val();
+        		var startTime=$('#startDate').val();
+            	var endTime=$('#endDate').val();
+            	var Status=$('#dropdownMenuStatuetitle').attr("data");
+            	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&endTime="+endTime+"&startTime="+startTime+"&page="+page;
+            	var pageshownum=getshowNum();
+            	geturl=geturl+"&shownum="+pageshownum;
+            	console.log(geturl);
+            	request($http,geturl);
+        	}
+        }
+        function request($http,geturl)
+        {
+        	$http.get(geturl).success(function (response){
+        		$scope.TenantName=response.conditionObj.tenantName;
+            	$scope.statue=response.conditionObj.status;
+            	$scope.createTime=response.conditionObj.crateDate;
+                $scope.datas=response.resultObj;
+                var pagestr=response.pageStr;
+                var arry=pagestr.split(",");
+                $scope.pageinfo=arry;
+                pagenum=response.pagenum;
+                $scope.allCount=response.allCount;
+                $scope.next=response.next;
+                $scope.previous=response.prev;
+                $scope.allpage=response.allpage;
+                $('.pagination li').each(function (index,element){
+                	$(element).removeClass("active");
+                });
+                $('#page'+pagenum).addClass("active");
+                jsondatas=response;
+        	});
+        }
+        $scope.update=function(statue){
+        	if(userinfo==null || userinfo=='undefine')
+        	{
+        		$('#myModal #myModalLabel').html("请先登录！");
+    			$('#myModal').modal("show");
+        	}
+        	var id=$('#id').val();
+        	var perTenantId=$('#perTenantName').val();//获取租户ID 此处获取租户的姓名
+//         	var perTenantId=$('#perTenantName').html();//获取租户ID 此处获取租户的姓名
+        	var resion=$('#resion').val();
+        	var proid=$('#proid').val();
+        	var instanceId=$('#instanceId').val();
+        	var updateUrl="/rest/orderService/updateOrder?userId="+userinfo.username+"&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
+        	console.log(updateUrl);
+        	$http.get(updateUrl).success(function(response){
+        		if(response.code == "success")
+        		{
+        			$('#myModal #myModalLabel').html(response.message);
+        			$('#myModal').modal("show");
+        		}else
+        		{
+        			$('#myModal #myModalLabel').html(response.message);
+        		}
+        	});
+        }
+    });
+    app.directive('repeatFinish',function(){
+        return {
+            link: function(scope,element,attr){
+            	if(parseInt(scope.$index)+1 == pagenum)
+            	{
+            		element.addClass("active");
+            	}
+            }
+        }
+    });
+    app.config(function($compileProvider){//配置这段代码即可
+        //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

@@ -5,6 +5,8 @@
 }
 .dropdown-menu li a {
   color: #666;
+  width: 158px;
+  font-size: 16px;
 }
 .dropdown-menu li a:hover {
   background-color: #ddd;
@@ -94,7 +96,7 @@
   background-color: #E02222 !important;
 }
 /*
-    布局
+    甯冨眬
 */
 /*layout*/
 .layout {
@@ -122,7 +124,7 @@ h6 {
   padding-left: 0px;
 }
 /*
-    定义背景色
+    瀹氫箟鑳屾櫙鑹�
 */
 .bg-fff {
   background: #fff !important;
@@ -138,7 +140,7 @@ h6 {
   background: transparent !important;
 }
 /*
-    浮动样式
+    娴姩鏍峰紡
 */
 .fl {
   float: left;
@@ -150,7 +152,7 @@ h6 {
   float: none;
 }
 /*
-    元素块级定义
+    鍏冪礌鍧楃骇瀹氫箟
 */
 .dis-in-tab {
   display: inline-table;
@@ -165,7 +167,7 @@ h6 {
   display: inline !important;
 }
 /*
-    定义图片、视频、图标的样式
+    瀹氫箟鍥剧墖銆佽棰戙�佸浘鏍囩殑鏍峰紡
 */
 .tiles-img {
   max-width: 106px;
@@ -183,7 +185,7 @@ h6 {
   border: 1px solid #fff;
 }
 /*
-    定义颜色
+    瀹氫箟棰滆壊
 */
 a {
   color: #45b5e9;
@@ -259,7 +261,7 @@ a:active {
   color: #B94A48 !important;
 }
 /*
-    定义字体大小
+    瀹氫箟瀛椾綋澶у皬
 */
 .font-12 {
   font-size: 12px !important;
@@ -280,7 +282,7 @@ a:active {
   font-size: 22px !important;
 }
 /*
-    定义表格边框
+    瀹氫箟琛ㄦ牸杈规
 */
 .border-none {
   border: 0;
@@ -985,7 +987,7 @@ a:active {
   width: 60px;
 }
 /*
-    定义按钮
+    瀹氫箟鎸夐挳
 */
 .btn-group .btn-none {
   background: transparent !important;
@@ -998,19 +1000,19 @@ a:active {
   background: transparent !important;
 }
 /*
-    清除浮动
+    娓呴櫎娴姩
 */
 .clear {
   clear: both;
 }
 /*
-    定义背景色
+    瀹氫箟鑳屾櫙鑹�
 */
 .bg-none {
   background: transparent !important;
 }
 /*
-    定义元素溢出
+    瀹氫箟鍏冪礌婧㈠嚭
 */
 .over-auto {
   overflow: auto;
@@ -1019,7 +1021,7 @@ a:active {
   overflow: hidden;
 }
 /*
-    定义三角形
+    瀹氫箟涓夎褰�
 */
 .triangle {
   -moz-border-bottom-colors: none;
@@ -1052,7 +1054,7 @@ a:active {
   float: right;
 }
 /*
-    定义文字溢出
+    瀹氫箟鏂囧瓧婧㈠嚭
 */
 .to {
   display: inline-block;
@@ -1112,7 +1114,7 @@ td .fold-break {
   width: 200px;
 }
 /*
-    定义margin值
+    瀹氫箟margin鍊�
 */
 .margin-top-0 {
   margin-top: 0px !important;
@@ -1154,7 +1156,7 @@ td .fold-break {
   margin-left: 40px !important;
 }
 /*
-    padding值
+    padding鍊�
 */
 .padding-bottom-10 {
   padding-bottom: 10px;
@@ -1172,7 +1174,7 @@ td .fold-break {
   padding: 0 !important;
 }
 /*
-    水平位置
+    姘村钩浣嶇疆
 */
 .tc {
   text-align: center !important;
@@ -1184,13 +1186,13 @@ td .fold-break {
   text-align: right !important;
 }
 /*
-    最小高度
+    鏈�灏忛珮搴�
 */
 .min-height-500 {
   min-height: 500px;
 }
 /*
-    定位
+    瀹氫綅
 */
 .pr {
   position: relative !important;
@@ -1208,19 +1210,19 @@ td .fold-break {
   position: static !important;
 }
 /*
-    鼠标指针
+    榧犳爣鎸囬拡
 */
 .cursor-pointer {
   cursor: pointer;
 }
 /*
-    下拉按钮
+    涓嬫媺鎸夐挳
 */
 .fa-default {
   padding: 3px 0 2px 0px;
 }
 /*
-    下拉点位置问题
+    涓嬫媺鐐逛綅缃棶棰�
 */
 .table .dropdown-table {
   position: static;
@@ -1247,7 +1249,7 @@ td .fold-break {
   }
 }
 /*
-      删除线
+      鍒犻櫎绾�
   */
 .del-line {
   background: url("../../images/line.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
@@ -1260,14 +1262,14 @@ td .fold-break {
   padding-left: 0 !important;
 }
 /*
-      下横线
+      涓嬫í绾�
   */
 .under-line {
   text-decoration: underline;
   cursor: pointer;
 }
 /*
-      表单
+      琛ㄥ崟
   */
 div.radio {
   margin-left: 0px;
@@ -1297,25 +1299,25 @@ div.radio {
   left: -9px;
 }
 /*
-      定义文本域
+      瀹氫箟鏂囨湰鍩�
   */
 .resize-none {
   resize: none;
 }
 /*
-      表格字号重新定义
+      琛ㄦ牸瀛楀彿閲嶆柊瀹氫箟
   */
 .table-14 {
   font-size: 14px;
 }
 /*
-  定义背景色
+  瀹氫箟鑳屾櫙鑹�
 */
 .badge {
   background: #5BB6E2;
 }
 /*
-  定义a链接颜色
+  瀹氫箟a閾炬帴棰滆壊
 */
 a:focus {
   text-decoration: none;

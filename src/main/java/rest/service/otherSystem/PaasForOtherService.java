@@ -76,7 +76,7 @@ public class PaasForOtherService {
 	@ApiOperation(value="获取组织机构id列表",notes="根据应用实例id和租户id返回组织机构（用户群）;应用实例id为非共享时，租户id可以为空")
 	@RequestMapping(value="/paasService/findOrgidsByInstanceidTenentid",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<String> findOrgidsByInstanceidTenentid(@RequestBody InstanceidTenentid instanceidTenentid){
+	public Message findOrgidsByInstanceidTenentid(@RequestBody InstanceidTenentid instanceidTenentid){
 		
 		/*list=new ArrayList<String>();
 		list.add("11C5EDB2-8B09-4457-BF20-19D5336C8513");
@@ -87,6 +87,9 @@ public class PaasForOtherService {
 		String tenentId = instanceidTenentid.getTenentid();
 		selMap.put("instanceId", instanceId);
 		selMap.put("tenenId", tenentId);
+		if(null == instanceId || "".equals(instanceId)){
+			return	new Message("001","fail:实例id为空" ,new Date(),null);
+		}
 		List<PaasOrdTenantOrgR> resultList = new ArrayList<PaasOrdTenantOrgR>();
 		List<String> resultStrs = new ArrayList<String>();
 		//2.根据实例id 查询模板，判断是否共享
@@ -114,12 +117,14 @@ public class PaasForOtherService {
 								resultStrs.add(r.getOrgId());
 							}
 						}
+					}else{
+					     return	new Message("000","fail:该实例非共享,但租户id为null" ,new Date(),null);
 					}
 				}
 			}
 		}
 		
-		return resultStrs;
+		return new Message("111","success:查询成功" ,new Date(),resultStrs);
 	}
 	
 	/**

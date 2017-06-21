@@ -20,8 +20,8 @@
 @import "../assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css";
 @import "../assets/global/plugins/simple-line-icons/simple-line-icons.css";
 @import "../assets/css/custom.css";
-@import "../css/fonts/font-awesome.css";
-@import "../fonts/iconfont.css";
+/* @import "../css/fonts/font-awesome.css"; */
+/* @import "../fonts/iconfont.css"; */
 /*
     custom-global
 */
@@ -1975,6 +1975,9 @@ em {
 .main-page .page-info .btn-group .dropdown-menu li {
   text-align: left;
 }
+.main-page .page-info .btn-group .dropdown-menu li a{
+	width: 57px;
+}
 .main-page .page-info .page-size-select {
   margin-bottom: 0px;
   width: 60px;
@@ -3702,6 +3705,22 @@ a.editable-click.editable-disabled:hover {
   height: 21px;
   background: url("../images/paas/picon-lessee.png");
 }
+/*产品列表 */
+.resource-page-sidebar ul.page-sidebar-menu > li a i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.pro-lessee {
+  width: 27px;
+  height: 27px;
+  background: url("../images/paas/pro-lessee.png");
+}
+/*订单列表 */
+.resource-page-sidebar ul.page-sidebar-menu > li a i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.order-lessee {
+  width: 27px;
+  height: 27px;
+  background: url("../images/paas/order-lessee.png");
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user {
@@ -3755,6 +3774,18 @@ a.editable-click.editable-disabled:hover {
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee {
   background: url("../images/paas/picon-lessee-hover.png");
 }
+/*产品信息*/
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.pro-lessee {
+  background: url("../images/paas/pro-lessee-hover.png");
+}
+/*订单信息*/
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.order-lessee {
+  background: url("../images/paas/order-lessee-hover.png");
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-user {
@@ -3796,6 +3827,16 @@ a.editable-click.editable-disabled:hover {
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-lessee {
   background: url("../images/paas/picon-lessee-focus.png");
 }
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.pro-lessee {
+  background: url("../images/paas/pro-lessee-focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.order-lessee {
+  background: url("../images/paas/order-lessee-focus.png");
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user {
@@ -3833,6 +3874,15 @@ a.editable-click.editable-disabled:hover {
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee {
   background: url("../images/paas/picon-lessee-focus.png");
+}
+
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.pro-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.pro-lessee {
+  background: url("../images/paas/pro-lessee-focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.order-lessee,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.order-lessee {
+  background: url("../images/paas/order-lessee-focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user {
@@ -7110,7 +7160,7 @@ a.editable-click.editable-disabled:hover {
 }
 .form-toolbar .toolbar-right {
   float: right;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 }
 .form-toolbar .toolbar-right .custom-made-form {
   margin-bottom: 0;
@@ -9145,48 +9195,3 @@ ul.collect-tree .select:hover a {
 }
 .jstree-default .jstree-node{
   width:90%;
-}
-/*zhangpeng*/
-.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-temptenat {
-  width: 27px;
-  height: 27px;
-  background: url("../img/newtempmoren.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-temptenat {
-  background: url("../img/newtemchose.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-temptenat {
-  background: url("../img/newtempover.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-temptenat,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-temptenat {
-  background: url("../img/newtempover.png");
-}
-/*app*/
-.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-app {
-  width: 27px;
-  height: 27px;
-  background: url("../img/newmoren.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-app {
-  background: url("../img/newappChose.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-app {
-  background: url("../img/newappover.png");
-}
-.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-app,
-.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-app {
-  background: url("../img/newappover.png");
-}

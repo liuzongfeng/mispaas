@@ -8,16 +8,19 @@ public class PageUtil {
 	 * 页面初始化
 	 * @param datanum 所有数据条数
 	 * @param page 当前页面
+	 * @param shownum 每页展示数
 	 * 如查询符合条件的条数为10条 当前查看页面第1页
 	 * initpage(10,'1');即可
 	 */
-	public Pageinfo initpage(Integer datanum,String page)
+	public Pageinfo initpage(Integer datanum,String page,Integer shownum)
 	{
 		Pageinfo pageif=new Pageinfo();
-		int pageshownum=10;//每页展示数
+//		int pageshownum=10;//每页展示数
+		int pageshownum=shownum;//每页展示数
 		pageif.setShownum(pageshownum);
 		pageif.setFirstpage(1);
 		Integer allpage=(datanum>0)?(((datanum)%pageshownum==0)?(datanum/pageshownum):(datanum/pageshownum)+1):1;
+		pageif.setAllCount(datanum);
 		pageif.setAllpage(allpage);
 		pageif.setLastpage(allpage);
 		Integer pagenum=0;

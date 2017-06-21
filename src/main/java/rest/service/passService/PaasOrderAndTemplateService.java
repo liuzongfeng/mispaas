@@ -121,7 +121,7 @@ public class PaasOrderAndTemplateService {
 						list.add(paasOrder);
 					}
 			}
-			Pageinfo pi=pageutil.initpage(num, page);
+			Pageinfo pi=pageutil.initpage(num, page,counm);
 			pi.setBegin(num);
 			/*PageInfo pageInfo = new PageInfo(list);*/
 			pi.setResultObj(list);
@@ -186,7 +186,7 @@ public class PaasOrderAndTemplateService {
 				@RequestParam(value="counm",defaultValue="10") Integer counm,HttpServletResponse res){
 				res.setHeader("Access-Control-Allow-Origin", "*");
 				Integer num = paasTemplateMapper.selecttemplateCount(id, productName, templateCategory);
-				Pageinfo pi=pageutil.initpage(num, page.toString());
+				Pageinfo pi=pageutil.initpage(num, page.toString(),counm);
 				pi.setBegin(num);
 				List<PaasTemplate> list = paasTemplateMapper.selectpaasTemplateList(page,id,productName, templateCategory, counm);
 				pi.setResultObj(list);
@@ -219,7 +219,7 @@ public class PaasOrderAndTemplateService {
 							list.add(paasOrder);
 						}
 				}
-				Pageinfo pi=pageutil.initpage(num, page);
+				Pageinfo pi=pageutil.initpage(num, page,counm);
 				
 				/*PageInfo pageInfo = new PageInfo(list);*/
 				pi.setResultObj(list);

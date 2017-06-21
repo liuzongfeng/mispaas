@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>产品管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta name="renderer" content="webkit">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <link href="../assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link rel="stylesheet" type="text/css" href="../assets/plugins/jstree/dist/themes/default/style.min.css"/>
+    <!-- END THEME STYLES -->
+    <link href="../css/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/angular.min.js"></script>
+    <style type="text/css">
+/*       	span.selfbox.checked + span .selfbox:before { */
+/*       		background-position: -38px -260px; */
+/*         } */
+/*         span.selfbox.checked + span .selfbox:after { */
+/*       		background-position: -114px -260px; */
+/*         } */
+/*         div.checker span.selfbox:hover{background-position:-76px -260px} */
+/*         input[type=checkbox]:checked + span.selfbox:after{background-position:-76px -260px}  */
+/*         input[type=checkbox]:checked + span.selfbox:before{background-position:-38px -260px}  */
+        .tabclost{
+            width: 11px;
+            height: 11px;
+            float: right;
+            position: relative;
+            z-index: 10;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="page-header-fixed bg-paas" ng-app="myapp" ng-controller="myController" >
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-fixed-top mega-menu d-header">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner d-header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="javascript:void(0)"><img  src="../images/paas/logo.png" alt="logo" class="img-responsive"/></a>
+        <!-- END LOGO -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <img src="../assets/img/menu-toggler.png" alt=""/>
+        </a>
+        <!-- BEGIN HORIZANTAL MENU -->
+        <div class="hor-menu hidden-sm hidden-xs">
+            <img src="../images/paas/logo-usermanager.png" alt=""/>
+        </div>
+        <!-- END HORIZANTAL MENU -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                        <span class="username" ng-model="name">
+                             你好，{{name}}
+                        </span>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px;width: 16px;"></i>管理中心
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;"></i>修改密码
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;"></i>退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix"></div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <div class="resource-page-sidebar">
+                <ul class="page-sidebar-menu">
+                    <li class="open">
+                        <a href="ProductPages.html">
+                            <i class="pro-lessee"></i>
+                            <span class="title">
+                                产品管理
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="OrderPages.html">
+                            <i class="order-lessee"></i>
+                            <span class="title">
+                                订单管理
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="page-content-boxborder">
+                <!--breadcrumb-->
+                <!-- <ul class="page-breadcrumb breadcrumb">
+                     <li>
+                         <i class="fa fa-home"></i>
+                         用户管理
+                         <i class="fa fa-angle-right"></i>
+                     </li>
+                     <li>
+                         租户管理
+                     </li>
+                 </ul>-->
+                <!--tabbable-custom-->
+                <div class="tabbable-custom tabbable-custom-paas">
+                    <ul class="nav nav-tabs">
+                        <li id="ProductListTab" class="active">
+                            <a data-toggle="tab" href="#Content">
+                                租户管理
+                            </a>
+                        </li>
+                        <li id="editProductTab" class="hidden">
+                        	<span class="tabclost">
+					    		<a href="javascript:hiddenTab()"><div style="background: url('../img/close3.gif') no-repeat; width: 11px; height: 11px;"></div></a>
+					    	</span>
+                            <a data-toggle="tab" href="#editProduct">
+                                编辑产品
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-resource">
+                        <div class="tab-pane fade active in" id="Content">
+					        <div class="form-toolbar">
+					        	<div style="height: 57px;">
+	                                <div class="toolbar-left">
+	                                    <button class="btn btn-default" type="button" onclick="showeditmodel('dayang-paas')"><i class="tbicon-edit button-image"></i>修改</button>
+	                                    
+	                                    
+	                                </div>
+                                </div>
+                                <div style="height: 57px; margin-bottom: 40px;">
+                                <div class="toolbar-right">
+                                	<div class="btn-group form-search">
+					                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuStatue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="height: 57px; width:202px; font-size: 16px;color: #333;background-color: #f7f7f7;">
+					                        <h id="dropdownMenuStatuetitle" ng-model="userMode" >按状态过滤</h>
+					                        <span class="caret"></span>
+					                    </button>
+					                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+					                        <li><a href="javascript:changedropdown('dropdownMenuStatuetitle','按状态过滤');">按状态过滤</a></li>
+					                        <li ng-repeat="userMode in UserModes"><a href="javascript:changedropdown('dropdownMenuStatuetitle','{{userMode}}');">{{userMode}}</a></li>
+					                    </ul>
+					                </div>
+					                
+					                <div class="btn-group form-search">
+					                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuClass" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"  style="height: 57px; width:202px; font-size: 16px;color: #333;background-color: #f7f7f7;">
+					                        <h id="dropdownMenuClasstitle" ng-model=templateCategory>是否已发布</h>
+					                        <span class="caret"></span>
+					                    </button>
+					                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatue">
+					                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','是否已发布');">是否已发布</a></li>
+					                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','已发布');">已发布</a></li>
+					                        <li><a href="javascript:changedropdown('dropdownMenuClasstitle','未发布');">未发布</a></li>
+					                    </ul>
+					                </div>
+					                
+                                    <div class="btn-group form-search">
+                                        <div class="input-group">
+                                            <input type="text" placeholder="租户名称或标识" class="form-control" id="templateName" ng-model="templateName" style="color: #333;">
+                                            <span class="input-group-addon">
+                                                <i class="picon-search" ng-click="selectData(templateName);"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary hidden" id="selectBtn" ng-click="selectData(templateName);">查询</button>
+                                </div>
+                                </div>
+                            </div>
+                            <!--表格部分 开始-->
+                            <div class="table-content">
+                                <table class="table table-hover table-striped table-bordered table-paas">
+                                    <thead>
+                                    <tr>
+                                        <th>
+<!--                                             <span class="table-checkbox"> -->
+<!--                                                 <input type="checkbox" class="form-control"> -->
+<!--                                             </span> -->
+                                            <span>模板ID</span>
+                                        </th>
+                                        <th>
+                                            版本号
+                                        </th>
+                                        <th style="width: 150px">
+                                           产品名称
+                                        </th>
+                                        <th style="width: 150px">
+                                            类型
+                                        </th>
+                                        <th>
+                                            分类
+                                        </th>
+                                        <th style="width: 100px;">
+                                            状态
+                                        </th>
+                                        <th style="width: 200px">
+                                           是否已发布
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="templates in datas">
+                                        <td>
+                                            <span class="table-checkbox">
+                                            	<div class="checker">
+                                            		<span id="span{{templates.id}}" class="" onclick="changechecked(this.id)">
+                                            			<input type="checkbox" class="form-control" name="tablecheckbox" value="{{templates.id}}">
+                                            		</span>
+                                            	</div>
+                                            </span>
+                                            <span>{{templates.templateId}}</span>
+                                        </td>
+                                        <td>
+                                            {{templates.version}}
+                                        </td>
+                                        <td>
+                                            {{templates.templateName}}
+                                        </td>
+                                        <td>
+                                            {{templates.templateType}}
+                                        </td>
+                                        <td>
+                                            {{templates.templateCategory}}
+                                        </td>
+                                        <td>
+                                            {{templates.userMode}}
+                                        </td>
+                                        <td ng-if="templates.isPub == 1">已发布</td>
+                						<td ng-if="templates.isPub == 0">未发布</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--表格部分 结束-->
+                            <div class="main-page">
+                                <p class="page-info">
+                                    <span class="page-size page-text">每页</span>
+                                    <select id="shownum" class="form-control bs-select  page-size page-size-select" onchange="reloadData()">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                    </select>
+                                    <span class="page-size page-text" ng-model="allCount">条</span>共&nbsp;{{allCount}}&nbsp;条记录
+                                </p>
+                                <div class="page-button">
+                                    <span class="page-number">转到第</span>
+                                    <input type="text" class="input-mini form-control" ng-model="Tzpage">
+                                    <span class="page-text">页</span>
+                                    <button class="btn btn-default goto-page" ng-click="changepage(Tzpage)">跳转</button>
+                                </div>
+                                <ul class="pagination">
+	                                <li>
+					                    <a id="previous" href="javascript:void(0)" ng-click="changepage(previous)" aria-label="Previous">
+					                        <span aria-hidden="true">上一页</span>
+					                    </a>
+					                </li>
+					                <li id="page{{pi}}" ng-repeat="pi in pageinfo" repeat-finish="renderFinish()"> 
+					                	<a href="javascript:void(0)" ng-click="changepage(pi)">{{pi}}</a>
+					                </li>
+					                <li>
+					                    <a id="next" href="javascript:void(0)" ng-click="changepage(next)" aria-label="Next">
+					                        <span aria-hidden="true">下一页</span>
+					                    </a>
+					                </li>
+					                <li>
+					                    <a id="next" href="javascript:void(0)"aria-label="Next" ng-model="allpage">
+					                    	<span aria-hidden="true">总共{{allpage}}页</span>
+					                    </a>
+					                </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" id="editProduct">
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">模板ID<span class="required">*</span></label>
+                                        <div class="col-md-5">
+                                        	<input type="hidden" id="id" value="">
+                                            <input type="text" placeholder="模板ID" class="form-control" id="modelId" readonly="readonly">
+                                        </div>
+                                        <div class="col-md-5 padding-0">
+                                            <span class="help-inline">填写租户名称，建议使用电视台名称</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">版本号<span class="required">*</span></label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="版本号" class="form-control" id="versionId" Readonly>
+                                        </div>
+                                        <div class="col-md-5 padding-0">
+                                            <span class="help-inline">此处采用域名方式进行标记，以便实现多租户登录</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">类型</label>
+                                        <div class="col-md-5">
+                                            <input type="text" placeholder="类型" Readonly class="form-control" id="producttype" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">产品名称</label>
+                                        <div class="col-md-5">
+                                            <input type="text" id="ProductName" placeholder="产品名称" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">分类</label>
+                                        <div class="col-md-5">
+                                            <input type="text" id="productClass" placeholder="分类" Readonly class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                     	<label class="col-md-2 control-label"></label>
+                                        <div class="col-md-5">
+                                        	<span class="table-checkbox">
+                                            	<div class="checker">
+                                            		<span id="ispubspan" class="" onclick="changechecked('ispubspan')">
+                                            			<input type="checkbox" class="form-control" id="ispub">
+                                            		</span>
+                                            	</div>
+                                            </span>
+<!--                                         	<span class="table-checkbox" id="ispubSpan"> -->
+<!--                                                 <input type="checkbox" class="form-control" id="ispub"> -->
+<!--                                             </span> -->
+                                            <span style="font-size: 20px;color:#555;">向租户发布</span>
+                                        </div>
+						            </div>
+                                    <div class="form-group">
+                                        <div class="col-md-5 col-md-offset-2">
+                                            <button type="button" class="btn btn-info btn-page" ng-click="edittemplate()">保存</button>
+                                            <button type="button" class="btn btn-default margin-left-20 btn-page" onclick="hiddenTab()">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<!--<div class="footer">
+    <div class="footer-inner">
+        Copyright &copy;2016 Dayang-itech Inc. All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;V0.18.0_Build20161221
+    </div>
+    <div class="scroll-to-top" style="display:block;">
+        <i class="icon-arrow-up"></i>
+    </div>
+    &lt;!&ndash;<div class="footer-tools">
+            <span class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </span>
+    </div>&ndash;&gt;
+</div>-->
+<!-- END FOOTER -->
+<!-- 自定义弹窗 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true" style="padding-top: 15%;">
+	<div class="modal-dialog" style="width: 540px;height: 290px;">
+		<div class="modal-content" style="width: 540px;height: 290px;">
+			<div style="margin-top: 80px;margin-left: 190px;margin-right: auto;">
+				<div style="width: 40px;height: 40px;float: left;margin-top: 14px;"><img alt="" src="../img/01.png" style="height: 40px;width: 40px;"/></div>
+				<div style="float: left;margin-left: 10px;"><h3><strong  id="myModalLabel" style="color: #333333;font-variant: small-caps;font-size: 24px;"></strong></h3></div>
+			</div>
+			<div style="margin-top: 210px;">
+				<div class="col-md-5 col-md-offset-2" style="margin-left: 164px;">
+                   <button type="button" class="btn btn-info btn-page" onclick="closemodel()">OK</button>
+               </div>
+			</div>
+				
+		</div>
+	</div>
+</div>
+<!--[if lt IE 9]>
+<script src="../assets/plugins/respond.min.js"></script>
+<script src="../assets/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="../assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="../assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="../assets/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script src="../assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="../assets/scripts/custom/ui-tree.js"></script>
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="../assets/scripts/core/app.js" type="text/javascript"></script>
+<script type="text/javascript" src="../assets/scripts/custom/components-dropdowns.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        App.init();//initiate layout and plugins
+        ComponentsDropdowns.init();
+        $('.set-right-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-tree').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+        $('.set-left-info').slimScroll({
+            height:  '280px',
+            color: "rgb(221,221,221)"
+        });
+//         $("#add-user").bind('click', function() {
+//             $('#add-user-myModal').modal({
+//                 backdrop:true,
+//                 keyboard:true,
+//                 show:true
+//             });
+//         });
+        UITree.init();
+        $(".page-content-boxborder").height(window.innerHeight - 142);
+    });
+   function changechecked(obj){
+	   var calssVar=$('#'+obj).attr("class");
+	   if(calssVar==""){
+		   $('#'+obj).attr("class","checked");
+	   }else if(calssVar=="checked")
+	   {
+		   $('#'+obj).attr("class","");
+	   }
+   }
+   function closemodel()
+   {
+   		$('#myModal').modal("hide");
+   }
+   
+   function reloadData()
+   {
+	   $('#selectBtn').click();
+   }
+</script>
+<script>
+    function changedropdown(id,title)
+    {
+        $('#'+id).html(title);
+        $('#selectBtn').click();
+    }
+    function showeditmodel(id)
+    {
+    	var id=""
+    	var i=0;
+    	$('input[name=tablecheckbox]:checked').each(function(){
+    		id+=$(this).val();
+    		i++;
+    	})
+    	console.log(id);
+    	if(i == 0 || i>1){
+    		$('#myModal #myModalLabel').html("请选择一条记录！");
+			$('#myModal').modal("show");
+    	}else{
+    		$(jsondatas.resultObj).each(function (index,element){
+                if(element.id == id)
+                {
+                    $('#id').attr("value",element.id);
+                    $('#modelId').attr("value",element.templateId);
+                    $('#versionId').attr("value",element.version);
+                    $('#producttype').attr("value",element.templateType);
+                    $('#ProductName').attr("value",element.templateName);
+                    $('#productClass').attr("value",element.templateCategory);
+                    if(element.isPub == '1')
+                    {
+                        $('#ispub').attr("checked","true");
+                        $('#ispubspan').attr("class","checked");
+                    }else
+                    {
+                        $('#ispub').removeAttr("checked");
+                        $('#ispubspan').attr("class","");
+                    }
+                }
+            })
+            $('#ProductListTab').attr('class','');
+            $('#editProductTab').attr('class','active');
+            $('#editProduct').attr('class','tab-pane fade in active');
+            $('#Content').attr('class','tab-pane fade');
+            changestyle();
+    	}
+    }
+    function hiddenTab()
+    {
+        $('#ProductListTab').attr('class','active');
+        $('#editProductTab').attr('class','hidden');
+        $('#editProduct').attr('class','tab-pane fade');
+        $('#Content').attr('class','tab-pane fade in active');
+        changeothstyle();
+//         $('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;")
+//         $('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;")
+    }
+    function changestyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+    }
+    function changeothstyle()
+    {
+    	$('#cententa').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;border-top:2px solid #3f8dce;");
+     	$('#editproducta').attr("style","width: 190px;height: 70px; border-left: none;border-right: none;");
+    }
+    $('#templateName').bind('keyup', function(event) {
+		if (event.keyCode == "13") {
+			$('#selectBtn').click();
+		}
+	});
+    function closemodel()
+    {
+    	$('#myModal').modal("hide");
+    	hiddenTab();
+    	$('#selectBtn').click();
+    }
+    function getshowNum(){
+    	return $('#shownum option:selected').val();
+    }
+</script>
+<script>
+    var app=angular.module("myapp",[]);
+    var jsondatas;
+    var url="/rest/productService/getAllproduct";
+    var pagenum;
+    var userinfo;
+    app.controller('myController', function($scope,$http) {
+    	//获取用户信息
+    	$http.get("/obtainUserInfo").success(function(response){
+    		userinfo=response;
+    		$scope.name=response.name;
+    	});
+    	var pageshownum=getshowNum();
+    	var loadurl=url+"?shownum="+pageshownum;
+    	request($http,loadurl);
+    	loadFilterInfo();
+        $scope.selectData=function (templateName){
+//         	var userMode=$('#dropdownMenuStatuetitle').html();
+//         	var templateCategory=$('#dropdownMenuClasstitle').html();
+			var userMode=($('#dropdownMenuStatuetitle').html()=="按状态过滤")?"":$('#dropdownMenuStatuetitle').html();
+        	var templateCategory=($('#dropdownMenuClasstitle').html()=="是否已发布")?"":$('#dropdownMenuClasstitle').html();
+        	if(templateCategory!="")
+        	{
+        		templateCategory=(templateCategory=="已发布"?1:0);	
+        	}
+        	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page=1";
+        	var pageshownum=getshowNum();
+        	geturl=geturl+"&shownum="+pageshownum;
+        	request($http,geturl)
+        };
+        $scope.changepage=function(page){
+        	if(page!="... " && page != " ...")
+        	{
+        		var templateName=$('#templateName').val();
+            	var userMode=($('#dropdownMenuStatuetitle').html()=="按状态过滤")?"":$('#dropdownMenuStatuetitle').html();
+            	var templateCategory=($('#dropdownMenuClasstitle').html()=="是否已发布")?"":$('#dropdownMenuClasstitle').html();
+            	if(templateCategory!="")
+            	{
+            		templateCategory=(templateCategory=="已发布"?1:0);	
+            	}
+            	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page="+page;
+            	var pageshownum=getshowNum();
+            	geturl=geturl+"&shownum="+pageshownum;
+            	console.log(geturl);
+            	request($http,geturl);
+        	}
+        }
+        function request($http,geturl)
+        {
+        	console.log(geturl);
+        	$http.get(geturl).success(function (response){
+        		$scope.templateName=response.conditionObj.templateName;
+            	$scope.userMode=response.conditionObj.userMode;
+            	$scope.templateCategory=response.conditionObj.templateCategory;
+                $scope.datas=response.resultObj;
+                var pagestr=response.pageStr;
+                var arry=pagestr.split(",");
+                $scope.pageinfo=arry;
+                console.log(response);
+                pagenum=response.pagenum;
+                $scope.allCount=response.allCount;
+                $scope.next=response.next;
+                $scope.previous=response.prev;
+                $scope.allpage=response.allpage;
+                $('.pagination li').each(function (index,element){
+                	$(element).removeClass("active");
+                });
+                $('#page'+pagenum).addClass("active");
+//                 var pagestr="";
+//                 pagestr+='<li><a id="previous" href="javascript:void(0)" ng-click="changepage('+response.prev+')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+//                 $(arry).each(function(index,element){
+//                 	if(element == response.pagenum)
+//                 	{
+//                 		pagestr+='<li class="active"><a href="javascript:void(0)" ng-click="changepage('+element+')">'+element+'</a></li>';
+//                 	}else
+//                 	{
+//                 		pagestr+='<li><a href="javascript:void(0)" ng-click="changepage('+element+')">'+element+'</a></li>';	
+//                 	}
+//                 });
+//                 pagestr+='<li><a id="next" href="javascript:void(0)" ng-click="changepage('+response.next+')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
+//                 $(".pagination").html(pagestr);
+// 				$('#page'+pagenum).attr("class","active");
+                jsondatas=response;
+        	});
+        }
+        $scope.edittemplate=function()
+        {
+        	var id=$('#editProduct #id').val();
+        	var templateId=$('#editProduct #modelId').val();
+        	var Version=$('#editProduct #versionId').val();
+        	var templateType=$('#editProduct #producttype').val();
+        	var templateName=$('#editProduct #ProductName').val();
+        	var templateCategory=$('#editProduct #productClass').val();
+        	var isPub=($('#editProduct #ispub').is(":checked"))?1:0;
+        	var editurl="/rest/productService/editProduct?id="+id+"&templateId="+templateId+"&Version="+Version+"&templateType="+templateType+"&templateName="+templateName+"&templateCategory="+templateCategory+"&isPub="+isPub;
+        	$http.get(editurl).success(function(response){
+        		console.log(response);
+        		if(response.code == "success")
+        		{
+        			$('#myModal #myModalLabel').html(response.message);
+        			$('#myModal').modal("show");
+        		}
+        	});
+        }
+        //加载页面过滤信息
+        function loadFilterInfo()
+        {
+        	var filterurl="/rest/productService/getTypeAndCategory";
+        	$http.get(filterurl).success(function(response){
+        		$scope.UserModes=response.usermode;
+        		$scope.CateGorys=response.category;
+        	});
+        }
+        $scope.logout=function()
+        {
+        	window.location.href= "http://localhost:8080/logout";
+//         	$http.get("/logout").success(function(response){
+//         	});
+        }
+    });
+    app.directive('repeatFinish',function(){
+        return {
+            link: function(scope,element,attr){
+            	if(parseInt(scope.$index)+1 == pagenum)
+            	{
+            		element.addClass("active");
+            	}
+            }
+        }
+    });
+    app.config(function($compileProvider){//配置这段代码即可
+        //注:有些版本的angularjs为$compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);,两种都试一下可以即可
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|javascript):/);
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

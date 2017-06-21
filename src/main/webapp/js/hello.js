@@ -7,8 +7,8 @@ var hello1 = angular
 					$locationProvider.html5Mode(true);
 
 					$routeProvider.when('/', {
-						templateUrl : '../js/home/home.html',
-						controller : 'home',
+						templateUrl : '../js/navigation/apptemplate.html',
+						controller : 'apptemplate',
 						controllerAs : 'controller'
 					}).when('/message', {
 						templateUrl : '../js/message/message.html',

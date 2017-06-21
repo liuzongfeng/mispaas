@@ -6,7 +6,11 @@
   display: inline-block;
   padding: 19px 0px 19px 6px !important;
 }
-
+.page-sidebar.navbar-collapse {
+  width: 170px;
+  background-color: #21252D;
+  position: fixed;
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a {
@@ -25,6 +29,18 @@
   height: 27px;
   background: url("../img/template_show.png");
 }
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-lessee2,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee2,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee2 {
+  width: 26px;
+  height: 27px;
+  background: url("../img/template_focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a span.title2,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a span.title2,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a span.title2 {
+  color:#458FE9;
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
@@ -32,10 +48,23 @@
   height: 27px;
   background: url("../img/instance_show.png");
 }
+.resource-page-sidebar ul.page-sidebar-menu > li a i.picon-user2,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user2,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user2 {
+  width: 28px;
+  height: 27px;
+  background: url("../img/instance_focus.png");
+}
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee1 {
   background: url("../img/template_hover.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-lessee2,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-lessee2,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee2 {
+  background: url("../img/template_focus.png");
+  
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-user1,
@@ -47,9 +76,15 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-lessee1 {
   background: url("../img/template_focus.png");
 }
+
 .resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user1 {
+  background: url("../img/instance_focus.png");
+}
+.resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user2,
+.resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user2,
+.resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user2 {
   background: url("../img/instance_focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee1,
@@ -59,6 +94,14 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
   background: url("../img/instance_show.png");
+}
+option {
+  background: #f5f5f5;
+  border-color: #F5F5F5;
+}
+option:hover {
+  background: #fff;
+  border-color: #999;
 }
 
 thead > tr > th{
