@@ -10,14 +10,14 @@
     border-bottom: 1px solid #424861;
 }
 .leftdiv{
-    height: 80px;
-    width: 80%;
+    height: 67px;
+    width: 83%;
     float: left;
 
 }
 .rightdiv{
     height: 80px;
-    width: 20%;
+    width: 17%;
     float: right;
 }
 .head_logo{
@@ -29,7 +29,7 @@
 .head_search{
 /*     height: 4rem; */
     height: 40px;
-    width: 27%;
+    width: 23%;
     /*margin-left: 59rem;*/
 /*     margin-top: 1.5rem; */
     margin-top: 15px;
@@ -178,7 +178,7 @@
     background-color: #eceef4;
 }
 .paastitle{
-    height: 10.3rem;
+    height: 9.1rem;
     margin: 80px 0px auto;
     font-family: 鏂规鍏颁涵榛戠畝浣�;
     font-size: 50px;
@@ -192,7 +192,7 @@
 }
 .entitle{
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 20px;
     color: #333333;
     filter: Alpha(Opacity=20); opacity: 0.7;
@@ -249,7 +249,7 @@
     background-color: #FFFFFF;
 }
 .cretitle {
-    height: 250px;
+    height: 240px;
     /*font-family: 鏂规鍏颁涵榛戠畝浣�;*/
     border-top: 1px solid #FFFFFF;
 }
@@ -267,6 +267,7 @@
     color: #333333;
     filter: Alpha(Opacity=20); opacity: 0.7;
     margin-bottom: 60px;
+    margin-top: 6px;
 }
 .imgclass{
     width: 166px;
@@ -295,6 +296,7 @@
 }
 .crechildnode:hover{
     background-color: #F6F6F6;
+    border: 1px solid #e7e7e7;
 }
 .imagearea{
     margin: 20px 0px auto;
@@ -386,7 +388,7 @@
     border-top: 1px solid #eceef4;
     /*border: 1px solid red;*/
     margin: 0 auto;
-    height: 1054px;
+    height: 1039px;
     background-color: #eceef4;
 }
 .footer{
