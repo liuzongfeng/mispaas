@@ -95,6 +95,14 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
   background: url("../img/instance_show.png");
 }
+option {
+  background: #f5f5f5;
+  border-color: #F5F5F5;
+}
+option:hover {
+  background: #fff;
+  border-color: #999;
+}
 
 thead > tr > th{
 	vertical-align: middle;

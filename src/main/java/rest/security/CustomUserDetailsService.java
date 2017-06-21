@@ -13,9 +13,8 @@ import org.springframework.security.core.userdetails.AuthenticationUserDetailsSe
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.dayang.cas.client.service.CasUserService;
-
 import rest.page.util.OrgRequestUtil;
+import rest.service.yunwei.CommonTool;
 /** 
  * 用于加载用户信息 实现UserDetailsService接口，或者实现AuthenticationUserDetailsService接口 
  * @author ChengLi 
@@ -24,12 +23,13 @@ import rest.page.util.OrgRequestUtil;
 public class CustomUserDetailsService //实现AuthenticationUserDetailsService，实现loadUserDetails方法  
 implements AuthenticationUserDetailsService<CasAssertionAuthenticationToken> {
 	
-private static final String  userAuthorities = "http://100.0.10.100:8080/usermanager/api/authorization/users/";
+//private static final String  userAuthorities = "http://100.0.10.100:8080/usermanager/api/authorization/users/";
 @Autowired  
 HttpSession session; //这里可以获取到request
 @Override  
 public UserDetails loadUserDetails(CasAssertionAuthenticationToken token) throws UsernameNotFoundException { 
-	
+	String userAuthorities = "http://"+CommonTool.obtainUrl("USER_MANAGER")+"/usermanager/api/authorization/users/";
+	System.out.println(userAuthorities);
 	if(1 == 1){
 		/* System.out.println("当前的用户名是："+token.getName()+
 		";当前权限为："+token.getAuthorities()+";"

@@ -22,10 +22,12 @@ import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasOrdTenantOrgRMapper;
 import rest.mybatis.dao.passDao.PaasOrderMapper;
 import rest.mybatis.dao.passDao.PaasTemplateMapper;
+import rest.mybatis.dao.passDao.PaasUserSubOrgMapper;
 import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
 import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasTemplate;
+import rest.mybatis.model.passModel.PaasUserSubOrg;
 import rest.page.util.OrgRequestUtil;
 import rest.page.util.PageUtil;
 import rest.page.util.Pageinfo;
@@ -43,6 +45,8 @@ public class PaasOrderAndTemplateService {
 	private PaasTemplateMapper paasTemplateMapper;
 	@Autowired
 	private PageUtil pageutil;
+	@Autowired
+	private PaasUserSubOrgMapper paasUserSubOrgMapper;
 	//创建订单he维护订单租户和组织机构的关系
 	@ApiOperation(value="创建订单",notes="创建订单(PaasOrder)并且维护订单，租户，组织机构的关系")
 	@RequestMapping(value="/passService/createPaasOrder",method=RequestMethod.POST)
@@ -63,6 +67,30 @@ public class PaasOrderAndTemplateService {
 				String name = names.get(i);
 				orgR.setOrgId(id);
 				orgR.setOrgName(name);paasOrdTenantOrgMapper.insert(orgR);
+			}
+		}
+	}
+	@ApiOperation(value="创建订单",notes="创建订单(PaasOrder)并且维护订单，租户，组织机构的关系")
+	@RequestMapping(value="/passService/createPaasOrderNew",method=RequestMethod.POST)
+	public void createPaasOrderNew(@RequestBody PaasOrder paasOrder,@RequestParam(value="ids",required=false)ArrayList<String> ids,
+			@RequestParam("tenantId") String tenantId){
+		PaasUserSubOrg paasUserSubOrg = new PaasUserSubOrg();
+		String uuid = UUID.randomUUID().toString();
+		paasOrder.setBillNo(uuid);
+		passordermapper.insertSelective(paasOrder);
+		paasUserSubOrg.setBillNo(uuid);
+		paasUserSubOrg.setTenantId(tenantId);
+		if(ids!=null){
+			int size = ids.size();
+			for(int i=0;i<size;i++){
+				String id = ids.get(i);
+				paasUserSubOrg.setUserOrOrdId(id);
+				if(id.indexOf("/")==-1){
+					paasUserSubOrg.setGranularity(1);
+				}else{
+					paasUserSubOrg.setGranularity(0);
+				}
+				paasUserSubOrgMapper.insert(paasUserSubOrg);
 			}
 		}
 	}
@@ -253,5 +281,14 @@ public class PaasOrderAndTemplateService {
 			}
 			return tenantList.toString();
 		}
-		
+		//根据组机构ID获取用户群
+		@ApiOperation(value="获取组织结构",notes="底层调用第三方接口获取组织结构列表，用于生成组织机构树")
+		@RequestMapping(value="/passService/getOrgWithUser",method=RequestMethod.GET)
+		@ResponseBody
+		public String getOrgWithUser(@RequestParam("OrgId")String orgId) throws IOException{
+			String url="http://100.0.10.100:8080/usermanager/api/authorization/organization/users?pageStart=1&pageSize=1000&organizationId="+orgId;
+			OrgRequestUtil util = new OrgRequestUtil();
+			String userjson = util.getContent(url);
+			return userjson;
+		}
 }
