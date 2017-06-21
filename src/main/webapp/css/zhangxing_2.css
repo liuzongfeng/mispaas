@@ -6,7 +6,7 @@
 .head{
     margin: 0 auto;
     background-color: #1D2945;
-    height: 80px;
+    height: 67px;
     border-bottom: 1px solid #424861;
 }
 .leftdiv{
@@ -27,10 +27,12 @@
     width: 24rem;
 }
 .head_search{
-    height: 4rem;
+/*     height: 4rem; */
+    height: 40px;
     width: 27%;
     /*margin-left: 59rem;*/
-    margin-top: 1.5rem;
+/*     margin-top: 1.5rem; */
+    margin-top: 15px;
     float: right;
     background-color: #313A4C;
     position: relative;
@@ -38,13 +40,13 @@
 .search_logo{
     height: 26px;
     width: 26px;
-    margin: 9px 10px;
+    margin: 8px 10px;
     padding: 0px;
     position: relative;
 }
 .head_search_input
 {
-    height: 3.8rem;
+    height: 37px;
     width: 70%;
     background-color:#313A4C;
     color: #FFFFFF;
@@ -70,7 +72,7 @@
     text-align: center;
     width: auto;
     float: left;
-    margin-top: 2.5rem;
+    margin-top: 25px;
     margin-left: 4.8%;
 }
 .infonum{
@@ -81,7 +83,7 @@
     width: 9.6%;
     float: left;
     background-color: red;
-    margin-top: 2.5rem;
+    margin-top: 25px;
     margin-left: 1.7%;
 }
 .userinfo_area{
@@ -90,7 +92,7 @@
     /*width: auto;*/
     float: left;
 /*     margin-top: 1.5rem; */
-    margin-top: 11px;
+    margin-top: 4px;
     margin-left: 4.8%;
     position: relative;
 }
@@ -171,12 +173,13 @@
     border-top: 1px solid #eceef4;
     /*border: 1px solid red;*/
     margin: 0 auto;
-    height: 826px;
+/*     height: 826px; */
+    height: 773px;
     background-color: #eceef4;
 }
 .paastitle{
     height: 10.3rem;
-    margin: 100px 0px auto;
+    margin: 80px 0px auto;
     font-family: 鏂规鍏颁涵榛戠畝浣�;
     font-size: 50px;
     text-align: center;
@@ -205,7 +208,8 @@
     width: auto;
 }
 .childModel{
-    height: 480px;
+/*     height: 480px; */
+    height: 434px;
     width: 24.7%;
     float: left;
 }
@@ -279,7 +283,7 @@
     height: 308px;
 }
 .nullarea{
-    height: 80px;
+    height: 60px;
     width: 100%;
 }
 .crechildnode{
