@@ -42,3 +42,6 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-app {
   background: url("../img/newappover.png");
 }
+.picon-model{
+	background-color: #458FE9;
+}
