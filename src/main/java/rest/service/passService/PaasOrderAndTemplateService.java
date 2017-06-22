@@ -72,25 +72,41 @@ public class PaasOrderAndTemplateService {
 	}
 	@ApiOperation(value="创建订单",notes="创建订单(PaasOrder)并且维护订单，租户，组织机构的关系")
 	@RequestMapping(value="/passService/createPaasOrderNew",method=RequestMethod.POST)
-	public void createPaasOrderNew(@RequestBody PaasOrder paasOrder,@RequestParam(value="ids",required=false)ArrayList<String> ids,
-			@RequestParam("tenantId") String tenantId){
+	public void createPaasOrderNew(@RequestBody PaasOrder paasOrder,@RequestParam("tenantId") String tenantId,@RequestParam(value="clicklist",required=false)ArrayList<Object> clicklist){
+		
 		PaasUserSubOrg paasUserSubOrg = new PaasUserSubOrg();
 		String uuid = UUID.randomUUID().toString();
 		paasOrder.setBillNo(uuid);
 		passordermapper.insertSelective(paasOrder);
 		paasUserSubOrg.setBillNo(uuid);
 		paasUserSubOrg.setTenantId(tenantId);
-		if(ids!=null){
-			int size = ids.size();
-			for(int i=0;i<size;i++){
-				String id = ids.get(i);
-				paasUserSubOrg.setUserOrOrdId(id);
-				if(id.indexOf("/")==-1){
-					paasUserSubOrg.setGranularity(1);
-				}else{
-					paasUserSubOrg.setGranularity(0);
-				}
-				paasUserSubOrgMapper.insert(paasUserSubOrg);
+		if(clicklist!=null){
+			JSONArray array = JSONArray.fromObject(clicklist);
+			for (Object object : array) {
+					JSONObject jo=JSONObject.fromObject(object);
+					JSONArray jsonArray = jo.getJSONArray("clicklist");
+					if(jsonArray!=null){
+						for (Object object2 : jsonArray) {
+							JSONObject jo2=JSONObject.fromObject(object2);
+							String modelId = jo2.getString("modelId");
+							paasUserSubOrgMapper.deleteByBiilNumAndMoldeId(uuid, modelId);
+							paasUserSubOrg.setSubserviceId(modelId);
+							JSONArray jsonArray2 = jo2.getJSONArray("checkIds");
+							for (Object object3 : jsonArray2) {
+								
+								if(!object3.equals("")){
+									String id = object3.toString();
+									paasUserSubOrg.setUserOrOrdId(id);
+									if(id.indexOf("/")==-1){
+										paasUserSubOrg.setGranularity(1);
+									}else{
+										paasUserSubOrg.setGranularity(0);
+									}
+									paasUserSubOrgMapper.insert(paasUserSubOrg);
+								}
+							}
+						}
+					}
 			}
 		}
 	}
@@ -114,7 +130,6 @@ public class PaasOrderAndTemplateService {
 				JSONObject jsonObject = (JSONObject) object;
 				Object object2 = jsonObject.get("id");
 				String tenantId = object2.toString();
-				System.out.println(tenantId);
 				 num = num+passordermapper.selectOrderCount(tenantId);
 				 List<PaasOrder> passlist = passordermapper.selectByCondition(i,tenantId,instanceName, templateCategory, counm);
 					for (PaasOrder paasOrder : passlist) {
@@ -166,7 +181,49 @@ public class PaasOrderAndTemplateService {
 			}
 		}
 	}
-	
+	//插入订单组织机构关系
+		@ApiOperation(value="插入订单组织机构关系",notes="为某个订单根据订单ID添加组织机构的关系")
+		@RequestMapping(value="/passService/addInstanceAndOrgShip_New",method=RequestMethod.POST)
+		@ResponseBody
+		public void addInstanceAndOrgShip_New(
+				@RequestParam("orderId") Integer orderId,
+				@RequestParam(value="clicklist",required=false)ArrayList<Object> clicklist){
+			PaasUserSubOrg paasUserSubOrg = new PaasUserSubOrg();
+			PaasOrder order = passordermapper.selectByPrimaryId(orderId);
+			String tenantId2 = order.getTenantId();
+			String billNo = order.getBillNo();
+			paasUserSubOrg.setBillNo(billNo);
+			paasUserSubOrg.setTenantId(tenantId2);
+			if(clicklist!=null){
+				JSONArray array = JSONArray.fromObject(clicklist);
+				for (Object object : array) {
+						JSONObject jo=JSONObject.fromObject(object);
+						JSONArray jsonArray = jo.getJSONArray("clicklist");
+						if(jsonArray!=null){
+							for (Object object2 : jsonArray) {
+								JSONObject jo2=JSONObject.fromObject(object2);
+								String modelId = jo2.getString("modelId");
+								paasUserSubOrgMapper.deleteByBiilNumAndMoldeId(billNo, modelId);
+								paasUserSubOrg.setSubserviceId(modelId);
+								JSONArray jsonArray2 = jo2.getJSONArray("checkIds");
+								for (Object object3 : jsonArray2) {
+									
+									if(!object3.equals("")){
+										String id = object3.toString();
+										paasUserSubOrg.setUserOrOrdId(id);
+										if(id.indexOf("/")==-1){
+											paasUserSubOrg.setGranularity(1);
+										}else{
+											paasUserSubOrg.setGranularity(0);
+										}
+										paasUserSubOrgMapper.insert(paasUserSubOrg);
+									}
+								}
+							}
+				}
+			}
+		}
+	}
 	//删除订单组织机构关系
 	@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
 	@RequestMapping(value="/passService/deleteInstanceAndOrgShip",method=RequestMethod.DELETE)
@@ -174,7 +231,37 @@ public class PaasOrderAndTemplateService {
 	public void deleteInstanceAndOrgShip(@RequestParam("orderId") Integer orderId){
 		paasOrdTenantOrgMapper.deleteByOrderID(orderId);
 	}
-	
+	//删除订单组织机构关系
+		@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
+		@RequestMapping(value="/passService/deleteInstanceAndUserOrg",method=RequestMethod.DELETE)
+		@ResponseBody
+		public void deleteInstanceAndUserOrg(@RequestParam("orderId") Integer orderId,@RequestParam(value="clicklist",required=false)ArrayList<Object> clicklist){
+			PaasOrder order = passordermapper.selectByPrimaryId(orderId);
+			String billNo = order.getBillNo();
+			if(clicklist!=null){
+				JSONArray array = JSONArray.fromObject(clicklist);
+				for (Object object : array) {
+						JSONObject jo=JSONObject.fromObject(object);
+						JSONArray jsonArray = jo.getJSONArray("clicklist");
+						if(jsonArray!=null){
+							for (Object object2 : jsonArray) {
+								JSONObject jo2=JSONObject.fromObject(object2);
+								String modelId = jo2.getString("modelId");
+								paasUserSubOrgMapper.deleteByBiilNumAndMoldeId(billNo, modelId);
+							}
+				}
+			}
+		}
+		}
+	//重置模块用户关系
+		@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
+		@RequestMapping(value="/passService/deleteAllInstanceAndUserOrg",method=RequestMethod.DELETE)
+		@ResponseBody
+		public void deleteAllInstanceAndUserOrg(@RequestParam("orderId") Integer orderId){
+			PaasOrder order = passordermapper.selectByPrimaryId(orderId);
+			String billNo = order.getBillNo();
+			paasUserSubOrgMapper.deleteByBillNum(billNo);
+		}
 	//查询已发布的产品列表（订单，模板，实例）
 		@ApiOperation(value="查询已发布的产品列表",notes="查询状态为发布的产品列表，应用了动态SQl实现，同时具有名字模糊查询和产品类别过滤的功能")
 		@RequestMapping(value="/passService/showTempliteList",method=RequestMethod.POST)
