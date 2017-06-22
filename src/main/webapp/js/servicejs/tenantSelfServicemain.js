@@ -1,13 +1,58 @@
 function ordertoscope($scope,$http,id) {
+	//购买选择租户
 	$scope.gettenantByid=function(tenantId,tenantName){
 		$("#userMenuStatuetitle").html(tenantName);
 		$scope.newtenantId=tenantId;
 	};
+	//修改选择租户
+	$scope.gettenantByid2=function(tenantId,tenantName){
+		$("#checkuservalue").html(tenantName);
+		$scope.newtenantId=tenantId;
+	};
+	//点选模块
+	$scope.checkmodel=function(paasSubId,string){
+		if(string=="k"){
+			var tid="#"+paasSubId+string;
+			if($(tid).parent().attr("class")=="picon-model"){
+				$(tid).parent().attr("class","");
+			}else{
+				$(tid).parent().attr("class","picon-model");
+			}
+		}else{
+			var tid="#"+paasSubId+string;
+			if($(tid).parent().attr("class")=="picon-model2"){
+				$(tid).parent().attr("class","");
+			}else{
+				$(tid).parent().attr("class","picon-model2");
+			}
+		}
+		
+		
+	}
+	var useri=0;
+	var clicklist=[];
+	//购买获取细粒度权限数据
+	$scope.collecttreeDemo1=function(){
+		
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
+		var collectList = collectdata($http,$scope,zTree);
+		console.log(collectList);
+		clicklist[0]={clicklist:[]};
+		if(collectList!=null&&collectList!=[]){
+			alert("ll");
+			useri=useri-0+1;
+			clicklist[useri]={clicklist:collectList};
+		}
+		console.log(clicklist);
+	};
+	//下订单
 	$scope.createOrder=function(){
+		
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
 		var names = onCheckName($http,$scope,zTree);
 		if($("#userMenuStatuetitle").html()=="请选择租户"){
+			document.getElementById("myModalLabel1").innerHTML="请选择租户！";
 			$("#myModal").modal('show');
 			return;
 		}
@@ -25,8 +70,8 @@ function ordertoscope($scope,$http,id) {
    		  };
 		$http({
 	        method: 'POST',
-	        url: tenantSelfinterfaces.Var_createPaasOrder,
-	        params:{"tenantId":$scope.newtenantId,"ids":ids,"names":names},
+	        url: tenantSelfinterfaces.Var_createPaasOrderNew,
+	        params:{"tenantId":$scope.newtenantId,"clicklist":clicklist},
 	        datatype:"json",
 	        data:passOrde
 	    }).then(function successCallback(response) {
@@ -40,6 +85,19 @@ function ordertoscope($scope,$http,id) {
          $scope.DetailsOfGoodsTab=false;
          $("#tab_51_1").attr("class","tab-pane fade");
          $("#tab_51_2").attr("class","tab-pane fade");
+         $("#nListOfGoods").attr("class","");
+     	 $("#nmyApplicationList").attr("class","open");
+         useri=0;
+         clicklist=[];
+         var trs = $("tr[class=picon-model]");
+     	var trs2= $("tr[class=picon-model2]");
+     	for(i=0;i<trs.length;i++){
+     		$(trs[i]).attr("class","");
+     	}
+     	for(i=0;i<trs2.length;i++){
+     		
+     		$(trs2[i]).attr("class","");
+     	}
 	};
 	//分类查询产品
 	$scope.gettemplateBytemplateCategory=function(templateCategory){
@@ -138,36 +196,53 @@ function ordertoscope($scope,$http,id) {
 	};
 };
 function transmitOrderId(orderId,$scope,$http){
+	var xuigai=0;
+	var xclicklist=[];
+	//修改获取细粒度权限数据
+	$scope.collecttreeDemo2=function(){
+		
+		var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
+		var collectList = collectdata($http,$scope,zTree);
+		console.log(collectList);
+		xclicklist[0]={clicklist:[]};
+		if(collectList!=null&&collectList.length!=0){
+			alert("ll");
+			xuigai=xuigai-0+1;
+			xclicklist[xuigai]={clicklist:collectList};
+		}
+		console.log(xclicklist);
+	};
 	var orderId=orderId;
 	$scope.changeApplicationUser=function(){
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
-		var ids = onCheckId($http,$scope,zTree);
-		var names = onCheckName($http,$scope,zTree);
 		//删除原来的组织关系数据
 		$http({
 	        method: 'DElETE',
-	        url: tenantSelfinterfaces.Var_deleteInstanceAndOrgShip,
+	        url: tenantSelfinterfaces.Var_deleteInstanceAndUserOrg,
 	        params:{"orderId":orderId},
 	        datatype:"json",
 	    }).then(function successCallback(response) {
 	        }, function errorCallback(response) {
 	    });
 		//插入新的组织关系
+		console.log(xclicklist);
 		$http({
 	        method: 'POST',
-	        url: tenantSelfinterfaces.Var_addInstanceAndOrgShip,
-	        params:{"tenantId":$scope.tenantId,"ids":ids,"orderId":orderId,"names":names},
+	        url: tenantSelfinterfaces.Var_addInstanceAndOrgShip_New,
+	        params:{"orderId":orderId,"clicklist":xclicklist},
 	        datatype:"json",
 	    }).then(function successCallback(response) {
 	    	var page=null;
 	    	appListBynameController($scope,$http,page);
 	        }, function errorCallback(response) {
 	    });
+		document.getElementById("myModalLabel2").innerHTML="修改成功！";
 		$("#myModal2").modal('show');
 		 $("#myApplicationListTab").attr("class","active");
 		 $("#myApplicationUsers").attr("class","");
 	     $("#tab_51_3").attr("class","tab-pane fade in active");
 	     $("#tab_51_4").attr("class","tab-pane fade");
+	     xuigai=0;
+	 	 xclicklist=[];
 	};
 };
 //产品分页
@@ -300,4 +375,74 @@ function changeorderpage($scope,$http,id){
 		}
 	};
 }
-
+//获取数据
+function collectdata($http,$scope,zTree){
+	var trs = $("tr[class=picon-model]");
+	var trs2= $("tr[class=picon-model2]");
+	
+	if(trs.length==0&&trs2.length==0){
+		document.getElementById("myModalLabel1").innerHTML="请点选模块！";
+		$("#myModal").modal('show');
+		return null;
+	}
+	var ptrs=null;
+	if(trs.length!=0){
+		ptrs=trs;
+	}else{
+		ptrs=trs2;
+	}
+	var modelIds='';
+	var userAndOrgList=[];
+	for(i=0;i<ptrs.length;i++){
+		var td = $(ptrs[i]).children().first();
+		modelIds = modelIds+$(td).attr("title")+",";
+		var modelId = $(td).attr("title");
+		var ids = onCheckId($http,$scope,zTree);
+		var names = onCheckName($http,$scope,zTree);
+		var checkIds='';
+		var childrenIds='';
+		var newcheckIds='';
+		if(ids==null){
+			userAndOrgList[i]={modelId:modelId,checkIds:[]};
+			document.getElementById("myModalLabel2").innerHTML="添加成功！";
+			$("#myModal2").modal('show');
+			return userAndOrgList;
+		}
+		for(j=0;j<ids.length;j++){
+			
+			var node = zTree.getNodeByParam("id",ids[j], null);
+			if(node!=null){
+				var halfCheck = node.getCheckStatus().half;
+				if(!halfCheck){
+					checkIds=checkIds+ids[j]+",";
+					var nodes = zTree.getNodesByParam("pId",ids[j], node);
+					for(l=0;l<nodes.length;l++){
+						childrenIds=childrenIds+nodes[l].id+",";
+					}
+				}
+			}
+		}
+		linshichildrenIds=childrenIds.split(",");
+		linshicheckIds=checkIds.split(",");
+		for(k=0;k<linshicheckIds.length;k++){
+			
+			for(m=0;m<linshichildrenIds.length;m++){
+				if(linshicheckIds[k]==linshichildrenIds[m]){
+					linshicheckIds[k]=null;
+				}
+			}
+			//newcheckIds=newcheckIds+linshicheckIds[k]+",";
+		}
+		
+		for(c=0;c<linshicheckIds.length;c++){
+			if(linshicheckIds[c]!=null){
+				newcheckIds=newcheckIds+linshicheckIds[c]+",";
+			}
+		}
+		console.log(newcheckIds);
+		userAndOrgList[i]={modelId:modelId,checkIds:newcheckIds.split(",")};
+	}
+	document.getElementById("myModalLabel2").innerHTML="添加成功！";
+	$("#myModal2").modal('show');
+	return userAndOrgList;
+}

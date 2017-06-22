@@ -50,6 +50,15 @@ app.controller('ListCtrl', function($scope,$http) {
     	templateListController($scope,$http,id,page);
     	$("#tab_51_1").attr("class","tab-pane fade in active");
     	$("#ListOfGoodsTab").attr("class","active");
+    	var trs = $("tr[class=picon-model]");
+    	var trs2= $("tr[class=picon-model2]");
+    	for(i=0;i<trs.length;i++){
+    		$(trs[i]).attr("class","");
+    	}
+    	for(i=0;i<trs2.length;i++){
+    		
+    		$(trs2[i]).attr("class","");
+    	}
     };
     //应用列表
     $scope.nmyApplicationList = function(){
@@ -72,6 +81,15 @@ app.controller('ListCtrl', function($scope,$http) {
 		$scope.myApplicationDetails=false;
 		$scope.myApplicationUsers=false;
 		$("#myApplicationListTab").attr("class","active");
+		var trs = $("tr[class=picon-model]");
+    	var trs2= $("tr[class=picon-model2]");
+    	for(i=0;i<trs.length;i++){
+    		$(trs[i]).attr("class","");
+    	}
+    	for(i=0;i<trs2.length;i++){
+    		
+    		$(trs2[i]).attr("class","");
+    	}
 	 };
     //账单列表
     $scope.ntheBillList = function(){
@@ -99,7 +117,7 @@ app.controller('ListCtrl', function($scope,$http) {
             method: 'POST',
             url: tenantSelfinterfaces.Var_showTempliteList,
             contentType: "application/json",
-            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":$scope.cunm},
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
             }, function errorCallback(response) {
@@ -120,7 +138,7 @@ app.controller('ListCtrl', function($scope,$http) {
             method: 'POST',
             url: tenantSelfinterfaces.Var_showTempliteList,
             contentType: "application/json",
-            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":''},
+            params:{"page":1,"id":id,"templateId":$scope.templateId,"templateCategory":$scope.templateCategory2,"counm":$scope.cunm},
         }).then(function successCallback(response) {
         	$scope.templates=response.data.resultObj;
         	/*createTree3();*/
@@ -142,6 +160,9 @@ app.controller('ListCtrl', function($scope,$http) {
             params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
         }).then(function successCallback(response) {
         	$scope.tetantList=response.data[0];
+        	console.log(response.data[0].tenantList[0].id);
+        	$scope.newtenantId=response.data[0].tenantList[0].id;
+        	$("#userMenuStatuetitle").html(response.data[0].tenantList[0].name);
             }, function errorCallback(response) {
         }); 
     	$scope.Details=true;
@@ -179,7 +200,18 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.Orglist=response.data;
                 }, function errorCallback(response) {
             }); 
-        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_gettenantList,
+                contentType: "application/json",
+                params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
+            }).then(function successCallback(response) {
+            	$scope.tetantList=response.data[0];
+            	console.log(response.data[0].tenantList[0].id);
+            	$scope.newtenantId=response.data[0].tenantList[0].id;
+            	$("#userMenuStatuetitle").html(response.data[0].tenantList[0].name);
+                }, function errorCallback(response) {
+            }); 
         	$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getOrgtree,
@@ -191,7 +223,8 @@ app.controller('ListCtrl', function($scope,$http) {
             }); 
         	
             }, function errorCallback(response) {
-        }); 
+        });
+    	
         $scope.myApplicationDetails=true;
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
@@ -225,7 +258,18 @@ app.controller('ListCtrl', function($scope,$http) {
             	$scope.Orglist=response.data;
                 }, function errorCallback(response) {
             });
-        	
+        	$http({
+                method: 'GET',
+                url: tenantSelfinterfaces.Var_gettenantList,
+                contentType: "application/json",
+                params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
+            }).then(function successCallback(response) {
+            	$scope.tetantList=response.data[0];
+            	console.log(response.data[0].tenantList[0].id);
+            	$scope.newtenantId=response.data[0].tenantList[0].id;
+            	$("#checkuservalue").html(response.data[0].tenantList[0].name);
+                }, function errorCallback(response) {
+            }); 
         	$http({
                 method: 'GET',
                 url: tenantSelfinterfaces.Var_getOrgtree,
@@ -274,8 +318,19 @@ app.controller('ListCtrl', function($scope,$http) {
   //登出
     $scope.logout=function()
     {
-    	window.location.href= "http://192.168.6.165:8080/logout";
-    } 
+    	window.location.href= "http://192.168.6.16:8080/logout";
+    }
+  //修改每页行数
+	$("#everyPage1").change(function(){
+		var cunm = $("#everyPage1").attr("value");
+		$scope.cunm1 = cunm;
+		templateListController($scope,$http,id,page);//发起请求
+		});
+	$("#everyPage2").change(function(){
+		var cunm = $("#everyPage2").attr("value");
+		$scope.cunm2 = cunm;
+		appListBynameController($scope,$http,page)//发起请求
+		});
 });
 //产品列表接口调用
 function templateListController($scope,$http,id,page){
@@ -287,7 +342,7 @@ function templateListController($scope,$http,id,page){
         url: tenantSelfinterfaces.Var_showTempliteList,
         
         datatype:"JSONP",
-        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.usetemplateCategory,"counm":''},
+        params:{"page":page,"id":id,"productName":$scope.productName,"templateCategory":$scope.usetemplateCategory,"counm":$scope.cunm1},
     }).then(function successCallback(response) {
     	$scope.tepagenum =response.data.pageStr.split(",");
     	$scope.tepageinfo = response.data;
@@ -331,7 +386,7 @@ function appListBynameController($scope,$http,page){
             method: 'POST',
             url: reurl,
             contentType: "application/json",
-            params:{"page":page,"instanceName":$scope.instanceName,"templateCategory":$scope.useapptemplateCategory,"counm":''},
+            params:{"page":page,"instanceName":$scope.instanceName,"templateCategory":$scope.useapptemplateCategory,"counm":$scope.cunm2},
             data:$scope.tetantList
     	}).then(function successCallback(response) {
         	for(i=0;i<response.data.resultObj.length;i++){

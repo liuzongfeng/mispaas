@@ -20,7 +20,10 @@ var setting = {
 		    },
 		    edit: {
 		        enable: false,
-		    }
+		    },
+		    callback: {
+				onClick: zTreeOnClick
+			}
 		};
 /*var zNodes = [
 	 { id: 11, pId: 0, name: "父节点11", open: true },
@@ -151,6 +154,32 @@ if (btn) btn.bind("click", function () {
 function removeHoverDom(treeId, treeNode) {
 $("#addBtn_" + treeNode.tId).unbind().remove();
 };
+//========================================================================
+//回调函数加载组织机构的用户
+function zTreeOnClick(event, treeId, treeNode) {
+   /* alert(treeNode.tId + ", " + treeNode.name+treeNode.id+treeId);
+    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+    var halfCheck = treeNode.getCheckStatus();
+    alert(halfCheck.half);*/
+	var ourl = tenantSelfinterfaces.Var_OthergetuserWithOrg;
+	 $.ajax({
+			type:"get",
+			url:tenantSelfinterfaces.Var_getOrgWithUser,
+			data:"OrgId="+treeNode.id,
+			success:function(ret54){//请求成功且响应完整时执行，ret54==响应值(可能是解析后)
+				var stree=ret54.userList;
+				var testarry = [];
+				for(i=0;i<stree.length;i++){
+					testarry[i]={ id:"/"+stree[i].id, pId: treeNode.id, name: "U/"+stree[i].name, open: true ,checked:false};
+				}
+				var treeObj = $.fn.zTree.getZTreeObj(treeId);
+				treeObj.removeChildNodes(treeNode);
+				newNodes = treeObj.addNodes(treeNode, testarry);
+			},
+			dataType:"json"
+		  });
+};
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*//显示菜单
 function showMenu() {
