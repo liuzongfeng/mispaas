@@ -171,6 +171,6 @@
   <select id="selectSubservicebyTemid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" />
     from PAAS_SUBSERVICE
-    where TEMPLATE_ID=#{templateid}
+    where TEMPLATE_ID=#{templateid} and MODULE_IS_DIS='true'
   </select>
 </mapper>
