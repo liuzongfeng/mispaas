@@ -403,6 +403,9 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 		            });
 		        });
 		        UITree.init();
+		        $(".page-content-boxborder").height( window.innerHeight- 134);
+			       
+		        $("div[class=page-content]").css("min-height","");
             ///////////////////////////////////////////////////////////////
 		        
 		      
