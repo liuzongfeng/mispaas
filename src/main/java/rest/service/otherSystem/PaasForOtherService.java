@@ -57,7 +57,7 @@ public class PaasForOtherService {
 	 */
 	@ApiOperation(value="获取租户id列表",notes="根据组织机构id数组和应用实例id获取租户id列表")
 	@RequestMapping(value="/paasService/findTenentsByOrgsAppid",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<String> findTenentsByOrgsTenentid(@RequestBody OrgidsInstanceid orgidsInstanceid ){
+	public Message findTenentsByOrgsTenentid(@RequestBody OrgidsInstanceid orgidsInstanceid ){
 		List<String> list = null;
 		list=new ArrayList<String>();
 		List<PaasOrdTenantOrgR> paasOrdTenantOrgRsList = paasOrdTenantOrgRMapper.findTenentsByOrgsAppid(orgidsInstanceid);
@@ -65,7 +65,7 @@ public class PaasForOtherService {
 			String tenantId = paasOrdTenantOrgR.getTenantId();
 			list.add(tenantId);
 		}
-		return list;
+		return new Message("200","success:查询成功" ,new Date(),list);
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class PaasForOtherService {
 		Map<String,String> selMap = new HashMap<String,String>();
 		//1.获取参数
 		String instanceId = instanceidTenentid.getInstanceid();
-		String tenentId = instanceidTenentid.getTenentid();
+		String tenentId = instanceidTenentid.getTenantid();
 		selMap.put("instanceId", instanceId);
 		selMap.put("tenenId", tenentId);
 		if(null == instanceId || "".equals(instanceId)){
