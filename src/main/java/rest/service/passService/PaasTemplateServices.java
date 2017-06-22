@@ -143,4 +143,22 @@ public class PaasTemplateServices {
 			return new Message("fail", "无访问权！", new Date());
 		}
 	}
+	@RequestMapping("/rest/productService/getMessageNum/{userid}")
+	public Integer getMessageNum(@PathVariable(value="userid") String userid) throws IOException
+	{
+		Integer messagenum=0;
+		String[] messagetype={"DOWNLOAD", "DISTRIBUTE", "COPYRIGHTMESSAGE", "RECOMMEND", "RESOURCEMANAGER","ALERT"};
+		JSONObject sendjson=new JSONObject();
+		sendjson.element("targetType", 1);
+		sendjson.element("sourceType", 1);
+		sendjson.element("readFlag", 0);
+		sendjson.element("sourceAppId", userid);
+		for (int i = 0; i < messagetype.length; i++) {
+			sendjson.element("sourceAppId", messagetype[i]);
+			JSONObject result=requestUtil.getmessageNum(sendjson);
+			Integer num=(Integer)result.get("count");
+			messagenum+=num;
+		}
+		return messagenum;
+	}
 }

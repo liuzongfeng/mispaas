@@ -14,6 +14,7 @@ public class CommonTool{
 	public static String obtainUrl(String needKey){
 		
 		Map<String, String> getenv = System.getenv();
+		System.out.println("this is getenv:"+getenv);
 		return getenv.get(needKey);
 	}
 	

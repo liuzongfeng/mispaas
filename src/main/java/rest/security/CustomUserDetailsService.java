@@ -28,7 +28,8 @@ implements AuthenticationUserDetailsService<CasAssertionAuthenticationToken> {
 HttpSession session; //这里可以获取到request
 @Override  
 public UserDetails loadUserDetails(CasAssertionAuthenticationToken token) throws UsernameNotFoundException { 
-	String userAuthorities = "http://"+CommonTool.obtainUrl("USER_MANAGER")+"/usermanager/api/authorization/users/";
+//	String userAuthorities = "http://"+CommonTool.obtainUrl("USER_MANAGER")+"/usermanager/api/authorization/users/";
+	String userAuthorities = "http://100.0.10.100:8080/usermanager/api/authorization/users/";
 	System.out.println(userAuthorities);
 	if(1 == 1){
 		/* System.out.println("当前的用户名是："+token.getName()+
@@ -43,7 +44,6 @@ public UserDetails loadUserDetails(CasAssertionAuthenticationToken token) throws
 		
 		//cas认证通过后，查询该用户的信息
 		String persional = userAuthorities + (String)token.getPrincipal();
-		
 		OrgRequestUtil util = new OrgRequestUtil();
 		Map<String,Object> person = null;
 		try {

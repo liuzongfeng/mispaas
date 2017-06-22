@@ -12,19 +12,18 @@
     <link href="../css/base.css" rel="stylesheet" type="text/css"/>
     <link href="../css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
     
-    <link href="../dist/css/bootstrap.min.css" rel="stylesheet">
+<!--     <link href="../dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <!--     <script src="../js/jquery.min.js"></script> -->
-    <script src="../dist/js/bootstrap.min.js"></script>
+<!--     <script src="../dist/js/bootstrap.min.js"></script> -->
     <script src="../js/docs.min.js"></script>
-    <link href="../dist/css/patch.css" rel="stylesheet">
+<!--     <link href="../dist/css/patch.css" rel="stylesheet"> -->
     <link href="../css/zhangxing_2.css" rel="stylesheet">
-    <link href="../dist/css/docs.min.css" rel="stylesheet">
+<!--     <link href="../dist/css/docs.min.css" rel="stylesheet"> -->
     <!--[if lt IE 9]>-->
     <script src="../js/ie8-responsive-file-warning.js"></script>
     <!--<![endif]-->
     <script src="../js/ie-emulation-modes-warning.js"></script>
     <script src="../js/angular.min.js"></script>
-
 </head>
 <body ng-app="myapp" ng-controller="myController">
 <div class="head">
@@ -38,11 +37,13 @@
         </div>
         <div class="rightdiv">
             <div class="leftsth">
+            	<a href="http://100.0.10.100:8080/myspace" target="_blank">
                 <div class="selfCenter">
                     个人中心
                 </div>
-                <div class="infonum" style="border-radius:8px;">
-                    14
+                </a>
+                <div class="infonum" style="border-radius:8px;" ng-model="messageNum">
+                    {{messageNum}}
                 </div>
 <!--                 <div class="userinfo_area"> -->
 <!--                     <div class="user_pic"><img data-src="holder.js/35x35" class="img-circle"></div> -->
@@ -53,27 +54,27 @@
 		        <ul class="nav navbar-nav pull-right userinfo_area">
 		            <!-- BEGIN USER LOGIN DROPDOWN -->
 		            <li class="dropdown user">
-		                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-		                    <img alt="" src="../assets/img/avatar1_small.jpg" style="margin-left: -11px;"/>
-		                        <span class="username" id="username" style="margin-left: 6px;">
+		                <a href="javascript:void(0)" class="dropdown-toggle xialaclass" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+		                    <img alt="" src="../assets/img/avatar1_small.jpg" style="margin-left: -11px;border-radius: 50% !important;"/>
+		                        <span class="username" id="username" style="margin-left: 6px;color: #ffffff;">
 		                             你好，色彩
 		                        </span>
-		                    <i class="fa fa-caret-down"></i>
+		                    <i class="fa fa-caret-down" style="color: #ffffff;"></i>
 		                </a>
 		                <ul class="dropdown-menu">
 		                    <li>
 		                        <a href="javascript:void(0)">
-		                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px; width: 16px;float: left; margin-top: 3px;"></i>管理中心
+		                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px; width: 16px;float: left; margin-top: 2px;padding-right: 22px;"></i>管理中心
 		                        </a>
 		                    </li>
 		                    <li>
 		                        <a href="javascript:void(0)">
-		                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;float: left; margin-top: 4px;"></i>修改密码
+		                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;float: left; margin-top: 3px;padding-right: 22px;"></i>修改密码
 		                        </a>
 		                    </li>
 		                    <li>
 		                        <a href="javascript:void(0)">
-		                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;float: left; margin-top: 5px;"></i>退出
+		                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;float: left; margin-top: 3px;padding-right: 22px;"></i>退出
 		                        </a>
 		                    </li>
 		                </ul>
@@ -254,9 +255,10 @@
             </div>
         </div>
     </div>
+    <div class="line"></div>
     <div class="fengexian">
             <div class="zhujiao">
-                <p style="margin: 0 0 0 0;">CopyRight@2014-2017</p>
+                <p style="margin: 28px 0 0 0;">CopyRight@2014-2017</p>
                 <p style="height: 17px;">版权所有：北京中科大洋科技发展股份有限公司 京ICP备06031497号 京公网安备110108004180号</p>
             </div>
         </div>
@@ -292,6 +294,7 @@
 		//获取用户信息
     	$http.get("/obtainUserInfo").success(function(response){
     		userinfo=response;
+    		console.log(response);
     		$('#username').html(response.name);
     		$http.get(url+userinfo.username).success(function (response){
     			console.log(response);
@@ -338,7 +341,6 @@
     			$scope.rows=rows;
     		});
     		$http.get("/rest/productService/getusersprivilegeIdList/"+userinfo.username).success(function (response){
-    			console.log(response);
     			var isadmin=0;
     			if(response.indexOf("PID_SYSTEM_ADMIN")!=-1)
     			{
@@ -358,13 +360,17 @@
     			}
     			$scope.isyunyin=isyunyin;
     		});
+    		$http.get("/rest/productService/getMessageNum/"+userinfo.username).success(function (response){
+    			if(parseInt(response)>=99){
+    				$scope.messageNum="99+";
+    			}else{
+    				$scope.messageNum=response;	
+    			}
+   			});
     	});
     	 $scope.logout=function()
          {
-    		 alert();
          	window.location.href= "http://192.168.6.23:8080/logout";
-//          	$http.get("/logout").success(function(response){
-//          	});
          }
 	});
 	app.config(function($compileProvider){//配置这段代码即可

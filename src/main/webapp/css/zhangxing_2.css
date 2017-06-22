@@ -1,3 +1,9 @@
+.xialaclass:hover{
+	background-color: #1D2945 !important;
+}
+/* .xialaclass:hover > i{ */
+/* 	background-color: #45b5e9 !important; */
+/* } */
 .contentClass{
     margin: 0 auto;
     z-index: 10;
@@ -21,7 +27,7 @@
     float: right;
 }
 .head_logo{
-    margin-top: 1rem;
+    margin-top:8px;
     float: left;
     height: 50px;
     width: 24rem;
@@ -80,7 +86,7 @@
     color: #ffffff;
     text-align: center;
     border-radius:8px !important;
-    width: 9.6%;
+    width: 10.5%;
     float: left;
     background-color: red;
     margin-top: 25px;
@@ -174,11 +180,11 @@
     /*border: 1px solid red;*/
     margin: 0 auto;
 /*     height: 826px; */
-    height: 773px;
+    height: 738px;
     background-color: #eceef4;
 }
 .paastitle{
-    height: 9.1rem;
+    height: 8.5rem;
     margin: 80px 0px auto;
     font-family: 鏂规鍏颁涵榛戠畝浣�;
     font-size: 50px;
@@ -238,7 +244,7 @@
     margin: 0 auto;
     margin-top: 14px;
     font-family: 鏂规鍏颁涵榛戠畝浣�;
-    font-size: 20px;
+    font-size: 16px;
     color: #868686;
     text-align: center;
 }
@@ -380,7 +386,7 @@
     text-align: center;
     font-family: 鏂规鍏颁涵榛戠畝浣�;
     font-size: 16px;
-    color: #868686;
+    color: #858585;
     text-align: center;
     filter: Alpha(Opacity=20); opacity: 0.7;
 }
@@ -395,6 +401,7 @@
     border-top:1px solid #eceef4;
     height: 350px;
     background-color: #1D2945;
+    padding: 0px;
 }
 .cominfo{
     height: 165px;
@@ -490,10 +497,14 @@
 .fengexian{
     height: 74px;
     width: 100%;
-    margin-top: 70px;
-    border-top: 1px solid #414D94;
-    /*filter: Alpha(Opacity=60); opacity: 0.4;*/
     float: left;
+}
+.line{
+	float: left;
+	width: 100%;
+	margin-top: 70px;
+	border-top: 1px solid #414D94;
+	filter: Alpha(Opacity=50); opacity: 0.5;
 }
 .zhujiao{
     width: 80%;
