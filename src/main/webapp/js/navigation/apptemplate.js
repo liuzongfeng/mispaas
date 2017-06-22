@@ -505,7 +505,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 			        });
 			        UITree.init();
 			        $(".page-content-boxborder").height( window.innerHeight- 134);
-			        console.log(window.innerHeight);
+			       
 			        $("div[class=page-content]").css("min-height","");
                 ///////////////////////////////////////////////////////////////window.innerHeight
 			        
