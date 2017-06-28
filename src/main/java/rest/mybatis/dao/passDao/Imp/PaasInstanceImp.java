@@ -1,5 +1,6 @@
 package rest.mybatis.dao.passDao.Imp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
 import rest.mybatis.model.passModel.PaasOrder;
 import rest.mybatis.model.passModel.PaasSubservice;
 import rest.mybatis.model.passModel.PaasTemplateFile;
+import rest.mybatis.model.passModel.PaasUserSubOrg;
 @Configuration
 public class PaasInstanceImp{
 	@Autowired
@@ -91,6 +93,31 @@ public class PaasInstanceImp{
 		List<PaasOrder> list=session.selectList("selectOrderandInsbyorgid",map);
 		session.close();
 		return list.size()>0?true:false;
+	}
+	/**
+	 * 更具组织机构，用户ID 获取模块信息
+	 */
+	public PaasOrder getInstancesByOrdIdandUserid(String orgid,String userid)
+	{
+		PaasOrder paasOrder=new PaasOrder();
+		Map<String, String> map=new HashMap<String, String>();
+		map.put("orgid", orgid);
+		map.put("userid", userid);
+		System.out.println(orgid);
+		SqlSession session=sqlSessionFactory.openSession();
+		List<PaasSubservice> list=session.selectList("getSubserviceByOrdIdandUserid",map);
+		List<Integer> templateIds=new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			PaasSubservice ps=list.get(i);
+			templateIds.add(ps.getTemplateId());
+		}
+		if(templateIds.size()>0){
+			List<PaasTemplateFile> filelist=session.selectList("selectFilesBytemplateIds",templateIds);
+			paasOrder.setPaasTemplateFile(filelist);
+		}
+		paasOrder.setPaasSubservices(list);
+		session.close();
+		return paasOrder;
 	}
 }
 

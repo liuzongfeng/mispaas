@@ -192,4 +192,13 @@ public class PaasUserSubOrg {
     public void setGranularity(Integer granularity) {
         this.granularity = granularity;
     }
+
+	@Override
+	public String toString() {
+		return "PaasUserSubOrg [id=" + id + ", billNo=" + billNo
+				+ ", tenantId=" + tenantId + ", subserviceId=" + subserviceId
+				+ ", userOrOrdId=" + userOrOrdId + ", granularity="
+				+ granularity + "]";
+	}
+    
 }
