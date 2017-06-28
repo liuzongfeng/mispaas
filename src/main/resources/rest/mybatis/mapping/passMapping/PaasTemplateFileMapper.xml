@@ -182,4 +182,16 @@
     from PAAS_TEMPLATE_FILE
     where TEMPLATE_ID =#{templateid}
   </select>
+  
+  <select id="selectFilesBytemplateIds" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+  	select 
+  	 <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from PAAS_TEMPLATE_FILE
+	where TEMPLATE_ID in 
+   	<foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+  		#{item}  
+	</foreach>
+  </select>
 </mapper>
