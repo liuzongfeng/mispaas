@@ -55,19 +55,20 @@
 <!--<iframe style="float: right;text-align: center;position: relative;margin-right: 2%;" width="78%" id="rightiframe"  src="ProductContent.html" frameborder="no" border="0" scrolling="no">-->
 <!--</iframe>-->
 </body>
+<script src="../js/new_index.js"></script>
 <script>
     var app=angular.module("myapp",[]);
     var jsondatas;
-    var url="/rest/productService/getAllproduct";
+   
     var pagenum;
     var userinfo;
     app.controller('myController', function($scope,$http) {
     	//获取用户信息
-    	$http.get("/obtainUserInfo").success(function(response){
+    	$http.get(userinfoUrl).success(function(response){
     		userinfo=response;
     		$scope.name=response.name;
     	});
-    	request($http,url);
+    	request($http,Prourl);
     	loadFilterInfo();
         $scope.selectData=function (templateName){
 //         	var userMode=$('#dropdownMenuStatuetitle').html();
@@ -78,7 +79,7 @@
         	{
         		templateCategory=(templateCategory=="已发布"?1:0);	
         	}
-        	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page=1";
+        	var geturl=Prourl+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page=1";
         	request($http,geturl)
         };
         $scope.changepage=function(page){
@@ -91,7 +92,7 @@
             	{
             		templateCategory=(templateCategory=="已发布"?1:0);	
             	}
-            	var geturl=url+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page="+page;
+            	var geturl=Prourl+"?ProductName="+templateName+"&userModel="+userMode+"&ispub="+templateCategory+"&page="+page;
             	request($http,geturl);
         	}
         }
@@ -139,7 +140,7 @@
         	var templateName=$('#editProduct #ProductName').val();
         	var templateCategory=$('#editProduct #productClass').val();
         	var isPub=($('#editProduct #ispub').is(":checked"))?1:0;
-        	var editurl="/rest/productService/editProduct?id="+id+"&templateId="+templateId+"&Version="+Version+"&templateType="+templateType+"&templateName="+templateName+"&templateCategory="+templateCategory+"&isPub="+isPub;
+        	var editurl=updateprourl+"?id="+id+"&templateId="+templateId+"&Version="+Version+"&templateType="+templateType+"&templateName="+templateName+"&templateCategory="+templateCategory+"&isPub="+isPub;
         	$http.get(editurl).success(function(response){
         		console.log(response);
         		if(response.code == "success")
@@ -152,7 +153,6 @@
         //加载页面过滤信息
         function loadFilterInfo()
         {
-        	var filterurl="/rest/productService/getTypeAndCategory";
         	$http.get(filterurl).success(function(response){
         		$scope.UserModes=response.usermode;
         		$scope.CateGorys=response.category;
@@ -160,7 +160,7 @@
         }
         $scope.logout=function()
         {
-        	window.location.href= "http://192.168.5.165:8080/logout";
+        	window.location.href= logouturl;
 //         	$http.get("/logout").success(function(response){
 //         	});
         }

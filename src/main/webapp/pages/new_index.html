@@ -282,17 +282,17 @@
 <!-- END PAGE LEVEL PLUGINS -->
 <script src="../assets/plugins/jstree/dist/jstree.min.js"></script>
 <script src="../assets/scripts/custom/ui-tree.js"></script>
-
+<script src="../js/new_index.js"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../assets/scripts/core/app.js" type="text/javascript"></script>
 <script type="text/javascript" src="../assets/scripts/custom/components-dropdowns.js"></script>
 <script type="text/javascript">
 	var app=angular.module("myapp",[]);
-	var url="/rest/productService/getIndexPageElement/";
+// 	var url="/rest/productService/getIndexPageElement/";
 	var userinfo;
 	app.controller('myController', function($scope,$http) {
 		//获取用户信息
-    	$http.get("/obtainUserInfo").success(function(response){
+    	$http.get(userinfoUrl).success(function(response){
     		userinfo=response;
     		console.log(response);
     		$('#username').html(response.name);
@@ -340,7 +340,7 @@
     			};
     			$scope.rows=rows;
     		});
-    		$http.get("/rest/productService/getusersprivilegeIdList/"+userinfo.username).success(function (response){
+    		$http.get(privilegeurl+userinfo.username).success(function (response){
     			var isadmin=0;
     			if(response.indexOf("PID_SYSTEM_ADMIN")!=-1)
     			{
@@ -360,7 +360,7 @@
     			}
     			$scope.isyunyin=isyunyin;
     		});
-    		$http.get("/rest/productService/getMessageNum/"+userinfo.username).success(function (response){
+    		$http.get(messageCenterUrl+userinfo.username).success(function (response){
     			if(parseInt(response)>=99){
     				$scope.messageNum="99+";
     			}else{
@@ -370,7 +370,7 @@
     	});
     	 $scope.logout=function()
          {
-         	window.location.href= "http://192.168.6.23:8080/logout";
+         	window.location.href= logouturl;
          }
 	});
 	app.config(function($compileProvider){//配置这段代码即可
