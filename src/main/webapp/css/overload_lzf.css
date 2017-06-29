@@ -2,6 +2,10 @@
 		border-top: 2px solid #3f8dce;
 	}
 	
+.table-paas > tbody > tr td,
+.table-paas > tbody > tr th{
+	height: 50px;
+}
 .header.navbar .header-inner .navbar-nav .user .dropdown-toggle {
   display: inline-block;
   padding: 19px 0px 19px 6px !important;
