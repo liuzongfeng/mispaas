@@ -116,7 +116,7 @@ public class PaasOrderService {
 				//创建实例
 				PaasInstance pi=new PaasInstance();
 				pi.setTemplateId(pt.getId());
-				pi.setInstanceName("default name");
+				pi.setInstanceName(pt.getProductName());
 				pi.setInstanceStatus(0);
 				pi.setVersion(pt.getVersion());
 				try
