@@ -31,14 +31,14 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee1 {
   width: 26px;
   height: 27px;
-  background: url("../img/template_show.png");
+  background: url("../paas_core/img/template_show.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a i.picon-lessee2,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee2,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee2 {
   width: 26px;
   height: 27px;
-  background: url("../img/template_focus.png");
+  background: url("../paas_core/img/template_focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a span.title2,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a span.title2,
@@ -50,54 +50,71 @@
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
   width: 28px;
   height: 27px;
-  background: url("../img/instance_show.png");
+  background: url("../paas_core/img/instance_show.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a i.picon-user2,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user2,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user2 {
   width: 28px;
   height: 27px;
-  background: url("../img/instance_focus.png");
+  background: url("../paas_core/img/instance_focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee1 {
-  background: url("../img/template_hover.png");
+  background: url("../paas_core/img/template_hover.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-lessee2,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-lessee2,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-lessee2 {
-  background: url("../img/template_focus.png");
+  background: url("../paas_core/img/template_focus.png");
   
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:hover i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:hover i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:hover i.picon-user1 {
-  background: url("../img/instance_hover.png");
+  background: url("../paas_core/img/instance_hover.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-lessee1 {
-  background: url("../img/template_focus.png");
+  background: url("../paas_core/img/template_focus.png");
 }
 
 .resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user1 {
-  background: url("../img/instance_focus.png");
+  background: url("../paas_core/img/instance_focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a:focus i.picon-user2,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a:focus i.picon-user2,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a:focus i.picon-user2 {
-  background: url("../img/instance_focus.png");
+  background: url("../paas_core/img/instance_focus.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-lessee1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-lessee1 {
-  background: url("../img/template_show.png");
+  background: url("../paas_core/img/template_show.png");
 }
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a i.picon-user1,
 .resource-page-sidebar ul.page-sidebar-menu > li.active > a i.picon-user1 {
-  background: url("../img/instance_show.png");
+  background: url("../paas_core/img/instance_show.png");
+}
+
+.btn:focus .tbicon-fre {
+  background: url("../images/paas/tbicon-fre-focus.png");
+}
+.tbicon-fre{
+  width: 26px;
+  height: 26px;
+  background: url("../images/paas/tbicon-fre.png");
+}
+.btn:focus .tbicon-fre {
+  background: url("../images/paas/tbicon-fre-focus.png");
+}
+.tbicon-fre{
+  width: 26px;
+  height: 26px;
+  background: url("../images/paas/tbicon-fre.png");
 }
 option {
   background: #f5f5f5;
