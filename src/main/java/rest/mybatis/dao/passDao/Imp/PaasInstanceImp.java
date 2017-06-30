@@ -104,12 +104,11 @@ public class PaasInstanceImp{
 		PaasOrder paasOrder = null;
 		List<PaasOrder> Orderlist=new ArrayList<PaasOrder>();
 		Map<String, String> map=new HashMap<String, String>();
-		map.put("orgid", orgid);
-		map.put("userid", userid);
-		System.out.println(map);
+		map.put("org", orgid);
+		map.put("user", userid);
 		SqlSession session=sqlSessionFactory.openSession();
 		List<PaasUserSubOrg> list=session.selectList("getPaasUserSubOrg",map);
-//		订单和模块ID的MAP值
+		//订单和模块ID的MAP值
 		Map<String, List<String>> mapth=new HashMap<String, List<String>>();
 		for (int i = 0; i < list.size(); i++) {
 			PaasUserSubOrg puso=list.get(i);
@@ -123,7 +122,7 @@ public class PaasInstanceImp{
 			}
 		}
 		if(mapth.size()>0){
-			Collection keycol=map.keySet();
+			Collection keycol=mapth.keySet();
 			Iterator it=keycol.iterator();
 			while(it.hasNext()){
 				String orderid=(String)it.next();
