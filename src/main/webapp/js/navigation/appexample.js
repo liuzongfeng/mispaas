@@ -2,7 +2,7 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 		'appexample',
 
 		function($route,$http, auth,$rootScope,$scope) {
-			$scope.pageSize = 5;                      //临时赋值
+			$scope.pageSize = 10;                      //临时赋值
 			//查询实例
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
@@ -133,6 +133,9 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 					//autoHeight_fn_s();
 				}
                 
+			}
+			$scope.refreshPage_fn = function(){
+				window.location.href = "../paas_core/pages/index_lzf.html";
 			}
 			//创建实例--title
 			$scope.createExample_fn_title = function(){
