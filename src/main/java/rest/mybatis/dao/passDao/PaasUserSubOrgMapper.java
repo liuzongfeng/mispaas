@@ -61,6 +61,4 @@ public interface PaasUserSubOrgMapper {
      * @mbggenerated Fri Jun 16 13:48:44 CST 2017
      */
     int updateByPrimaryKey(PaasUserSubOrg record);
-    
-    List<PaasUserSubOrg> getPaasUserSubOrg(Map<String,String> map);
 }
