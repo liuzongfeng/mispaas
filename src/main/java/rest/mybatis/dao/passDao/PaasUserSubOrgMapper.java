@@ -62,5 +62,5 @@ public interface PaasUserSubOrgMapper {
      */
     int updateByPrimaryKey(PaasUserSubOrg record);
     
-    List<PaasUserSubOrg> getPaasUserSubOrg(Map<String, String> map);
+    List<PaasUserSubOrg> getPaasUserSubOrg(Map<String,String> map);
 }

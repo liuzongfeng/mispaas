@@ -237,13 +237,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </update>
   
-<!--   <select id="getSubserviceByOrdIdandUserid" parameterType="java.util.Map" resultMap="PaasSubserviceMap"> -->
-<!--   	select distinct ps.* from PAAS_USER_SUB_ORG puso -->
-<!-- 	left join PAAS_SUBSERVICE ps on puso.SUBSERVICE_ID=ps.ID -->
-<!--     where (puso.USER_OR_ORD_ID=#{orgid} and puso.GRANULARITY=1) or (puso.USER_OR_ORD_ID=#{userid} and puso.GRANULARITY=0) -->
-<!--   </select> -->
-  
-  <select id="getPaasUserSubOrg"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  <select id="getPaasUserSubOrg" resultType="java.util.Map"  resultMap="BaseResultMap">
   	select <include refid="Base_Column_List" />
   	from PAAS_USER_SUB_ORG
     where (USER_OR_ORD_ID=${orgid} and GRANULARITY=1) 
