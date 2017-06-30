@@ -24,8 +24,6 @@ import rest.mybatis.model.passModel.PaasUserSubOrg;
 public class PaasInstanceImp{
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
-	@Autowired
-	private PaasUserSubOrgMapper pusom;
 	public int insert(PaasInstance record) {
 		SqlSession session=sqlSessionFactory.openSession();
 		int result=session.insert("createInstance",record);
