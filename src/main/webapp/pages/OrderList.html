@@ -65,6 +65,7 @@
 <!--     </div> -->
 <!-- </div> -->
 </body>
+<script src="../js/new_index.js"></script>
 <script>
     function changeFrameHeight(){
         var ifm= document.getElementById("leftiframe");
@@ -81,26 +82,25 @@
     var jsondatas;
     var pagenum;
     var userinfo;
-    var url="/rest/orderService/getAllOrder";
     app.controller('myController', function($scope,$http) {
     	//获取用户信息
-    	$http.get("/obtainUserInfo").success(function(response){
+    	$http.get(userinfoUrl).success(function(response){
     		userinfo=response;
     		$scope.name=response.name;
     	});
     	 $scope.logout=function()
          {
-         	window.location.href= "http://192.168.6.23:8080/logout";
+         	window.location.href= logouturl;
 //          	$http.get("/logout").success(function(response){
 //          	});
          }
-    	request($http,url);
+    	request($http,orderurl);
         $scope.selectData=function(){
         	var TenantName=$('#TenantName').val();
         	var startTime=$('#startDate').val();
         	var endTime=$('#endDate').val();
         	var Status=$('#dropdownMenuStatuetitle').attr("data");
-        	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&endTime="+endTime+"&startTime="+startTime+"&page=1";
+        	var geturl=orderurl+"?TenantName="+TenantName+"&Status="+Status+"&endTime="+endTime+"&startTime="+startTime+"&page=1";
         	console.log(geturl);
         	request($http, geturl);
         }
@@ -110,7 +110,7 @@
         		var TenantName=$('#TenantName').val();
             	var createTime=$('#createTime').val();
             	var Status=$('#dropdownMenuStatuetitle').attr("data");
-            	var geturl=url+"?TenantName="+TenantName+"&Status="+Status+"&CreateTime="+createTime+"&page="+page;
+            	var geturl=orderurl+"?TenantName="+TenantName+"&Status="+Status+"&CreateTime="+createTime+"&page="+page;
             	request($http,geturl);
         	}
         }
@@ -146,7 +146,7 @@
         	var resion=$('#resion').val();
         	var proid=$('#proid').val();
         	var instanceId=$('#instanceId').val();
-        	var updateUrl="/rest/orderService/updateOrder?userId="+userinfo.username+"&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
+        	var updateUrl=updateOrderurl+"?userId="+userinfo.username+"&orderId="+id+"&statue="+statue+"&resion="+resion+"&proId="+proid+"&instanceid="+instanceId;
         	console.log(updateUrl);
         	$http.get(updateUrl).success(function(response){
         		if(response.code == "success")

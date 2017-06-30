@@ -44,14 +44,16 @@
                 	<div class="tab-pane fade active in" id="tab_51_1">
                 	
                 		<div class="form-toolbar" >
-	                       	<div class="toolbar-left" style="margin-left:2% ;width:100%;margin-top:30px;">
+	                       	<div class="toolbar-left" style="margin-left:2% ;width:100%;margin-top:20px;">
 			                   <!--  <button  class="btn btn-default" type="button" ng-click="createExample_fn()"><i class="tbicon-add button-image"></i>创建实例</button> -->
+			                    <button  class="btn btn-default" type="button" ng-click="refreshPage_fn()"><i class="tbicon-edit button-image"></i>刷新页面</button>
 			                    <button  class="btn btn-default" type="button" ng-click="editExample_fn()"><i class="tbicon-edit button-image"></i>编辑实例</button>
+	                    		
 	                    	</div>
 	                    </div>
                  
                  
-                 		<div style="width:100%; margin-top:40px;">
+                 		<div style="width:100%; ">
                              <form class="form-inline" role="form" style="margin-right:2%;" >
                                  <div class="form-group" style="float:right">
 			                	<!-- 查询框 -->
@@ -110,7 +112,7 @@
                  	<div class="table-responsive table-content" style="width:96%;padding-top: 20px;margin-left:2%;">
                      	<table class="table table-bordered table-hover table-paas">
                          	<thead>
-                         		<tr style="height: 56px;background-color: #f7f7f7;border-top: 1px solid #dcdedd">
+                         		<tr style="background-color: #f7f7f7;border-top: 1px solid #dcdedd">
                              		<th >
 	                             		<!-- <span class="table-checkbox">
 		                             		<div class="checker">
@@ -128,7 +130,7 @@
                          		</tr>
                          	</thead>
                          	<tbody>
-                         		<tr ng-repeat="Instance in instances">
+                         		<tr ng-repeat="Instance in instances" >
 	                             <td>
 	                             	<span class="table-checkbox">
 							 			<div class="checker">
@@ -160,12 +162,12 @@
 						
 					}
 				</script>
-                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:3px;">
+                 	<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
 	            		<p class="page-info">
 		                	<span class="page-size page-text">每页</span>
 		                	<select class="form-control bs-select  page-size page-size-select" id="selectPageSize">
-			                    <option value=5>5</option>
 			                    <option value=10>10</option>
+			                    <option value=15>15</option>
 			                    <option value=20>20</option>
 		                	</select>
 		                	<span class="page-size page-text">条&nbsp;</span>共<span id="totalSize" ></span>&nbsp;条记录

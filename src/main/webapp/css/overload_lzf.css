@@ -1,7 +1,22 @@
 .nav-tabs > li.active > a {
 		border-top: 2px solid #3f8dce;
 	}
-	
+.table-paas > thead > tr th,
+.table-paas > .head > tr th {
+  padding-left: 30px;
+  height: 45px;
+  color: #333;
+  font-size: 20px;
+  font-weight: normal;
+  vertical-align: middle;
+}	
+.table-paas > tbody > tr td,
+.table-paas > tbody > tr th{
+	height: 45px;
+}
+.table {
+	margin-bottom: 0px;
+}
 .header.navbar .header-inner .navbar-nav .user .dropdown-toggle {
   display: inline-block;
   padding: 19px 0px 19px 6px !important;
@@ -10,6 +25,10 @@
   width: 170px;
   background-color: #21252D;
   position: fixed;
+}
+.form-toolbar .toolbar-left {
+  float: left;
+  margin-bottom: 30px;
 }
 .resource-page-sidebar ul.page-sidebar-menu > li a,
 .resource-page-sidebar ul.page-sidebar-menu > li.open > a,

@@ -2,7 +2,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 		'apptemplate', 
 
 		function($route,$http, auth,$rootScope,$scope) {
-			$scope.pageSize = 5;                      //临时赋值
+			$scope.pageSize = 10;                      //临时赋值
 			
 			//发起请求加载模板列表
 			selectPage_aa = function (page) {
@@ -141,11 +141,12 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 						
 						swal("导入成功!", "", "success");
 						
-						selectPage_aa(1);
+						resetChecker();
 						$("#inputfile").val("");
 						if($("#overWriteExistId").prop("checked")){
 							$("#overWriteExistId").prop("checked",false);
 						};
+						selectPage_aa(1);
 						//$("#myModal").modal('dismiss');
 						
 						/*swal({   
@@ -204,11 +205,12 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 						$("#myModal").modal('hide');
 						
 						swal("导入失败!", "存在相同的模板id,请选择覆盖", "error");
-						selectPage_aa(1);
+						resetChecker();
 						$("#inputfile").val("");
 						if($("#overWriteExistId").prop("checked")){
 							$("#overWriteExistId").prop("checked",false);
 						};
+						selectPage_aa(1);
 						//$("#myModal").modal('dismiss');
 					}else{
 						
@@ -233,17 +235,28 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
 						$("#file1").val("");
 						$("#myModal").modal('hide');
 						
-						swal("导入失败!", "系统异常,请联系管理员", "error");
-						selectPage_aa(1);
+						swal("导入失败!", res, "error");
+						resetChecker();
 						$("#inputfile").val("");
 						if($("#overWriteExistId").prop("checked")){
 							$("#overWriteExistId").prop("checked",false);
 						};
+						selectPage_aa(1);
 						//$("#myModal").modal('dismiss');
 					}
 				});
 			}
-			
+			var resetChecker = function(){
+				
+				var spanObj = $("#overWriteExistId").parent();
+				spanObj.attr("class","");
+				/*if(spanObj.attr("class") == "checked" || spanObj.attr("class") == true){
+					spanObj.attr("class","");
+				}else{
+					$("span[class=checked]").attr("class","");
+					spanObj.attr("class","checked");
+				}*/
+			}
 			/*var autoHeight_fn = function(){
 				//高度自适应
 				//template高度自适应
@@ -252,7 +265,10 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
                 var ifm_left= $("#leftdiv");
                 ifm_left.css("height",rdiv_offsetHeight);
 			}*/
-			
+			$scope.refreshPage_fn = function(){
+				$rootScope.hrefPage = 1;
+				window.location.href = "../paas_core/pages/index_lzf.html";
+			}
 			//应用模板
 			$scope.appTemplate_fn = function(){
 				if($scope.editTemplate){

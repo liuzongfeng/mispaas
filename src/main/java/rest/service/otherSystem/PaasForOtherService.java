@@ -92,7 +92,7 @@ public class PaasForOtherService {
 		Map<String,String> selMap = new HashMap<String,String>();
 		//1.获取参数
 		String instanceId = instanceidTenentid.getInstanceid();
-		String tenentId = instanceidTenentid.getTenentid();
+		String tenentId = instanceidTenentid.getTenantid();
 		selMap.put("instanceId", instanceId);
 		selMap.put("tenenId", tenentId);
 		if(null == instanceId || "".equals(instanceId)){

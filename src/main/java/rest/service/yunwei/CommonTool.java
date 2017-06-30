@@ -10,11 +10,13 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.stereotype.Component;
 
 public class CommonTool{
-	
+	/**
+	 * 获得系统环境变量
+	 * @param needKey
+	 * @return
+	 */
 	public static String obtainUrl(String needKey){
-		
 		Map<String, String> getenv = System.getenv();
-		System.out.println("this is getenv:"+getenv);
 		return getenv.get(needKey);
 	}
 	

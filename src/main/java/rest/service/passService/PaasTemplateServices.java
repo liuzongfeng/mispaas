@@ -19,6 +19,7 @@ import rest.mybatis.dao.passDao.Imp.PaasInstanceImp;
 import rest.mybatis.dao.passDao.Imp.PaasTemplateImp;
 import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrder;
+import rest.mybatis.model.passModel.PaasSubservice;
 import rest.mybatis.model.passModel.PaasTemplate;
 import rest.page.util.Message;
 import rest.page.util.PageUtil;
@@ -93,8 +94,11 @@ public class PaasTemplateServices {
 			String orjcode=orgary[i].toString();
 			orjcode=orjcode.replaceAll("\"", "");
 //			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId("0BBCB174-64F8-4592-870D-6C8F73A03961");
-			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId(orjcode);
-			reslut.addAll(list);
+			//根据组织机构ID获取 订单
+//			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId(orjcode);
+			//表结构修改 逻辑修改 updata by zx at time:2017年6月28日10:49:01
+			List<PaasOrder> order=paasInstanceImp.getInstancesByOrdIdandUserid(orjcode,userid);
+			reslut.addAll(order);
 		}
 		return reslut;
 	}

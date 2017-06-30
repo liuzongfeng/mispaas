@@ -15,6 +15,16 @@
     <result column="GRANULARITY" property="granularity" jdbcType="INTEGER" />
       <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
   </resultMap>
+  
+<!--   <resultMap id="PaasSubserviceMap" type="rest.mybatis.model.passModel.PaasSubservice" > -->
+<!--     <id column="ID" property="id" jdbcType="INTEGER" /> -->
+<!--     <result column="TEMPLATE_ID" property="templateId" jdbcType="INTEGER" /> -->
+<!--     <result column="MODULE_NAME" property="moduleName" jdbcType="VARCHAR" /> -->
+<!--     <result column="MODULE_URL" property="moduleUrl" jdbcType="VARCHAR" /> -->
+<!--     <result column="MODULE_IS_DIS" property="moduleIsDis" jdbcType="VARCHAR" /> -->
+<!--     <result column="MODULE_DES" property="moduleDes" jdbcType="VARCHAR" /> -->
+<!--     <result column="MODULE_IMG_NAME" property="moduleImgName" jdbcType="VARCHAR" /> -->
+<!--   </resultMap> -->
   <sql id="Base_Column_List" >
     <!--
       WARNING - @mbggenerated

@@ -140,7 +140,7 @@
 	    </div>
 	</div>
 </div>
-<div class="creArea" ng-repeat="rows in cremodel">
+<div class="creArea">
 	<div class="contentClass">
 	    <div class="cretitle">
 	        <div class="crecntitle">CRE-融合资源平台</div>

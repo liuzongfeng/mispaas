@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -109,6 +110,12 @@ public class TemplateService<T> {
 		    	throw new Exception("压缩文件不合法");
 		    }
 		    //将文件先暂存本地磁盘，之后删除
+		    Properties pro = System.getProperties();
+		    String osName = pro.getProperty("os.name");//获得当前操作系统的名称
+		    if("Linux".equals(osName) || "linux".equals(osName) || "LINUX".equals(osName)){
+		    	String[] splitStr = serverPath.split("/");
+		    	serverPath = "/"+splitStr[1];
+		    }
 		    zFile = new File( serverPath+ uploadFileName + "."+ uploadFileSuffix);
 		    fis = (FileInputStream) uploadzipfile.getInputStream();
 		    fos = new FileOutputStream(zFile);
@@ -149,7 +156,10 @@ public class TemplateService<T> {
 			if(null != overWriteExistThread.getTl().get() && "on".equals(overWriteExistThread.getTl().get())){
 				//1.先删除所有。不考虑是否实例
 				deleteSubserviceFile();
-				paasTemplateMapper.deleteByPrimaryKey(passTemplateThread.getTl().get().getId());
+				if(null != passTemplateThread.getTl().get()){
+					paasTemplateMapper.deleteByPrimaryKey(passTemplateThread.getTl().get().getId());
+				}
+				
 				//2.将信息还原
 				rollbackObject();
 			}else{
@@ -335,7 +345,12 @@ public class TemplateService<T> {
 	 * @param templateId
 	 */
 	public void deleteSubserviceFile(){
-		Integer templateId_up = old_passTemplateThread.getTl().get().getId();
+		
+		Integer templateId_up = null;
+		PaasTemplate paasTemplate = old_passTemplateThread.getTl().get();
+		if(null != paasTemplate){
+			templateId_up = paasTemplate.getId();
+		}
 		String templateId_up_s = null;
 		if(null != templateId_up){
 			templateId_up_s = String.valueOf(templateId_up);
@@ -365,7 +380,10 @@ public class TemplateService<T> {
 	 */
 	public void rollbackObject(){
 		//1.将模板还原
-		paasTemplateMapper.insert(old_passTemplateThread.getTl().get());
+		if(null != old_passTemplateThread.getTl().get()){
+			paasTemplateMapper.insert(old_passTemplateThread.getTl().get());
+		}
+		
 		//2.保存子服务、文件
 		for(Object o :forRollBackThread.getTl().get()){
 			if(o instanceof PaasSubservice){
@@ -478,6 +496,8 @@ public class TemplateService<T> {
 					            		old_passTemplateThread.getTl().set(passTemplate);   //保存原有的模板，以便发生异常，再进行还原
 					            		passTemplateThread.getTl().set(passTemplate);
 					            		deleteSubserviceFile(); //只对应的删除子服务和文件
+					            	}else{
+					            		throw new Exception("模板id"+tplId+"不存在需要覆盖的模板");
 					            	}
 					            }else{//不进行覆盖:如果已经存在提示是否覆盖
 					            	//根据templateId 查询template

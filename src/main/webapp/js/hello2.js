@@ -3,12 +3,11 @@ var hello1 = angular
 		.config(
 
 				function($routeProvider, $httpProvider, $locationProvider) {
-
+					
 					$locationProvider.html5Mode(true);
-
 					$routeProvider.when('/', {
-						templateUrl : '../paas_core/js/navigation/apptemplate.html',
-						controller : 'apptemplate',
+						templateUrl : '../paas_core/js/navigation/appexample.html',
+						controller : 'appexample',
 						controllerAs : 'controller'
 					}).when('/message', {
 						templateUrl : '../paas_core/js/message/message.html',
@@ -27,12 +26,12 @@ var hello1 = angular
 						controller : 'appexample',
 						controllerAs : 'controller'
 					}).otherwise('/');
+					
 
 					$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 					
 					
 				}).run(function(auth) {
-
 			// Initialize auth module with the home page and login/logout path
 			// respectively
 			auth.init('/', '/login', '/logout');
