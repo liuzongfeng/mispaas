@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mispass</groupId>
 	<artifactId>pass1</artifactId>
-	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pass Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -191,4 +190,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<packaging>war</packaging>
 </project>
