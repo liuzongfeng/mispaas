@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="refresh">
 <title>PaaS运维管理</title>
 <base href="/paas_core" />
 <link href="../paas_core/css/design.css" rel="stylesheet">
@@ -13,7 +14,7 @@
 <link href="../paas_core/css/design_self.css" rel="stylesheet">
 
 <link href="../paas_core/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-<link rel="stylesheet" type="text/css" href="../paas_core/assets/plugins/jstree/dist/themes/default/style.min.css"/>
+<link rel="stylesheet" type="text/css" href="../assets/plugins/jstree/dist/themes/default/style.min.css"/>
 <!-- END THEME STYLES -->
 <link href="../paas_core/css/base.css" rel="stylesheet" type="text/css"/>
 <link href="../paas_core/css/pages/cre-groups.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +45,7 @@ option:hover {
     <div class="page-sidebar-wrapper">
         <div class="page-sidebar navbar-collapse collapse">
 			<div ng-controller="navigation as nav" class="container" style="padding: 0px;">
-				<div ng-include="'../paas_core/pages/myapp.html'"></div>
+				<div ng-include="'../paas_core/pages/myapp2.html'"></div>
 			</div>
 		</div>
 	</div>
@@ -56,6 +57,7 @@ option:hover {
             <div class="page-content-boxborder" style="overflow-x: hidden;">
     			<div ng-view ></div>
     			
+    			
     		</div>
 		</div>
 	</div>
@@ -64,7 +66,7 @@ option:hover {
 	
 
 	<div  style="width:100%;float:right;background-color: #273040;">
-     <!--   <div ng-include="'../paas_core/pages/footer.html'" ></div> -->
+     <!--   <div ng-include="'../pages/footer.html'" ></div> -->
     </div>
     
     <script src="../paas_core/js/methodUrl.js" type="text/javascript"></script>
@@ -78,10 +80,10 @@ option:hover {
 	<script src="../paas_core/js/navigation/navigation.js" type="text/javascript"></script>
 	<script src="../paas_core/js/navigation/appexample.js" type="text/javascript"></script>
 	<script src="../paas_core/js/navigation/apptemplate.js" type="text/javascript"></script>
-	<script src="../paas_core/js/hello.js" type="text/javascript"></script>
+	<script src="../paas_core/js/hello2.js" type="text/javascript"></script>
 	
-	<!-- <script src="../paas_core/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<script src="../paas_core/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script> -->
+	<!-- <script src="../assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="../assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script> -->
 	<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 	<script src="../paas_core/assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 	<script src="../paas_core/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -131,6 +133,7 @@ option:hover {
         });
         UITree.init();
         $(".page-content-boxborder").height(window.innerHeight - 54);
+       
     }); 
 
 	

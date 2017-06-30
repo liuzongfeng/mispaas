@@ -266,6 +266,7 @@ angular.module('apptemplate', ['ngRoute', 'auth']).controller(
                 ifm_left.css("height",rdiv_offsetHeight);
 			}*/
 			$scope.refreshPage_fn = function(){
+				$rootScope.hrefPage = 1;
 				window.location.href = "../paas_core/pages/index_lzf.html";
 			}
 			//应用模板

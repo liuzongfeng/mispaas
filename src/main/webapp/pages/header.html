@@ -1,39 +1,10 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-上边页头
-<div class="navbar  navbar-fixed-top" style="height: 82px; background-color: #273040;">
-    Logo
-    <div style="width:10% ;height:82px; position:static;float: left;">
-    	<img alt="" src="../img/LOGO.png" style="vertical-align: middle;text-align: center;"/>
-    </div>
-    個服務
-    <div style="width:90% height:82px;">
-    	<div style="position:static;float: left; height:82px;">
-    		<img id="yunweilogo" alt="" src="" style="vertical-align:middle;">
-    	</div>
-    
-    	<div style="positon:static;float: right;vertical-align: middle;margin-top:40px;">
-    		
-    			<span  style="font-family: Microsoft YaHei;font-size: 20px;font-weight: 300;color:#FFFFFF;margin-left:3px;">你好 :   {{username}}</span>
-    			<a>&nbsp;&nbsp;|&nbsp;&nbsp;</a>
-    			<a ng-click="LogOut_fn();" style="font-family: Microsoft YaHei;font-size: 20px;font-weight: 300;">登出</a>
-    		
-    	</div>
-    </div>
-</div>
-</html> -->
-
     <!-- BEGIN TOP NAVIGATION BAR -->
     <div class="header-inner d-header-inner">
         <!-- BEGIN LOGO -->
-        <a class="navbar-brand" href="javascript:void(0)"><img  src="../images/paas/logo.png" alt="logo" class="img-responsive"/></a>
+        <a class="navbar-brand" href="javascript:void(0)"><img  src="../paas_core/images/paas/logo.png" alt="logo" class="img-responsive"/></a>
         <!-- END LOGO -->
         <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <img src="../assets/img/menu-toggler.png" alt=""/>
+            <img src="../paas_core/assets/img/menu-toggler.png" alt=""/>
         </a>
         <!-- BEGIN HORIZANTAL MENU -->
         <div class="hor-menu hidden-sm hidden-xs">
@@ -45,7 +16,7 @@
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown user">
                 <a href="javascript:void(0)" id="dropdown_toggle_a" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <img alt="" src="../assets/img/avatar1_small.jpg"/>
+                    <img alt="" src="../paas_core/assets/img/avatar1_small.jpg"/>
                         <span class="username">
                              你好，{{username}}
                         </span>
@@ -54,17 +25,17 @@
                 <ul id="dropdown-menu_ul" class="dropdown-menu">
                     <li>
                         <a href="javascript:void(0)">
-                            <i style="background: url('../img/guanlizhongxin.png') no-repeat; height: 16px;width: 16px;"></i>管理中心
+                            <i style="background: url('../paas_core/img/guanlizhongxin.png') no-repeat; height: 16px;width: 16px;"></i>管理中心
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i style="background: url('../img/xiugaimima.png') no-repeat; height: 16px;width: 16px;"></i>修改密码
+                            <i style="background: url('../paas_core/img/xiugaimima.png') no-repeat; height: 16px;width: 16px;"></i>修改密码
                         </a>
                     </li>
                     <li>
                         <a href="javascript:void(0)">
-                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../img/tuichu.png') no-repeat; height: 14px;width: 14px;"></i>退出
+                            <i class="dyicon-logout2" ng-click="logout()" style="background: url('../paas_core/img/tuichu.png') no-repeat; height: 14px;width: 14px;"></i>退出
                         </a>
                     </li>
                 </ul>
@@ -84,7 +55,7 @@
          		isblockFlag = 2;
            		$("#dropdown-menu_ul").css("display","block");
            	});
-         // --移出
+         // --�Ƴ�
          	$("#dropdown_toggle_a").mouseout(function(){
          		
          			var t=setTimeout(function(){
@@ -94,7 +65,7 @@
          			},800);
          		
          	}); 
-         // --移出
+         // --�Ƴ�
          	$("#dropdown-menu_ul").mouseout(function(){
          		isblockFlag = 0;
          		$("#dropdown-menu_ul").css("display","none");

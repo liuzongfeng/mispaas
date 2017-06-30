@@ -7,7 +7,6 @@ var setting = {
 		        selectedMulti: false,
 		    	showIcon: false,
 		    	showLine: false,
-		    	/*fontCss : {color:"red"}*/
 		    },
 		    check: {
 		        enable: true,
@@ -21,9 +20,6 @@ var setting = {
 		    edit: {
 		        enable: false,
 		    },
-		    callback: {
-				onClick: zTreeOnClick
-			}
 		};
 /*var zNodes = [
 	 { id: 11, pId: 0, name: "父节点11", open: true },
@@ -44,21 +40,36 @@ var setting = {
 	    { id: 2017, pId: 689, name: "叶子节点2017" },
 ];*/
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function createTree1(node,orgtree){
+var streeNodes=null;
+function createTree1(node,orgtree,modelId){
+	var modelnode = [];
+	var jk=0;
+	for(i=0;i<node.length;i++){
+		if(node[i].subserviceId==modelId){
+			modelnode[jk]=node[i];
+			jk=jk+1;
+		}
+	}
 	var testarry = [];
+	streeNodes=modelnode;
 	var stree = orgtree.organizationList;
 	for(i=0;i<stree.length;i++){
-		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false};
-		for(j=0;j<node.length;j++){
-			if(stree[i].id==node[j].orgId){
-				testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:true};
-				break;
-			}
-		}	
-	}
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false,halfCheck:false};
+	};
+	
 	$(document).ready(function () {
 	    $.fn.zTree.init($("#treeDemo2"), setting, testarry);
 	});
+	for(i=0;i<stree.length;i++){
+		for(j=0;j<modelnode.length;j++){
+			if(stree[i].id==modelnode[j].userOrOrdId){
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
+					var pnode = zTree.getNodeByParam("id",modelnode[j].userOrOrdId, null);
+					zTree.checkNode(pnode, true, true);
+				break;
+			}
+		}
+	}
 };
 ///+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function createTree2(orgtree){
@@ -73,21 +84,38 @@ function createTree2(orgtree){
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function createTree3(node,orgtree){
+function createTree3(node,orgtree,modelId){
+	
+	var modelnode = [];
+	var jk=0;
+	for(i=0;i<node.length;i++){
+		if(node[i].subserviceId==modelId){
+			modelnode[jk]=node[i];
+			jk=jk+1;
+		}
+	}
 	var testarry = [];
+	streeNodes=modelnode;
 	var stree = orgtree.organizationList;
 	for(i=0;i<stree.length;i++){
-		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false, "chkDisabled":true};
-		for(j=0;j<node.length;j++){
-			if(stree[i].id==node[j].orgId){
-				testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:true};
-				break;
-			}
-		}	
-	}
+		testarry[i]={ id:stree[i].id, pId: stree[i].parentId, name: stree[i].name, open: true ,checked:false,halfCheck:false};
+		};
 	$(document).ready(function () {
 	    $.fn.zTree.init($("#treeDemo3"), setting, testarry);
 	});
+	
+	for(i=0;i<stree.length;i++){
+		for(j=0;j<modelnode.length;j++){
+			if(stree[i].id==modelnode[j].userOrOrdId){
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo3");
+					var pnode = zTree.getNodeByParam("id",modelnode[j].userOrOrdId, null);
+					zTree.checkNode(pnode, true, true);
+				break;
+			}
+			
+		}
+	}
+	
 };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //获取点选的机构ID集合
@@ -156,11 +184,47 @@ $("#addBtn_" + treeNode.tId).unbind().remove();
 };
 //========================================================================
 //回调函数加载组织机构的用户
-function zTreeOnClick(event, treeId, treeNode) {
-   /* alert(treeNode.tId + ", " + treeNode.name+treeNode.id+treeId);
-    var treeObj = $.fn.zTree.getZTreeObj(treeId);
-    var halfCheck = treeNode.getCheckStatus();
-    alert(halfCheck.half);*/
+/*function zTreeOnClick(event, treeId, treeNode) {
+	var ourl = tenantSelfinterfaces.Var_OthergetuserWithOrg;
+	var orgId=treeNode.id.split("/key")[0];
+	 $.ajax({
+			type:"get",
+			url:tenantSelfinterfaces.Var_getOrgWithUser,
+			data:"OrgId="+orgId,
+			success:function(ret54){//请求成功且响应完整时执行，ret54==响应值(可能是解析后)
+				if(ret54!=null){}
+				var stree=ret54.userList;
+				var treeObj = $.fn.zTree.getZTreeObj(treeId);
+				var node = treeObj.getNodeByParam("id",orgId+"/1", null);
+				treeObj.removeNode(node);
+				var node = treeObj.getNodeByParam("id",orgId+"/2", null);
+				treeObj.removeNode(node);
+				var testarry = [];
+				
+				for(i=0;i<stree.length;i++){
+					testarry[i]={ id:"/"+stree[i].id, pId: treeNode.id, name: "U/"+stree[i].name, open: true ,checked:false};
+					//treeObj.removeChildNodes(treeNode);
+				}
+				
+				for(i=0;i<stree.length;i++){
+					var node = treeObj.getNodeByParam("id","/"+stree[i].id, null);
+					treeObj.removeNode(node);
+				}
+				newNodes = treeObj.addNodes(treeNode, testarry);
+
+					if(streeNodes!=null){
+						for(j=0;j<streeNodes.length;j++){
+							if(streeNodes[j].userOrOrdId.indexOf("/")>= 0){
+								var node = treeObj.getNodeByParam("id",streeNodes[j].userOrOrdId, null);
+								var zTree = $.fn.zTree.getZTreeObj(treeId);
+								zTree.checkNode(node, true, true);
+							}else{
+								var node = treeObj.getNodeByParam("id",streeNodes[j].userOrOrdId, null);
+								var zTree = $.fn.zTree.getZTreeObj(treeId);
+								zTree.checkNode(node, true, true);
+							}
+						}
+					}
 	var ourl = tenantSelfinterfaces.Var_OthergetuserWithOrg;
 	 $.ajax({
 			type:"get",
@@ -178,7 +242,8 @@ function zTreeOnClick(event, treeId, treeNode) {
 			},
 			dataType:"json"
 		  });
-};
+};*/
+
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*//显示菜单

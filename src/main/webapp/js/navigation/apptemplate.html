@@ -26,16 +26,17 @@
                 	<div class="tab-pane fade active in" id="tab_51_1">
                 	
 		            	<div class="form-toolbar" >
-	                       	<div class="toolbar-left" style="margin-left: 2%;margin-top:10px;width:100%;">
+	                       	<div class="toolbar-left" style="margin-left: 2%;margin-top:20px;width:100%;">
+	                       		<button  class="btn btn-default" type="button" ng-click="refreshPage_fn()"><i class="tbicon-edit button-image"></i>刷新页面</button>
 			                    <button  class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><i class="tbicon-add button-image"></i>导入模板</button>
 			                    <button  class="btn btn-default" type="button" ng-click="editTemplate_fn()"><i class="tbicon-edit button-image"></i>查看模板</button>
 			                    <button  class="btn btn-default" type="button" ng-click="delTemplate_fn()"><i class="tbicon-delete button-image"></i>删除模板</button>
 			                    <button  disabled="disabled" class="btn btn-default" type="button" ng-click="checkOutTemplate_fn()"><i class="tbicon-setting button-image"></i>导出模板</button>
-	                    		<button  class="btn btn-default" type="button" ng-click="refreshPage_fn()"><i class="tbicon-edit button-image"></i>刷新页面</button>
+	                    		
 	                    	</div>
 	                    </div>
 	                    
-                 		<div style="width:100%; margin-top:20px;">
+                 		<div style="width:100%;">
                              <form class="form-inline" role="form" style="margin-right:2%;">
                                  <div class="form-group" style="float:right">
 			                	<!-- 查询框 -->
@@ -126,7 +127,7 @@
                      </table>
                  </div>
 				
-				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:3px;">
+				<div class="main-page" style="margin-left: 2%;margin-right:2%;margin-top:15px;">
             		<p class="page-info">
 	                	<span class="page-size page-text">每页</span><!--  -->
 	                	<select class="form-control bs-select  page-size page-size-select " id="selectPageSize" >

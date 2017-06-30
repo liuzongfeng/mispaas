@@ -134,8 +134,11 @@ angular.module('appexample', ['ngRoute', 'auth']).controller(
 				}
                 
 			}
+			
 			$scope.refreshPage_fn = function(){
-				window.location.href = "../paas_core/pages/index_lzf.html";
+				
+				window.location.href = "../paas_core/pages/index_lzf2.html";
+				
 			}
 			//创建实例--title
 			$scope.createExample_fn_title = function(){

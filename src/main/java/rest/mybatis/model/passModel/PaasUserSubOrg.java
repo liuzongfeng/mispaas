@@ -57,7 +57,19 @@ public class PaasUserSubOrg {
      *
      * @mbggenerated Fri Jun 16 13:48:44 CST 2017
      */
-    public Integer getId() {
+    
+    private String orgId;
+    
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public Integer getId() {
         return id;
     }
 
