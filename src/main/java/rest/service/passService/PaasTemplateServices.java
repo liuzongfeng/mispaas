@@ -97,8 +97,8 @@ public class PaasTemplateServices {
 			//根据组织机构ID获取 订单
 //			List<PaasOrder> list=paasInstanceImp.getInstanceBytenantId(orjcode);
 			//表结构修改 逻辑修改 updata by zx at time:2017年6月28日10:49:01
-			PaasOrder order=paasInstanceImp.getInstancesByOrdIdandUserid(orjcode,userid);
-			reslut.add(order);
+			List<PaasOrder> order=paasInstanceImp.getInstancesByOrdIdandUserid(orjcode,userid);
+			reslut.addAll(order);
 		}
 		return reslut;
 	}

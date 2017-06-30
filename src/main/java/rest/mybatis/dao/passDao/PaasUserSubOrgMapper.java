@@ -1,5 +1,8 @@
 package rest.mybatis.dao.passDao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import rest.mybatis.model.passModel.PaasUserSubOrg;
@@ -53,4 +56,6 @@ public interface PaasUserSubOrgMapper {
      * @mbggenerated Fri Jun 16 13:48:44 CST 2017
      */
     int updateByPrimaryKey(PaasUserSubOrg record);
+    
+    List<PaasUserSubOrg> getPaasUserSubOrg(Map<String, String> map);
 }
