@@ -476,7 +476,6 @@ ul.log li.dark {
 										</div>
 									</div>
 									<div class="form-group"  ng-show="Details" style="margin-bottom: 5px;margin-left: -15px;">
-									
 									  <div class="panel panel-default" style="width: 70%;margin-left: 175px;margin-top: 30px;">
 											<div class="panel-heading">
 												<h3 class="panel-title" style="">
@@ -487,6 +486,7 @@ ul.log li.dark {
 													
 													<div class="col-md-5"
 														style="width:30%;height: 340px; overflow: auto; padding-right: 0px;">
+
 														<label><span style="font-size: 16px;">模块列表:</span></label>
 														<div  style="height: 300px;margin-top: 10px;border: 1px;">
 															<table class="table" style="">
@@ -499,10 +499,17 @@ ul.log li.dark {
 																	<td></td>
 																	<td></td>
 																</tr>
+<<<<<<< Updated upstream
 																<tr ng-click="checkmodel(paasSubservice.id,'k')"
 																	style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
 																	ng-repeat="paasSubservice in templates[0].paasSubservices">
 																	<td style="width: 40%" id="{{paasSubservice.id}}k" title="{{paasSubservice.id}}"><span>{{paasSubservice.moduleName}}</span></td>
+=======
+																<tr ng-click="checkmodel(paasSubservice.id)"
+																	style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
+																	ng-repeat="paasSubservice in templates[0].paasSubservices">
+																	<td style="width: 40%" id="{{paasSubservice.id}}"><span>{{paasSubservice.moduleName}}</span></td>
+>>>>>>> Stashed changes
 																	<td style="width: 60%"><span>{{paasSubservice.moduleDes}}</span></td>
 																	<td></td>
 																	<td></td>
@@ -514,6 +521,7 @@ ul.log li.dark {
 													
 													<div class="col-md-5"
 														style="width:30%; height: 340px; overflow: auto; padding-right: 0px;margin-left: 30px;">
+
 														<label ><span style="font-size: 16px;">用户群:</span></label>
 															<div id="menuContent2" class="content_wrap"
 																style="border-color: #e5e5e5; background-color: #ffffff">
@@ -917,6 +925,188 @@ ul.log li.dark {
                 <div class="clearfix"></div>
       </div>
             <!-- END PAGE CONTENT-->
+<<<<<<< Updated upstream
+=======
+</div>
+<div tabindex="-1" class="modal fade in" id="add-user-myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                <h4 class="modal-title">设置租户管理员</h4>
+            </div>
+            <div class="modal-body add-user">
+                <div class="set-tree">
+                    <div class="set-title">
+                        <div class="form-search">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="搜索用户" type="text">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set-tree-info">
+                        <div id="tree_5" class="tree-demo">
+                            <ul>
+                                <li class="jstree-open">
+                                    本单位
+                                    <ul>
+                                        <li class="jstree-open">
+                                            中科大洋
+                                            <ul>
+                                                <li data-jstree='{ "selected" : "true" , "type" : "file" }'>
+                                                    产品部
+                                                </li>
+                                                <li data-jstree='{ "type" : "file" }'>
+                                                    New node
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li >
+                                            测试
+                                            <ul>
+                                                <li>
+                                                    测试1
+                                                    <ul>
+                                                        <li data-jstree='{ "type" : "file" }'>
+                                                            测试
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-left">
+                    <div class="set-title">
+                        <input type="checkbox" name="role">姓名
+                        <span style="padding-left:70px; ">ID</span>
+                    </div>
+                    <div class="set-left-info">
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                        <div>
+                            <p style="width: 120px; float: left;" class="to"><input type="checkbox" name="role">张三</p>
+                            <p style="width: 120px; float: left;" class="to">000001</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="set-right">
+                    <div class="set-title">已选择(15)</div>
+                    <div class="set-right-info">
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                        <p>张三<i class="fa fa-remove"></i></p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <!--<div class="form-group">
+                    <div class="col-md-5 col-md-offset-2">
+                        <button type="button" class="btn btn-info btn-page">保存</button>
+                        <button type="button" class="btn btn-default margin-left-20 btn-page">取消</button>
+                    </div>
+                </div>-->
+
+                <button class="btn btn-info btn-page" data-dismiss="modal" type="button">确定</button>
+                <button class="btn default margin-left-20 btn-page" data-dismiss="modal" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+>>>>>>> Stashed changes
 </div>
 <!-- 自定义弹窗 -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"

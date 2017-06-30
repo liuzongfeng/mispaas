@@ -44,12 +44,17 @@ tenantSelfinterfaces={
 		Var_othergettentant:cas_ipPort+'/usermanager/api/authorization/tenants/',
 		//第三方获取用户信息接口
 		Var_othergetuser:cas_ipPort+'/usermanager/api/authorization/users/',
+
 		//第三方根据组织机构ID获取用户群
+
 		Var_OthergetuserWithOrg:cas_ipPort+'/usermanager/api/authorization/organization/users',
 		//初始页面获取用户信息
 		Var_geUserDetails:paasrest_dns+'/obtainUserInfo',
 		//获取组织结构的用户
 		Var_getOrgWithUser:paasrest_dns+'/passService/getOrgWithUser',
+
+
 		//获取用户信息
 		Var_getUserDetails:paasrest_dns+'/passService/getUserDetails',
+
 };

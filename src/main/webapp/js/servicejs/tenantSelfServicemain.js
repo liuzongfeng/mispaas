@@ -151,7 +151,6 @@ function ordertoscope($scope,$http,id) {
 	    };
 	//下订单
 	$scope.createOrder=function(){
-		
 		var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
 		var ids = onCheckId($http,$scope,zTree);
 		var names = onCheckName($http,$scope,zTree);
