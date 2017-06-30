@@ -537,4 +537,9 @@
 		where 1=1 and b.STATUS=1 and a.ORG_ID=#{orgid}
 		and c.MODULE_URL=#{url}
   </select>
+  
+  <select id="selectOrderbyBillNo" parameterMap="java.lang.String" resultMap="instanceResultMap">
+  		select <include refid="Base_Column_List" />
+  		from PAAS_ORDER where BILL_NO=#{orderid}
+  </select>
 </mapper>

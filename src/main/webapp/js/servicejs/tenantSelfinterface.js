@@ -12,9 +12,17 @@ tenantSelfinterfaces={
 		Var_showApplicationDetails:paasrest_dns+'/passService/showApplicationDetails',
 		//获取应用实例和组织机构的关系
 		Var_getInstanceAndOrgShip:paasrest_dns+'/passService/getInstanceAndOrgShip',
+		Var_getInstanceAndOrgShip_new:paasrest_dns+'/passService/getInstanceAndOrgShip_new',
+		//获取用户和组织机构的关系
+		Var_getuserAndOrgShip_new:paasrest_dns+'/passService/getuserAndOrgShip_new',
+		Var_getuserAndOrgShip2:paasrest_dns+'/passService/getuserAndOrgShip2',
+		//批量删除用户订单模块关系
+		Var_deleteuserAndOrgShip:paasrest_dns+'/passService/deleteuserAndOrgShip',
 		//插入订单组织机构关系
 		Var_addInstanceAndOrgShip:paasrest_dns+'/passService/addInstanceAndOrgShip',
 		Var_addInstanceAndOrgShip_New:paasrest_dns+'/passService/addInstanceAndOrgShip_New',
+		//插入用户订单模块关系
+		Var_adduserAndOrgShip:paasrest_dns+'/passService/adduserAndOrgShip',
 		//删除订单组织机构关系
 		Var_deleteInstanceAndOrgShip:paasrest_dns+'/passService/deleteInstanceAndOrgShip',
 		Var_deleteInstanceAndUserOrg:paasrest_dns+'/passService/deleteInstanceAndUserOrg',
@@ -36,9 +44,12 @@ tenantSelfinterfaces={
 		Var_othergettentant:cas_ipPort+'/usermanager/api/authorization/tenants/',
 		//第三方获取用户信息接口
 		Var_othergetuser:cas_ipPort+'/usermanager/api/authorization/users/',
+		//第三方根据组织机构ID获取用户群
 		Var_OthergetuserWithOrg:cas_ipPort+'/usermanager/api/authorization/organization/users',
 		//初始页面获取用户信息
 		Var_geUserDetails:paasrest_dns+'/obtainUserInfo',
 		//获取组织结构的用户
 		Var_getOrgWithUser:paasrest_dns+'/passService/getOrgWithUser',
+		//获取用户信息
+		Var_getUserDetails:paasrest_dns+'/passService/getUserDetails',
 };

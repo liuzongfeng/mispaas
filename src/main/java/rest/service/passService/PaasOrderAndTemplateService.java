@@ -72,7 +72,8 @@ public class PaasOrderAndTemplateService {
 	}
 	@ApiOperation(value="创建订单",notes="创建订单(PaasOrder)并且维护订单，租户，组织机构的关系")
 	@RequestMapping(value="/passService/createPaasOrderNew",method=RequestMethod.POST)
-	public void createPaasOrderNew(@RequestBody PaasOrder paasOrder,@RequestParam("tenantId") String tenantId,@RequestParam(value="clicklist",required=false)ArrayList<Object> clicklist){
+	public void createPaasOrderNew(@RequestBody PaasOrder paasOrder,@RequestParam("tenantId") String tenantId,@RequestParam(value="clicklist",required=false)ArrayList<Object> clicklist,
+			@RequestParam("adduser") String adduser){
 		
 		PaasUserSubOrg paasUserSubOrg = new PaasUserSubOrg();
 		String uuid = UUID.randomUUID().toString();
@@ -89,16 +90,18 @@ public class PaasOrderAndTemplateService {
 						for (Object object2 : jsonArray) {
 							JSONObject jo2=JSONObject.fromObject(object2);
 							String modelId = jo2.getString("modelId");
-							paasUserSubOrgMapper.deleteByBiilNumAndMoldeId(uuid, modelId);
+							//paasUserSubOrgMapper.deleteByBiilNumAndMoldeId(uuid, modelId);
 							paasUserSubOrg.setSubserviceId(modelId);
 							JSONArray jsonArray2 = jo2.getJSONArray("checkIds");
 							for (Object object3 : jsonArray2) {
-								
-								if(!object3.equals("")){
-									String id = object3.toString();
-									paasUserSubOrg.setUserOrOrdId(id);
+								String id = object3.toString();
+								String[] split = id.split("\\|");
+								if(!split[0].equals("")){
+									paasUserSubOrg.setUserOrOrdId(split[0]);
+									paasUserSubOrg.setOrgId(split[1]);
 									if(id.indexOf("/")==-1){
 										paasUserSubOrg.setGranularity(1);
+										
 									}else{
 										paasUserSubOrg.setGranularity(0);
 									}
@@ -107,6 +110,29 @@ public class PaasOrderAndTemplateService {
 							}
 						}
 					}
+			}
+		}
+		if(adduser!=null){
+			
+			JSONObject userObject = JSONObject.fromObject(adduser);
+			if(userObject!=null){
+				
+				JSONArray userList = userObject.getJSONArray("userList");
+				if(userList.size()>0){
+					for (Object object : userList) {
+						JSONObject jo2=JSONObject.fromObject(object);
+						String modelId = (String) jo2.get("modelId");
+						String userId = (String) jo2.get("userId");
+						String userName = (String) jo2.get("userName");
+						paasUserSubOrg.setGranularity(0);
+						paasUserSubOrg.setOrgId(userName);
+						paasUserSubOrg.setSubserviceId(modelId);
+						paasUserSubOrg.setUserOrOrdId(userId);
+					
+						paasUserSubOrgMapper.insert(paasUserSubOrg);
+					}
+				}
+				
 			}
 		}
 	}
@@ -158,6 +184,32 @@ public class PaasOrderAndTemplateService {
 		List<PaasOrdTenantOrgR> list = paasOrdTenantOrgMapper.selectPaasOrdTenantOrgRByOrderID(orderId);
 		return list;
 	}
+	@ApiOperation(value="获取应用实例和组织机构的关系",notes="根据订单id获取该订单与应用和组织机构的关系")
+	@RequestMapping(value="/passService/getInstanceAndOrgShip_new",method=RequestMethod.GET)
+	@ResponseBody
+	public List<PaasUserSubOrg> getInstanceAndOrgShip_new(@RequestParam("orderId") Integer orderId){
+		PaasOrder paasOrder = passordermapper.selectByPrimaryId(orderId);
+		String billNo = paasOrder.getBillNo();
+		List<PaasUserSubOrg> list = paasUserSubOrgMapper.selectByBillno(billNo);
+		return list;
+	}
+	//获取用户和组织机构的以及模块的关系
+	@ApiOperation(value="获取用户和组织机构的以及模块的关系",notes="根据订单ID获取用户和组织机构的以及模块的关系")
+	@RequestMapping(value="/passService/getuserAndOrgShip_new",method=RequestMethod.GET)
+	@ResponseBody
+	public List<PaasUserSubOrg> getuserAndOrgShip_new(@RequestParam("orderId") Integer orderId){
+		PaasOrder paasOrder = passordermapper.selectByPrimaryId(orderId);
+		String billNo = paasOrder.getBillNo();
+		List<PaasUserSubOrg> list = paasUserSubOrgMapper.selectByBillnoandType(billNo);
+		return list;
+	}
+	@ApiOperation(value="获取用户和组织机构的以及模块的关系",notes="根据订单ID获取用户和组织机构的以及模块的关系")
+	@RequestMapping(value="/passService/getuserAndOrgShip2",method=RequestMethod.GET)
+	@ResponseBody
+	public List<PaasUserSubOrg> getuserAndOrgShip2(@RequestParam("billNo") String billNo){
+		List<PaasUserSubOrg> list = paasUserSubOrgMapper.selectByBillnoandType(billNo);
+		return list;
+	}
 	//插入订单组织机构关系
 	@ApiOperation(value="插入订单组织机构关系",notes="为某个订单根据订单ID添加组织机构的关系")
 	@RequestMapping(value="/passService/addInstanceAndOrgShip",method=RequestMethod.POST)
@@ -181,7 +233,7 @@ public class PaasOrderAndTemplateService {
 			}
 		}
 	}
-	//插入订单组织机构关系
+	//插入订单组织机构关系2
 		@ApiOperation(value="插入订单组织机构关系",notes="为某个订单根据订单ID添加组织机构的关系")
 		@RequestMapping(value="/passService/addInstanceAndOrgShip_New",method=RequestMethod.POST)
 		@ResponseBody
@@ -207,12 +259,14 @@ public class PaasOrderAndTemplateService {
 								paasUserSubOrg.setSubserviceId(modelId);
 								JSONArray jsonArray2 = jo2.getJSONArray("checkIds");
 								for (Object object3 : jsonArray2) {
-									
-									if(!object3.equals("")){
-										String id = object3.toString();
-										paasUserSubOrg.setUserOrOrdId(id);
+									String id = object3.toString();
+									String[] split = id.split("\\|");
+									if(!split[0].equals("")){
+										paasUserSubOrg.setUserOrOrdId(split[0]);
+										paasUserSubOrg.setOrgId(split[1]);
 										if(id.indexOf("/")==-1){
 											paasUserSubOrg.setGranularity(1);
+											
 										}else{
 											paasUserSubOrg.setGranularity(0);
 										}
@@ -224,6 +278,39 @@ public class PaasOrderAndTemplateService {
 			}
 		}
 	}
+		//插入用户订单模块关系
+		@ApiOperation(value="插入用户订单模块关系",notes="插入用户订单模块关系")
+		@RequestMapping(value="/passService/adduserAndOrgShip",method=RequestMethod.POST)
+		@ResponseBody
+		public void adduserAndOrgShip(@RequestBody String adduser){
+			PaasUserSubOrg paasUserSubOrg = new PaasUserSubOrg();
+			JSONObject userObject = JSONObject.fromObject(adduser);
+			if(userObject!=null){
+				Integer orderId = (Integer) userObject.get("orderId");
+				//Integer valueOf = Integer.valueOf(orderId);
+				PaasOrder order = passordermapper.selectByPrimaryId(orderId);
+				String tenantId = order.getTenantId();
+				String billNo = order.getBillNo();
+				paasUserSubOrg.setBillNo(billNo);
+				paasUserSubOrg.setTenantId(tenantId);
+				JSONArray userList = userObject.getJSONArray("userList");
+				if(userList.size()>0){
+					for (Object object : userList) {
+						JSONObject jo2=JSONObject.fromObject(object);
+						String modelId = (String) jo2.get("modelId");
+						String userId = (String) jo2.get("userId");
+						String userName = (String) jo2.get("userName");
+						paasUserSubOrg.setGranularity(0);
+						paasUserSubOrg.setOrgId(userName);
+						paasUserSubOrg.setSubserviceId(modelId);
+						paasUserSubOrg.setUserOrOrdId(userId);
+						paasUserSubOrgMapper.deleteByBillNumMoeIdUserId(billNo, modelId, userId);
+						paasUserSubOrgMapper.insert(paasUserSubOrg);
+					}
+				}
+				
+			}
+		}
 	//删除订单组织机构关系
 	@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
 	@RequestMapping(value="/passService/deleteInstanceAndOrgShip",method=RequestMethod.DELETE)
@@ -252,6 +339,17 @@ public class PaasOrderAndTemplateService {
 				}
 			}
 		}
+		}
+		//批量删除用户订单模块关系
+		@ApiOperation(value="批量删除用户订单模块关系",notes="维护用户模块和订单的关系")
+		@RequestMapping(value="/passService/deleteuserAndOrgShip",method=RequestMethod.DELETE)
+		@ResponseBody
+		public void deleteuserAndOrgShip(@RequestParam("orgIds") ArrayList<Integer> orgIds){
+			for (Integer integer : orgIds) {
+				if(integer!=null){
+					paasUserSubOrgMapper.deleteByPrimaryKey(integer);
+				}
+			}
 		}
 	//重置模块用户关系
 		@ApiOperation(value="删除订单组织机构关系",notes="为某个订单根据订单ID删除组织机构的关系")
@@ -377,5 +475,23 @@ public class PaasOrderAndTemplateService {
 			OrgRequestUtil util = new OrgRequestUtil();
 			String userjson = util.getContent(url);
 			return userjson;
+		}
+		//根据用户ID获取用户信息
+		
+		@ApiOperation(value="根据用户ID获取用户信息",notes="底层调用第三方接口获取用户信息，用于获取组织机构ID")
+		@RequestMapping(value="/passService/getUserDetails",method=RequestMethod.GET)
+		@ResponseBody
+		public String getUserDetails(@RequestParam("userId")String userId) throws IOException{
+			if(userId.indexOf("/key")>0){
+				return userId;
+			}else{
+				String[] split = userId.split("/");
+				String string = split[1];
+				 String url="http://100.0.10.100:8080/usermanager/api/authorization/users/"+string;
+					System.out.println(url);
+					OrgRequestUtil util = new OrgRequestUtil();
+					String userjson = util.getContent(url);
+					return userjson;
+			}
 		}
 }

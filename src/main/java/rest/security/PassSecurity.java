@@ -35,7 +35,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 //		http.authorizeRequests().anyRequest().permitAll();
-		http.authorizeRequests()
+		/*http.authorizeRequests()
 			.antMatchers("/testUploadFile").permitAll()
 			.antMatchers("/css/**","/index").permitAll()
 			.antMatchers("/yunweiService/**").hasRole("YUNWEI")
@@ -45,9 +45,9 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
 			.loginPage("/login").failureUrl("/login-error").successForwardUrl("/hello")
 			.and()
 			.csrf().disable()
-			;
+			;*/
 		http.authorizeRequests()//配置安全策略,"/**/otherSystem/**"
-		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**").permitAll()
+		.antMatchers("/swagger-ui.html","/**/swagger*/**","/**/api*/**","/**/paasService/**","/**/health/**").permitAll()
 		.anyRequest().authenticated()
 		.and().logout().permitAll()
 		.and().formLogin();
@@ -114,7 +114,7 @@ public class PassSecurity extends WebSecurityConfigurerAdapter{
     }
 	public void configure(WebSecurity web) throws Exception{
 		web.ignoring().antMatchers("/js/**","/assets/**","/css/**","/dist/**","/img/**","/images/**","/fonts/**","/less/**")
-		.and().ignoring().mvcMatchers("/paasService/findTenentsByOrgsAppid/**","/paasService/findOrgidsByInstanceidTenentid/**","/rest/productService/ispermit/**")
+		.and().ignoring().mvcMatchers("/paasService/findTenentsByOrgsAppid/**","/paasService/findOrgidsByInstanceidTenentid/**","/rest/productService/ispermit/**","/rest/productService/ispermit/**","/health/**")
 		;
 	}
 	@Autowired

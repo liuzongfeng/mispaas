@@ -1,13 +1,6 @@
 /**
  * Created by Administrator on 2017/4/20.
  */
-/*window.onload = function() {
-    //点击菜单页面控制
-    $("#huiyishishouquan").click(function() {
-        $("#ListOfGoods").removeAttr("hidden", "false");
-        $("#shouquanguanliebiao").attr("hidden", "true");
-    });
-}*/
 var app = angular.module('listApp', []);
 app.controller('ListCtrl', function($scope,$http) {
 	//获取用户信息
@@ -134,6 +127,7 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //购买产品
     $scope.BuyGoodsDetails=function(id){
+    	$scope.checkuserList=[];
     	$http({
             method: 'POST',
             url: tenantSelfinterfaces.Var_showTempliteList,
@@ -160,7 +154,6 @@ app.controller('ListCtrl', function($scope,$http) {
             params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
         }).then(function successCallback(response) {
         	$scope.tetantList=response.data[0];
-        	console.log(response.data[0].tenantList[0].id);
         	$scope.newtenantId=response.data[0].tenantList[0].id;
         	$("#userMenuStatuetitle").html(response.data[0].tenantList[0].name);
             }, function errorCallback(response) {
@@ -176,6 +169,7 @@ app.controller('ListCtrl', function($scope,$http) {
          $("#tab_51_2").attr("class","tab-pane fade in active");
          $("#tab_51_1").attr("class","tab-pane fade");
         ordertoscope($scope,$http,id);
+        
     };
     $scope.closeGoodsDetails=function(){
         $scope.DetailsOfGoodsTab =false;
@@ -193,7 +187,7 @@ app.controller('ListCtrl', function($scope,$http) {
         	$scope.applicationDetails=response.data;
         	$http({
                 method: 'GET',
-                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
+                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip_new,
                 contentType: "application/json",
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
@@ -207,7 +201,11 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
             }).then(function successCallback(response) {
             	$scope.tetantList=response.data[0];
-            	console.log(response.data[0].tenantList[0].id);
+            	for(i=0;i<response.data[0].tenantList.length;i++){
+            		if(response.data[0].tenantList[i].id==$scope.applicationDetails.tenantId){
+            			$scope.suoshuzuhu=response.data[0].tenantList[i].name;
+            		}
+            	}
             	$scope.newtenantId=response.data[0].tenantList[0].id;
             	$("#userMenuStatuetitle").html(response.data[0].tenantList[0].name);
                 }, function errorCallback(response) {
@@ -218,13 +216,34 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
             }).then(function successCallback(response) {
             	$scope.chOrglist=response.data;
-            	createTree3($scope.Orglist,$scope.chOrglist);
+            	createTree3($scope.Orglist,$scope.chOrglist,$scope.applicationDetails.paasSubservices[0].id);
+            	var subs=$scope.applicationDetails.paasSubservices;
+            	var id=subs[0].id;
+            	$("#"+id).parent().attr("class","picon-model3");
                 }, function errorCallback(response) {
             }); 
-        	
+        	$http({
+    	        method: 'GET',
+    	        url: tenantSelfinterfaces.Var_getuserAndOrgShip_new,
+    	        params:{"orderId":orderId},
+    	        datatype:"json",
+    	    }).then(function successCallback(response) {
+    	    	$scope.userwithOrglist=response.data;
+    	    	var finalluserwithOrglist=[];
+    	    	var subs=$scope.applicationDetails.paasSubservices;
+            	var id=subs[0].id;
+    	    	var j=0;
+    	    	for(i=0;i<response.data.length;i++){
+    	    		if(response.data[i].subserviceId==id){
+    	    			finalluserwithOrglist[j]=response.data[i];
+    	    				j=j+1;
+    	    		}
+    	    	}
+    	    	$scope.finalluserwithOrglist=finalluserwithOrglist;
+    	        }, function errorCallback(response) {
+    	    });
             }, function errorCallback(response) {
         });
-    	
         $scope.myApplicationDetails=true;
         $scope.DetailsOfGoodsTab =false;
         $scope.ListOfGoods=false;
@@ -242,6 +261,7 @@ app.controller('ListCtrl', function($scope,$http) {
     };
     //修改用户群组
     $scope.showApplicationUetails=function(orderId){
+    	 $scope.checkuserList=[];
     	$http({
             method: 'GET',
             url: tenantSelfinterfaces.Var_showApplicationDetails,
@@ -251,7 +271,7 @@ app.controller('ListCtrl', function($scope,$http) {
         	$scope.chapplicationDetails=response.data;
         	$http({
                 method: 'GET',
-                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip,
+                url: tenantSelfinterfaces.Var_getInstanceAndOrgShip_new,
                 contentType: "application/json",
                 params:{"orderId":orderId},
             }).then(function successCallback(response) {
@@ -265,9 +285,11 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"userurl":tenantSelfinterfaces.Var_othergetuser+$scope.tenantId,"tenanturl":tenantSelfinterfaces.Var_othergettentant},
             }).then(function successCallback(response) {
             	$scope.tetantList=response.data[0];
-            	console.log(response.data[0].tenantList[0].id);
-            	$scope.newtenantId=response.data[0].tenantList[0].id;
-            	$("#checkuservalue").html(response.data[0].tenantList[0].name);
+            	for(i=0;i<response.data[0].tenantList.length;i++){
+            		if(response.data[0].tenantList[i].id==$scope.chapplicationDetails.tenantId){
+            			$scope.suoshuzuhu=response.data[0].tenantList[i].name;
+            		}
+            	}
                 }, function errorCallback(response) {
             }); 
         	$http({
@@ -276,12 +298,34 @@ app.controller('ListCtrl', function($scope,$http) {
                 params:{"geturl":tenantSelfinterfaces.Var_othergetOrgtree},
             }).then(function successCallback(response) {
             	$scope.chOrglist=response.data;
-            	createTree1($scope.Orglist,$scope.chOrglist);
-                }, function errorCallback(response) {
-            }); 
-        	
+            	createTree1($scope.Orglist,$scope.chOrglist,$scope.chapplicationDetails.paasSubservices[0].id);
+            	var subs=$scope.chapplicationDetails.paasSubservices;
+            	var id=subs[0].id;
+            	$("#"+id+"i").parent().attr("class","picon-model2");
             }, function errorCallback(response) {
-        }); 
+            }); 
+        	$http({
+    	        method: 'GET',
+    	        url: tenantSelfinterfaces.Var_getuserAndOrgShip_new,
+    	        params:{"orderId":orderId},
+    	        datatype:"json",
+    	    }).then(function successCallback(response) {
+    	    	$scope.userwithOrglist=response.data;
+    	    	var finalluserwithOrglist=[];
+    	    	var subs=$scope.chapplicationDetails.paasSubservices;
+            	var id=subs[0].id;
+    	    	var j=0;
+    	    	for(i=0;i<response.data.length;i++){
+    	    		if(response.data[i].subserviceId==id){
+    	    			finalluserwithOrglist[j]=response.data[i];
+    	    				j=j+1;
+    	    		}
+    	    	}
+    	    	$scope.finalluserwithOrglist=finalluserwithOrglist;
+    	        }, function errorCallback(response) {
+    	    });
+            }, function errorCallback(response) {
+        });
     	transmitOrderId(orderId,$scope,$http);
         $scope.myApplicationUsers=true;
         $scope.DetailsOfGoodsTab =false;
@@ -291,6 +335,7 @@ app.controller('ListCtrl', function($scope,$http) {
         $("#tab_51_4").attr("class","tab-pane fade in active");
         $("#tab_51_3").attr("class","tab-pane fade");
     };
+   
     $scope.closemyApplicationUsers=function(){
         $scope.myApplicationUsers=false;
         $("#myApplicationListTab").attr("class","active");
@@ -395,7 +440,6 @@ function appListBynameController($scope,$http,page){
         	}
         	$scope.pagenum =response.data.pageStr.split(",");
         	$scope.pageinfo = response.data;
-        	console.log(response.data.resultObj);
         	$scope.applicationList=response.data.resultObj;
         	$scope.pages=response.data.allpage;
         	$scope.totalSize=response.data.begin;

@@ -25,12 +25,16 @@ import io.swagger.annotations.ApiOperation;
 import rest.mybatis.dao.passDao.PaasOrdTenantOrgRMapper;
 import rest.mybatis.dao.passDao.PaasInstanceMapper;
 import rest.mybatis.dao.passDao.PaasTemplateMapper;
+import rest.mybatis.dao.passDao.PaasUserSubOrgMapper;
 import rest.mybatis.dao.passDao.Imp.PaasInstanceImp;
 import rest.mybatis.model.passModel.PaasOrdTenantOrgR;
 import rest.mybatis.dao.passDao.PaasOrderMapper;
+import rest.mybatis.dao.passDao.PaasSubserviceMapper;
 import rest.mybatis.model.passModel.PaasInstance;
 import rest.mybatis.model.passModel.PaasOrder;
+import rest.mybatis.model.passModel.PaasSubservice;
 import rest.mybatis.model.passModel.PaasTemplate;
+import rest.mybatis.model.passModel.PaasUserSubOrg;
 import rest.otherSystem.Obj.InstanceidTenentid;
 import rest.otherSystem.Obj.OrgidsInstanceid;
 import rest.page.util.Message;
@@ -50,7 +54,11 @@ public class PaasForOtherService {
 	@Autowired
 	private PaasOrdTenantOrgRMapper paasOrdTenantOrgRMapper;
 	@Autowired
+	private PaasUserSubOrgMapper paasUserSubOrgMapper;
+	@Autowired
 	private PaasOrderMapper paasOrderMapper;
+	@Autowired
+	private PaasSubserviceMapper paasSubserviceMapper;
 	/**
 	 * 根据组织机构id数组和应用实例id获取租户id列表。
 	 * 需要运营管理平台提供 根据应用实例id和组织机构（用户群）获取租户列表的接口；组织机构可以为空，此时返回购买了当前应用实例的所有租户
@@ -162,4 +170,53 @@ public class PaasForOtherService {
 			return new Message("401", "无访问权！", new Date());
 		}
 	}
+	
+		@ApiOperation(value="根据应用实例id和租户id返回是否可以访问",notes="根据应用实例id和租户id返回是否可以访问")
+		@RequestMapping(value="/rest/productService/ispermitnew",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+		public Message ispermitnew(@RequestParam(value="userid") String userid,@RequestParam(value="url") String url) throws IOException{
+			List<PaasOrder> reslut=new ArrayList<PaasOrder>();
+			JSONObject jsono=requestUtil.getContent(userid);
+			JSONArray ja=jsono.getJSONArray("userList");
+			JSONObject joo=ja.getJSONObject(0);
+			JSONArray organizationIdListja=joo.getJSONArray("organizationIdList");
+			String orgstr=organizationIdListja.toString();
+			orgstr=orgstr.substring(orgstr.indexOf("[")+1, orgstr.lastIndexOf("]"));
+			String st = userid;
+			orgstr = orgstr+","+st;
+			String[] userOrOrdIds = orgstr.split(",");
+			ArrayList<String> arrayList = new ArrayList<String>();
+			for (String string : userOrOrdIds) {
+				string=string.replaceAll("\"", "");
+				arrayList.add(string);
+				System.out.println(string);
+			}
+			boolean result=false;
+			List<PaasUserSubOrg> list = paasUserSubOrgMapper.selectModelsByuserOrOrdIds(arrayList);
+			for (PaasUserSubOrg paasUserSubOrg : list) {
+				String billNo = paasUserSubOrg.getBillNo();
+				PaasOrder order = paasOrderMapper.selectByUUID(billNo);
+				String instanceId = order.getInstanceId();
+				PaasInstance paasInstance = paasInstanceMapper.selectByPrimaryKey(instanceId);
+				Integer templateId = paasInstance.getTemplateId();
+				String pubDns = paasInstance.getPubDns();
+				String urlPrefix = paasInstance.getUrlPrefix();
+				List<PaasSubservice> sublist = paasSubserviceMapper.selectSubServiceBytemplateId(templateId);
+				for (PaasSubservice paasSubservice : sublist) {
+					String moduleUrl = paasSubservice.getModuleUrl();
+					String pjModleUrl=pubDns+urlPrefix+moduleUrl;
+					String pjUrl = pubDns+urlPrefix;
+					if(url.equals(pjModleUrl)||url.equals(pjUrl)){
+						result=true;
+						break;
+					}
+				}
+			}
+			if(result)
+			{
+				return new Message("200", "有访问权！", new Date());
+			}else
+			{
+				return new Message("401", "无访问权！", new Date());
+			}
+		}
 }
