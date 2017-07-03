@@ -119,6 +119,7 @@ public class PaasOrderService {
 				pi.setInstanceName(pt.getProductName());
 				pi.setInstanceStatus(0);
 				pi.setVersion(pt.getVersion());
+				pi.setStackId(pt.getTemplateId());
 				try
 				{
 					paasInstanceImp.insert(pi);

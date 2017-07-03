@@ -16,6 +16,7 @@
     <result column="URL_PREFIX" property="urlPrefix" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
     <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="STACK_ID" property="stackId" jdbcType="VARCHAR" />
    <association property="paasTemplate" column="TEMPLATE_ID"
 		javaType="rest.mybatis.model.passModel.PaasTemplate" select="selectTemplateBytemplateId">
 	</association>
@@ -36,6 +37,7 @@
     <result column="URL_PREFIX" property="urlPrefix" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
     <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="STACK_ID" property="stackId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -44,7 +46,7 @@
       This element was generated on Mon May 08 16:50:01 CST 2017.
     -->
     INSTANCE_ID, TEMPLATE_ID, INSTANCE_NAME, INSTANCE_STATUS, ACCESS_KEY, PUB_DNS, URL_PREFIX, 
-    ORDER_ID,VERSION
+    ORDER_ID,VERSION,STACK_ID
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     <!--
@@ -129,10 +131,10 @@
     -->
     insert into PAAS_INSTANCE (INSTANCE_ID, TEMPLATE_ID, INSTANCE_NAME, 
       INSTANCE_STATUS, ACCESS_KEY, PUB_DNS, 
-      URL_PREFIX, ORDER_ID)
+      URL_PREFIX, ORDER_ID,STACK_ID)
     values (#{instanceId,jdbcType=VARCHAR}, #{templateId,jdbcType=INTEGER}, #{instanceName,jdbcType=VARCHAR}, 
       #{instanceStatus,jdbcType=INTEGER}, #{accessKey,jdbcType=VARCHAR}, #{pubDns,jdbcType=VARCHAR}, 
-      #{urlPrefix,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER})
+      #{urlPrefix,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER},#{stackId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="rest.mybatis.model.passModel.PaasInstance" >
     <!--
@@ -166,6 +168,10 @@
       <if test="orderId != null" >
         ORDER_ID,
       </if>
+        <if test="orderId != null" >
+        STACK_ID,
+      </if>
+      
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="instanceId != null" >
@@ -191,6 +197,9 @@
       </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
+      </if>
+        <if test="orderId != null" >
+       #{stackId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -226,6 +235,9 @@
       <if test="version != null" >
         VERSION = #{version,jdbcType=VARCHAR},
       </if>
+       <if test="version != null" >
+        STACK_ID =  #{stackId,jdbcType=VARCHAR},
+      </if>
     </set>
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </update>
@@ -242,7 +254,8 @@
       ACCESS_KEY = #{accessKey,jdbcType=VARCHAR},
       PUB_DNS = #{pubDns,jdbcType=VARCHAR},
       URL_PREFIX = #{urlPrefix,jdbcType=VARCHAR},
-      ORDER_ID = #{orderId,jdbcType=INTEGER}
+      ORDER_ID = #{orderId,jdbcType=INTEGER},
+      STACK_ID = #{stackId,jdbcType=INTEGER}
     where INSTANCE_ID = #{instanceId,jdbcType=VARCHAR}
   </update>
   
@@ -250,8 +263,8 @@
   	<selectKey keyProperty="instanceId" resultType="String" order="BEFORE">
         SELECT UUID()
     </selectKey>
-  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID,VERSION)
-  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId},#{version})
+  	insert into PAAS_INSTANCE(INSTANCE_ID,TEMPLATE_ID,INSTANCE_NAME,INSTANCE_STATUS,ORDER_ID,VERSION,STACK_ID)
+  	values(#{instanceId},#{templateId},#{instanceName},#{instanceStatus},#{orderId},#{version},#{stackId})
   </insert>
   
   <select id="isexistInstance" parameterType="java.lang.Integer" resultType="java.lang.Integer">

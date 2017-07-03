@@ -320,7 +320,7 @@ ul.log li.dark {
 
 										<li style="cursor:pointer;"><span style="cursor:pointer;">共{{pages}}页，{{totalSize}}条记录</span></li>
 										<li style="cursor:pointer;"><a ng-click="teNext()" style="cursor:pointer;">后一页</a></li>
-									</ul>
+								</ul>
                             </div>
                         </div>
                       <!-- 应用列表 --> 
@@ -499,17 +499,10 @@ ul.log li.dark {
 																	<td></td>
 																	<td></td>
 																</tr>
-<<<<<<< Updated upstream
 																<tr ng-click="checkmodel(paasSubservice.id,'k')"
 																	style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
 																	ng-repeat="paasSubservice in templates[0].paasSubservices">
 																	<td style="width: 40%" id="{{paasSubservice.id}}k" title="{{paasSubservice.id}}"><span>{{paasSubservice.moduleName}}</span></td>
-=======
-																<tr ng-click="checkmodel(paasSubservice.id)"
-																	style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
-																	ng-repeat="paasSubservice in templates[0].paasSubservices">
-																	<td style="width: 40%" id="{{paasSubservice.id}}"><span>{{paasSubservice.moduleName}}</span></td>
->>>>>>> Stashed changes
 																	<td style="width: 60%"><span>{{paasSubservice.moduleDes}}</span></td>
 																	<td></td>
 																	<td></td>
@@ -964,13 +957,13 @@ ul.log li.dark {
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 data-backdrop="false" style="padding-top: 10%;">
     <div class="modal-dialog">
-        <div class="modal-content" style="height:500px;">
+        <div class="modal-content" style="height:550px;">
             <div class="modal-header">
             
                 <h4 class="modal-title" id="myModalLabel">添加用户</h4>
                
             </div>
-            <div class="modal-body" style="height:370px;padding: 20px;">
+            <div class="modal-body" style="height:410px;padding: 20px;">
 				 <div class="btn-group form-search" style="height: 47px;width: 180px;float: right;margin-right: 0px;">
 						<div class="input-group" style="height: 47px;width: 180px;">
 							<input type="text" placeholder="用户名称查询" class="form-control"
@@ -995,36 +988,13 @@ data-backdrop="false" style="padding-top: 10%;">
 						</tr>
 						<tr
 							style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
+							ng-repeat="user in cxuserList"
 							>
-							<td style="width: 50%" >8987ui</td>
-							<td style="width: 30%">小明</td>
+							<td style="width: 50%" >{{user.id}}</td>
+							<td style="width: 30%">{{user.name}}</td>
 							<td style="width: 20%">
 								<button class="btn btn-default btn-paas-slim" type="button" style="height: 37px;font-size: 16px;padding: 5px 20px 28px;"
-								ng-click="adduserwithOrg('8987ui','小明')"
-								>添加</button>
-							</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr
-							style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
-							>
-							<td style="width: 50%" >45878op</td>
-							<td style="width: 30%">小李</td>
-							<td style="width: 20%">
-								<button class="btn btn-default btn-paas-slim" type="button" style="height: 37px;font-size: 16px;padding: 5px 20px 28px;"
-								ng-click="adduserwithOrg('45878op','小李')">添加</button>
-							</td>
-							<td></td>
-							<td></td>
-						</tr><tr
-							style="height: 10%; border-color: #eff0f0; font-size: 16px; font-family: Microsoft YaHei; color: #666666; font-weight: 500;"
-							>
-							<td style="width: 50%" >32698lk</td>
-							<td style="width: 30%">辛迪</td>
-							<td style="width: 20%">
-								<button class="btn btn-default btn-paas-slim" type="button" style="height: 37px;font-size: 16px;padding: 5px 20px 28px;"
-								ng-click="adduserwithOrg('32698lk','辛迪')"
+								ng-click="adduserwithOrg(user.id,user.name)"
 								>添加</button>
 							</td>
 							<td></td>
@@ -1034,6 +1004,14 @@ data-backdrop="false" style="padding-top: 10%;">
 				  </div>
             </div>
              <div class="modal-footer">
+             	<ul class="pagination" style="float: left;padding: 0px;margin-top: 0px;">
+						<li style="cursor:pointer;" ><a ng-click="userPrevious()">前一页</a></li>
+						<li ng-repeat="pi in hasUserpages" style="cursor:pointer;"
+							ng-class="{active: isUserActivePage(pi.num)}"><a style="cursor:pointer;"
+							ng-click="fanuserPage(pi.num)">{{ pi.num }}</a></li>
+						<li style="cursor:pointer;"><span style="cursor:pointer;">共{{userpages.totalPage}}页，{{userpages.totalCount}}条记录</span></li>
+						<li style="cursor:pointer;"><a ng-click="userNext()" style="cursor:pointer;">后一页</a></li>
+				</ul>
                 <button type="button" class="btn btn-default" data-dismiss="modal" 
                 style="height: 37px;font-size: 16px;padding: 5px 20px 28px;">关闭</button>
             </div>	

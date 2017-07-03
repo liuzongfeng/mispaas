@@ -49,9 +49,33 @@ function ordertoscope($scope,$http,id) {
     	    				j=j+1;
     	    		}
     	    	}
-    	    	
     	    	$scope.finalluserwithOrglist=finalluserwithOrglist;
-    	    	if(!$scope.xuigaiuserList == undefined){
+    	    	if(!(undefined == $scope.xclicklist)){
+    	    		if($scope.xclicklist.length>0){
+    	    			var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
+            	    	console.log($scope.xclicklist);
+            	    	for(i=0;i<$scope.xclicklist.length;i++){
+            	    		var clicklist=$scope.xclicklist[i].clicklist;
+            	    		console.log($scope.xclicklist[i].clicklist);
+            	    		if(clicklist.length>0){
+            	    			console.log(modelId);
+            	    			console.log(clicklist[0].modelId);
+            	    			if(modelId==clicklist[0].modelId){
+            	    				for(j=0;j<clicklist[0].checkIds.length;j++){
+            	    					if(!clicklist[0].checkIds[j]==""){
+            	    						var modid=clicklist[0].checkIds[j].split("|")[0];
+            	    						var pnode = zTree.getNodeByParam("id",modid, null);
+            	    						zTree.checkNode(pnode, true, true);
+            	    					}
+            	    				}
+            	    			}
+            	    			
+            	    			clicklist[0].modelId;
+            	    		}
+            	    	}
+    	    		}
+    	    	}
+    	    	if(!($scope.xuigaiuserList==undefined)){
     	    		var jp=0;
         	    	var finalluserwithOrglist=[];
         	    	for(i=0;i<$scope.xuigaiuserList.length;i++){
@@ -60,19 +84,7 @@ function ordertoscope($scope,$http,id) {
         	    			jp=jp+1;
         	    		}
         	    	}
-        	    	$scope.checkuserList=finalluserwithOrglist;
-    	    	}
-    	    	console.log(!(undefined == $scope.xclicklist));
-    	    	if(!(undefined == $scope.xclicklist)){
-    	    		console.log($scope.xclicklist);
-    	    		if($scope.xclicklist.length>0){
-    	    			var zTree = $.fn.zTree.getZTreeObj("treeDemo2");
-            	    	console.log($scope.xclicklist[xclicklist.length-1]);
-            	    	alert("lp");
-        	    		/*for(i=0;i<$scope.xclicklist.length;i++){
-            	    		
-            	    	}*/
-    	    		}
+        	    $scope.checkuserList=finalluserwithOrglist;
     	    	}
 			}
 		}else{
@@ -314,16 +326,117 @@ function ordertoscope($scope,$http,id) {
 				return null;
 			}
 	};
-	//查询用户
+	//名字模糊查询用户
 	$scope.getuserByuserName=function(){
-		alert("bbbb");
+		var userName = $scope.usersName;
+		$http({
+	        method: 'GET',
+	        url: tenantSelfinterfaces.Var_getUserDetailsByName,
+	        params:{"userName":userName,"page":1},
+	        datatype:"json",
+	    }).then(function successCallback(response) {
+	    	console.log(response.data.userList);
+	    	$scope.userpages=response.data;
+	    	var string =[];
+	    	for(i=0;i<response.data.totalPage;i++){
+	    		string[i]={num:i+1};
+	    	}
+	    	$scope.hasUserpages=string;
+	    	console.log($scope.hasUserpages);
+	    	$scope.cxuserList=response.data.userList;
+	        }, function errorCallback(response) {
+	    });
+		$scope.UPage=1;
 	}
 	$scope.userKeyup = function(e){
         var keycode = window.event?e.keyCode:e.which;
         if(keycode==13){
-        	alert("llll");
+        	var userName = $scope.usersName;
+    		$http({
+    	        method: 'GET',
+    	        url: tenantSelfinterfaces.Var_getUserDetailsByName,
+    	        params:{"userName":userName,"page":1},
+    	        datatype:"json",
+    	    }).then(function successCallback(response) {
+    	    	console.log(response.data);
+    	    	$scope.userpages=response.data;
+    	    	var string =[];
+    	    	for(i=0;i<response.data.totalPage;i++){
+    	    		string[i]={num:i+1};
+    	    	}
+    	    	$scope.hasUserpages=string;
+    	    	console.log($scope.hasUserpages);
+    	    	$scope.cxuserList=response.data.userList;
+    	        }, function errorCallback(response) {
+    	    });
         }
+        $scope.UPage=1;
     };
+    //名字模糊查询用户分页
+    $scope.fanuserPage=function(page){
+    	var userName = $scope.usersName;
+		$http({
+	        method: 'GET',
+	        url: tenantSelfinterfaces.Var_getUserDetailsByName,
+	        params:{"userName":userName,"page":page},
+	        datatype:"json",
+	    }).then(function successCallback(response) {
+	    	
+	    	$scope.cxuserList=response.data.userList;
+	    	
+	        }, function errorCallback(response) {
+	    });
+
+		$scope.UPage=page;
+    };	
+   
+    //名字模糊查询用户上一页
+    $scope.userPrevious=function(){
+    	var userName = $scope.usersName;
+    	if($scope.UPage == 1){
+			return;
+		}else{
+			$http({
+		        method: 'GET',
+		        url: tenantSelfinterfaces.Var_getUserDetailsByName,
+		        params:{"userName":userName,"page":$scope.UPage-0-1},
+		        datatype:"json",
+		    }).then(function successCallback(response) {
+		    	
+		    	$scope.cxuserList=response.data.userList;
+		    	
+		        }, function errorCallback(response) {
+		    });
+			$scope.UPage=$scope.UPage-0-1;
+		
+		}
+    	
+    }
+    //页码样式
+	 $scope.isUserActivePage = function (page) {
+			return $scope.UPage ==page;
+		    };
+    //名字模糊查询用户下一页
+    $scope.userNext=function(){
+    	var userName = $scope.usersName;
+    	if($scope.UPage == $scope.userpages.totalPage){
+			return;
+		}else{
+			$http({
+		        method: 'GET',
+		        url: tenantSelfinterfaces.Var_getUserDetailsByName,
+		        params:{"userName":userName,"page":$scope.UPage-0+1},
+		        datatype:"json",
+		    }).then(function successCallback(response) {
+		    	
+		    	$scope.cxuserList=response.data.userList;
+		    	
+		        }, function errorCallback(response) {
+		    });
+			$scope.UPage=$scope.UPage-0+1;
+		}
+    	
+    }
     //删除购买时用户模块关系的临时数据
     $scope.deleteUserAndOrgByshop = function(){
     	var checks = $("input[type=checkbox]");

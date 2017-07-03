@@ -494,4 +494,19 @@ public class PaasOrderAndTemplateService {
 					return userjson;
 			}
 		}
+		//根据用户名称模糊用户信息
+		@ApiOperation(value="根据用户ID获取用户信息",notes="底层调用第三方接口获取用户信息，用于获取组织机构ID")
+		@RequestMapping(value="/passService/getUserDetailsByName",method=RequestMethod.GET)
+		@ResponseBody
+		public String getUserDetailsByName(@RequestParam("userName")String userName,@RequestParam("page")String page) throws IOException{
+			if(userName!=null){
+				 String url="http://100.0.10.100:8080/usermanager/api/authorization/users/query?username="+userName+"&pageStart="+page+"&pageSize=5";
+					System.out.println(url);
+					OrgRequestUtil util = new OrgRequestUtil();
+					String userjson = util.getContent(url);
+					return userjson;
+			}else{
+				return null;
+			}
+		}
 }

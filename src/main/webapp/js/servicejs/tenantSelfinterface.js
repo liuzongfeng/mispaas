@@ -53,8 +53,8 @@ tenantSelfinterfaces={
 		//获取组织结构的用户
 		Var_getOrgWithUser:paasrest_dns+'/passService/getOrgWithUser',
 
-
 		//获取用户信息
 		Var_getUserDetails:paasrest_dns+'/passService/getUserDetails',
-
+		//根据用户名称模糊用户信息
+		Var_getUserDetailsByName:paasrest_dns+'/passService/getUserDetailsByName',
 };
