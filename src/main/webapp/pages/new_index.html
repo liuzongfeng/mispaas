@@ -140,14 +140,14 @@
 	    </div>
 	</div>
 </div>
-<div class="creArea" ng-repeat="rows in cremodel">
+<div class="creArea" ng-repeat="rows in order">
 	<div class="contentClass">
 	    <div class="cretitle">
 	        <div class="crecntitle">CRE-融合资源平台</div>
 	        <div class="creentitle">CONVERGED RESOURCE ENVIRONMENT</div>
 	    </div>
 	    <div class="cremodel">
-	    	<div class="cremodelrow" ng-repeat="x in rows">
+	    	<div class="cremodelrow" ng-repeat="x in rows track by $index">
 	    		<div class="crechildnode" ng-repeat="n in x track by $index">
 	    		<a href="{{n.moduleUrl}}" style="text-decoration: none;" target="_blank">
 	                <div class="imagearea">
@@ -301,44 +301,48 @@
     			var i=0,j=0;
     			var paasSubserviceslist=new Array();
     			var paasTemplateFilelist=new Array();
-    			$(response).each(function(index,element){
-    				$(element.paasSubservices).each(function(index,element){
-    					paasSubserviceslist[i]=element;
-    					i++;
-    				});
-    				$(element.paasTemplateFile).each(function(index,element){
-    					paasTemplateFilelist[j]=element;
-    					j++;
-    				});
-    			});
-    			for(var subi=0;subi<(i);subi++)
-    			{
-    				var modelid=paasSubserviceslist[subi].id;
-    				for(var filei=0;filei<(j);filei++)
-    				{
-    					if(paasTemplateFilelist[filei].moduleId!=null &&paasTemplateFilelist[filei].moduleId==modelid)
-    					{
-    						paasSubserviceslist[subi].moduleImgName=paasTemplateFilelist[filei].file;
-    					}
-    				}
+    			for(var order=0;order<response.length;order++){
+    				var orders=response[order];
+    				$(orders).each(function(index,element){
+        				$(element.paasSubservices).each(function(index,element){
+        					paasSubserviceslist[i]=element;
+        					i++;
+        				});
+        				$(element.paasTemplateFile).each(function(index,element){
+        					paasTemplateFilelist[j]=element;
+        					j++;
+        				});
+        			});
+        			for(var subi=0;subi<(i);subi++)
+        			{
+        				var modelid=paasSubserviceslist[subi].id;
+        				for(var filei=0;filei<(j);filei++)
+        				{
+        					if(paasTemplateFilelist[filei].moduleId!=null &&paasTemplateFilelist[filei].moduleId==modelid)
+        					{
+        						paasSubserviceslist[subi].moduleImgName=paasTemplateFilelist[filei].file;
+        					}
+        				}
+        			}
+        			var rows=new Array();
+        			for(var n=0;n < parseInt(parseInt(paasSubserviceslist.length/4)+1);n++)
+        			{
+        				rows[n]=new Array();
+        				for(var m=0;m<4;m++)
+        				{
+        					var start=n*4+m;
+        					if(start>(i-1))
+        					{
+        						break;
+        					}else
+        					{
+        						rows[n][m]=paasSubserviceslist[start];						
+        					}
+        				}
+        			};
+        			orders.rows=rows;
     			}
-    			var rows=new Array();
-    			for(var n=0;n < parseInt(parseInt(paasSubserviceslist.length/4)+1);n++)
-    			{
-    				rows[n]=new Array();
-    				for(var m=0;m<4;m++)
-    				{
-    					var start=n*4+m;
-    					if(start>(i-1))
-    					{
-    						break;
-    					}else
-    					{
-    						rows[n][m]=paasSubserviceslist[start];						
-    					}
-    				}
-    			};
-    			$scope.rows=rows;
+    			$scope.order=response;
     		});
     		$http.get(privilegeurl+userinfo.username).success(function (response){
     			var isadmin=0;
