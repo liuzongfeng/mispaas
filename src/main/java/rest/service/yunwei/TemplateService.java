@@ -129,8 +129,8 @@ public class TemplateService<T> {
 		    //---------------------------------解压该文件 到指定目录-------
 		    uzipPath = serverPath+tempDriName+"/";
 		    unzip(zFile,uzipPath);
-		    //---------------------------------读取目录文件，并解析----------------
-		    obtailYmlFile(uzipPath+uploadFileName);
+		    //---------------------------------读取目录文件，并解析：不限制zip文件名称----------------
+		    obtailYmlFile(uzipPath);
 		    //没有异常则返回导入文件成功提示信息
 		    return "uploadOK";
 		  

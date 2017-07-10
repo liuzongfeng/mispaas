@@ -7,23 +7,23 @@ var hello1 = angular
 					$locationProvider.html5Mode(true);
 
 					$routeProvider.when('/', {
-						templateUrl : '../paas_core/js/navigation/apptemplate.html',
+						templateUrl : '../js/navigation/apptemplate.html',
 						controller : 'apptemplate',
 						controllerAs : 'controller'
 					}).when('/message', {
-						templateUrl : '../paas_core/js/message/message.html',
+						templateUrl : '../js/message/message.html',
 						controller : 'message',
 						controllerAs : 'controller'
 					}).when('/login', {
-						templateUrl : '../paas_core/js/navigation/login2.html',
+						templateUrl : '../js/navigation/login2.html',
 						controller : 'navigation',
 						controllerAs : 'controller'
-					}).when('/apptemplate2', {
-						templateUrl : '../paas_core/js/navigation/apptemplate.html',
+					}).when('/pages/index_lzf.html', {
+						templateUrl : '../js/navigation/apptemplate.html',
 						controller : 'apptemplate',
 						controllerAs : 'controller'
-					}).when('/appexample2', {
-						templateUrl : '../paas_core/js/navigation/appexample.html',
+					}).when('/pages/index_lzf2.html', {
+						templateUrl : '../js/navigation/appexample.html',
 						controller : 'appexample',
 						controllerAs : 'controller'
 					}).otherwise('/');
